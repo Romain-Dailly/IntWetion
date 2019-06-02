@@ -5,6 +5,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "bootstrap": "^4.3.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql": "^2.17.1",
     "nodemon": "^1.19.1",
@@ -41,5 +42,17 @@
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0"
-  }
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WildCodeSchool/nantes-0219-js-intuition.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WildCodeSchool/nantes-0219-js-intuition/issues"
+  },
+  "homepage": "https://github.com/WildCodeSchool/nantes-0219-js-intuition#readme"
 }
