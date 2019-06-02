@@ -8,7 +8,6 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql": "^2.17.1",
-    "nodemon": "^1.19.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.3",
@@ -17,6 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "watch": "node_modules/nodemon/bin/nodemon.js api/api.js",
     "build": "react-scripts build",
     "test": "./node_modules/.bin/eslint ./",
     "eject": "react-scripts eject"
@@ -41,7 +41,8 @@
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
     "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-react": "^7.13.0"
+    "eslint-plugin-react": "^7.13.0",
+    "nodemon": "^1.19.1"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",

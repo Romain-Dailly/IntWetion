@@ -4,7 +4,7 @@ USE `intwetion`;
 
 CREATE TABLE `card`
 (
-  `id` int UNIQUE PRIMARY KEY,
+  `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
   `image` varchar(255),
   `description` text,
@@ -15,7 +15,7 @@ CREATE TABLE `card`
 
 CREATE TABLE `questions`
 (
-  `id` int UNIQUE PRIMARY KEY,
+  `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `text` text,
   `image` varchar(255),
   `type_reponse` int,
@@ -25,7 +25,7 @@ CREATE TABLE `questions`
 
 CREATE TABLE `resources`
 (
-  `id` int UNIQUE PRIMARY KEY,
+  `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `text` text,
   `type_resource` int
 );
@@ -38,7 +38,7 @@ CREATE TABLE `quiz_ref`
 
 CREATE TABLE `videos`
 (
-  `id` int UNIQUE PRIMARY KEY,
+  `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `url` varchar(255),
   `type_video` int,
   `id_card` int
