@@ -33,38 +33,38 @@ app.get('/', (request, response) => {
  */
 app.post('/', (request, response) => {
   const data = request.body;
-  const cardData = { id: data.id, name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: data.date }
-  const resourcesData = { id: data.id, text: data.text, type_resource: data.type_resource }
-  console.log(resourcesData,cardData);
+  const cardData = { id: data.id, name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+  // const resourcesData = { id: data.id, text: data.text, type_resource: data.type_resource }
+  console.log(cardData);
 
-  connection.beginTransaction(error => {
+  connection.query('INSERT INTO card SET ?', cardData, (error, results) => {
     if (error) {
-      console.log(error);
-      response.status(500).send("Could not execute the transaction");
-      throw error;
-    }
-    connection.query('INSERT INTO resources SET ?', resourcesData, (error, results) => {
-      if (error) {
-        return connection.rollback(() => {
-          console.log(error);
-          response.status(500).send("Couldn't complete the transaction card");
-          throw error;
-        });
-      }
-     
-      connection.query('INSERT INTO resources; SET ?', resourcesEntity, (error, results) => {
-        if (error) {
-          return connection.rollback(() => {
-            console.log(error);
-            response.status(500).send("Couldn't complete the questions transaction ");
-            throw error;
-          });
-        }
+      return connection.rollback(() => {
+        console.log(error);
+        response.status(500).send("Couldn't complete the transaction card");
+        throw error;
       });
+    }
+    // connection.beginTransaction(error => {
+    //   if (error) {
+    //     console.log(error);
+    //     response.status(500).send("Could not execute the transaction");
+    //     throw error;
+    //   }
+    
+    //   connection.query('INSERT INTO resources; SET ?', cardData, (error, results) => {
+    //     if (error) {
+    //       return connection.rollback(() => {
+    //         console.log(error);
+    //         response.status(500).send("Couldn't complete the questions transaction ");
+    //         throw error;
+    //       });
+    //     }
+    //   });
 
-      response.sendStatus(200)
+    //   response.sendStatus(200)
 
-    });
+    // });
   });
 });
 
