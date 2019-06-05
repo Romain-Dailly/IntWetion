@@ -26,7 +26,7 @@ CREATE TABLE `questions`
 CREATE TABLE `resources`
 (
   `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
-  `text` text,
+  `resource_url` text,
   `type_resource` int
 );
 
