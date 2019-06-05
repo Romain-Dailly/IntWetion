@@ -33,10 +33,9 @@ app.get('/', (request, response) => {
  */
 app.post('/', (request, response) => {
   const data = request.body;
-  const cardEntity = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: data.date }
-  const resourcesEntity = { text: data.text, type_resource: data.type_resource }
-  console.log(resourcesEntity);
-
+  const cardData = { id: data.id, name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: data.date }
+  const resourcesData = { id: data.id, text: data.text, type_resource: data.type_resource }
+  console.log(resourcesData,cardData);
 
   connection.beginTransaction(error => {
     if (error) {
@@ -44,7 +43,7 @@ app.post('/', (request, response) => {
       response.status(500).send("Could not execute the transaction");
       throw error;
     }
-    connection.query('INSERT INTO resources SET ?', resourcesEntity, (error, results) => {
+    connection.query('INSERT INTO resources SET ?', resourcesData, (error, results) => {
       if (error) {
         return connection.rollback(() => {
           console.log(error);
@@ -52,17 +51,18 @@ app.post('/', (request, response) => {
           throw error;
         });
       }
-      response.sendStatus(200)
-      // connection.query('INSERT INTO resources; SET ?', resourcesEntity, (error, results) => {
-      //   if (error) {
-      //     return connection.rollback(() => {
-      //       console.log(error);
-      //       response.status(500).send("Couldn't complete the questions transaction ");
-      //       throw error;
-      //     });
-      //   }
-      // });
+     
+      connection.query('INSERT INTO resources; SET ?', resourcesEntity, (error, results) => {
+        if (error) {
+          return connection.rollback(() => {
+            console.log(error);
+            response.status(500).send("Couldn't complete the questions transaction ");
+            throw error;
+          });
+        }
+      });
 
+      response.sendStatus(200)
 
     });
   });
