@@ -27,19 +27,18 @@ app.get('/', (request, response) => {
 });
 
 // ROUTE POST CARD
-app.post('/', (request, response) => {
-  const data = request.body;
-  const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
-  connection.query('INSERT INTO card SET ?', cardData, (error, result) => {
+app.route('/newcard')
+  .post((request, response) => {
+    const data = request.body;
+    const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+    connection.query('INSERT INTO card SET ?', cardData, (error, result) => {
       if (error) {
       console.log(error);
       response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif");
       } else  {
         response.status(200).send({ cardId: result.insertId });
       } 
-
-
-    });
+    })}).put()
 
 
     // const videosData = { url : data.url, type_video : data.type_video, id_card : data.type_video }
