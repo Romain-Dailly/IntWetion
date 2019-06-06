@@ -47,8 +47,7 @@ app.route('/card')
       console.log(error);
       response.status(500).send("Erreur lors de l'insertion de la carte en base de données");
       }
-    });
-  })
+    })
     .then(connection.query(`SELECT id FROM card WHERE name=${data.name}` , (error, resultId) => {
       if (error) {
         console.log(error);
@@ -86,7 +85,8 @@ app.route('/card')
           }
         })
         }
-    }));
+    }))
+  });
 
 
   
