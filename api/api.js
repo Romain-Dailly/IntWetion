@@ -39,13 +39,12 @@ app.post('/newcard', (request, response) => {
       }
     });
   });
-
+//we post a big object with inside,  card:{}, videos:[{},{}], resources:[{},{}], questions:[{}, {}]
 app.post('/newcard/:id', (request, response) => {
   const data = request.body;
-  const cardId = request.params.id;
-  const dataContentVideos = { url : data.url, type_video: data.type_video, id_card : cardId };
-  const dataContentResources = { resource_url : data.resource_url, type_resource : data.type_resource };
-  const dataContentQuestions = { text : data.text, image: data.image, type_reponse : data.type_reponse, type_reponse2 : data.type_reponse2 }
+  const dataContentVideos = data.videos;
+  const dataContentResources = data.resources;
+  const dataContentQuestions = data.questions;
 
   connection.beginTransaction(error => {
     if (error) {
