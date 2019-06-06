@@ -3,9 +3,9 @@ const express = require('express');
 const connection = require('./conf.js');
 const app = express();
 const port = 8080;
-const cors = require('cors');
+// const cors = require('cors');
 
-app.use(cors({ origin: '*' }));
+// app.use(cors({ origin: '*' }));
 
 // Support JSON-encoded bodies
 app.use(bodyParser.json());
@@ -25,48 +25,98 @@ app.get('/', (request, response) => {
     }
   });
 });
+var cardId = "";
+getCardId = param => {
+  cardId = param;
+}
+// ROUTE POST CARD
+  app.post('/', (request, response) => {
+
+  const data = request.body;
+  const cardData = { id: data.id, name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+    connection.query('INSERT INTO card SET ?', cardData, (error, results) => {
+      if (error) {
+      console.log(error);
+      response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif");
+      } else {
+      response.sendStatus(200);
+      getCardId(results.insertId);
+      }
+    });
+  });
+
+
+
+
+
+  // app.get('/id', (request, response) => {
+//   connection.query('SELECT card.id FROM card', (error, results) => {
+//     if (error) {
+//       response.status(500).send("Erreur lors de la récupération de l'identification de la carte");
+//       console.log(error);
+//     } else {
+//       const idCard = response.json(results);
+//     }
+//   });
+// });
+
+// const getCardId = callback => {
+//   app.get('/id', (request, response) => {
+//     connection.query('SELECT card.id FROM card', (error, results) => {
+//       if (error) {
+//         response.status(500).send("Erreur lors de la récupération de l'identification de la carte");
+//         console.log(error);
+//       } else {
+//         // callback(results);
+        
+//       }
+//     });
+//   });
+// // }
+
+
+    // getCardId(cardId => {
+    //     console.log(cardId);
+    // } );
+
 
 /** 
  * An sql transaction with series of `POST` methods to be executed in a sequential order.
  * These methods populate our database tables: `card`,`questions`, `quiz_ref`, `resources`, `videos`
  * with our form data.
  */
-app.post('/', (request, response) => {
-  const data = request.body;
-  const cardData = { id: data.id, name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
-  // const resourcesData = { id: data.id, text: data.text, type_resource: data.type_resource }
-  console.log(cardData);
+// app.post('/', (request, response) => {
+//   const data = request.body;
+//   const cardData = { id: data.id, name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+//   console.log(cardData);
 
-  connection.query('INSERT INTO card SET ?', cardData, (error, results) => {
-    if (error) {
-      return connection.rollback(() => {
-        console.log(error);
-        response.status(500).send("Couldn't complete the transaction card");
-        throw error;
-      });
-    }
-    // connection.beginTransaction(error => {
+  // connection.beginTransaction(error => {
+  //   if (error) {
+  //     console.log(error);
+  //     response.status(500).send("Could not execute the transaction");
+  //     throw error;
+  //   }
+
+  // connection.query('INSERT INTO card SET ?', cardData, (error, results) => {
+  //   if (error) {
+  //     console.log(error);
+  //     response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif");
+  //   } else {
+  //     response.sendStatus(200);
+  //   }
+
+    // connection.query('', resourcesEntity, (error, results) => {
     //   if (error) {
-    //     console.log(error);
-    //     response.status(500).send("Could not execute the transaction");
-    //     throw error;
+    //     return connection.rollback(() => {
+    //       console.log(error);
+    //       response.status(500).send("Couldn't complete the questions transaction ");
+          
+    //     });
     //   }
-    
-    //   connection.query('INSERT INTO resources; SET ?', cardData, (error, results) => {
-    //     if (error) {
-    //       return connection.rollback(() => {
-    //         console.log(error);
-    //         response.status(500).send("Couldn't complete the questions transaction ");
-    //         throw error;
-    //       });
-    //     }
-    //   });
-
-    //   response.sendStatus(200)
-
     // });
-  });
-});
+
+//   });
+// });
 
 app.listen(port, (req, res) => {
   console.log("listening on port " + port);
