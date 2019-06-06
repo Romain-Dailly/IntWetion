@@ -25,27 +25,57 @@ app.get('/', (request, response) => {
     }
   });
 });
-var cardId = "";
-getCardId = param => {
-  cardId = param;
-}
-// ROUTE POST CARD
-  app.post('/', (request, response) => {
 
+// ROUTE POST CARD
+app.post('/newcard', (request, response) => {
   const data = request.body;
-  const cardData = { id: data.id, name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
-    connection.query('INSERT INTO card SET ?', cardData, (error, results) => {
+  const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+    connection.query('INSERT INTO card SET ?', cardData,(error, results) => {
       if (error) {
       console.log(error);
       response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif");
       } else {
-      response.sendStatus(200);
-      getCardId(results.insertId);
+      response.status(200).send(`${results.insertId}`)
       }
     });
   });
 
+app.post('/newcard/:id', (request, response) => {
+  const data = request.body;
+  const cardId = request.params.id;
+  const dataContentVideos = { url : data.url, type_video: data.type_video, id_card : cardId };
+  const dataContentResources = { resource_url : data.resource_url, type_resource : data.type_resource };
+  const dataContentQuestions = { text : data.text, image: data.image, type_reponse : data.type_reponse, type_reponse2 : data.type_reponse2 }
 
+  connection.beginTransaction(error => {
+    if (error) {
+      console.log(error);
+      response.status(500).send("Could not execute the transaction");
+      throw error;
+    }
+
+  connection.query('INSERT INTO videos SET ?', dataContentVideos, (error, results) => {
+    if (error) {
+      console.log(error);
+      response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif2");
+    } else {
+      // response.status(200);
+    connection.query('INSERT INTO resources SET ?', dataContentResources, (error, results) => {
+      if (error) {
+        return connection.rollback(() => {
+          console.log(error);
+          response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif3");
+        });
+      } else {
+        response.status(200).send(`${results.insertId}`);
+        console.log(request)
+      }
+    });
+
+     }
+  });
+});
+});
 
 
 
@@ -120,4 +150,4 @@ getCardId = param => {
 
 app.listen(port, (req, res) => {
   console.log("listening on port " + port);
-});
+})
