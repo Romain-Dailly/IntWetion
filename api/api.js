@@ -25,25 +25,34 @@ app.get('/', (request, response) => {
     }
   });
 });
-var cardId = "";
-getCardId = param => {
-  cardId = param;
-}
-// ROUTE POST CARD
-  app.post('/', (request, response) => {
 
+// ROUTE POST CARD
+app.post('/', (request, response) => {
   const data = request.body;
-  const cardData = { id: data.id, name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
-    connection.query('INSERT INTO card SET ?', cardData, (error, results) => {
+  const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+  connection.query('INSERT INTO card SET ?', cardData, (error, result) => {
       if (error) {
       console.log(error);
       response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif");
-      } else {
-      response.sendStatus(200);
-      getCardId(results.insertId);
-      }
+      } else  {
+        response.status(200).send({ cardId: result.insertId });
+      } 
+
+
     });
+
+
+    // const videosData = { url : data.url, type_video : data.type_video, id_card : data.type_video }
+    // connection.query('INSERT INTO videos SET ?', videosData, (error, result) => {
+    //   if (error) {
+    //     console.log(error)
+    //     response.status(500).send("oups il n'y a un petit probleme avec les videos =( ");
+    //   }else {
+    //     response.sendStatus(200)
+    //   }
+    // })
   });
+
 
 
 
