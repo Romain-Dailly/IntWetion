@@ -37,8 +37,6 @@ app.post('/', (request, response) => {
       } else  {
         response.status(200).send({ cardId: result.insertId });
       } 
-
-
     });
 
 
@@ -52,10 +50,6 @@ app.post('/', (request, response) => {
     //   }
     // })
   });
-
-
-
-
 
 
   // app.get('/id', (request, response) => {
