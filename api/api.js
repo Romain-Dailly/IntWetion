@@ -26,55 +26,89 @@ app.get('/', (request, response) => {
   });
 });
 
-// ROUTE POST CARD
-app.post('/newcard', (request, response) => {
-  const data = request.body;
-  const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
-    connection.query('INSERT INTO card SET ?', cardData,(error, results) => {
+
+//we post a big object with inside, card:{}, videos:[{},{}], resources:[{},{}], questions:[{}, {}]
+  // const data = request.body;
+  // const dataContentVideos = data.videos;
+  // const dataContentResources = data.resources;
+  // const dataContentQuestions = data.questions;
+
+// ROUTE POST
+app.route('/card')
+ .post((request, response) => {
+    const data = request.body;
+    const cardId = request.params.id;
+    const dataContentVideos = { url: data.url, type_video: data.type_video, id_card: cardId };
+    const dataContentResources = { resource_url: data.resource_url, type_resource: data.type_resource };
+    const dataContentQuestions = { text: data.text, image: data.image, type_reponse: data.type_reponse, type_reponse2: data.type_reponse2 }
+    const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+    connection.query('INSERT INTO card SET ?', cardData,(error, resultCard) => {
       if (error) {
       console.log(error);
-      response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif");
-      } else {
-      response.status(200).send(`${results.insertId}`)
+      response.status(500).send("Erreur lors de l'insertion de la carte en base de données");
       }
     });
-  });
-//we post a big object with inside,  card:{}, videos:[{},{}], resources:[{},{}], questions:[{}, {}]
-app.post('/newcard/:id', (request, response) => {
-  const data = request.body;
-  const dataContentVideos = data.videos;
-  const dataContentResources = data.resources;
-  const dataContentQuestions = data.questions;
-
-  connection.beginTransaction(error => {
-    if (error) {
-      console.log(error);
-      response.status(500).send("Could not execute the transaction");
-      throw error;
-    }
-
-  connection.query('INSERT INTO videos SET ?', dataContentVideos, (error, results) => {
-    if (error) {
-      console.log(error);
-      response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif2");
-    } else {
-      // response.status(200);
-    connection.query('INSERT INTO resources SET ?', dataContentResources, (error, results) => {
+  })
+    .then(connection.query(`SELECT id FROM card WHERE name=${data.name}` , (error, resultId) => {
       if (error) {
-        return connection.rollback(() => {
-          console.log(error);
-          response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif3");
-        });
-      } else {
-        response.status(200).send(`${results.insertId}`);
-        console.log(request)
-      }
-    });
+        console.log(error);
+        response.status(500).send("Erreur lors de la recuperation de l'id généré");
+        } else {
+        connection.query(`INSERT INTO videos WHERE card.id=${resultId.insertId} SET card_id = ${resultId.insertId}, ?`, dataContentVideos, (error, resultVideos) => {
+          if (error) {
+            console.log(error);
+            response.status(500).send("Erreur lors de l'insertion des vidéos");
+          }
+        }) 
+        connection.query(`INSERT INTO resources WHERE card_id=${resultId.insertId} SET ?`, dataContentResources, (error, resultResources) => {
+          if (error) {
+            console.log(error);
+            response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif3");
+          } else {
+            dataContentQuestions.map((dataContentQuestion ) => {
+              return connection.query(`INSERT INTO questions WHERE resources_id=${resultResources.insertId} SET ?`, dataContentQuestion, (error, resultQuestions) => {
+                if (error) {
+                  console.log(error);
+                  response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif2");
+                } else {
+                  response.sendStatus(200)
+                }
+              })
+            })
+            connection.query(`INSERT INTO questions WHERE resources_id=${resultResources.insertId} SET ?`, dataContentQuestions, (error, resultQuestions) => {
+              if (error) {
+                console.log(error);
+                response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif2");
+              } else {
+                response.sendStatus(200)
+              }
+            })
+          }
+        })
+        }
+    }));
 
-     }
-  });
-});
-});
+
+  
+
+// app.route('/card/:id')
+//  .post((request, response) => {
+
+//   connection.beginTransaction(error => {
+//     if (error) {
+//       console.log(error);
+//       response.status(500).send("Could not execute the transaction");
+//       throw error;
+//     }
+
+//         response.status(200).send(`${results.insertId}`);
+//         console.log(request)
+//       }
+//     });
+
+    //  }
+
+
 
 
 
@@ -104,9 +138,6 @@ app.post('/newcard/:id', (request, response) => {
 // // }
 
 
-    // getCardId(cardId => {
-    //     console.log(cardId);
-    // } );
 
 
 /** 
