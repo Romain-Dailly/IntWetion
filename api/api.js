@@ -58,7 +58,7 @@ app.route('/card/')
       } 
       //On poste les videos(tableau d'objets) en injectant pour chacune notre resultId(reference)
       dataContentVideos.map(dataContentVideo => {
-        connection.query(`INSERT INTO videos SET id_card ='${resultId[0].id}', ?`, dataContentVideo, (error, resultVideo) => {
+        return connection.query(`INSERT INTO videos SET id_card ='${resultId[0].id}', ?`, dataContentVideo, (error, resultVideo) => {
           if (error) {
             console.log(error);
             response.status(500).send("Erreur lors de l'ajout de la vidéo");
@@ -67,14 +67,14 @@ app.route('/card/')
       });
       //On poste les ressources une à une(tableau d'objets)en récupérant chaque id dans le resultResource
       dataContentResources.map(dataContentResource => {
-        connection.query(`INSERT INTO resources SET ?`, dataContentResource, (error, resultResource) => {
+        return connection.query(`INSERT INTO resources SET ?`, dataContentResource, (error, resultResource) => {
           if (error) {
             console.log(error);
             response.status(500).send("Erreur lors de l'ajout de la ressource");
           }
           //Pour une ressource, on poste la question correspondante en injectant l'id de la ressource(resultResource) 
           dataContentQuestions.map((dataContentQuestion) => {
-            connection.query(`INSERT INTO questions SET resources_id=${resultResource.insertId}, ?`, dataContentQuestion, (error, resultQuestion) => {
+            return connection.query(`INSERT INTO questions SET resources_id=${resultResource.insertId}, ?`, dataContentQuestion, (error, resultQuestion) => {
               if (error) {
                 console.log(error);
                 response.status(500).send("Erreur lors de l'ajout de la question");
