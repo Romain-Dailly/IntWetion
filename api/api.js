@@ -27,21 +27,22 @@ app.get('/', (request, response) => {
 });
 
 
-//we post a big object with inside, card:{}, videos:[{},{}], resources:[{},{}], questions:[{}, {}]
+//we post a big object with inside, {card:{}, videos:[{},{}], resources:[{},{}], questions:[{}, {}]}
   // const data = request.body;
-  // const dataContentVideos = data.videos;
-  // const dataContentResources = data.resources;
-  // const dataContentQuestions = data.questions;
+  // const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+  // const dataContentVideos = { url: data.url, type_video: data.type_video, id_card: cardId };
+  // const dataContentResources = { resource_url: data.resource_url, type_resource: data.type_resource };
+  // const dataContentQuestions = { text: data.text, image: data.image, type_reponse: data.type_reponse, type_reponse2: data.type_reponse2 }
 
 // ROUTE POST
 app.route('/card')
  .post((request, response) => {
     const data = request.body;
     const cardId = request.params.id;
-    const dataContentVideos = { url: data.url, type_video: data.type_video, id_card: cardId };
-    const dataContentResources = { resource_url: data.resource_url, type_resource: data.type_resource };
-    const dataContentQuestions = { text: data.text, image: data.image, type_reponse: data.type_reponse, type_reponse2: data.type_reponse2 }
-    const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
+    const dataContentVideos = data.videos;
+    const dataContentResources = data.resources;
+    const dataContentQuestions = data.questions;
+    const cardData = data.card;
     connection.query('INSERT INTO card SET ?', cardData,(error, resultCard) => {
       if (error) {
       console.log(error);
@@ -52,28 +53,26 @@ app.route('/card')
       if (error) {
         console.log(error);
         response.status(500).send("Erreur lors de la recuperation de l'id généré");
-        } else {
+        } 
         connection.query(`INSERT INTO videos WHERE card.id=${resultId.insertId} SET card_id = ${resultId.insertId}, ?`, dataContentVideos, (error, resultVideos) => {
           if (error) {
             console.log(error);
-            response.status(500).send("Erreur lors de l'insertion des vidéos");
+            response.status(500).send("Erreur lors de l'ajout de vidéo");
           }
         }) 
-        connection.query(`INSERT INTO resources WHERE card_id=${resultId.insertId} SET ?`, dataContentResources, (error, resultResources) => {
+          dataContentResources.map(dataContentResource => {
+        connection.query(`INSERT INTO resources WHERE card_id=${resultId.insertId} SET ?`, dataContentResource, (error, resultResources) => {
           if (error) {
             console.log(error);
-            response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif3");
-          } else {
-            dataContentQuestions.map((dataContentQuestion ) => {
-              return connection.query(`INSERT INTO questions WHERE resources_id=${resultResources.insertId} SET ?`, dataContentQuestion, (error, resultQuestions) => {
+            response.status(500).send("Erreur lors de l'ajout de ressource");
+          } 
+            dataContentQuestions.map((dataContentQuestion) => {
+              return connection.query(`INSERT INTO questions WHERE resources_id=${resultResource.insertId} SET ?`, dataContentQuestion, (error, resultQuestions) => {
                 if (error) {
                   console.log(error);
-                  response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif2");
-                } else {
-                  response.sendStatus(200)
-                }
-              })
-            })
+                  response.status(500).send("Erreur lors de l'ajout de la question");
+                } 
+
             connection.query(`INSERT INTO questions WHERE resources_id=${resultResources.insertId} SET ?`, dataContentQuestions, (error, resultQuestions) => {
               if (error) {
                 console.log(error);
@@ -82,11 +81,13 @@ app.route('/card')
                 response.sendStatus(200)
               }
             })
-          }
+            })
+          })
         })
-        }
-    }))
-  });
+       })
+     })
+  )})
+
 
 
   
