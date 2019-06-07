@@ -89,9 +89,19 @@ app.route('/card')
         });
       });
     })
+  })
+// Route qui permet de recuperer le nom, id d'une carte existante dans le cadre checkbox
+// pour qu'Henry puissent selectionner la carte qu'il souhaite modifier,voir ou supprimer
+app.route('/')
+  .get((request, response) => {
+    connection.query('SELECT card.name card.id FROM card',(error, result) => {
+      if (error){
+        console.log(error)
+        response.sendStatus(500)
+      } else {
+        response.sendStatus(200)}
+    })
   });
-
-
 
 app.listen(port, (req, res) => {
   console.log("listening on port " + port);
