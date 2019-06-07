@@ -36,13 +36,13 @@ app.get('/', (request, response) => {
 
 // ROUTE POST
 app.route('/card')
- .post((request, response) => {
-    const data = request.body;
-    const cardId = request.params.id;
-    const dataContentVideos = data.videos;
-    const dataContentResources = data.resources;
-    const dataContentQuestions = data.questions;
-    const cardData = data.card;
+.post((request, response) => {
+  const data = request.body;
+  const cardId = request.params.id;
+  const dataContentVideos = data.videos;
+  const dataContentResources = data.resources;
+  const dataContentQuestions = data.questions;
+  const cardData = data.card;
     connection.query('INSERT INTO card SET ?', cardData,(error, resultCard) => {
       if (error) {
       console.log(error);
@@ -60,7 +60,7 @@ app.route('/card')
             response.status(500).send("Erreur lors de l'ajout de vidéo");
           }
         }) 
-          dataContentResources.map(dataContentResource => {
+          dataContentResources.map((dataContentResource) => {
         connection.query(`INSERT INTO resources WHERE card_id=${resultId.insertId} SET ?`, dataContentResource, (error, resultResources) => {
           if (error) {
             console.log(error);
@@ -76,7 +76,7 @@ app.route('/card')
             connection.query(`INSERT INTO questions WHERE resources_id=${resultResources.insertId} SET ?`, dataContentQuestions, (error, resultQuestions) => {
               if (error) {
                 console.log(error);
-                response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif2");
+                response.status(500).send("Erreur lors de l'ajout de la ressource");
               } else {
                 response.sendStatus(200)
               }
@@ -87,6 +87,12 @@ app.route('/card')
        })
      })
   )})
+  .put((request, response )=> {
+    let cardId = ""
+    const data = request.body;
+    connection.query(`SELECT id FROM card WHERE name=${data.name} SET ?`)
+  })
+
 
 
 
