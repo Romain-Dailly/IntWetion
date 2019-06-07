@@ -38,7 +38,6 @@ app.get('/', (request, response) => {
 app.route('/card')
  .post((request, response) => {
     const data = request.body;
-    const cardId = request.params.id;
     const dataContentVideos = data.videos;
     const dataContentResources = data.resources;
     const dataContentQuestions = data.questions;
@@ -46,47 +45,48 @@ app.route('/card')
     connection.query('INSERT INTO card SET ?', cardData,(error, resultCard) => {
       if (error) {
       console.log(error);
-      response.status(500).send("Erreur lors de l'insertion de la carte en base de données");
+      response.status(500).send("Erreur lors de l'ajout de la carte");
       }
     })
-    .then(connection.query(`SELECT id FROM card WHERE name=${data.name}` , (error, resultId) => {
+    connection.query(`SELECT id FROM card WHERE name=${data.name}` , (error, resultId) => {
       if (error) {
         console.log(error);
-        response.status(500).send("Erreur lors de la recuperation de l'id généré");
+        response.status(500).send("Erreur lors de la recuperation de l'id de la carte");
         } 
-        connection.query(`INSERT INTO videos WHERE card.id=${resultId.insertId} SET card_id = ${resultId.insertId}, ?`, dataContentVideos, (error, resultVideos) => {
-          if (error) {
-            console.log(error);
-            response.status(500).send("Erreur lors de l'ajout de vidéo");
-          }
-        }) 
-          dataContentResources.map(dataContentResource => {
-        connection.query(`INSERT INTO resources WHERE card_id=${resultId.insertId} SET ?`, dataContentResource, (error, resultResources) => {
-          if (error) {
-            console.log(error);
-            response.status(500).send("Erreur lors de l'ajout de ressource");
-          } 
-            dataContentQuestions.map((dataContentQuestion) => {
-              return connection.query(`INSERT INTO questions WHERE resources_id=${resultResource.insertId} SET ?`, dataContentQuestion, (error, resultQuestions) => {
-                if (error) {
-                  console.log(error);
-                  response.status(500).send("Erreur lors de l'ajout de la question");
-                } 
-
-            connection.query(`INSERT INTO questions WHERE resources_id=${resultResources.insertId} SET ?`, dataContentQuestions, (error, resultQuestions) => {
-              if (error) {
-                console.log(error);
-                response.status(500).send("oups, il semblerait qu'il y ait un problème intuitif2");
-              } else {
-                response.sendStatus(200)
-              }
-            })
-            })
-          })
-        })
-       })
-     })
-  )})
+        dataContentVideos.map(dataContentVideo => {
+          connection.query(`INSERT INTO videos SET card_id = ${resultId.insertId}, ?`, dataContentVideo, (error, resultVideo) => {
+            if (error) {
+              console.log(error);
+              response.status(500).send("Erreur lors de l'ajout de la vidéo");
+            }
+          });
+        });
+        dataContentResources.map(dataContentResource => {
+          connection.query(`INSERT INTO resources SET ?`, dataContentResource, (error, resultResource) => {
+            if (error) {
+              console.log(error);
+              response.status(500).send("Erreur lors de l'ajout de la ressource");
+            } 
+              dataContentQuestions.map((dataContentQuestion) => {
+                connection.query(`INSERT INTO questions SET resources_id=${resultResource.insertId}, ?`, dataContentQuestion, (error, resultQuestion) => {
+                  if (error) {
+                    console.log(error);
+                    response.status(500).send("Erreur lors de l'ajout de la question");
+                  } 
+                  connection.query(`INSERT INTO quiz_ref SET id_card=${resultId.insertId}, id_question=${resultQuestion.insertId}`, (error, resultQuiz_ref) => {
+                    if (error) {
+                      console.log(error);
+                      response.status(500).send("Erreur lors de l'ajout des id dans quiz_ref");
+                    } else {
+                      response.sendStatus(200);
+                    }
+                  });
+                });
+              });
+          });
+        });
+    })
+  });
 
 
 
