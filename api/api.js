@@ -34,66 +34,68 @@ app.get('/', (request, response) => {
   // const dataContentResources = { resource_url: data.resource_url, type_resource: data.type_resource };
   // const dataContentQuestions = { text: data.text, image: data.image, type_reponse: data.type_reponse, type_reponse2: data.type_reponse2 }
 
+// Echantillon test 
+//card: { "name= peurs", "image= peurs.love", "description= bouh!", "statut= 1", "type_card= 2", "date= 1234567890" }, 
+//videos: { "url= truc.com", "type_video= 1" },
+//resources: [{ resource_url: blabla, type_resource: 1 }, { resource_url: blabla2 type_resource: 2 }],
+//questions: [{ text: peur du yaourt, image: yaourt.com, type_reponse: 2, type_reponse2: null },{ text: peur du concombre, image: conc.com, type_reponse: 1, type_reponse2: 3 },{ text: peur des poils, image: poils.io, type_reponse: 2, type_reponse2: 3 }]
+
+
 // ROUTE POST
 app.route('/card')
-.post((request, response) => {
-  const data = request.body;
-  const cardId = request.params.id;
-  const dataContentVideos = data.videos;
-  const dataContentResources = data.resources;
-  const dataContentQuestions = data.questions;
-  const cardData = data.card;
-    connection.query('INSERT INTO card SET ?', cardData,(error, resultCard) => {
+ .post((request, response) => {
+    const data = request.body;
+    const dataContentVideos = data.videos;
+    const dataContentResources = data.resources;
+    const dataContentQuestions = data.questions;
+    const cardData = data.card;
+
+   connection.query(`INSERT INTO card (name, image, description, statut, type_card, date) VALUES("${data.name}","${data.image}","${data.description}",${data.statut},${data.type_card},4564856485845)  `, cardData,(error, resultCard) => {
       if (error) {
       console.log(error);
-      response.status(500).send("Erreur lors de l'insertion de la carte en base de données");
-      }
-    })
-    .then(connection.query(`SELECT id FROM card WHERE name=${data.name}` , (error, resultId) => {
-      if (error) {
-        console.log(error);
-        response.status(500).send("Erreur lors de la recuperation de l'id généré");
-        } 
-        connection.query(`INSERT INTO videos WHERE card.id=${resultId.insertId} SET card_id = ${resultId.insertId}, ?`, dataContentVideos, (error, resultVideos) => {
+      response.status(500).send("Erreur lors de l'ajout de la carte");
+    
+      } else {
+        connection.query(`SELECT id FROM card WHERE name="${data.name}"`, (error, resultId) => {
           if (error) {
             console.log(error);
-            response.status(500).send("Erreur lors de l'ajout de vidéo");
+            response.status(500).send("Erreur lors de la recuperation de l'id de la carte");
           }
-        }) 
-          dataContentResources.map((dataContentResource) => {
-        connection.query(`INSERT INTO resources WHERE card_id=${resultId.insertId} SET ?`, dataContentResource, (error, resultResources) => {
-          if (error) {
-            console.log(error);
-            response.status(500).send("Erreur lors de l'ajout de ressource");
-          } 
-            dataContentQuestions.map((dataContentQuestion) => {
-              return connection.query(`INSERT INTO questions WHERE resources_id=${resultResource.insertId} SET ?`, dataContentQuestion, (error, resultQuestions) => {
-                if (error) {
-                  console.log(error);
-                  response.status(500).send("Erreur lors de l'ajout de la question");
-                } 
-
-            connection.query(`INSERT INTO questions WHERE resources_id=${resultResources.insertId} SET ?`, dataContentQuestions, (error, resultQuestions) => {
+          dataContentVideos.map(dataContentVideo => {
+            connection.query(`INSERT INTO videos SET card_id = ${resultId.insertId}, ?`, dataContentVideo, (error, resultVideo) => {
+              if (error) {
+                console.log(error);
+                response.status(500).send("Erreur lors de l'ajout de la vidéo");
+              }
+            });
+          });
+          dataContentResources.map(dataContentResource => {
+            connection.query(`INSERT INTO resources SET ?`, dataContentResource, (error, resultResource) => {
               if (error) {
                 console.log(error);
                 response.status(500).send("Erreur lors de l'ajout de la ressource");
-              } else {
-                response.sendStatus(200)
               }
-            })
-            })
-          })
+              dataContentQuestions.map((dataContentQuestion) => {
+                connection.query(`INSERT INTO questions SET resources_id=${resultResource.insertId}, ?`, dataContentQuestion, (error, resultQuestion) => {
+                  if (error) {
+                    console.log(error);
+                    response.status(500).send("Erreur lors de l'ajout de la question");
+                  }
+                  connection.query(`INSERT INTO quiz_ref SET id_card=${resultId.insertId}, id_question=${resultQuestion.insertId}`, (error, resultQuiz_ref) => {
+                    if (error) {
+                      console.log(error);
+                      response.status(500).send("Erreur lors de l'ajout des id dans quiz_ref");
+                    } else {
+                      response.sendStatus(200);
+                    }
+                  });
+                });
+              });
+            });
+          });
         })
-       })
-     })
-  )})
-  .put((request, response )=> {
-    let cardId = ""
-    const data = request.body;
-    connection.query(`SELECT id FROM card WHERE name=${data.name} SET ?`)
-  })
-
-
+    }})
+  });
 
 
   
