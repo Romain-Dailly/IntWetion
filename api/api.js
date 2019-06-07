@@ -108,10 +108,6 @@ app.route('/card')
 
     //  }
 
-
-
-
-
   // app.get('/id', (request, response) => {
 //   connection.query('SELECT card.id FROM card', (error, results) => {
 //     if (error) {
