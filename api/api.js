@@ -34,6 +34,13 @@ app.get('/', (request, response) => {
   // const dataContentResources = { resource_url: data.resource_url, type_resource: data.type_resource };
   // const dataContentQuestions = { text: data.text, image: data.image, type_reponse: data.type_reponse, type_reponse2: data.type_reponse2 }
 
+// Echantillon test 
+//card: { "name= peurs", "image= peurs.love", "description= bouh!", "statut= 1", "type_card= 2", "date= 1234567890" }, 
+//videos: { "url= truc.com", "type_video= 1" },
+//resources: [{ resource_url: blabla, type_resource: 1 }, { resource_url: blabla2 type_resource: 2 }],
+//questions: [{ text: peur du yaourt, image: yaourt.com, type_reponse: 2, type_reponse2: null },{ text: peur du concombre, image: conc.com, type_reponse: 1, type_reponse2: 3 },{ text: peur des poils, image: poils.io, type_reponse: 2, type_reponse2: 3 }]
+
+
 // ROUTE POST
 app.route('/card')
  .post((request, response) => {
