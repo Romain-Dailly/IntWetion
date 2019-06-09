@@ -26,13 +26,6 @@ app.get('/', (request, response) => {
   });
 });
 
-//we post a big object with inside, {card:{}, videos:[{},{}], resources:[{},{}], questions:[{}, {}]}
-// const data = request.body;
-// const cardData = { name: data.name, image: data.image, description: data.description, statut: data.statut, type_card: data.type_card, date: Date.now() }
-// const dataContentVideos = { url: data.url, type_video: data.type_video, id_card: cardId };
-// const dataContentResources = { resource_url: data.resource_url, type_resource: data.type_resource };
-// const dataContentQuestions = { text: data.text, image: data.image, type_reponse: data.type_reponse, type_reponse2: data.type_reponse2 }
-
 // Echantillon test ---> bottom of page
 
 // ROUTE card
@@ -74,7 +67,7 @@ app.route('/card/')
           }
           //Pour une ressource, on poste la question correspondante en injectant l'id de la ressource(resultResource) 
           dataContentQuestions.map((dataContentQuestion) => {
-            return connection.query(`INSERT INTO questions SET resources_id=${resultResource.insertId}, ?`, dataContentQuestion, (error, resultQuestion) => {
+            return connection.query(`INSERT INTO questions SET id_resource=${resultResource.insertId}, ?`, dataContentQuestion, (error, resultQuestion) => {
               if (error) {
                 console.log(error);
                 response.status(500).send("Erreur lors de l'ajout de la question");
@@ -108,44 +101,44 @@ app.listen(port, (req, res) => {
 //     "name": "peurs",
 //     "image": "peurs.love",
 //     "description": "bouh!",
-//     "statut": 1,
-//     "type_card": 2,
+//     "online": 1,
+//     "payment": 2,
 //     "date": 1234567890
 //   },
 //   "videos": [
 //     {
-//       "url": "truc.com",
+//       "url_video": "truc.com",
 //       "type_video": "1"
 //     }
 //   ],
 //   "resources": [
 //     {
-//       "resource_url": "blabla",
+//       "url_resource": "blabla",
 //       "type_resource": "1"
 //     },
 //     {
-//       "resource_url": "blabla2",
+//       "url_resource": "blabla2",
 //       "type_resource": "2"
 //     }
 //   ],
 //   "questions": [
 //     {
-//       "text": "peur du yaourt",
-//       "image": "yaourt.com",
-//       "type_reponse": "2",
-//       "type_reponse2": "null"
+//       "text_question": "peur du yaourt",
+//       "image_question": "yaourt.com",
+//       "type_response": "2",
+//       "type_response2": "null"
 //     },
 //     {
-//       "text": "peur du concombre",
-//       "image": "conc.com",
-//       "type_reponse": "1",
-//       "type_reponse2": "3"
+//       "text_question": "peur du concombre",
+//       "image_question": "conc.com",
+//       "type_response": "1",
+//       "type_response2": "3"
 //     },
 //     {
-//       "text": "peur des poils",
-//       "image": "poils.io",
-//       "type_reponse": "2",
-//       "type_reponse2": "3"
+//       "text_question": "peur des poils",
+//       "image_question": "poils.io",
+//       "type_response": "2",
+//       "type_response2": "3"
 //     }
 //   ]
 // }
