@@ -102,7 +102,7 @@ app.listen(port, (req, res) => {
 //     "image": "peurs.love",
 //     "description": "bouh!",
 //     "online": 1,
-//     "payment": 2,
+//     "payment": 0,
 //     "date": 1234567890
 //   },
 //   "videos": [
@@ -126,19 +126,19 @@ app.listen(port, (req, res) => {
 //       "text_question": "peur du yaourt",
 //       "image_question": "yaourt.com",
 //       "type_response": "2",
-//       "type_response2": "null"
+//       "type_response2": "0"
 //     },
 //     {
 //       "text_question": "peur du concombre",
 //       "image_question": "conc.com",
 //       "type_response": "1",
-//       "type_response2": "3"
+//       "type_response2": "1"
 //     },
 //     {
 //       "text_question": "peur des poils",
 //       "image_question": "poils.io",
 //       "type_response": "2",
-//       "type_response2": "3"
+//       "type_response2": "0"
 //     }
 //   ]
 // }

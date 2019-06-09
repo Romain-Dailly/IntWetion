@@ -8,8 +8,8 @@ CREATE TABLE `card`
   `name` varchar(255),
   `image` varchar(255),
   `description` text,
-  `online` int,
-  `payment` int,
+  `online` boolean,
+  `payment` boolean,
   `date` bigint
 );
 
@@ -19,7 +19,7 @@ CREATE TABLE `questions`
   `text_question` text,
   `image_question` varchar(255),
   `type_response` int,
-  `type_response2` int,
+  `type_response2` boolean,
   `id_resource` int
 );
 
