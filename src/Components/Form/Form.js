@@ -7,13 +7,30 @@ import { useState } from 'react';
 
 function Form() {
 
-  // Je pense que c'est possible de faire seulement :
-  // const [adminInput, setAdminInput] = useState({});
   const [adminInput, setAdminInput] = useState({
-    card: {},
-    questions: {},
-    quiz_ref: {},
-    video: {},
+    card: {
+      name: null,
+      image: null,
+      description: null,
+      online: false,
+      payment: null,
+      date: null
+    },
+    questions: {
+      text_question: null,
+      image_quesion: null,
+      type_response: 0,
+      type_response2:0,
+      // id_resource: null,
+    },
+    video: {
+      url_video : null,
+      type_video: null,
+    },
+    resources: {
+      url_resource: null,
+      type_resource: null,
+    }
   });
 
   // () => {
@@ -82,7 +99,7 @@ function Form() {
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Lien, image de la carte</label>
-              <textarea value={adminInput.card.image_question} class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
+              <textarea value={ adminInput.card.image_question} class="form-control" id="exampleFormControlTextarea1" rows="1"></textarea>
             </div>
             <div class="form-group">
               <label for="exampleFormControlTextarea1">Lien, vidéo-intro de la carte</label>
@@ -154,7 +171,7 @@ function Form() {
                 </div>
               </div>
             </div>
-            <button onClick={() => setAdminInput({})} type="submit" class="btn btn-primary mt-5 mb-5" value="submit">Enregistrer</button>
+            <button onClick={() => setAdminInput({})} class="btn btn-primary mt-5 mb-5" value="submit">Enregistrer</button>
           </form>
         </div>
       </div>
