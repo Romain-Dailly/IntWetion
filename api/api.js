@@ -3,9 +3,9 @@ const express = require('express');
 const connection = require('./conf.js');
 const app = express();
 const port = 8080;
-// const cors = require('cors');
+const cors = require('cors');
 
-// app.use(cors({ origin: '*' }));
+app.use(cors({ origin: '*' }));
 
 // Support JSON-encoded bodies
 app.use(bodyParser.json());
@@ -86,59 +86,36 @@ app.route('/card/')
         });
       });
     })
+  })
+  .get((request, response) => {
+    connection.query('SELECT * FROM card', (error, result) => {
+      if (error){
+        console.log(error);
+        response.status(500).send("Erreur lors de la récupération de la carte")
+      } 
+      connection.query(`SELECT * FROM videos WHERE id_card=${result[0].id}`, (error, resultVideo) => {
+        if (error){
+          console.log(error);
+          response.status(500).send("Erreur lors de la récupération des vidéos");
+        }
+        connection.query(`SELECT * FROM quiz_ref q JOIN questions ON questions.id = id_question 
+        JOIN resources r ON r.id = questions.id_resource WHERE q.id_card=${result[0].id}`, (error, resultQuestions) => {
+          if (error){
+            console.log(error);
+            response.status(500).send("Erreur lors de la récupération des questions")
+          } else {
+            const data = {
+              card: result,
+              videos: resultVideo,
+              questions:resultQuestions
+            }
+            response.status(200).send(data);
+          }
+        })
+      });
+    });
   });
 
-
-
 app.listen(port, (req, res) => {
-  console.log("listening on port " + port);
-})
-
-
-// Sample test
-// {
-//   "card": {
-//     "name": "peurs",
-//     "image": "peurs.love",
-//     "description": "bouh!",
-//     "online": 1,
-//     "payment": 0,
-//     "date": 1234567890
-//   },
-//   "videos": [
-//     {
-//       "url_video": "truc.com",
-//       "type_video": "1"
-//     }
-//   ],
-//   "resources": [
-//     {
-//       "url_resource": "blabla",
-//       "type_resource": "1"
-//     },
-//     {
-//       "url_resource": "blabla2",
-//       "type_resource": "2"
-//     }
-//   ],
-//   "questions": [
-//     {
-//       "text_question": "peur du yaourt",
-//       "image_question": "yaourt.com",
-//       "type_response": "2",
-//       "type_response2": "0"
-//     },
-//     {
-//       "text_question": "peur du concombre",
-//       "image_question": "conc.com",
-//       "type_response": "1",
-//       "type_response2": "1"
-//     },
-//     {
-//       "text_question": "peur des poils",
-//       "image_question": "poils.io",
-//       "type_response": "2",
-//       "type_response2": "0"
-//     }
-//   ]
-// }
+  console.log(`listening on port ${port}`);
+});
