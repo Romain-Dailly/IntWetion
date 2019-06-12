@@ -98,18 +98,18 @@ app.route('/card/')
         }
         connection.query(`SELECT * FROM quiz_ref q JOIN questions ON questions.id = id_question 
         JOIN resources r ON r.id = questions.id_resource WHERE q.id_card=${result[0].id}`, (error, resultQuestions) => {
-          if (error) {
-            // console.log(error);
-            response.status(500).send("Erreur lors de la récupération des questions")
-          } else {
-            const data = {
-              card: result,
-              videos: resultVideo,
-              questions: resultQuestions,
-            };
-            response.status(200).send(data);
-          }
-        });
+            if (error) {
+              // console.log(error);
+              response.status(500).send("Erreur lors de la récupération des questions")
+            } else {
+              const data = {
+                card: result,
+                videos: resultVideo,
+                questions: resultQuestions,
+              };
+              response.status(200).send(data);
+            }
+          });
       });
     });
   });
