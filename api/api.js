@@ -1,17 +1,18 @@
-const cors = require('cors');
 const bodyParser = require('body-parser');
 const express = require('express');
 const connection = require('./conf.js');
-
 const app = express();
 const port = 8080;
+const cors = require('cors');
+
 app.use(cors({ origin: '*' }));
+
 // Support JSON-encoded bodies
 app.use(bodyParser.json());
 // Support URL-encoded bodies
 app.use(bodyParser.urlencoded({
   extended: false,
-})); 
+}));
 
 // ROUTE card
 app.route('/card/')
@@ -21,9 +22,8 @@ app.route('/card/')
     const dataContentResources = data.resources;
     const dataContentQuestions = data.questions;
     const cardData = data.card;
-    
-    // On poste le contenu de la table card
-    connection.query('INSERT INTO card SET ?', cardData, (error, _) => {
+    //On poste le contenu de la table card
+    connection.query('INSERT INTO card SET ?', cardData, (error, resultCard) => {
       if (error) {
         console.log(error);
         response.status(500).send("Erreur lors de l'ajout de la carte");
