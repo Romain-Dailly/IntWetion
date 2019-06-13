@@ -30,9 +30,7 @@ function Form() {
       type_resource: null,
     },
   });
-  /* () => {
-  axios.post(`http://localhost:8080/card/`
-  )} */
+  
   return (
     <div className="container-fluid">
       <div className="row">
