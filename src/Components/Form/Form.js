@@ -17,11 +17,11 @@ function Form() {
     questions: {
       text_question: null,
       image_quesion: null,
-      type_response: 0,
-      type_response2: 0,
+      type_response: null,
+      has_comment: false,
       // id_resource: null,
     },
-    video: {
+    videos: {
       url_video: null,
       type_video: null,
     },
@@ -30,26 +30,34 @@ function Form() {
       type_resource: null,
     },
   });
-  
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http:///localhost:8080/card', adminInput)
+    .then((response) => {
+      console.log(response);
+    });
+  }
+
   return (
     <div className="container-fluid">
       <div className="row">
         <div className="col-3">Administration du site</div>
         <div className="col-9">
-          <form className="pr-5" control="bipbop">
+          <form className="pr-5" control="bipbop" >
             <div className="form-group d-flex flex-column">
               <p>Sélectionner une action :</p>
               <div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1" control="bipbop">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                      Ajouter une carte
+                    Ajouter une carte
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                      Modifier une carte
+                    Modifier une carte
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
@@ -65,19 +73,19 @@ function Form() {
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                      Présent
+                    Présent
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                      Peurs
+                    Peurs
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio3">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
-                      Forces
+                    Forces
                   </label>
                 </div>
               </div>
@@ -88,20 +96,20 @@ function Form() {
               <div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
-                    <input onClick={adminInput.card.online} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                      En ligne - gratuit
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value={adminInput.card.online} onChange={e => setAdminInput({online: e.target.value})}  />
+                    En ligne - gratuit
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
-                    <input onClick={adminInput.card.online} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                      En ligne - payant
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value= {adminInput.card.online} onChange={e => setAdminInput({online: e.target.value})}/>
+                    En ligne - payant
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio3">
-                    <input onClick={adminInput.card.online} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
-                      Non visible
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value={adminInput.card.online} onChange={e => setAdminInput({online: e.target.value})} />
+                    Non visible
                   </label>
                 </div>
               </div>
@@ -141,7 +149,7 @@ function Form() {
               <div className="d-flex">
                 <label htmlFor="formGroupExampleInput">
                   Question
-                  <input value={adminInput.questions.text_question} type="text" className="form-control mr-5" id="formGroupExampleInput" />
+                  <input  type="text" className="form-control mr-5" id="formGroupExampleInput" value={adminInput.questions.text_question} onChange={e => setAdminInput({text_question: e.target.value})}  />
                 </label>
                 <button type="button" className="btn btn-secondary ">Supprimer</button>
               </div>
@@ -151,9 +159,8 @@ function Form() {
               <p>Type de réponse liée :</p>
               <fieldset className="form-group">
                 <div className="form-check form-check-inline">
-                  {/* Faire un onClick ou mettre directement dans value ? */}
                   <label className="form-check-label" htmlFor="inlineCheckbox1">
-                    <input onClick={adminInput.questions.type_response} className="form-check-input" type="checkbox" id="inlineCheckbox1" value={adminInput.questions.type_response} />
+                    <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value={adminInput.questions.type_response} onChange={e => setAdminInput({type_response: e.target.value})}/>
                     Numérique
                   </label>
                 </div>
@@ -192,15 +199,16 @@ function Form() {
                 </div>
                 <div className="mt-4">
                   <i className="fas fa-plus-circle" />
-                  <p className="ml-4 d-inline-block">Ajouter un champ ressource supplémetaire</p>
+                  <p className="ml-4 d-inline-block">Ajouter un champ ressource supplémentaire</p>
                 </div>
               </div>
             </div>
-            <button onClick={() => setAdminInput({})} className="btn btn-primary mt-5 mb-5" value="submit" type="submit">Enregistrer</button>
+            <button onClick={handleSubmit} className="btn btn-primary mt-5 mb-5" value="submit" type="submit">Enregistrer</button>
           </form>
         </div>
       </div>
     </div>
   );
-}
+  };
+
 export default Form;
