@@ -77,27 +77,25 @@ app.route('/card/')
         response.status(500).send("Erreur lors de la récupération de la carte")
       }
       // Puis le contenu de la table vidéo correspondant à l'id
-      connection.query(`SELECT * FROM videos WHERE id_card=${idCard}`, (error, resultVideo) => {
+      connection.query(`SELECT * FROM videos WHERE id_card=${idCard}`, (error, resultVideos) => {
         if (error) {
           console.log(error);
           response.status(500).send("Erreur lors de la récupération des vidéos");
         }
-        // Celui de la table quiz_ref, questions et resources lié à l'id
-        connection.query(`SELECT * FROM quiz_ref q JOIN questions ON questions.id = id_question 
-        JOIN resources r ON r.id = questions.id_resource WHERE q.id_card=${idCard}`, (error, resultQuestions) => {
-            if (error) {
-              console.log(error);
-              response.status(500).send("Erreur lors de la récupération des questions")
-            } else {
-              // On créée un objet contenant les resultats des queries sur chaques tables {card : [{}], videos : [{}], ...}
-              const data = {
-                card: result,
-                videos: resultVideo,
-                questions: resultQuestions
-              }
-              response.status(200).send(data);
-            }
-          })
+        // Celui de la table questions et resources lié à l'id
+        connection.query(`SELECT * FROM questions q JOIN resources r ON r.id_question = q.id  WHERE id_card=${idCard}`, (error, resultQuestionsResources) => {
+          if (error) {
+            console.log(error);
+            response.status(500).send("Erreur lors de la récupération des questions et ressources")
+          }
+                // On créée un objet contenant les resultats des queries sur chaques tables {card : [{}], videos : [{}], ...}
+                const data = {
+                  card: result,
+                  videos: resultVideos,
+                  questions: resultQuestionsResources
+                }
+          response.status(200).send(data);
+        })
       });
     });
   })
