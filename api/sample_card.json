@@ -24,21 +24,21 @@
   ],
   "questions": [
     {
-      "number_question": "1",
+      "number_question": "1.1",
       "text_question": "peur du yaourt",
       "image_question": "yaourt.com",
       "type_response": "2",
       "has_comment": "0"
     },
     {
-      "number_question": "2",
+      "number_question": "2.1",
       "text_question": "peur du concombre",
       "image_question": "conc.com",
       "type_response": "1",
       "has_comment": "1"
     },
     {
-      "number_question": "3",
+      "number_question": "2.2",
       "text_question": "peur des poils",
       "image_question": "poils.io",
       "type_response": "2",
