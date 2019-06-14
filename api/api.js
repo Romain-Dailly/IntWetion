@@ -31,16 +31,9 @@ app.route('/card/')
         console.log(error);
         response.status(500).send("Erreur lors de l'ajout de la carte");
       }
-    })
-    //On récupère l'id de notre nouvelle card dans le resultat de la requête(resultId)
-    connection.query(`SELECT id FROM card WHERE name='${cardData.name}'`, (error, resultId) => {
-      if (error) {
-        console.log(error);
-        response.status(500).send("Erreur lors de la recuperation de l'id de la carte");
-      }
-      //On poste les videos(tableau d'objets) en injectant pour chacune notre resultId(reference)
+      //On poste les videos(tableau d'objets) en injectant pour chacune notre id gébéré par l'ajout de la carte
       dataContentVideos.map(dataContentVideo => {
-        connection.query(`INSERT INTO videos SET id_card ='${resultId[0].id}', ?`, dataContentVideo, (error, resultVideo) => {
+        connection.query(`INSERT INTO videos SET id_card ='${resultCard.insertId}', ?`, dataContentVideo, (error, resultVideo) => {
           if (error) {
             console.log(error);
             response.status(500).send("Erreur lors de l'ajout de la vidéo");
@@ -49,7 +42,7 @@ app.route('/card/')
       });
       //On poste les questions une à une(tableau d'objets)en récupérant chaque id dans le resultResource
       dataContentQuestions.map(dataContentQuestion => {
-        connection.query(`INSERT INTO questions SET id_card ='${resultId[0].id}', ?`, dataContentQuestion, (error, resultQuestion) => {
+        connection.query(`INSERT INTO questions SET id_card ='${resultCard.insertId}', ?`, dataContentQuestion, (error, resultQuestion) => {
           if (error) {
             console.log(error);
             response.status(500).send("Erreur lors de l'ajout de la question");
@@ -92,48 +85,38 @@ app.route('/card/')
           }
           //On récupère les ids des questions dans un array
           const questionIds = resultQuestions.map(item => item.id);
+          console.log(questionIds)
           //Que l'on utilise pour récupérer les ressources associées
           connection.query(`SELECT * FROM resources WHERE id_question IN (${questionIds})`, (error, resultResources) => {
             if (error) {
               console.log(error);
               response.status(500).send("Erreur lors de la récupération des ressources")
             }
-            //On créée un objet contenant les resultats des queries sur chaques tables {card : [{}], videos : [{}], questions: [{}]}
+            //On créée un objet contenant les resultats des queries sur chaques tables {card : [{}], videos : [{}], questions: [{}, {}]}
             const data = {
               card: result,
               videos: resultVideos,
               questions: resultQuestions,
               resources: resultResources
             }
-            response.send(data);
+            response.status(200).send(data);
           })
         })
-      }); 
+      })
     })
   })
   //DELETE
   .delete((request, response) => {
+    // On recupère l'id de la card envoyé en paramètre du fetch en front
     let idCard = request.body.id;
+    // On supprime le contenu de la table card grâce à l'id et des autres tables en cascade(défini en bdd)
     connection.query(`DELETE FROM card WHERE id=${idCard}`, (error, result) => {
       if (error) {
         console.log(error);
         response.status(500).send("Erreur lors de la suppression de la carte")
-      }
-      connection.query(`DELETE FROM videos WHERE id_card=${idCard}`, (error, resultVideo) => {
-        if (error) {
-          console.log(error);
-          response.status(500).send("Erreur lors de la suppression des vidéos");
-        }
-        connection.query(`DELETE FROM quiz_ref q JOIN questions ON questions.id = id_question 
-        JOIN resources r ON r.id = questions.id_resource WHERE q.id_card=${idCard}`, (error, resultQuestions) => {
-            if (error) {
-              console.log(error);
-              response.status(500).send("Erreur lors de la suppression des questions")
-            }
-            response.sendStatus(200);
-          })
-      });
-    });
+      } 
+      response.sendStatus(200)
+    })
   });
 app.listen(port, (req, res) => {
   console.log(`listening on port ${port}`);

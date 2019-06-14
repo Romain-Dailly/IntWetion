@@ -42,9 +42,10 @@ CREATE TABLE `videos`
   `type_video` int
 );
 
-ALTER TABLE `questions` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`);
+ALTER TABLE `questions` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `videos` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`);
+ALTER TABLE `videos` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `resources` ADD FOREIGN KEY (`id_question`) REFERENCES `questions` (`id`);
+ALTER TABLE `resources` ADD FOREIGN KEY (`id_question`) REFERENCES `questions` (`id`) ON DELETE CASCADE;
+
 
