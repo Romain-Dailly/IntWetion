@@ -14,19 +14,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-// ROOT ROUTE GET
-app.get('/', (request, response) => {
-  connection.query('SELECT * FROM card', (error, results) => {
-    if (error) {
-      response.status(500).send('Erreur lors de la récupération des movies');
-      console.log(error);
-    } else {
-      response.json(results);
-    }
-  });
-});
-
-// Echantillon test ---> bottom of page
+// Echantillon test ---> './sample_card.json
 
 // ROUTE card
 app.route('/card/')
@@ -51,41 +39,33 @@ app.route('/card/')
       }
       //On poste les videos(tableau d'objets) en injectant pour chacune notre resultId(reference)
       dataContentVideos.map(dataContentVideo => {
-        return connection.query(`INSERT INTO videos SET id_card ='${resultId[0].id}', ?`, dataContentVideo, (error, resultVideo) => {
+        connection.query(`INSERT INTO videos SET id_card ='${resultId[0].id}', ?`, dataContentVideo, (error, resultVideo) => {
           if (error) {
             console.log(error);
             response.status(500).send("Erreur lors de l'ajout de la vidéo");
           }
         });
       });
-      //On poste les ressources une à une(tableau d'objets)en récupérant chaque id dans le resultResource
-      dataContentResources.map(dataContentResource => {
-        return connection.query(`INSERT INTO resources SET ?`, dataContentResource, (error, resultResource) => {
+      //On poste les questions une à une(tableau d'objets)en récupérant chaque id dans le resultResource
+      dataContentQuestions.map(dataContentQuestion => {
+        connection.query(`INSERT INTO questions SET id_card ='${resultId[0].id}', ?`, dataContentQuestion, (error, resultQuestion) => {
           if (error) {
             console.log(error);
-            response.status(500).send("Erreur lors de l'ajout de la ressource");
+            response.status(500).send("Erreur lors de l'ajout de la question");
           }
-          //Pour une ressource, on poste la question correspondante en injectant l'id de la ressource(resultResource) 
-          dataContentQuestions.map((dataContentQuestion) => {
-            return connection.query(`INSERT INTO questions SET id_resource=${resultResource.insertId}, ?`, dataContentQuestion, (error, resultQuestion) => {
+          //Pour une question, on poste les ressources correspondantes en injectant l'id de la question(resultQuestion) 
+          dataContentResources.map((dataContentResource) => {
+            connection.query(`INSERT INTO resources SET id_question='${resultQuestion.insertId}', ?`, dataContentResource, (error, resultResource) => {
               if (error) {
                 console.log(error);
-                response.status(500).send("Erreur lors de l'ajout de la question");
+                response.status(500).send("Erreur lors de l'ajout de la resource");
               }
-              //On lie la question ajoutée à la card en création par leurs id dans la table quiz_ref
-              connection.query(`INSERT INTO quiz_ref SET id_card=${resultId[0].id}, id_question=${resultQuestion.insertId}`, (error, resultQuiz_ref) => {
-                if (error) {
-                  console.log(error);
-                  response.status(500).send("Erreur lors de l'ajout des id dans quiz_ref");
-                } else {
-                  response.sendStatus(200);
-                }
-              });
             });
           });
         });
-      });
+      })
     })
+    response.sendStatus(200);
   })
   .get((request, response) => {
     // On recupère l'id de la card envoyé en paramètre du fetch en front
