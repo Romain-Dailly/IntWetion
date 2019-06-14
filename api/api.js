@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({
 
 // ROUTE card
 app.route('/card/')
+  //POST
   .post((request, response) => {
     const data = request.body;
     const dataContentVideos = data.videos;
@@ -67,6 +68,7 @@ app.route('/card/')
     })
     response.sendStatus(200);
   })
+  //GET
   .get((request, response) => {
     // On recupère l'id de la card envoyé en paramètre du fetch en front
     let idCard = request.body.id;
@@ -82,23 +84,35 @@ app.route('/card/')
           console.log(error);
           response.status(500).send("Erreur lors de la récupération des vidéos");
         }
-        // Celui de la table questions et resources lié à l'id
-        connection.query(`SELECT * FROM questions q JOIN resources r ON r.id_question = q.id  WHERE id_card=${idCard}`, (error, resultQuestionsResources) => {
+        // Celui de la table questions lié à l'id
+        connection.query(`SELECT * FROM questions WHERE id_card=${idCard}`, (error, resultQuestions) => {
           if (error) {
             console.log(error);
-            response.status(500).send("Erreur lors de la récupération des questions et ressources")
+            response.status(500).send("Erreur lors de la récupération des questions")
           }
-                // On créée un objet contenant les resultats des queries sur chaques tables {card : [{}], videos : [{}], ...}
-                const data = {
-                  card: result,
-                  videos: resultVideos,
-                  questions: resultQuestionsResources
-                }
-          response.status(200).send(data);
+          //On récupère les ids des questions dans un array
+          const questionIds = resultQuestions.map(item => item.id);
+          //Que l'on utilise pour récupérer les ressources associées
+          connection.query(`SELECT * FROM resources WHERE id_question IN (${questionIds})`, (error, resultResources) => {
+            if (error) {
+              console.log(error);
+              response.status(500).send("Erreur lors de la récupération des ressources")
+            } console.log(resultResources)
+            //On créée un objet contenant les resultats des queries sur chaques tables {card : [{}], videos : [{}], questions: [{}]}
+            const data = {
+              card: result,
+              videos: resultVideos,
+              questions: resultQuestions,
+              resources: resultResources
+            }
+            response.send(data);
+          })
         })
       });
-    });
+      
+    })
   })
+  //DELETE
   .delete((request, response) => {
     let idCard = request.body.id;
     connection.query(`DELETE FROM card WHERE id=${idCard}`, (error, result) => {
