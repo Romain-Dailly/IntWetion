@@ -1,3 +1,4 @@
+-- danger zone -> DROP DATABASE IF EXISTS `intwetion`;
 
 CREATE DATABASE `intwetion`;
 
@@ -18,7 +19,7 @@ CREATE TABLE `questions`
 (
   `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `id_card` int,
-  `numero_question` int,
+  `number_question` int,
   `text_question` text,
   `image_question` varchar(255),
   `type_response` int,

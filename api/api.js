@@ -97,7 +97,7 @@ app.route('/card/')
             if (error) {
               console.log(error);
               response.status(500).send("Erreur lors de la récupération des ressources")
-            } console.log(resultResources)
+            }
             //On créée un objet contenant les resultats des queries sur chaques tables {card : [{}], videos : [{}], questions: [{}]}
             const data = {
               card: result,
