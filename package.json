@@ -8,8 +8,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql": "^2.17.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-player": "^1.11.1",
     "react-redux": "^7.0.3",
     "react-scripts": "3.0.1",
     "redux": "^4.0.1"
@@ -19,6 +21,7 @@
     "watch": "node_modules/nodemon/bin/nodemon.js api/api.js",
     "build": "react-scripts build",
     "test": "./node_modules/.bin/eslint",
+    "jest": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -37,6 +40,8 @@
     ]
   },
   "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.17.2",
