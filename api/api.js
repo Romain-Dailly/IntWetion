@@ -108,8 +108,7 @@ app.route('/card/')
             response.send(data);
           })
         })
-      });
-      
+      }); 
     })
   })
   //DELETE
