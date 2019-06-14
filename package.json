@@ -8,8 +8,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql": "^2.17.1",
+    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-player": "^1.11.1",
     "react-redux": "^7.0.3",
     "react-scripts": "3.0.1",
     "redux": "^4.0.1"
