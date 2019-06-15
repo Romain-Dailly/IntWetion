@@ -28,32 +28,51 @@
       "text_question": "peur du yaourt",
       "image_question": "yaourt.com",
       "type_response": "2",
-      "has_comment": "0"
+      "has_comment": "0",
+      "resources" :[        
+        {
+          "url_resource": "bl",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "ouble",
+          "type_resource": "2"
+        }
+      ]
     },
     {
       "number_question": "2.1",
       "text_question": "peur du concombre",
       "image_question": "conc.com",
       "type_response": "1",
-      "has_comment": "1"
+      "has_comment": "1",
+      "resources" :[        
+        {
+          "url_resource": "blabladouble",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "blabla2double",
+          "type_resource": "2"
+        }
+      ]
     },
     {
       "number_question": "2.2",
       "text_question": "peur des poils",
       "image_question": "poils.io",
       "type_response": "2",
-      "has_comment": "0"
-    }
-  ],
-  "resources": [
-    {
-      "url_resource": "blabla",
-      "type_resource": "1"
-    },
-    {
-      "url_resource": "blabla2",
-      "type_resource": "2"
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "blabla",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "blabla2",
+          "type_resource": "2"
+        }
+      ] 
     }
   ]
-
 }
