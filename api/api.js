@@ -16,9 +16,20 @@ app.use(bodyParser.urlencoded({
 
 // Echantillon test ---> './sample_card.json
 
+// ROUTE GET cards pour recuperer les ids, noms, images 
+// et descriptions des cartes
+app.get('/cards/', (request, response) => {
+  connection.query('SELECT id, name, image, description FROM card WHERE online=1', (error, results) =>{
+    if (error) {
+      response.status(500).send('Erreur lors de la récupération des cartes');
+    }
+    response.status(200).send(results);
+  });
+});
+
 // ROUTE card
 app.route('/card/')
-  //POST
+  //POST 
   .post((request, response) => {
     const data = request.body;
     //On definit les objets à insérer dans chaques tables
@@ -76,7 +87,7 @@ app.route('/card/')
       response.sendStatus(200);
     });
   })
-  //GET
+  //GET (id de la carte à ajouter en front dans la request dans card:{})
   .get((request, response) => {
     // On recupère l'id de la card envoyé en paramètre du fetch en front
     let idCard = request.body.id;
@@ -123,7 +134,7 @@ app.route('/card/')
       });
     });
   })
-  //DELETE
+  //DELETE (id à envoyer en request)
   .delete((request, response) => {
     // On recupère l'id de la card envoyé en paramètre du fetch en front
     let idCard = request.body.id;
@@ -137,7 +148,7 @@ app.route('/card/')
       response.sendStatus(200);
     });
   })
-  // PUT
+  // PUT (id de la carte à ajouter en front dans la request dans card:{})
   .put((request, response) => {
     const data = request.body;
     // On definit les objets à modifier dans chaques tables
