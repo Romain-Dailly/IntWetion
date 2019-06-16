@@ -56,7 +56,7 @@ app.route('/card/')
       //On insere les questions dans la table questions une à une 
       // en récupérant chaque id dans le resultResource
       dataContentQuestions.map(dataContentQuestion => {
-        // On récupère l'objet resources de la question deans une variable
+        // On récupère l'objet resources de la question dans une variable
         let resources = dataContentQuestion.resources;
         connection.query(`INSERT INTO questions SET 
         id_card ='${resultCard.insertId}',
@@ -87,7 +87,7 @@ app.route('/card/')
       response.sendStatus(200);
     });
   })
-  //GET (id de la carte à ajouter en front dans la request dans card:{})
+  //GET 
   .get((request, response) => {
     // On recupère l'id de la card envoyé en paramètre du fetch en front
     let idCard = request.body.id;
