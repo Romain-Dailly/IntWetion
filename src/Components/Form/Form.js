@@ -30,7 +30,6 @@ function Form() {
       type_resource: null,
     },
   });
-  
   return (
     <div className="container-fluid">
       <div className="row">
