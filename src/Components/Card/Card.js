@@ -1,18 +1,35 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Card = () => {
-    return (
-        <div className="card">
-            <img src="" className="card-img-top" alt="" />
-            <div className="card-body">
-                <p className="card-text">{data.card && data.card[0].description}</p>
-                <div className="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richar
-                     dson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-       </div>
-            </div>
-        </div>
-    );
-}
+const Card = ({ data, openModel }) => {
+  const { title, description, imageUrl } = data;
+  return (
+    <div className="card" style={{ width: '400px' }}>
+      <img src={imageUrl} className="card-img-top" alt="" />
+      <div className="card-body">
+        <h3 className="card-title">{title}</h3>
+        <p className="card-text">{description}</p>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={openModel}
+        >
+          Start
+        </button>
+      </div>
+    </div>
+  );
+};
+
+Card.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape(
+    {
+      name: PropTypes.string,
+      description: PropTypes.string,
+      imageUrl: PropTypes.string,
+    },
+  )),
+  openModel: PropTypes.func,
+};
 
 export default Card;
