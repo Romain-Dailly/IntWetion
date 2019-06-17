@@ -1,35 +1,51 @@
 import React, { useState } from 'react';
-import Slider from 'react-rangeslider';
+import './SoundPlayer.css';
+import ReactPlayer from 'react-player';
 
 export default function SoundPlayer (props) {
 
-  const soundUrl = "https://youtu.be/INAv0jmTmC8";
+  const soundUrl = "https://youtu.be/tCu2RVCpges";
   // props.card.videos.map(video => {
   //   if (video.type_video === 2) {
   //     return video.url_video;
   //   };
   // });
 
-  const [volume, setVolume] = useState(0.5)
+  const [volume, setVolume] = useState(0.8)
   const [showSlider, setShowSlider] = useState(false)
   
+  let style = showSlider ? {color:'rgb(4, 4, 185)'} : {color:'blue'};
+
   const volumeHandleClick = () => {
     setShowSlider(!showSlider)
+    showSlider? style = {color:'rgb(4, 4, 185)'} : style= {color:'blue'};
   }
   return(
+    <div>
+    <div className="player">
+      <ReactPlayer 
+        url={soundUrl}
+        playing
+        volume={volume}
+      />
+    </div>
     <div className="volumeAll d-flex justify-content-center">
-      <div>
-        <div className="soundIcon mt-5"  >
-        <i className='fas fa-volume-up'onclick={() => volumeHandleClick}></i>
-        </div>
-        { showSlider ?
-        <Slider 
-        value={volume}
-        orientation="vertical"
-        onChange={ (e)=> setVolume(e.target.value) }
+      { showSlider ?
+      <div className="sliderwrapper">
+        <input type="range"
+          min="0"
+          max="1"
+          step="any"
+          value={volume}
+          onChange={(e) => setVolume(e.target.value)}
+          className="form-control-range"
         />
-        : null }
       </div>
+        : null } 
+      <div className="soundIcon"  >
+        <i className='fas fa-volume-down' style={style} onClick={() => volumeHandleClick()} title="Modifier le volume"></i>
+      </div>
+    </div>
     </div>
   )
 }
