@@ -2,7 +2,7 @@ import React from 'react';
 
 
 function Question(props) {
-  //const { question } = props.question
+  const { question } = props;
 
   return (
     <div>

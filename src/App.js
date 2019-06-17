@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import Form from './Components/Form/Form';
-import Question from './Components/Test/Question/Question';
+import ModalTest from './Components/Test/ModalTest/ModalTest';
 
 function App() {
   return (
     <div>
       <Form />
-      <Question />
+      <ModalTest />
     </div>
   );
 }

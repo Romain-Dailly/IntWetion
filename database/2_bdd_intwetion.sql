@@ -1,3 +1,5 @@
+-- danger zone -> DROP DATABASE IF EXISTS `intwetion`;
+
 CREATE DATABASE `intwetion`;
 
 USE `intwetion`;
@@ -16,38 +18,34 @@ CREATE TABLE `card`
 CREATE TABLE `questions`
 (
   `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
+  `id_card` int,
+  `number_question` float,
   `text_question` text,
   `image_question` varchar(255),
   `type_response` int,
-  `type_response2` boolean,
-  `id_resource` int
+  `has_comment` boolean
 );
 
 CREATE TABLE `resources`
 (
   `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
+  `id_question` int,
   `url_resource` text,
   `type_resource` int
-);
-
-CREATE TABLE `quiz_ref`
-(
-  `id_card` int,
-  `id_question` int
 );
 
 CREATE TABLE `videos`
 (
   `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
+  `id_card` int,
   `url_video` varchar(255),
-  `type_video` int,
-  `id_card` int
+  `type_video` int
 );
 
-ALTER TABLE `questions` ADD FOREIGN KEY (`id_resource`) REFERENCES `resources` (`id`);
+ALTER TABLE `questions` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `quiz_ref` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`);
+ALTER TABLE `videos` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `quiz_ref` ADD FOREIGN KEY (`id_question`) REFERENCES `questions` (`id`);
+ALTER TABLE `resources` ADD FOREIGN KEY (`id_question`) REFERENCES `questions` (`id`) ON DELETE CASCADE;
 
-ALTER TABLE `videos` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`);
+
