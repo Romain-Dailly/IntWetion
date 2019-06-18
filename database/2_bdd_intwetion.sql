@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 -- danger zone -> 
 DROP DATABASE IF EXISTS `intwetion`;
+=======
+-- danger zone ->
+ DROP DATABASE IF EXISTS `intwetion`;
+>>>>>>> 56f1832fe84d71162cf6d4474721ec90f42a504d
 
 CREATE DATABASE `intwetion`;
 
@@ -44,9 +49,16 @@ CREATE TABLE `videos`
 );
 
 ALTER TABLE `questions` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`) ON DELETE CASCADE;
+<<<<<<< HEAD
 
 ALTER TABLE `videos` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`) ON DELETE CASCADE;
 
 ALTER TABLE `resources` ADD FOREIGN KEY (`id_question`) REFERENCES `questions` (`id`) ON DELETE CASCADE;
 
 
+=======
+
+ALTER TABLE `videos` ADD FOREIGN KEY (`id_card`) REFERENCES `card` (`id`) ON DELETE CASCADE;
+
+ALTER TABLE `resources` ADD FOREIGN KEY (`id_question`) REFERENCES `questions` (`id`) ON DELETE CASCADE;
+>>>>>>> 56f1832fe84d71162cf6d4474721ec90f42a504d

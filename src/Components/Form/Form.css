@@ -1,0 +1,26 @@
+.divForm label {
+  display: block !important;
+}
+
+.btn-delete {
+  height: 37px !important; 
+  align-self: flex-end;
+  margin-bottom: 8px;
+  margin-left: 5px;
+}
+
+.col-10{
+  padding: 0px 0px 0px 0px;
+}
+
+.div-menu {
+  border-right: solid 1px;
+  padding: 0px 0px 0px 20px;
+ 
+}
+
+.div-card-list {
+  border: solid 1px #bab8b8 ;
+  padding: 10px;
+  background-color:#ededed
+}

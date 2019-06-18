@@ -13,11 +13,19 @@
       "type_video": "1"
     },
     {
+<<<<<<< HEAD
       "url_video": "https://www.youtube.com/watch?v=Pppexz-KKig",
       "type_video": "3"
     },
     {
       "url_video": "https://www.youtube.com/watch?v=D7tWUuJyyak",
+=======
+      "url_video": "truc2.com",
+      "type_video": "3"
+    },
+    {
+      "url_video": "son.com",
+>>>>>>> 56f1832fe84d71162cf6d4474721ec90f42a504d
       "type_video": "2"
     }
 
@@ -25,6 +33,7 @@
   "questions": [
     {
       "number_question": "1.1",
+<<<<<<< HEAD
       "text_question": "Quelle est mon estime de moi ?",
       "image_question": "",
       "type_response": "1",
@@ -486,10 +495,15 @@
       "number_question": "4.6",
       "text_question": "Quelles sont mes passions ?",
       "image_question": "",
+=======
+      "text_question": "peur du yaourt",
+      "image_question": "yaourt.com",
+>>>>>>> 56f1832fe84d71162cf6d4474721ec90f42a504d
       "type_response": "2",
       "has_comment": "0",
       "resources": [
         {
+<<<<<<< HEAD
           "url_resource": "",
           "type_resource": "1"
         },
@@ -656,10 +670,43 @@
       "number_question": "7.13",
       "text_question": "Quels sont mes rêves ?",
       "image_question": "",
+=======
+          "url_resource": "bl",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "ouble",
+          "type_resource": "2"
+        }
+      ]
+    },
+    {
+      "number_question": "2.1",
+      "text_question": "peur du concombre",
+      "image_question": "conc.com",
+      "type_response": "1",
+      "has_comment": "1",
+      "resources": [
+        {
+          "url_resource": "blabladouble",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "blabla2double",
+          "type_resource": "2"
+        }
+      ]
+    },
+    {
+      "number_question": "2.2",
+      "text_question": "peur des poils",
+      "image_question": "poils.io",
+>>>>>>> 56f1832fe84d71162cf6d4474721ec90f42a504d
       "type_response": "2",
       "has_comment": "0",
       "resources": [
         {
+<<<<<<< HEAD
           "url_resource": "",
           "type_resource": "1"
         },
@@ -804,6 +851,16 @@
           "type_resource": "1"
         }
       ] 
+=======
+          "url_resource": "blabla",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "blabla2",
+          "type_resource": "2"
+        }
+      ]
+>>>>>>> 56f1832fe84d71162cf6d4474721ec90f42a504d
     }
   ]
 }

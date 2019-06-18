@@ -1,54 +1,104 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-/* Simon confirme qu'il faut passer par une fonction (pas de class)
-et utiliser les hook donc pas de controlled component ici. */
-
+import './Form.css';
 
 function Form() {
+  // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
     card: {
-      name: null,
-      image: null,
-      description: null,
-      online: false,
-      payment: null,
-      date: null,
+      name: "",
+      image: "",
+      description: "",
+      online: 1,
+      payment: 1,
+      date: 0,
     },
-    questions: {
-      text_question: null,
-      image_quesion: null,
-      type_response: 0,
-      type_response2: 0,
-      // id_resource: null,
-    },
-    video: {
-      url_video: null,
-      type_video: null,
-    },
-    resources: {
-      url_resource: null,
-      type_resource: null,
-    },
+    videos: [
+      {
+        url_video: "",
+        type_video: 1,
+      },
+      {
+        url_video: "",
+        type_video: 2,
+      },
+      {
+        url_video: "",
+        type_video: 3,
+      }
+    ],
+    question: [],
   });
+  //Hook pour l'élément question
+  // const [adminInputQuestion, setAdminInputQuestion] = useState({
+  //   question: {
+  //     number_question: "",
+  //     text_question: "",
+  //     image_question: "",
+  //     type_response: 1,
+  //     has_comment: false,
+  //     resources: [],
+  //   }
+  // });
+
+  //Hook pour l'élément resource
+  // const [adminInputResource, setAdminInputResource] = useState({
+  //   resource: {
+  //     url_resource: "",
+  //     type_resource: 1,
+  //   }
+  // });
+
+  // }
+
+  // Envoie la totalité du formulaire stockée dans hook card lors du click sur le bouton enregistrer. 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios.post('http:///localhost:8080/card/', adminInput)
+      .then((response) => {
+        console.log(response);
+      });
+  }
+  console.log(adminInput);
+
+  // Fonction qu gère les onChange de card
+  const onCardInputChange = ({ target }) => {
+    const { value, name } = target;
+    const newObj = { ...adminInput };
+    newObj.card[name] = value
+    setAdminInput(newObj)
+    console.log(target)
+  }
+
+  //Fonction qui gère les onChange de la partie vidéo
+  let onVideoInputChange = ({ target }) => {
+    let { value, name, id } = target;
+    const newObj = { ...adminInput };
+    newObj.videos[id][name] = value
+    setAdminInput(newObj)
+    console.log(target)
+  }
+
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className="col-3">Administration du site</div>
-        <div className="col-9">
-          <form className="pr-5" control="bipbop">
+        <div className="col-3 div-menu">Administration du site</div>
+        <div className="col-9 ">
+          <form className="pr-5 divForm" control="bipbop" >
             <div className="form-group d-flex flex-column">
-              <p>Sélectionner une action :</p>
+              <p>Que voulez-vous faire ?</p>
               <div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1" control="bipbop">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                      Ajouter une carte
+                    Ajouter une carte
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                      Modifier une carte
+                    Modifier une carte
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
@@ -60,146 +110,172 @@ function Form() {
               </div>
             </div>
             <div className="container-card">
-              <div>
+              <div className="div-card-list">
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                      Présent
+                    Présent
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                      Peurs
+                    Peurs
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio3">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
-                      Forces
+                    Forces
                   </label>
                 </div>
               </div>
             </div>
             <br />
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Entrez le nom de la carte :
+                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"
+                  name="name"
+                  value={adminInput.card.name} onChange={onCardInputChange} />
+              </label>
+            </div>
             <div className="form-group d-flex flex-column">
-              <p>Type de carte :</p>
+              <p>Définissez la visibilité de la carte :</p>
               <div>
                 <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadio0">
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" value={adminInput.card.online = 0} onChange={onCardInputChange} />
+                    En ligne
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
-                    <input onClick={adminInput.card.online} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" />
-                      En ligne - gratuit
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <label className="form-check-label" htmlFor="inlineRadio2">
-                    <input onClick={adminInput.card.online} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" />
-                      En ligne - payant
-                  </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <label className="form-check-label" htmlFor="inlineRadio3">
-                    <input onClick={adminInput.card.online} className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3" />
-                      Non visible
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" value={adminInput.card.online = 1} onChange={onCardInputChange} />
+                    Hors ligne
                   </label>
                 </div>
               </div>
             </div>
+            <div className="form-group d-flex flex-column">
+              <p>Statut commercial de la carte :</p>
+              <div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadio1">
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" />
+                    Payante
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadio2">
+                    <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" />
+                    Gratuite
+                  </label>
+                </div>
+              </div>
+            </div>
+
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Description
-                <textarea className="form-control" id="exampleFormControlTextarea1" value={adminInput.card.description} rows="3" />
+                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"
+                  name="description"
+                  value={adminInput.card.description} onChange={onCardInputChange} />
               </label>
             </div>
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, image de la carte
-                <textarea value={adminInput.card.image_question} className="form-control" id="exampleFormControlTextarea1" rows="1" />
+                <textarea className="form-control" id="exampleFormControlTextarea1" rows="1" name="image" onChange={onCardInputChange} />
               </label>
             </div>
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, vidéo-intro de la carte
-                <textarea value={adminInput.video.url_video} className="form-control" id="exampleFormControlTextarea1" rows="1" />
+                <textarea className="form-control" id="0" rows="1" name="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
               </label>
             </div>
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, musique
-                <textarea value={adminInput.video.url_video} className="form-control" id="exampleFormControlTextarea1" rows="1" />
+                <textarea className="form-control" rows="1" id="1" name="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
               </label>
             </div>
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, vidéo, fin de test
-                <textarea value={adminInput.url_video} className="form-control" id="exampleFormControlTextarea1" rows="1" />
+                <textarea className="form-control" rows="1" id="2" name="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
               </label>
             </div>
             <h1>Espace test</h1>
-            <div className="form-group">
-              <div className="d-flex">
-                <label htmlFor="formGroupExampleInput">
-                  Question
-                  <input value={adminInput.questions.text_question} type="text" className="form-control mr-5" id="formGroupExampleInput" />
+            <div >
+              <div className="d-flex div-question-bouton" row="1">
+                <label htmlFor="formGroupExampleInput" className="col-10">
+                  Ecrivez votre question :
+                  <input type="text" className="form-control mr-5 div-input-question" id="formGroupExampleInput" />
                 </label>
-                <button type="button" className="btn btn-secondary ">Supprimer</button>
+                <button type="button" className="btn btn-secondary btn-delete"  >Supprimer</button>
               </div>
-              {/* Ajouter image_question */}
             </div>
-            <div>
-              <p>Type de réponse liée :</p>
-              <fieldset className="form-group">
-                <div className="form-check form-check-inline">
-                  {/* Faire un onClick ou mettre directement dans value ? */}
-                  <label className="form-check-label" htmlFor="inlineCheckbox1">
-                    <input onClick={adminInput.questions.type_response} className="form-check-input" type="checkbox" id="inlineCheckbox1" value={adminInput.questions.type_response} />
-                    Numérique
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Ajoutez une photo qui sera affichée avec la question (lien) :
+                <textarea className="form-control" rows="1" id="1" name="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
+              </label>
+            </div>
+           
+            <p>Type de réponse liée :</p>
+            <fieldset className="form-group">
+              <div className="form-check form-check-inline">
+                <label className="form-check-label" htmlFor="inlineCheckbox1">
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox1" />
+                  Numérique
                   </label>
-                </div>
-                <div className="form-check form-check-inline">
-                  <label className="form-check-label" htmlFor="inlineCheckbox2">
-                    <input className="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
-                    Texte
+              </div>
+              <div className="form-check form-check-inline">
+                <label className="form-check-label" htmlFor="inlineCheckbox2">
+                  <input className="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2" />
+                  Texte
                   </label>
+              </div>
+            </fieldset>
+            <div className="row">
+              <div className="col-3">
+                Ressources liées :
                 </div>
-              </fieldset>
-              <div className="row">
-                <div className="col-3">
-                  Ressources liées:
+              <div className="col-9">
+                <div className="form-row">
+                  <div className="col-3">
+                    <input type="text" className="form-control" placeholder="Nom" />
+                  </div>
+                  <div className="col-9">
+                    <textarea type="text" className="form-control" placeholder="Lien" rows="1" />
+                  </div>
                 </div>
-                <div className="col-9">
-                  <div className="form-row">
-                    <div className="col-3">
-                      <input type="text" className="form-control" placeholder="Nom" />
-                    </div>
-                    <div className="col-9">
-                      <textarea type="text" className="form-control" placeholder="Lien" rows="1" />
-                    </div>
+                <div className="form-row mt-4">
+                  <div className="col-3">
+                    <input type="text" className="form-control" placeholder="Nom" />
                   </div>
-                  <div className="form-row mt-4">
-                    <div className="col-3">
-                      <input type="text" className="form-control" placeholder="Nom" />
-                    </div>
-                    <div className="col-9">
-                      <textarea type="text" className="form-control" placeholder="Lien" rows="1" />
-                    </div>
-                  </div>
-                  <div className="mt-4">
-                    <p className="mr-2 d-inline-block">Ajouter un champ ressource supplémetaire</p>
-                    <i className="fas fa-plus-circle" />
+                  <div className="col-9">
+                    <textarea type="text" className="form-control" placeholder="Lien" rows="1" />
                   </div>
                 </div>
                 <div className="mt-4">
+                  <p className="mr-2 d-inline-block">Ajouter un champ ressource supplémetaire</p>
                   <i className="fas fa-plus-circle" />
-                  <p className="ml-4 d-inline-block">Ajouter un champ ressource supplémetaire</p>
                 </div>
               </div>
+              <div className="mt-4">
+                <i className="fas fa-plus-circle" />
+                <p className="ml-4 d-inline-block">Ajouter un champ ressource supplémentaire</p>
+              </div>
             </div>
-            <button onClick={() => setAdminInput({})} className="btn btn-primary mt-5 mb-5" value="submit" type="submit">Enregistrer</button>
+          <button onClick={handleSubmit} className="btn btn-primary mt-5 mb-5" value="submit" type="submit">Enregistrer</button>
           </form>
-        </div>
       </div>
     </div>
+    </div >
   );
-}
+};
+
 export default Form;
