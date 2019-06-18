@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Card = ({ data, openModel }) => {
-  const { title, description, imageUrl } = data;
+  const { name, description, imageUrl } = data;
   return (
     <div className="card" style={{ width: '400px' }}>
       <img src={imageUrl} className="card-img-top" alt="" />
       <div className="card-body">
-        <h3 className="card-title">{title}</h3>
+        <h3 className="card-title">{name}</h3>
         <p className="card-text">{description}</p>
+        <i className="icon-headset" />
         <button
           type="button"
           className="btn btn-primary"
@@ -22,13 +23,12 @@ const Card = ({ data, openModel }) => {
 };
 
 Card.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape(
-    {
-      name: PropTypes.string,
-      description: PropTypes.string,
-      imageUrl: PropTypes.string,
-    },
-  )),
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    description: PropTypes.string,
+    imageUrl: PropTypes.string,
+  },
+  ),
   openModel: PropTypes.func,
 };
 
