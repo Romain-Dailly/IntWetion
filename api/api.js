@@ -90,7 +90,8 @@ app.route('/card/')
   //GET 
   .get((request, response) => {
     // On recupère l'id de la card envoyé en paramètre du fetch en front
-    let idCard = request.body.id;
+    let idCard = request.query.id;
+    console.log(request)
     // On récupère le contenu de la table card grâce à l'id
     connection.query(`SELECT * FROM card WHERE id=${idCard}`, (error, result) => {
       if (error) {
@@ -137,7 +138,7 @@ app.route('/card/')
   //DELETE (id à envoyer en request)
   .delete((request, response) => {
     // On recupère l'id de la card envoyé en paramètre du fetch en front
-    let idCard = request.body.id;
+    let idCard = request.query.id
     // On supprime le contenu de la table card grâce à l'id 
     // et celui des autres tables en cascade(défini en bdd)
     connection.query(`DELETE FROM card WHERE id=${idCard}`, (error, result) => {

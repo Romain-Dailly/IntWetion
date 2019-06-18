@@ -9,8 +9,9 @@ function App() {
 
   return (
     <div>
-      <Form /> 
-      <ModalTest />
+      <SoundPlayer/>
+      {/* <Form /> 
+      <ModalTest /> */}
     </div>
   );
 }
