@@ -89,6 +89,7 @@ app.route('/card/')
   })
   //GET 
   .get((request, response) => {
+    // exemple de fetch : axios.get('http://localhost:8080/card/', { params: { id: 1 } })
     // On recupère l'id de la card envoyé en paramètre du fetch en front
     let idCard = request.query.id;
     // On récupère le contenu de la table card grâce à l'id
@@ -119,6 +120,7 @@ app.route('/card/')
               console.log(error);
               response.status(500).send("Erreur lors de la récupération des ressources");
             }
+            // On redéfinit le contenu de resultQuestions en y insérant les ressources 
             const questions = resultQuestions.map(question => {
             return  {
               number_question : question.number_question,
