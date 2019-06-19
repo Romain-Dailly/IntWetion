@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 // ROUTE GET cards pour recuperer les ids, noms, images 
 // et descriptions des cartes
 app.get('/cards/', (request, response) => {
-  connection.query('SELECT id, name, image, description FROM card WHERE online=1', (error, results) =>{
+  connection.query('SELECT id, name, image, description FROM card', (error, results) =>{
     if (error) {
       response.status(500).send('Erreur lors de la récupération des cartes');
     }
@@ -91,7 +91,6 @@ app.route('/card/')
   .get((request, response) => {
     // On recupère l'id de la card envoyé en paramètre du fetch en front
     let idCard = request.query.id;
-    console.log(request)
     // On récupère le contenu de la table card grâce à l'id
     connection.query(`SELECT * FROM card WHERE id=${idCard}`, (error, result) => {
       if (error) {
@@ -112,25 +111,34 @@ app.route('/card/')
             response.status(500).send("Erreur lors de la récupération des questions");
           }
           //On récupère les ids des questions dans un tableau
-          const questionIds = resultQuestions.map(question => question.id);
+          const idQuestions = resultQuestions.map(question => question.id); 
           //Que l'on utilise pour récupérer les ressources associées
-          connection.query(`SELECT * FROM resources WHERE id_question IN (${questionIds})`,
-            (error, resultResources) => {
-              if (error) {
-                console.log(error);
-                response.status(500).send("Erreur lors de la récupération des ressources");
-              }
-              //On créée un objet contenant les resultats des queries sur chaques tables : 
-              // {card : [{}], videos : [{}, {}, {}], ...}
-              const data = {
-                card: result,
-                videos: resultVideos,
-                questions: resultQuestions,
-                resources: resultResources
-              };
-              //Et on l'envoie en réponse
-              response.status(200).send(data);
-            });
+          connection.query(`SELECT * FROM resources WHERE id_question IN (${idQuestions})`,
+          (error, resultResources) => {
+            if (error) {
+              console.log(error);
+              response.status(500).send("Erreur lors de la récupération des ressources");
+            }
+            const questions = resultQuestions.map(question => {
+            return  {
+              number_question : question.number_question,
+              text_question : question.text_question,
+              image_question : question.image_question,
+              type_response : question.type_response,
+              has_comment : question.has_comment,
+              resources : resultResources.filter(resource => resource.id_question === question.id)
+            }
+          });
+            //On créée un objet contenant les resultats des queries sur chaques tables : 
+            //{card : {}, videos : [{}, {}, {}], questions : [{resources:[{},{}]},...]...}
+            const data = {
+              card: result[0],
+              videos: resultVideos,
+              questions: questions
+            };
+            //Et on l'envoie en réponse
+            response.status(200).send(data);
+          }) 
         });
       });
     });
