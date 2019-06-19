@@ -23,12 +23,7 @@
     "start": "react-scripts start",
     "watch": "node_modules/nodemon/bin/nodemon.js api/api.js",
     "build": "react-scripts build",
-<<<<<<< HEAD
-    "test": "./node_modules/.bin/eslint",
-    "jest": "react-scripts test",
-=======
     "test": "./node_modules/.bin/eslint  ./ --ext ['.js','.jsx']",
->>>>>>> 56f1832fe84d71162cf6d4474721ec90f42a504d
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

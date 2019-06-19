@@ -8,15 +8,15 @@ function SoundPlayer() {
 
   const [volume, setVolume] = useState(0.8);
   const [showSlider, setShowSlider] = useState(false);
-  // const [url, setUrl] = useState('');
+  const [url, setUrl] = useState('');
 
   useEffect(() => {
-  //   axios.get('http://localhost:8080/card/', { params: { id: 1 } })
-  //     .then(result => 
-  //       setUrl((result.data.videos.filter(vid => 
-  //         vid.type_video === 2 ? vid.url_video : null
-  //       )[0].url_video))
-  //     )
+    // axios.get('http://localhost:8080/card/', { params: { id: 1 } })
+    //   .then(result => 
+    //     setUrl((result.data.videos.filter(vid => 
+    //       vid.type_video === 2 ? vid.url_video : null
+    //     )[0].url_video))
+    //   )
   }, []);
 
   let style = showSlider ? { color: 'rgb(4, 4, 185)' } : { color: 'blue' };
