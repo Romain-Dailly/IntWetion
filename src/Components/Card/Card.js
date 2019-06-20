@@ -27,8 +27,7 @@ Card.propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
     imageUrl: PropTypes.string,
-  },
-  ),
+  }),
   openModel: PropTypes.func,
 };
 
