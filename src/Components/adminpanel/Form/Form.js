@@ -2,32 +2,31 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import './Form.css';
-import Navbardesk from '../navbar-Desk/Navbardesk';
 
 function Form() {
   // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
     card: {
-      name: "",
-      image: "",
-      description: "",
+      name: '',
+      image: '',
+      description: '',
       online: 1,
       payment: 0,
       date: 0,
     },
     videos: [
       {
-        url_video: "",
+        url_video: '',
         type_video: 1,
       },
       {
-        url_video: "",
+        url_video: '',
         type_video: 2,
       },
       {
-        url_video: "",
+        url_video: '',
         type_video: 3,
-      }
+      },
     ],
     question: [],
   });
@@ -35,98 +34,98 @@ function Form() {
   // Hook pour l'élément question
   const [adminInputQuestion, setAdminInputQuestion] = useState({
     question: {
-      number_question: "",
-      text_question: "",
-      image_question: "",
+      number_question: '',
+      text_question: '',
+      image_question: '',
       type_response: 1,
       has_comment: false,
       resources: [],
-    }
+    },
   });
 
-  // Hook pour l'élément resource
-  const [adminInputResource, setAdminInputResource] = useState({
-    resource: {
-      url_resource: "",
-      type_resource: 1,
-    }
-  });
+  /*  // Hook pour l'élément resource
+   const [adminInputResource, setAdminInputResource] = useState({
+     resource: {
+       url_resource: '',
+       type_resource: 1,
+     },
+   }); */
 
-  // Envoie la totalité du formulaire stockée dans hook card lors du click sur le bouton enregistrer. 
+  // Envoie la totalité du formulaire stockée dans hook card
+  // lors du click sur le bouton enregistrer.
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post('http:///localhost:8080/card/', adminInput)
       .then((response) => {
         console.log(response);
       });
-  }
+  };
 
   // Fonction qui gère les onChange du hook card
   const onCardInputChange = ({ target }) => {
     const { value } = target;
     const newObj = { ...adminInput };
-    const dataKey = target.getAttribute('data-key')
-    newObj.card[dataKey] = value
-    setAdminInput(newObj)
-  }
+    const dataKey = target.getAttribute('data-key');
+    newObj.card[dataKey] = value;
+    setAdminInput(newObj);
+  };
   console.log(adminInput);
-  
 
-  //Fonction qui gère les onChange du hook vidéo
+
+  // Fonction qui gère les onChange du hook vidéo
   const onVideoInputChange = ({ target }) => {
     const { value, id } = target;
     const newObj = { ...adminInput };
-    const dataKey = target.getAttribute('data-key')
-    newObj.videos[id][dataKey] = value
-    setAdminInput(newObj)
-  }
+    const dataKey = target.getAttribute('data-key');
+    newObj.videos[id][dataKey] = value;
+    setAdminInput(newObj);
+  };
 
-  //Fonction qui gère les onChange du hook question, peut être fusionnée avec onVideoInputChange
+  // Fonction qui gère les onChange du hook question, peut être fusionnée avec onVideoInputChange
   const onQuestionInputChange = ({ target }) => {
     const { value } = target;
     const newObj = { ...adminInputQuestion };
-    const dataKey = target.getAttribute('data-key')
-    newObj.question[dataKey] = value
-    setAdminInputQuestion(newObj)
-  }
+    const dataKey = target.getAttribute('data-key');
+    newObj.question[dataKey] = value;
+    setAdminInputQuestion(newObj);
+  };
 
-  // //Fonction qui gère les onChange du hook resources
-  // const onResourceInputChange = ({ target }) => {
-  //   const { value } = target;
-  //   const newObj = { ...adminInputResource };
-  //   const dataKey = target.getAttribute('data-key')
-  //   newObj.question[dataKey] = value
-  //   setAdminInputResource(newObj)
-  // }
+  /*  //Fonction qui gère les onChange du hook resources
+   const onResourceInputChange = ({ target }) => {
+     const { value } = target;
+     const newObj = { ...adminInputResource };
+     const dataKey = target.getAttribute('data-key');
+     newObj.question[dataKey] = value;
+     setAdminInputResource(newObj);
+   } */
 
   return (
     <div>
-      <Navbardesk />
       <div className="container-fluid">
         <div className="row">
           <div className="col-2 div-menu">Administration du site</div>
           <div className="container-adminInput col-10">
-            <form className="pr-5 divForm" >
+            <form className="pr-5 divForm">
               <div className="form-group d-flex flex-column">
                 <p>Que voulez-vous faire ?</p>
                 <div>
                   <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio1" >
+                    <label className="form-check-label" htmlFor="inlineRadio1">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsAction" id="inlineRadio1" value="option1" />
                       Ajouter une carte
-                  </label>
+                    </label>
                   </div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio2">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsAction" id="inlineRadio2" value="option2" />
                       Modifier une carte
-                  </label>
+                    </label>
                   </div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio3">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsAction" id="inlineRadio3" value="option3" />
                       Supprimer une carte
-                  </label>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -136,19 +135,19 @@ function Form() {
                     <label className="form-check-label" htmlFor="inlineRadio1">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsCard" id="inlineRadio1" value="option1" />
                       Présent
-                  </label>
+                    </label>
                   </div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio2">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsCard" id="inlineRadio2" value="option2" />
                       Peurs
-                  </label>
+                    </label>
                   </div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio3">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsCard" id="inlineRadio3" value="option3" />
                       Forces
-                  </label>
+                    </label>
                   </div>
                 </div>
               </div>
@@ -162,33 +161,38 @@ function Form() {
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Description
-                <textarea className="form-control col-10" id="exampleFormControlTextarea1" rows="3"
+                  <textarea
+                    className="form-control col-10"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
                     data-key="description"
-                    value={adminInput.card.description} onChange={onCardInputChange} />
+                    value={adminInput.card.description}
+                    onChange={onCardInputChange}
+                  />
                 </label>
               </div>
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Lien, image de la carte
-                <textarea className="form-control col-10" id="exampleFormControlTextarea1" rows="1" data-key="image" onChange={onCardInputChange} />
+                  <textarea className="form-control col-10" id="exampleFormControlTextarea1" rows="1" data-key="image" onChange={onCardInputChange} />
                 </label>
               </div>
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Lien, vidéo-intro de la carte
-                <textarea className="form-control col-10" id="0" rows="1" data-key="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
+                  <textarea className="form-control col-10" id="0" rows="1" data-key="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
                 </label>
               </div>
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Lien, musique
-                <textarea className="form-control col-10" rows="1" id="1" data-key="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
+                  <textarea className="form-control col-10" rows="1" id="1" data-key="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
                 </label>
               </div>
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Lien, vidéo, fin de test
-                <textarea className="form-control col-10" rows="1" id="2" data-key="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
+                  <textarea className="form-control col-10" rows="1" id="2" data-key="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
                 </label>
               </div>
               <div className="form-group d-flex flex-column">
@@ -198,17 +202,17 @@ function Form() {
                     <label className="form-check-label" htmlFor="inlineRadio1">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsOnline" id="inlineRadio1" data-key="online" value={0} onChange={onCardInputChange} />
                       En ligne
-                  </label>
+                    </label>
                   </div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio2">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsOnline" id="inlineRadio2" data-key="online" value={1} onChange={onCardInputChange} />
                       Hors ligne
-                  </label>
+                    </label>
                   </div>
                 </div>
               </div>
-              <br/>
+              <br />
               <div className="form-group d-flex flex-column">
                 <p>Statut commercial de la carte :</p>
                 <div>
@@ -216,22 +220,22 @@ function Form() {
                     <label className="form-check-label" htmlFor="inlineRadio1">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsPayment" id="inlineRadio1" data-key="payment" value={1} onChange={onCardInputChange} />
                       Payante
-                  </label>
+                    </label>
                   </div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio2">
                       <input className="form-check-input" type="radio" name="inlineRadioOptionsPayment" id="inlineRadio2" data-key="payment" value={2} onChange={onCardInputChange} />
                       Gratuite
-                  </label>
+                    </label>
                   </div>
                 </div>
               </div>
               <h1>Espace test</h1>
-              <div >
+              <div>
                 <div className="d-flex div-question-bouton" row="1">
                   <label htmlFor="formGroupExampleInput" className="col-10">
                     Ecrivez votre question :
-                  <input type="text" className="form-control div-input-question col-10" id="formGroupExampleInput" data-key="text_question" value={adminInputQuestion.question.text_question} onChange={onQuestionInputChange} />
+                    <input type="text" className="form-control div-input-question col-10" id="formGroupExampleInput" data-key="text_question" value={adminInputQuestion.question.text_question} onChange={onQuestionInputChange} />
                   </label>
                   <button type="button" className="btn btn-secondary btn-delete">Supprimer</button>
                 </div>
@@ -246,10 +250,10 @@ function Form() {
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Ajoutez une photo qui sera affichée avec la question (lien) :
-                <textarea className="form-control col-10" rows="1" id="1" data-key="image_question" value={adminInputQuestion.question.image_question} onChange={onQuestionInputChange} />
+                  <textarea className="form-control col-10" rows="1" id="1" data-key="image_question" value={adminInputQuestion.question.image_question} onChange={onQuestionInputChange} />
                 </label>
               </div>
-              <br/>
+              <br />
               <p>Type de réponse liée :</p>
               <fieldset className="form-group">
                 <div className="form-check form-check-inline">
@@ -265,7 +269,7 @@ function Form() {
                   </label>
                 </div>
               </fieldset>
-              <br/>
+              <br />
               <div className="row">
                 <div className="col-3">
                   Ressources liées :
@@ -301,7 +305,7 @@ function Form() {
             </form>
           </div>
         </div>
-      </div >
+      </div>
     </div>
   );
 }
