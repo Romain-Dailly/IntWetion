@@ -43,13 +43,13 @@ function Form() {
     },
   });
 
-  /*  // Hook pour l'élément resource
-   const [adminInputResource, setAdminInputResource] = useState({
-     resource: {
-       url_resource: '',
-       type_resource: 1,
-     },
-   }); */
+  // Hook pour l'élément resource
+  const [adminInputResource, setAdminInputResource] = useState({
+    resource: {
+      url_resource: '',
+      type_resource: 1,
+    },
+  });
 
   // Envoie la totalité du formulaire stockée dans hook card
   // lors du click sur le bouton enregistrer.
@@ -90,14 +90,15 @@ function Form() {
     setAdminInputQuestion(newObj);
   };
 
-  /*  //Fonction qui gère les onChange du hook resources
-   const onResourceInputChange = ({ target }) => {
-     const { value } = target;
-     const newObj = { ...adminInputResource };
-     const dataKey = target.getAttribute('data-key');
-     newObj.question[dataKey] = value;
-     setAdminInputResource(newObj);
-   } */
+  //Fonction qui gère les onChange du hook resources
+  const onResourceInputChange = ({ target }) => {
+    const { value } = target;
+    const newObj = { ...adminInputResource };
+    const dataKey = target.getAttribute('data-key');
+    newObj.resource[dataKey] = value;
+    setAdminInputResource(newObj);
+  };
+  console.log(adminInputResource);
 
   return (
     <div>
@@ -280,15 +281,14 @@ function Form() {
                       <input type="text" className="form-control" placeholder="Nom" data-key="" />
                     </div>
                     <div className="col-9">
-                      <textarea type="text" className="form-control" placeholder="Lien" rows="1" />
-                    </div>
-                  </div>
-                  <div className="form-row mt-4">
-                    <div className="col-3">
-                      <input type="text" className="form-control" placeholder="Nom" data-key="" />
-                    </div>
-                    <div className="col-9">
-                      <textarea type="text" className="form-control" placeholder="Lien" rows="1" data-key="" />
+                      <textarea type="text"
+                        className="form-control"
+                        placeholder="Lien"
+                        rows="1"
+                        id="1"
+                        data-key="url_resource"
+                        value={adminInputResource.resource.url_resource}
+                        onChange={onResourceInputChange} />
                     </div>
                   </div>
                   <div className="mt-4">
