@@ -24,6 +24,19 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.icon-add:before {
+  content: "\e908";
+}
+.icon-pen:before {
+  content: "\e909";
+}
+.icon-trash-outline:before {
+  content: "\e90a";
+}
+.icon-trash:before {
+  content: "\e90b";
+}
 .icon-arrow-back:before {
   content: "\e900";
 }
