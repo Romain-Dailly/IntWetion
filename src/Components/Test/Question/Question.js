@@ -1,12 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-
-function Question(props) {
-  // const { question } = props;
-
+function Question({ question }) {
   return (
-    <div>
-      {/* <p>{question}</p> */}
+    <div className="container">
+
+      <div className="progress">
+        <div className="progress-bar" role="progressbar" style={{ width: '25%' }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" />
+      </div>
+      <div>
+        <p>{question}</p>
+      </div>
+
       <div className="form-check form-check-inline">
         <label className="form-check-label" htmlFor="inlineCheckbox0">
           <input className="form-check-input" type="checkbox" id="inlineCheckbox0" value="option0" />
@@ -76,4 +81,9 @@ function Question(props) {
     </div>
   );
 }
+
+Question.prototype = {
+  question: PropTypes.string,
+};
+
 export default Question;

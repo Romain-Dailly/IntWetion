@@ -3,7 +3,7 @@ import React from 'react';
 function ModalTest() {
   // const { titreCard } = 'Carte peur';
   // const { lengthQuestion } = 3;
-  // const { questions } = [{ question: 'As tu peur des mouche ?' }, 
+  // const { questions } = [{ question: 'As tu peur des mouche ?' },
   // { question: 'As tu peur des poussin ?' }, { question: 'As tu peur des chapeaux ?' }];
 
   return (

@@ -90,7 +90,7 @@ function Form() {
     setAdminInputQuestion(newObj);
   };
 
-  //Fonction qui gère les onChange du hook resources
+  // Fonction qui gère les onChange du hook resources
   const onResourceInputChange = ({ target }) => {
     const { value } = target;
     const newObj = { ...adminInputResource };
@@ -281,14 +281,16 @@ function Form() {
                       <input type="text" className="form-control" placeholder="Nom" data-key="" />
                     </div>
                     <div className="col-9">
-                      <textarea type="text"
+                      <textarea
+                        type="text"
                         className="form-control"
                         placeholder="Lien"
                         rows="1"
                         id="1"
                         data-key="url_resource"
                         value={adminInputResource.resource.url_resource}
-                        onChange={onResourceInputChange} />
+                        onChange={onResourceInputChange}
+                      />
                     </div>
                   </div>
                   <div className="mt-4">
