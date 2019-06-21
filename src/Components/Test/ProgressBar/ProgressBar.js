@@ -11,7 +11,8 @@ function ProgressBar(props) {
         role="progressbar"
         aria-valuenow={countQuestion}
         aria-valuemin="1"
-        aria-valuemax={lengthQuestion} />
+        aria-valuemax={lengthQuestion}
+      />
     </div>
   );
 }
