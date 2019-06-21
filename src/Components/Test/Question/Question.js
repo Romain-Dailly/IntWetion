@@ -2,11 +2,11 @@ import React from 'react';
 
 
 function Question(props) {
-  const { question } = props;
+  // const { question } = props;
 
   return (
     <div>
-      <p>{question}</p>
+      {/* <p>{question}</p> */}
       <div className="form-check form-check-inline">
         <label className="form-check-label" htmlFor="inlineCheckbox0">
           <input className="form-check-input" type="checkbox" id="inlineCheckbox0" value="option0" />
