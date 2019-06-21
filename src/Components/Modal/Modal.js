@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../NavBar/NavBar.css';
 import './Modal.css';
@@ -9,29 +9,35 @@ const ContextToolBar = ({ title }) => (
   </div>
 );
 
-const closeModal = () => {
-  console.log('closed');
+const ActionBar = ({ closeModal, onNextButtonClick }) => (
+  <div className="nav-bar action-bar">
+    <button type="button" className="button" onClick={closeModal}>Close</button>
+    <button type="button" className="button" onClick={onNextButtonClick}>Next</button>
+  </div>
+);
+
+const Modal = ({ title, children, color = 'white' }) => {
+  const [isVisible, setVisibility] = useState(false);
+
+  return (
+    <div className="overlay">
+      <div className="overlay-content" style={{ background: `${color}` }}>
+        <ContextToolBar title="Administrator" />
+        <div className="content">{children}</div>
+        <ActionBar
+          title={title}
+          onNextButtonClick={() => setVisibility(isVisible)}
+          closeModal={setVisibility(true)}
+        />
+      </div>
+    </div>
+  );
 };
 
-const ActionBar = ({ title, onNextButtonClick }) => (
-  <div className="nav-bar action-bar">
-    <button className="button" onClick={closeModal}>Close</button>
-    <button className="button" onClick={onNextButtonClick}>Next</button>
-  </div>
-);
-
-const Modal = ({ children, color = 'white' }) => (
-  <div className="overlay">
-    <div className="overlay-content" style={{ background: `${color}` }}>
-      <ContextToolBar title="Administrator" />
-      <div className="content">{children}</div>
-      <ActionBar />
-    </div>
-  </div>
-);
-
 Modal.propTypes = {
-  data: PropTypes.array,
+  title: PropTypes.string,
+  children: PropTypes.element,
+  color: PropTypes.string,
 };
 
 export default Modal;
