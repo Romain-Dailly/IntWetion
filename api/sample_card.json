@@ -1,7 +1,7 @@
 {
   "card": {
     "name": "Mes points forts",
-    "image": "",
+    "image": "./assets/Images/Force.jpg",
     "description": "",
     "online": 1,
     "payment": 0,
@@ -9,15 +9,15 @@
   },
   "videos": [
     {
-      "url_video": "https://www.youtube.com/watch?v=nvmOoSFhhJ4",
+      "url_video": "https://www.youtube.com/watch?v=gN7U0ycbWCM",
       "type_video": "1"
     },
     {
-      "url_video": "https://www.youtube.com/watch?v=Pppexz-KKig",
+      "url_video": "https://www.youtube.com/watch?v=keHnIZ9rmFA",
       "type_video": "3"
     },
     {
-      "url_video": "https://www.youtube.com/watch?v=D7tWUuJyyak",
+      "url_video": "https://www.youtube.com/watch?v=k3_tw44QsZQ",
       "type_video": "2"
     }
 
