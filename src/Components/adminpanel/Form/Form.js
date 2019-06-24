@@ -62,15 +62,13 @@ function Form() {
   };
 
   // Fonction qui gère les onChange du hook card
-  const onCardInputChange = ({ target }) => {
-    const { value } = target;
-    const newObj = { ...adminInput };
-    const dataKey = target.getAttribute('data-key');
-    newObj.card[dataKey] = value;
-    setAdminInput(newObj);
-  };
-  console.log(adminInput);
-
+  // const onCardInputChange = ({ target }) => {
+  //   const { value } = target;
+  //   const newObj = { ...adminInput };
+  //   const dataKey = target.getAttribute('data-key');
+  //   newObj.card[dataKey] = value;
+  //   setAdminInput(newObj);
+  // };
 
   // Fonction qui gère les onChange du hook vidéo
   const onVideoInputChange = ({ target }) => {
@@ -98,7 +96,6 @@ function Form() {
     newObj.resource[dataKey] = value;
     setAdminInputResource(newObj);
   };
-  console.log(adminInputResource);
 
   return (
     <div>
