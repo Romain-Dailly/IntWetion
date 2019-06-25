@@ -28,40 +28,36 @@ function Form() {
         type_video: 3,
       },
     ],
-    question: [],
+    questions: [],
   });
 
   // Hook pour l'élément question
   const [adminInputQuestion, setAdminInputQuestion] = useState({
-    question: {
-      number_question: '',
-      text_question: '',
-      image_question: '',
-      type_response: 1,
-      has_comment: false,
-      resources: [],
-    },
-  });
+    number_question: '',
+    text_question: '',
+    image_question: '',
+    type_response: 1,
+    has_comment: false,
+    resources: [],
+  },
+  );
 
   // Hook pour l'élément resource
-  const [adminInputResource, setAdminInputResource] = useState({
-    resource: {
-      url_resource: '',
-      type_resource: 1,
-    },
-  });
+  const [adminInputResource, setAdminInputResource] = useState([]);
 
   // Envoie la totalité du formulaire stockée dans hook card
   // lors du click sur le bouton enregistrer.
   const handleSubmit = (event) => {
+    buildCardData()
     event.preventDefault();
-    axios.post('http:///localhost:8080/card/', adminInput)
-      .then((response) => {
-        console.log(response);
-      });
+    // axios.post('http:///localhost:8080/card/', adminInput)
+    //   .then((response) => {
+    //     console.log(response);
+    //   });
   };
 
   // Fonction qui gère les onChange du hook card
+<<<<<<< HEAD
   // const onCardInputChange = ({ target }) => {
   //   const { value } = target;
   //   const newObj = { ...adminInput };
@@ -69,6 +65,16 @@ function Form() {
   //   newObj.card[dataKey] = value;
   //   setAdminInput(newObj);
   // };
+=======
+  const onCardInputChange = ({ target }) => {
+    const { value } = target;
+    const newObj = { ...adminInput };
+    const dataKey = target.getAttribute('data-key');
+    newObj.card[dataKey] = value;
+    setAdminInput(newObj);
+  };
+  console.log(adminInput);
+>>>>>>> adminpanel
 
   // Fonction qui gère les onChange du hook vidéo
   const onVideoInputChange = ({ target }) => {
@@ -84,72 +90,48 @@ function Form() {
     const { value } = target;
     const newObj = { ...adminInputQuestion };
     const dataKey = target.getAttribute('data-key');
-    newObj.question[dataKey] = value;
+    newObj[dataKey] = value;
+
     setAdminInputQuestion(newObj);
-  };
+  }
+
+  console.log(adminInputResource);
+
 
   // Fonction qui gère les onChange du hook resources
   const onResourceInputChange = ({ target }) => {
     const { value } = target;
     const newObj = { ...adminInputResource };
     const dataKey = target.getAttribute('data-key');
+<<<<<<< HEAD
     newObj.resource[dataKey] = value;
     setAdminInputResource(newObj);
   };
+=======
+    newObj[dataKey] = value;
+    newObj.questionNumber = adminInputQuestion.number_question;
+    setAdminInputResource([newObj]);
+  }
+
+
+  const buildCardData = () => {
+    const resources = adminInputResource.filter(
+      resource => resource.questionNumber === adminInputQuestion.number_question);
+    adminInputQuestion.resources = resources;
+    adminInput.questions = adminInputQuestion;
+
+    console.log(adminInput);
+  }
+>>>>>>> adminpanel
 
   return (
     <div>
       <div className="container-fluid">
+
         <div className="row">
           <div className="col-2 div-menu">Administration du site</div>
           <div className="container-adminInput col-10">
             <form className="pr-5 divForm">
-              <div className="form-group d-flex flex-column">
-                <p>Que voulez-vous faire ?</p>
-                <div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio1">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsAction" id="inlineRadio1" value="option1" />
-                      Ajouter une carte
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio2">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsAction" id="inlineRadio2" value="option2" />
-                      Modifier une carte
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio3">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsAction" id="inlineRadio3" value="option3" />
-                      Supprimer une carte
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="container-card col-10">
-                <div className="div-card-list">
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio1">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsCard" id="inlineRadio1" value="option1" />
-                      Présent
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio2">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsCard" id="inlineRadio2" value="option2" />
-                      Peurs
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio3">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsCard" id="inlineRadio3" value="option3" />
-                      Forces
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <br />
               <div>
                 <label htmlFor="formGroupExampleInputcard" className="divcard">
                   Entrez le nom de la carte :
@@ -233,7 +215,7 @@ function Form() {
                 <div className="d-flex div-question-bouton" row="1">
                   <label htmlFor="formGroupExampleInput" className="col-10">
                     Ecrivez votre question :
-                    <input type="text" className="form-control div-input-question col-10" id="formGroupExampleInput" data-key="text_question" value={adminInputQuestion.question.text_question} onChange={onQuestionInputChange} />
+                    <input type="text" className="form-control div-input-question col-10" id="formGroupExampleInput" data-key="text_question" value={adminInputQuestion.text_question} onChange={onQuestionInputChange} />
                   </label>
                   <button type="button" className="btn btn-secondary btn-delete">Supprimer</button>
                 </div>
@@ -241,14 +223,14 @@ function Form() {
               <div>
                 <label htmlFor="formGroupExampleInput" className="col-10">
                   Ecrivez le numéro de la question :
-                  <input type="text" className="form-control mr-5 div-input-question" id="formGroupExampleInput" placeholder="ex: 1.2" data-key="number_question" value={adminInputQuestion.question.number_question} onChange={onQuestionInputChange} />
+                  <input type="text" className="form-control mr-5 div-input-question" id="formGroupExampleInput" placeholder="ex: 1.2" data-key="number_question" value={adminInputQuestion.number_question} onChange={onQuestionInputChange} />
                 </label>
               </div>
 
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Ajoutez une photo qui sera affichée avec la question (lien) :
-                  <textarea className="form-control col-10" rows="1" id="1" data-key="image_question" value={adminInputQuestion.question.image_question} onChange={onQuestionInputChange} />
+                  <textarea className="form-control col-10" rows="1" id="1" data-key="image_question" value={adminInputQuestion.image_question} onChange={onQuestionInputChange} />
                 </label>
               </div>
               <br />
@@ -285,9 +267,14 @@ function Form() {
                         rows="1"
                         id="1"
                         data-key="url_resource"
+<<<<<<< HEAD
                         value={adminInputResource.resource.url_resource}
                         onChange={onResourceInputChange}
                       />
+=======
+                        value={adminInputResource.url_resource}
+                        onChange={onResourceInputChange} />
+>>>>>>> adminpanel
                     </div>
                   </div>
                   <div className="mt-4">
