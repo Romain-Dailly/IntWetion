@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../NavBar/NavBar.css';
 import Question from '../Question/Question';
@@ -11,7 +11,7 @@ const ActionBar = ({ closeModal, onNextButtonClick }) => (
   </div>
 );
 
-const Modal = ({ questions, color = 'white',quitQuiz }) => {
+const Modal = ({ questions, color = 'white', quitQuiz }) => {
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
 
@@ -20,24 +20,24 @@ const Modal = ({ questions, color = 'white',quitQuiz }) => {
     if (questionIndex < questionCount) {
       setQuestionIndex(questionIndex + 1);
     }
-  }
+  };
 
   const getProgress = () => {
     const numberOfQuestion = questions.length - 1;
-    return (questionIndex) / numberOfQuestion * 100
-  }
+    return (questionIndex) / numberOfQuestion * 100;
+  };
   const storeAnswer = (answer, number) => {
     const questionKey = `question-${number}`;
     const answersCopy = answers;
     answersCopy[questionKey] = answer;
     setAnswers(answersCopy);
-  }
+  };
 
   return (
     <div className="overlay">
       <div className="overlay-content" style={{ background: `${color}` }}>
         <div className="ui-progress">
-          <div className="ui-progress-bar" role="progressbar" style={{ width: `${getProgress()}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          <div className="ui-progress-bar" role="progressbar" style={{ width: `${getProgress()}%` }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" />
         </div>
         <div className="content">
           <Question
@@ -55,8 +55,6 @@ const Modal = ({ questions, color = 'white',quitQuiz }) => {
 };
 
 Modal.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.element,
   color: PropTypes.string,
 };
 

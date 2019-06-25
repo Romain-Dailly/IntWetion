@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Card.css'
+import './Card.css';
 
 const Card = ({ data, runQuiz }) => {
-  const { image, overline, title, description } = data;
+  const { image, overline, title } = data;
 
   const cardStyle = {
-    backgroundImage: `url(${image})`
-  }
+    backgroundImage: `url(${image})`,
+  };
   return (
     <div className="col-sm-12 col-md-6 col-lg-3 px-2">
       <div className="ui-card my-2">
-        <div className="ui-card-image" style={cardStyle}>
-        </div>
+        <div className="ui-card-image" style={cardStyle} />
         <div className="ui-card-body">
           <div className="ui-content">
             <p className="ui-card-overline overline">{overline}</p>
@@ -29,7 +28,10 @@ const Card = ({ data, runQuiz }) => {
             <button
               type="button"
               className="ui-button ui-button-outline"
-              onClick={runQuiz}>Go Solve</button>
+              onClick={runQuiz}
+            >
+              Go Solve
+            </button>
           </div>
         </div>
       </div>

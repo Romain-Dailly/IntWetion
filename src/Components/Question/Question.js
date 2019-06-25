@@ -1,18 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Question.css'
+import './Question.css';
 
 const Question = ({ question, onAnswerSelected }) => {
   const { text, image } = question;
 
-  const RadioButton = ({ number }) => {
-    return (
-      <div className="radio-button">
-        <input className="choice-radio" type="radio" name="answer-radio" onChange={() => onAnswerSelected(number, question.number)} />
-        <label className="check-mark m-0"></label>
-        <span>{number}</span>
-      </div>);
-  }
+  const RadioButton = ({ number }) => (
+    <div className="radio-button">
+      <input className="choice-radio" type="radio" name="answer-radio" onChange={() => onAnswerSelected(number, question.number)} />
+      <label className="check-mark m-0" />
+      <span>{number}</span>
+    </div>
+  );
 
   const answerRange = [...Array(11).keys()];
 
@@ -27,7 +26,7 @@ const Question = ({ question, onAnswerSelected }) => {
       </div>
     </div>
   );
-}
+};
 
 Question.prototype = {
   question: PropTypes.string,
