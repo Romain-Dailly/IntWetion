@@ -9,6 +9,7 @@ CREATE TABLE `card`
   `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(255),
   `image` varchar(255),
+  `bg_color` varchar(25),
   `description` text,
   `online` boolean,
   `payment` boolean,

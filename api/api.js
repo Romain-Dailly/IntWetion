@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 // ROUTE GET cards pour recuperer les ids, noms, images 
 // et descriptions des cartes
 app.get('/cards/', (request, response) => {
-  connection.query('SELECT id, name, image, description FROM card', (error, results) =>{
+  connection.query('SELECT id, name, image, bg_color, description FROM card', (error, results) => {
     if (error) {
       response.status(500).send('Erreur lors de la récupération des cartes');
     }
