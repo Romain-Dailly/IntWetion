@@ -6,8 +6,6 @@ import AdminQuestion from './Components/adminpanel/AdminQuestion';
 function App() {
   return (
     <div>
-
-     <AdminQuestion />
     </div>
   );
 }
