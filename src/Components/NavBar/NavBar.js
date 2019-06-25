@@ -6,7 +6,7 @@ const NavBar = ({ title }) => {
   const [isDrawerOpen, openDrawer] = useState(false);
 
   return (
-    <header>
+    <header className="main-header">
       <div className="nav-bar">
         <i className="icon icon-arrow-back" />
         <p className="title m-0">{title}</p>
@@ -14,7 +14,7 @@ const NavBar = ({ title }) => {
           onClick={() => openDrawer(!isDrawerOpen)}
           className={`icon icon-${isDrawerOpen ? 'close' : 'menu'}`}
           role="button"
-          tabIndex="0"
+          tabIndex="-1"
         />
       </div>
       <nav className={`main-nav ${isDrawerOpen ? 'active' : ''}`}>
