@@ -105,6 +105,43 @@
   color: #3498db;
 }
 
+.button {
+  line-height: 1.14;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+  height: 36px;
+  padding: 0 8px;
+  border: none;
+  outline: none;
+}
+
+.button-text {
+  background: none;
+  color: #4a4a4a;
+}
+
+.button-text:hover {
+  background: #eaeaea;
+}
+
+/* Ripple */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+
+.ripple:hover {
+  background: rgb(237, 237, 237) radial-gradient(circle, transparent 1%, rgb(235, 235, 235) 1%) center/15000%;
+}
+
+.ripple:active {
+  background-color: rgb(255, 255, 255);
+  background-size: 100%;
+  transition: background 0s;
+}
+
 .divider-dark {
   height: 1px;
   opacity: 0.12;
