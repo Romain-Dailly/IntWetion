@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import Card from './Components/Card/Card';
+import React, { useState, Fragment } from 'react';
 import Modal from './Components/Modal/Modal';
 import NavBar from './Components/NavBar/NavBar'
 import './App.css';
@@ -7,31 +6,24 @@ import Home from './Components/Home/Home';
 
 const data = [
   {
-    overline: "Spirituality",
-    title: "Sacral Chakra",
+    overline: "Flash",
+    title: "Force",
     description: "The sacral chakra is all about our connection and ability to accept others and new experiences.",
     image: "https://images.unsplash.com/photo-1516526995003-435ccce2be97?w=800",
   },
   {
-    overline: "Spirituality",
-    title: "Third Eye Chakra",
+    overline: "Flash",
+    title: "Peur",
     description: "The sacral chakra is all about our connection and ability to accept others and new experiences.",
     image: "https://images.unsplash.com/photo-1504021624863-054aa77f753f?w=800",
   },
-  {
-    overline: "Spirituality",
-    title: "Solar Plexus Chakra",
-    description: "The third eye chakra speaks to our ability to see the big picture.",
-    image: "https://images.unsplash.com/photo-1525289102910-f7ef06394da0?w=800",
-  },
 
   {
-    overline: "Spirituality",
-    title: "Solar Plexus Chakra",
-    description: "The third eye chakra speaks to our ability to see the big picture.",
-    image: "https://images.unsplash.com/photo-1529693662653-9d480530a697?w=800",
+    overline: "Temporelles",
+    title: "Terrestre",
+    description: "The sacral chakra is all about our connection and ability to accept others and new experiences.",
+    image: "https://images.unsplash.com/photo-1539131729610-2b4d9cf62e2c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2125&q=80",
   }
-
 ]
 
 const questions = [
@@ -75,13 +67,13 @@ function App() {
   }
 
   return (
-    <div>
+    <Fragment>
       <NavBar title="Forces" />
       <Home cards={data} runQuiz={runQuiz} />
       <div className={(isVisible ? "" : "d-none")}>
         <Modal questions={questions} quitQuiz={quitQuiz} />
       </div>
-    </div>
+    </Fragment>
 
   );
 }

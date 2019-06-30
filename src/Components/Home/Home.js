@@ -5,8 +5,8 @@ import './Home.css'
 
 const Home = ({ cards, runQuiz }) => {
   return (
-    <div className="home">
-      <div className="container">
+    <div className="home background-white">
+      <div className="container px-2">
         <div className="row">
           {cards.map(card => (
             <Card

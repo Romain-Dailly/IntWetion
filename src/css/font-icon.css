@@ -1,0 +1,129 @@
+@font-face {
+  font-family: 'icon';
+  src: url('../assets/fonts/icon.eot?6gy16a');
+  src: url('../assets/fonts/icon.eot?6gy16a#iefix') format('embedded-opentype'),
+    url('../assets/fonts/icon.ttf?6gy16a') format('truetype'),
+    url('../assets/fonts/icon.woff?6gy16a') format('woff'),
+    url('../assets/fonts/icon.svg?6gy16a#icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-lotus:before {
+  content: "\e90a";
+}
+
+.icon-toggle:before {
+  content: "\e90b";
+}
+
+.icon-folder:before {
+  content: "\e90c";
+}
+
+.icon-send:before {
+  content: "\e90d";
+}
+
+.icon-mail:before {
+  content: "\e90e";
+}
+
+.icon-volume:before {
+  content: "\e90f";
+}
+
+.icon-pause:before {
+  content: "\e913";
+}
+
+.icon-play:before {
+  content: "\e914";
+}
+
+.icon-cart:before {
+  content: "\e915";
+}
+
+.icon-basket:before {
+  content: "\e916";
+}
+
+.icon-feedback:before {
+  content: "\e917";
+}
+
+.icon-favorite:before {
+  content: "\e918";
+}
+
+.icon-favorite-empty:before {
+  content: "\e919";
+}
+
+.icon-done:before {
+  content: "\e91a";
+}
+
+.icon-add:before {
+  content: "\e91b";
+}
+
+.icon-remove:before {
+  content: "\e91c";
+}
+
+.icon-chevron-down:before {
+  content: "\e901";
+}
+
+.icon-chevron-up:before {
+  content: "\e902";
+}
+
+.icon-chevron-left:before {
+  content: "\e903";
+}
+
+.icon-chevron-right:before {
+  content: "\e904";
+}
+
+.icon-back:before {
+  content: "\e910";
+}
+
+.icon-forward:before {
+  content: "\e905";
+}
+
+.icon-edit:before {
+  content: "\e906";
+}
+
+.icon-trash:before {
+  content: "\e907";
+}
+
+.icon-headset:before {
+  content: "\e908";
+}
+
+.icon-info:before {
+  content: "\e909";
+}

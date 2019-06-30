@@ -1,24 +1,44 @@
+.background-gray {
+  background: #ecedef;
+}
+
+.background-white {
+  background: #ffffff;
+}
+
+.background-gradient {
+  background-image: linear-gradient(122deg, #9F041B 0%, #F5515F 100%);
+}
+
+.text-white{
+  color: #ffffff;
+}
+
 .ui-card {
   width: 100%;
   border-radius: 6px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, .25);
+   box-shadow: 0px 1px 3px rgba(0, 0, 0, .25); 
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, .1);
+  overflow: hidden;
+}
+
+.ui-card-soft {
+  width: 100%;
+  border-radius: 4px;
   background-color: #ffffff;
   overflow: hidden;
 }
 
 .ui-card:hover {
-  box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15);
+  /* box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15); */
 }
 
 .ui-card-image {
-  background-image: url('./assets/images/image-1.jpg');
+  background-image: url('../assets/images/image-1.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   height: 219px;
-}
-
-.ui-card-body {
-  padding: 0 16px;
 }
 
 .ui-card-overline {
@@ -44,8 +64,9 @@
 }
 
 .ui-button-outline {
-  border: solid 1.5px #5699ff;
-  color: #3d89fd;
+  background-color: transparent;
+  border: solid 1.5px #3498db;
+  color: #3498db;
 }
 
 .divider-dark {
@@ -59,6 +80,12 @@
   font-size: 24px;
   cursor: pointer;
   padding: 8px;
+  transition: all 0.1s;
+}
+
+.icon-alt {
+  transition: all 0.1s;
+  font-size: 24px;
 }
 
 /* Typography */
@@ -113,4 +140,14 @@
   white-space: nowrap;
   background-color: #9c27b0;
   transition: width .6s ease;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
