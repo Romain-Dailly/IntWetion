@@ -4,20 +4,39 @@ import "../NavBar/NavBar.css";
 import Question from "../Question/Question";
 import "./Modal.css";
 
+/**
+ * A component containing important view action triggers such as text
+ * and icon buttons.
+ * @param {objects} props An object containing required dependencies for this function.
+ */
 const ActionBar = ({ closeModal, onNextButtonClick }) => (
-  <div className="nav-bar action-bar">
-    <button type="button" className="button" onClick={closeModal}>
-      Close
-    </button>
-    <button type="button" className="button" onClick={onNextButtonClick}>
-      Next
+  <div className="action-bar">
+    <div className=" d-flex align-items-center w-100">
+      <i className="icon icon-volume" />
+      <input
+        type="range"
+        min="0"
+        max="1"
+        step="any"
+        onChange={({ target }) => console.log(target.value)}
+        className="slider ml-3 mr-4"
+      />
+    </div>
+    <button
+      type="button"
+      className="button button-text ripple"
+      onClick={onNextButtonClick}
+      tabIndex="-1"
+    >
+      Continue
     </button>
   </div>
 );
 
 /**
- *
- * @param {object} props
+ * A component displayed above other component.
+ * It serves as a wrapper for other sub-components.
+ * @param {object} props An object containing required dependencies for this component.
  */
 const Modal = ({ questions, color = "white", quitQuiz }) => {
   const [answers, setAnswers] = useState({});
