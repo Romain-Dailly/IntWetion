@@ -28,7 +28,6 @@ const Card = ({ data, runQuiz }) => {
 
             <p className={"ui-card-text body-1 noselect " + (isVisible ? "" : "d-none")}>{description}</p>
           </div>
-          <div className="divider-dark" />
           <div className="ui-card-action">
             <i className="icon-alt icon-headset" />
             <button
