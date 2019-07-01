@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
 import "../NavBar/NavBar.css";
 import Question from "../Question/Question";
 import "./Modal.css";
 
 /**
- * A component containing important view action triggers such as text
- * and icon buttons.
+ * A component containing widgets to trigger actions.
  * @param {objects} props An object containing required dependencies for this function.
  */
 const ActionBar = ({ closeModal, onNextButtonClick }) => (
@@ -38,7 +38,10 @@ const ActionBar = ({ closeModal, onNextButtonClick }) => (
  * It serves as a wrapper for other sub-components.
  * @param {object} props An object containing required dependencies for this component.
  */
-const Modal = ({ questions, color = "white", quitQuiz }) => {
+const Modal = ({ color = "white", quitQuiz }) => {
+  const questions = useSelector(store => store.card.quiz.questions);
+  console.log(questions);
+
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
 
