@@ -24,7 +24,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
+.icon-volume-mute:before {
+  content: "\ea29";
+}
 .icon-add:before {
   content: "\e908";
 }
