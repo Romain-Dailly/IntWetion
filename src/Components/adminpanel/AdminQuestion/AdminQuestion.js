@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AdminQuestion = () => {
 
   const [question, setQuestion] = useState({});
-  const [resources, setResources] = useState([{ url_resource: 'iyoiy' }]);
+  const [resources, setResources] = useState([
+    {
+      url_resource: ""
+    }
+  ]);
 
+  useEffect(() => {
+    console.log(question, resources);
+  }, [question]);
 
   // Fonction qui gère les onChange du hook question, peut être fusionnée avec onVideoInputChange
   const onQuestionInputChange = ({ target }) => {
@@ -16,24 +23,27 @@ const AdminQuestion = () => {
   }
 
   // Fonction qui gère les onChange du hook resources
-  const onResourceInputChange = ({ target }) => {
-    const { value } = target;
-    const i = target.getAttribute('id');
-    const newResources = resources;
-    const dataKey = target.getAttribute('data-key');
-    newResources[i][dataKey] = value;
-    setResources(newResources);
+  const onResourceInputChange = (event) => {
+    let newValue = [...resources];
+    let id = event.target.id;
+    newValue[id].url_resource = event.target.value;
+    setResources(newValue);
   }
 
   const addResource = () => {
-    // let newResources = [resources, ...{}];
-    // // let newObj = {};
-    // // newResources=[...newObj];
-    // setResources(newResources)
+    setResources([...resources, { url_resource: '' }]);
   }
 
-  console.log(question, resources);
-
+  const handleSubmit = (event) => {
+    buildQuestionData()
+    event.preventDefault();
+  };
+  const buildQuestionData = () => {
+    let finalQuestion = {...question};
+    finalQuestion.resources = resources;
+    setQuestion(finalQuestion);
+    console.log(question);
+  }
   return (
     <div>
       <h1>Espace Questions</h1>
@@ -64,14 +74,30 @@ const AdminQuestion = () => {
       <p>Type de réponse liée :</p>
       <fieldset className="form-group">
         <div className="form-check form-check-inline">
-          <label className="form-check-label" htmlFor="inlineCheckbox1">
-            <input className="form-check-input" type="checkbox" id="inlineCheckbox1" data-key="type_response" value={1} onChange={onQuestionInputChange} />
+          <label className="form-check-label" htmlFor="inlineRadio1">
+            <input 
+            className="form-check-input"
+            name="inlineRadioOptionsType_response"
+            type="radio"
+            id="inlineRadiobox1"
+            data-key="type_response"
+            value='1'
+            onChange={onQuestionInputChange}
+            />
             Numérique
           </label>
         </div>
         <div className="form-check form-check-inline">
-          <label className="form-check-label" htmlFor="inlineCheckbox2">
-            <input className="form-check-input" type="checkbox" id="inlineCheckbox2" data-key="type_response" value={2} onChange={onQuestionInputChange} />
+          <label className="form-check-label" htmlFor="inlineRadio2">
+            <input 
+            className="form-check-input"
+            name="inlineRadioOptionsType_response"
+            type="radio"
+            id="inlineRadiobox2"
+            data-key="type_response"
+            value='2'
+            onChange={onQuestionInputChange}
+            />
             Texte
             </label>
         </div>
@@ -83,29 +109,27 @@ const AdminQuestion = () => {
           Ressources liées :
                 </div>
         <div className="col-9">
-          <div className="col-9">
-            <textarea type="text"
-              className="form-control"
-              placeholder="Lien"
-              rows="1"
-              id="0"
-              data-key="url_resource"
-              value={resources.url_resource}
-              onChange={onResourceInputChange} />
+          <div>
+            {resources.map((resource, i) => {
+              return (<div className="col-9">
+                <textarea type="text"
+                  className="form-control"
+                  placeholder='Lien'
+                  rows="1"
+                  id={i}
+                  value={resources[i].url_resource}
+                  onChange={(event) => onResourceInputChange(event)} />
+              </div>)
+            })}
           </div>
-          {/* {onAddResource()} */}
-
-          {/* <div className="mt-4">
-            <p className="mr-2 d-inline-block">Ajouter un champ ressource supplémentaire</p>
-            <i className="fas fa-plus-circle" />
-          </div> */}
-        </div>
-        <div className="mt-4">
-          {/* <i className="fas fa-plus-circle" />
-          <p className="ml-4 d-inline-block">Ajouter un champ ressource supplémentaire</p> */}
+          <div className="mt-4">
           <button onClick={addResource}>Ajouter ressource</button>
+          </div>
         </div>
       </div>
+      <div className="mt-4">
+          <button onClick={handleSubmit}>Enregistrer</button>
+          </div>
     </div>
   );
 }
