@@ -57,15 +57,6 @@ function Form() {
   };
 
   // Fonction qui gère les onChange du hook card
-<<<<<<< HEAD
-  // const onCardInputChange = ({ target }) => {
-  //   const { value } = target;
-  //   const newObj = { ...adminInput };
-  //   const dataKey = target.getAttribute('data-key');
-  //   newObj.card[dataKey] = value;
-  //   setAdminInput(newObj);
-  // };
-=======
   const onCardInputChange = ({ target }) => {
     const { value } = target;
     const newObj = { ...adminInput };
@@ -74,7 +65,6 @@ function Form() {
     setAdminInput(newObj);
   };
   console.log(adminInput);
->>>>>>> adminpanel
 
   // Fonction qui gère les onChange du hook vidéo
   const onVideoInputChange = ({ target }) => {
@@ -103,11 +93,6 @@ function Form() {
     const { value } = target;
     const newObj = { ...adminInputResource };
     const dataKey = target.getAttribute('data-key');
-<<<<<<< HEAD
-    newObj.resource[dataKey] = value;
-    setAdminInputResource(newObj);
-  };
-=======
     newObj[dataKey] = value;
     newObj.questionNumber = adminInputQuestion.number_question;
     setAdminInputResource([newObj]);
@@ -122,7 +107,6 @@ function Form() {
 
     console.log(adminInput);
   }
->>>>>>> adminpanel
 
   return (
     <div>
@@ -267,14 +251,8 @@ function Form() {
                         rows="1"
                         id="1"
                         data-key="url_resource"
-<<<<<<< HEAD
-                        value={adminInputResource.resource.url_resource}
-                        onChange={onResourceInputChange}
-                      />
-=======
                         value={adminInputResource.url_resource}
                         onChange={onResourceInputChange} />
->>>>>>> adminpanel
                     </div>
                   </div>
                   <div className="mt-4">
