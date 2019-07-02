@@ -2,6 +2,7 @@
   "card": {
     "name": "Mes points forts",
     "image": "./assets/Images/Force.jpg",
+    "bg_color": "#f00",
     "description": "",
     "online": 1,
     "payment": 0,

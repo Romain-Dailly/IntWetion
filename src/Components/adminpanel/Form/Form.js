@@ -32,14 +32,7 @@ function Form() {
   });
 
   // Hook pour l'élément question
-  const [adminInputQuestion, setAdminInputQuestion] = useState({
-    number_question: '',
-    text_question: '',
-    image_question: '',
-    type_response: 1,
-    has_comment: false,
-    resources: [],
-  },
+  const [adminInputQuestions, setAdminInputQuestions] = useState([],
   );
 
   // Hook pour l'élément resource
@@ -76,14 +69,14 @@ function Form() {
   };
 
   // Fonction qui gère les onChange du hook question, peut être fusionnée avec onVideoInputChange
-  const onQuestionInputChange = ({ target }) => {
-    const { value } = target;
-    const newObj = { ...adminInputQuestion };
-    const dataKey = target.getAttribute('data-key');
-    newObj[dataKey] = value;
+  // const onQuestionInputChange = ({ target }) => {
+  //   const { value } = target;
+  //   const newObj = { ...adminInputQuestion };
+  //   const dataKey = target.getAttribute('data-key');
+  //   newObj[dataKey] = value;
 
-    setAdminInputQuestion(newObj);
-  }
+  //   setAdminInputQuestion(newObj);
+  // }
 
   console.log(adminInputResource);
 
@@ -111,7 +104,6 @@ function Form() {
   return (
     <div>
       <div className="container-fluid">
-
         <div className="row">
           <div className="col-2 div-menu">Administration du site</div>
           <div className="container-adminInput col-10">
