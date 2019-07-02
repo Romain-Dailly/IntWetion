@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 // import Modal from './Components/Modal/Modal';
 // import NavBar from './Components/NavBar/NavBar';
 import './App.css';
-import AdminQuestion from './Components/adminpanel/AdminQuestion/AdminQuestion';
+import Form from './Components/Adminpanel/Form/Form';
+
+
 // import Home from './Components/Home/Home';
 
 
@@ -21,7 +23,7 @@ function App() {
 
   return (
     <div>
-      <AdminQuestion/>
+      <Form />
       {/* <NavBar title="Forces" />
       <Home cards={data} runQuiz={runQuiz} />
       <div className={(isVisible ? '' : 'd-none')}>
