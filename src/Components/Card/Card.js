@@ -45,11 +45,11 @@ const Card = ({ data }) => {
               {description}
             </p>
           </div>
-          <div className="ui-card-action">
+          <div className="card-action mt-3 mb-4">
             <i className="icon-alt icon-headset" />
             <button
               type="button"
-              className="ui-button ui-button-outline"
+              className="button button-outline"
               onClick={() => {
                 dispatch(startQuiz(questions));
               }}

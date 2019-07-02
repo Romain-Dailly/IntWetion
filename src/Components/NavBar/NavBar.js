@@ -25,20 +25,8 @@ const NavBar = () => {
             <li>
               <a href="/">Libérer l'intuition</a>
             </li>
-            <li className="carte-de-vie d-flex justify-content-center">
+            <li>
               <a href="/">Cartes de vie</a>
-              <i className="icon-alt icon-chevron-down" />
-              <ul className="carte-de-vie-child">
-                <li>
-                  <a href="/">Flash</a>
-                </li>
-                <li>
-                  <a href="/">Temporelles</a>
-                </li>
-                <li>
-                  <a href="/">A la "Carte"</a>
-                </li>
-              </ul>
             </li>
             <li>
               <a href="/">Bien-être et musique</a>
@@ -47,6 +35,11 @@ const NavBar = () => {
               <i className="icon-alt icon-more-horiz" />
             </li>
           </ul>
+
+          <div>
+            <span className="avatar" />
+            <i className="icon-unfold-more" />
+          </div>
         </nav>
       </div>
     </header>

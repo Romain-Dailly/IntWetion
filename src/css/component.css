@@ -81,11 +81,21 @@
   margin: 16px 0;
 }
 
-.ui-card-action {
-  padding: 16px 0;
+.card-action {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.avatar {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-image: url('../assets/images/avatar.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
 .ui-button {
@@ -101,18 +111,17 @@
 
 .ui-button-outline {
   background-color: transparent;
-  border: solid 1.5px #3498db;
-  color: #3498db;
+  border: solid 1.5px var(--color-primary);
+  color: var(--color-primary);
 }
 
 .button {
-  line-height: 1.14;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 1.25px;
   text-transform: uppercase;
   height: 36px;
-  padding: 0 8px;
+  padding: 0 16px;
   border: none;
   outline: none;
 }
@@ -124,6 +133,20 @@
 
 .button-text:hover {
   background: #eaeaea;
+}
+
+.button-primary {
+  background: var(--color-primary);
+  color: #ffffff;
+  border-radius: 50px;
+  border: 1px solid var(--color-primary);
+}
+
+.button-outline {
+  background: none;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 50px;
+  color: var(--color-primary);
 }
 
 /* Ripple */
@@ -153,7 +176,7 @@
   font-size: 24px;
   cursor: pointer;
   padding: 8px;
-  transition: all 0.1s;
+  transition: all 0.2s;
 }
 
 .icon-alt {

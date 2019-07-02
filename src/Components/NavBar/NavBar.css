@@ -26,6 +26,8 @@
 .nav-bar .logo {
   display: flex;
   align-items: center;
+  font-weight: 400;
+  font-size: 18px;
 }
 
 /* laptop  */
@@ -35,6 +37,10 @@
     width: 100%;
     justify-content: flex-start;
     padding: 0 48px;
+  }
+
+  .nav-bar .logo {
+    font-size: 22px;
   }
 }
 
@@ -70,6 +76,7 @@
     height: inherit;
     padding: initial;
     align-items: center;
+    justify-content: space-between;
     display: flex;
     width: 100%;
     transition: none;
@@ -125,6 +132,7 @@
 
 /* laptop  */
 @media (min-width: 992px) {
+
   .main-nav ul li a,
   .main-nav ul li i {
     font-weight: inherit;
