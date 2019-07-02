@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const AdminQuestion = () => {
+const AdminQuestion = ({getModalInfo}) => {
 
   const [question, setQuestion] = useState({});
   const [resources, setResources] = useState([
@@ -13,7 +13,7 @@ const AdminQuestion = () => {
     console.log(question, resources);
   }, [question]);
 
-  // Fonction qui gère les onChange du hook question, peut être fusionnée avec onVideoInputChange
+  // Fonction qui gère les onChange du hook question
   const onQuestionInputChange = ({ target }) => {
     const { value } = target;
     const newQuestion = { ...question };
@@ -30,106 +30,129 @@ const AdminQuestion = () => {
     setResources(newValue);
   }
 
-  const addResource = () => {
+  const addResource = (event) => {
+    event.preventDefault();
     setResources([...resources, { url_resource: '' }]);
   }
 
-  const handleSubmit = (event) => {
-    buildQuestionData()
-    event.preventDefault();
-  };
   const buildQuestionData = () => {
-    let finalQuestion = {...question};
+    let finalQuestion = { ...question };
     finalQuestion.resources = resources;
+     getModalInfo(finalQuestion);
     setQuestion(finalQuestion);
-    console.log(question);
   }
+
+  const handleSubmit = (event) => {
+    if (question.text_question && question.number_question && question.type_response){
+    buildQuestionData();
+    event.preventDefault();
+  } 
+}
+ console.log(resources)
   return (
-    <div>
-      <h1>Espace Questions</h1>
-      <div>
-        <div className="d-flex div-question-bouton" row="1">
-          <label htmlFor="formGroupExampleInput" className="col-10">
-            Ecrivez votre question :
+    < div>
+      <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Ajouter une question </button>
+      <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalCenterTitle">Espace questions</h5>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+
+     
+              <form>
+                <div className="d-flex div-question-bouton" row="1">
+                  <label htmlFor="formGroupExampleInput" className="col-10">
+                    Ecrivez votre question :
               <input type="text" className="form-control div-input-question col-10" id="formGroupExampleInput" data-key="text_question" value={question.text_question} onChange={onQuestionInputChange} />
-          </label>
-          <button type="button" className="btn btn-secondary btn-delete">Supprimer</button>
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="formGroupExampleInput" className="col-10">
-          Ecrivez le numéro de la question :
-            <input type="text" className="form-control mr-5 div-input-question" id="formGroupExampleInput" placeholder="ex: 1.2" data-key="number_question" value={question.number_question} onChange={onQuestionInputChange} />
-        </label>
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="exampleFormControlTextarea1">
-          Ajoutez une photo qui sera affichée avec la question (lien) :
-          <textarea className="form-control col-10" rows="1" id="1" data-key="image_question" value={question.image_question} onChange={onQuestionInputChange} />
-        </label>
-      </div>
-      <br />
-      <p>Type de réponse liée :</p>
-      <fieldset className="form-group">
-        <div className="form-check form-check-inline">
-          <label className="form-check-label" htmlFor="inlineRadio1">
-            <input 
-            className="form-check-input"
-            name="inlineRadioOptionsType_response"
-            type="radio"
-            id="inlineRadiobox1"
-            data-key="type_response"
-            value='1'
-            onChange={onQuestionInputChange}
-            />
-            Numérique
-          </label>
-        </div>
-        <div className="form-check form-check-inline">
-          <label className="form-check-label" htmlFor="inlineRadio2">
-            <input 
-            className="form-check-input"
-            name="inlineRadioOptionsType_response"
-            type="radio"
-            id="inlineRadiobox2"
-            data-key="type_response"
-            value='2'
-            onChange={onQuestionInputChange}
-            />
-            Texte
-            </label>
-        </div>
-      </fieldset>
-      <br />
-
-      <div className="row">
-        <div className="col-3">
-          Ressources liées :
+                  </label>
                 </div>
-        <div className="col-9">
-          <div>
-            {resources.map((resource, i) => {
-              return (<div className="col-9">
-                <textarea type="text"
-                  className="form-control"
-                  placeholder='Lien'
-                  rows="1"
-                  id={i}
-                  value={resources[i].url_resource}
-                  onChange={(event) => onResourceInputChange(event)} />
-              </div>)
-            })}
-          </div>
-          <div className="mt-4">
-          <button onClick={addResource}>Ajouter ressource</button>
+                <div>
+                  <label htmlFor="formGroupExampleInput" className="col-10">
+                    Ecrivez le numéro de la question :
+            <input type="text" className="form-control mr-5 div-input-question" id="formGroupExampleInput" placeholder="ex: 1.2" data-key="number_question" value={question.number_question} onChange={onQuestionInputChange} />
+                  </label>
+                </div>
+                <div className="form-group">
+                  <label htmlFor="exampleFormControlTextarea1">
+                    Ajoutez une photo qui sera affichée avec la question (lien) :
+          <textarea className="form-control col-10" rows="1" id="1" data-key="image_question" value={question.image_question} onChange={onQuestionInputChange} />
+                  </label>
+                </div>
+                <br />
+                <p>Type de réponse liée :</p>
+                <fieldset className="form-group">
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label" htmlFor="inlineRadio1">
+                      <input
+                        className="form-check-input"
+                        name="inlineRadioOptionsType_response"
+                        type="radio"
+                        id="inlineRadiobox1"
+                        data-key="type_response"
+                        value='1'
+                        onChange={onQuestionInputChange}
+                      />
+                      Numérique
+          </label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label" htmlFor="inlineRadio2">
+                      <input
+                        className="form-check-input"
+                        name="inlineRadioOptionsType_response"
+                        type="radio"
+                        id="inlineRadiobox2"
+                        data-key="type_response"
+                        value='2'
+                        onChange={onQuestionInputChange}
+                      />
+                      Texte
+            </label>
+                  </div>
+                </fieldset>
+                <br />
+
+                <div className="row">
+                  <div className="col-3">
+                    Ressources liées :
+                </div>
+                  <div className="col-9">
+                    <div>
+                      {resources.map((resource, i) => {
+                        return (<div className="col-9" key={i}>
+                          <textarea key={i} type="text"
+                            className="form-control"
+                            placeholder='Lien'
+                            rows="1"
+                            id={i}
+                            value={resources[i].url_resource}
+                            onChange={onResourceInputChange} />
+                        </div>)
+                      })}
+                    </div>
+                    <div className="mt-4">
+                      <button onClick={addResource}>Ajouter ressource</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
+              <button 
+              type="button"
+              className="btn btn-primary"
+              onClick={handleSubmit}
+              >Enregistrer</button>
+              </div>
           </div>
         </div>
       </div>
-      <div className="mt-4">
-          <button onClick={handleSubmit}>Enregistrer</button>
-          </div>
     </div>
   );
 }
