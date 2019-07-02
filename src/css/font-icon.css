@@ -24,6 +24,31 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+.icon-trash-alt:before {
+  content: "\e91e";
+}
+
+.icon-unfold-more:before {
+  content: "\e91f";
+}
+
+.icon-sort-left:before {
+  content: "\e920";
+}
+
+.icon-sort-right:before {
+  content: "\e921";
+}
+
+.icon-sort-down:before {
+  content: "\e922";
+}
+
+.icon-sort-up:before {
+  content: "\e923";
+}
+
 .icon-more-vert:before {
   content: "\e900";
 }
