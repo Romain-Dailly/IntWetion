@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
-import { startQuiz } from "../../actions";
+import { startQuiz, removeCard } from "../../actions";
 import "./Card.css";
 
 const Card = ({ data }) => {
@@ -14,12 +14,17 @@ const Card = ({ data }) => {
   const cardStyle = {
     backgroundImage: `url(${image})`
   };
+
   return (
     <div className="col-sm-4 mb-3">
       <div className="ui-card background-white">
         <div className="action-tab">
-          <i className="icon-edit" />
-          <i className="icon-trash" />
+          <i role="button" className="icon-edit" />
+          <i
+            role="button"
+            onClick={() => dispatch(removeCard(data.id))}
+            className="icon-trash"
+          />
         </div>
         <div className="ui-card-image" style={cardStyle} />
         <div className="ui-card-body px-3">

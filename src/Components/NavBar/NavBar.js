@@ -36,7 +36,7 @@ const NavBar = () => {
             </li>
           </ul>
 
-          <div>
+          <div className="d-flex align-items-center">
             <span className="avatar" />
             <i className="icon-unfold-more" />
           </div>

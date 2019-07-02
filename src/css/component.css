@@ -15,7 +15,6 @@
   width: 100%;
 }
 
-
 /* Backgrounds
    ========================================================================== */
 
@@ -44,7 +43,6 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-  ;
   padding: 0 16px;
 }
 
@@ -89,13 +87,14 @@
 
 .avatar {
   display: inline-block;
+  padding: 4px;
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-image: url('../assets/images/avatar.svg');
+  background-image: url("../assets/images/avatar.svg");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
 }
 
 .ui-button {
@@ -156,7 +155,8 @@
 }
 
 .ripple:hover {
-  background: rgb(237, 237, 237) radial-gradient(circle, transparent 1%, rgb(235, 235, 235) 1%) center/15000%;
+  background: rgb(237, 237, 237)
+    radial-gradient(circle, transparent 1%, rgb(235, 235, 235) 1%) center/15000%;
 }
 
 .ripple:active {
@@ -240,16 +240,9 @@
 
 .noselect {
   -webkit-touch-callout: none;
-  /* iOS Safari */
   -webkit-user-select: none;
-  /* Safari */
   -khtml-user-select: none;
-  /* Konqueror HTML */
   -moz-user-select: none;
-  /* Firefox */
   -ms-user-select: none;
-  /* Internet Explorer/Edge */
   user-select: none;
-  /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
 }

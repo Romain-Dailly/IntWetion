@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import "../NavBar/NavBar.css";
 import Question from "../Question/Question";
-import "./Modal.css";
+import "./Quiz.css";
+import { quitQuiz } from "../../actions";
 
 /**
  * A component containing widgets to trigger actions.
  * @param {objects} props An object containing required dependencies for this function.
  */
-const ActionBar = ({ closeModal, onNextButtonClick }) => (
+const ActionBar = ({ onNextButtonClick }) => (
   <div className="action-bar">
     <div className=" d-flex align-items-center w-100">
       <i className="icon icon-volume" />
@@ -38,9 +39,9 @@ const ActionBar = ({ closeModal, onNextButtonClick }) => (
  * It serves as a wrapper for other sub-components.
  * @param {object} props An object containing required dependencies for this component.
  */
-const Modal = ({ color = "white", quitQuiz }) => {
+const Quiz = ({ color = "white" }) => {
+  const dispatch = useDispatch();
   const questions = useSelector(store => store.card.quiz.questions);
-  console.log(questions);
 
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -69,15 +70,19 @@ const Modal = ({ color = "white", quitQuiz }) => {
       <div className="context-tool-bar background-white">
         <i className="logo icon-alt icon-lotus" />
         <p className="header-5 m-0">{title}</p>
-        <i className="icon icon-close" />
+        <i
+          role="button"
+          onClick={() => dispatch(quitQuiz)}
+          className="icon icon-close"
+        />
       </div>
     );
   };
 
   return (
     <div className="overlay">
+      <ToolBar title="Forces" />
       <div className="overlay-content" style={{ background: `${color}` }}>
-        <ToolBar title="Forces" />
         <div className="content">
           <Question
             question={questions[questionIndex]}
@@ -94,16 +99,16 @@ const Modal = ({ color = "white", quitQuiz }) => {
             aria-valuemax="100"
           />
         </div>
-        <ActionBar onNextButtonClick={nextQuestion} closeModal={quitQuiz} />
+        <ActionBar onNextButtonClick={nextQuestion} />
       </div>
     </div>
   );
 };
 
-Modal.propTypes = {
+Quiz.propTypes = {
   title: PropTypes.string,
   children: PropTypes.element,
   color: PropTypes.string
 };
 
-export default Modal;
+export default Quiz;

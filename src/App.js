@@ -1,17 +1,18 @@
 import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCardData } from "./actions";
-import Modal from "./Components/Modal/Modal";
+import { getCards } from "./actions";
+import Quiz from "./Components/Quiz/Quiz";
 import NavBar from "./Components/NavBar/NavBar";
 import "./App.css";
 import Home from "./Components/Home/Home";
+import { fetchCards, deleteCard } from "./data/source";
 
 const App = () => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
    *
-   * @see [dispatch] {@link https://redux.js.org/api/store#dispatch} 
+   * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
    */
   const dispatch = useDispatch();
 
@@ -26,16 +27,19 @@ const App = () => {
   const { isStarted } = useSelector(store => store.card.quiz);
 
   useEffect(() => {
+    deleteCard(1, () => {
+      console.log("called");
+    });
     // on componentDidMount, dispatch an action to
     // fetch data from a remote source.
-    dispatch(getCardData);
+    dispatch(getCards());
   }, []);
 
   return (
     <Fragment>
-      <NavBar title="Forces" />
+      <NavBar />
       <Home />
-      {isStarted && <Modal />}
+      {isStarted && <Quiz />}
     </Fragment>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import checkPropTypes from 'check-prop-types';
-import Modal from './Modal';
+import Quiz from './Quiz';
 
 describe('Modal Component', () => {
   test('should be rendered without error ', () => {

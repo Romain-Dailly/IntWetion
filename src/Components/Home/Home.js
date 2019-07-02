@@ -1,18 +1,24 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import Card from "../Card/Card";
 import "./Home.css";
+import LoadingState from "../ViewStates/LoadingState";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const cards = useSelector(store => store.card.data);
+  const { data, isLoading } = useSelector(store => store.card);
+
+  // Indicate loading process.
+  if (isLoading) {
+    return <LoadingState />;
+  }
 
   return (
     <div className="home background-white">
       <div className="container px-2">
         <div className="row">
-          {cards.map(card => (
+          {data.map(card => (
             <Card key={card.id} data={card} />
           ))}
         </div>

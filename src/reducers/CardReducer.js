@@ -2,8 +2,10 @@ import {
   ADD_CARD,
   EDIT_CARD,
   DELETE_CARD,
-  GET_DATA,
-  START_QUIZ
+  REQUEST_DATA,
+  RECEIVE_DATA,
+  START_QUIZ,
+  QUIT_QUIZ
 } from "../actions/types";
 
 // TODO: Delete this
@@ -137,7 +139,8 @@ const data = [
 ];
 
 const initState = {
-  data: data,
+  data: [],
+  isLoading: true,
   quiz: {
     isStarted: false,
     questions: {}
@@ -145,21 +148,40 @@ const initState = {
 };
 
 /**
- *
  * @param {object} state
  * @param {object} action
  */
+
 const CardReducer = (state = initState, action) => {
   switch (action.type) {
-    case GET_DATA:
+    case REQUEST_DATA:
       return Object.assign({}, state, {
-        data: state.data
+        isLoading: true
+      });
+    case RECEIVE_DATA:
+      return Object.assign({}, state, {
+        isLoading: false,
+        data: data,
+        posts: action.payload
       });
     case START_QUIZ:
       return Object.assign({}, state, {
         quiz: {
           isStarted: true,
           questions: action.payload
+        }
+      });
+
+    case DELETE_CARD:
+      return state;
+    // return Object.assign({}, state, {
+
+    // });
+
+    case QUIT_QUIZ:
+      return Object.assign({}, state, {
+        quiz: {
+          isStarted: false
         }
       });
 
