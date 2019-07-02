@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({
 // ROUTE GET cards pour recuperer les ids, noms, images 
 // et descriptions des cartes
 app.get('/cards/', (request, response) => {
-  connection.query('SELECT id, name, image, bg_color, description FROM card', (error, results) => {
+  connection.query('SELECT id, name, image, description FROM card', (error, results) =>{
     if (error) {
       response.status(500).send('Erreur lors de la récupération des cartes');
     }
@@ -225,6 +225,18 @@ app.route('/card/')
     response.sendStatus(200);
   });
 
+  app.get('/test/',(req, res) => {
+  connection.query('SELECT * FROM `intwetion`.`card` INNER JOIN `intwetion`.`questions` on `questions`.`id_card` = `card`.`id` INNER JOIN `resources` ON `resources`.`id_question`= `questions`.`id`;', (err, resu)=>{
+    if (err) {
+      res.status(500).send('Erreur!')
+      return;
+    }
+    res.json(resu)
+  })
+
+  });
 app.listen(port, (req, res) => {
   console.log(`listening on port ${port}`);
 });
+
+
