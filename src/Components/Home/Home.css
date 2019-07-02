@@ -1,6 +1,13 @@
 .home {
-  padding-top: 80px;
+  padding-top: 64px;
   height: 100%;
+}
+
+/* laptop  */
+@media (min-width: 786px) {
+  .home {
+    padding-top: 80px;
+  }
 }
 
 /* laptop  */

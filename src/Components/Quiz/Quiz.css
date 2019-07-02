@@ -24,12 +24,21 @@
   position: relative;
   width: 768px;
   z-index: 25;
+  margin-top: 56px;
+}
+
+/* laptop  */
+@media (min-width: 992px) {
+  .overlay-content {
+    margin: 80px 0;
+    margin-top: 80px;
+  }
 }
 
 .content {
   flex: 1;
   overflow-y: scroll;
-  padding-top: 71px;
+  padding-top: 16px;
 }
 
 
