@@ -246,3 +246,8 @@
   -ms-user-select: none;
   user-select: none;
 }
+
+.form label,
+.form textarea {
+  
+}
