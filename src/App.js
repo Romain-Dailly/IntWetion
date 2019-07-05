@@ -1,11 +1,12 @@
 import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { getCards } from "./actions";
 import Quiz from "./Components/Quiz/Quiz";
 import NavBar from "./Components/NavBar/NavBar";
 import "./App.css";
 import Home from "./Components/Home/Home";
-import { fetchCards, deleteCard } from "./data/source";
+import Video from "./Components/Video/Video";
 
 const App = () => {
   /**
@@ -24,24 +25,32 @@ const App = () => {
    *
    * @see [dispatch] {@link https://react-redux.js.org/api/connect}
    */
-  const { isStarted } = useSelector(store => store.card.quiz);
+  const { quizStarted } = useSelector(store => store.card.quiz);
+
+  const ROOT_URL = process.env.PUBLIC_URL;
 
   useEffect(() => {
-    deleteCard(1, () => {
-      console.log("called");
-    });
-    // on componentDidMount, dispatch an action to
-    // fetch data from a remote source.
+    // Dispatch and action to fetch data from a remote source.
     dispatch(getCards());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <Fragment>
-      <NavBar />
-      <Home />
-      {isStarted && <Quiz />}
-    </Fragment>
+    <Router>
+      <Fragment>
+        <NavBar />
+        {quizStarted && <Quiz />}
+        <Switch>
+          <Route path={`${ROOT_URL}/`} exact component={Home} />
+          {/* <Route path={`${ROOT_URL}/admin`} component={<>} /> */}
+          {/* <Route path={`${ROOT_URL}/results`} component={<>} /> */}
+        </Switch>
+      </Fragment>
+    </Router>
   );
 };
+
+{
+}
 
 export default App;
