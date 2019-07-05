@@ -1,33 +1,35 @@
 import React, { useState, useRef } from 'react';
-import '../../Modal/Modal.css';
+// import AdminQuestion from './AdminQuestion';
 
 
-const AdminQuestion = ({ getModalInfo, questionForm, buttonName, key }) => {
-
+const ModalQuestion = ({ getModalInfo, questionForm, key, clearQuestion}) => {
+  
+  const inputQuestion = useRef();
   const [question, setQuestion] = useState({});
   const [resources, setResources] = useState([
     {
       url_resource: ""
     }
   ]);
-  const [isModal, setIsModal] = useState(false);
 
-  const resetModal = () => {
-    setIsModal(true);
-    if (questionForm !== 'non') {
-      console.log('ok if')
-      setQuestion(questionForm);
-      setResources(questionForm.resources);
-    } else {
-      console.log('ok else')
-      setQuestion({});
-      setResources([
-        {
-          url_resource: ""
-        }
-      ]);
-    }
-  };
+
+ const resetModal= () => {
+   if (questionForm !== 'non'){
+     console.log('ok if')
+    clearQuestion(inputQuestion);
+     setQuestion(questionForm);
+     setResources(questionForm.resources);
+   } else {
+     console.log('ok else')
+    clearQuestion(inputQuestion); 
+    setQuestion({});
+          setResources([
+          {
+            url_resource: ""
+          }
+      ])
+    } 
+ };
   // Fonction qui gère les onChange du hook question
   const onQuestionInputChange = ({ target }) => {
     const { value } = target;
@@ -35,7 +37,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName, key }) => {
     const dataKey = target.getAttribute('data-key');
     newQuestion[dataKey] = value;
     setQuestion(newQuestion);
-  };
+  }
 
   // Fonction qui gère les onChange du hook resources
   const onResourceInputChange = (event) => {
@@ -53,33 +55,50 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName, key }) => {
   const buildQuestionData = () => {
     let finalQuestion = { ...question };
     finalQuestion.resources = resources;
-    key !== -1 ?
-    getModalInfo(finalQuestion, key):
-    getModalInfo(finalQuestion)
+    getModalInfo(finalQuestion);
   }
 
   const handleSubmit = (event) => {
     buildQuestionData();
-    setIsModal(false);
-    event.preventDefault();
-
-  }// import AdminQuestion from './AdminQuestion';
-  console.log(question, resources)
+    event.preventDefault(); 
+}
+console.log(question, resources)
   return (
     <div>
       <button
-        onClick={() => { resetModal() }}
+        onClick={() => {resetModal()}}
         type="button"
         className="btn btn-primary"
-      >{buttonName} </button>
-     {isModal && <div className="overlay">
-        <div className="overlay-content">
-          <div className="content">
-          <h5 className="modal-title" id="exampleModalCenterTitle">Espace questions</h5>
-          <div className="d-flex div-question-bouton" row="1">
+        data-toggle="modal"
+        data-target="#exampleModalCenter"
+      >Ajouter une question </button>
+      <div 
+      className="modal fade"
+      id="exampleModalCenter"
+      tabIndex="1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+      >
+            <div data className="modal-dialog modal-dialog-centered" role="document">
+     <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="exampleModalCenterTitle">Espace questions</h5>
+              <button 
+              type="button"
+              className="close"
+              data-dismiss="modal"
+              aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <div>
+                <div className="d-flex div-question-bouton" row="1">
                   <label htmlFor="input-question" className="col-10">
                     Ecrivez votre question :
               <input 
+              ref={inputQuestion}
               type="text"
               className="form-control div-input-question col-10"
               id="input-question"
@@ -179,8 +198,15 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName, key }) => {
                     </div>
                   </div>
                 </div>
-
-          <button 
+              </div>
+            </div>
+            <div className="modal-footer">
+              <button
+              type="button"
+              className="btn btn-secondary"
+              data-dismiss="modal">Fermer</button>
+              <button 
+              data-dismiss="modal"
               type="button"
               className="btn btn-primary"
               onClick={(event) => {
@@ -188,17 +214,20 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName, key }) => {
               }
               }
               >Enregistrer</button>
-              <button
-              type="button"
-              onClick={()=>setIsModal(false)}
-              className="btn btn-secondary"
-             >Fermer</button>
-          </div>
+              </div>
+          </div><
         </div>
-      </div>}
+
+        {/* <AdminQuestion
+          getModalInfo={getModalInfo}
+          question={question}
+          /> */}
+
+
+
+      </div>
     </div>
-
   );
-};
+}
 
-export default AdminQuestion;
+export default ModalQuestion;

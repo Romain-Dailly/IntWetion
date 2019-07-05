@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './SoundPlayer.css';
 import ReactPlayer from 'react-player';
 
-function SoundPlayer() {
+function SoundPlayer({url}) {
   const [volume, setVolume] = useState(0.8);
   const [showSlider, setShowSlider] = useState(false);
-  const [url, setUrl] = useState('');
+  // const [url, setUrl] = useState('');
 
-  useEffect(() => {
-    setUrl('http');
-  }, []);
+  // useEffect(() => {
+  //   setUrl('http');
+  // }, []);
 
   let style = showSlider ? { color: 'rgb(4, 4, 185)' } : { color: 'blue' };
 
@@ -27,6 +27,9 @@ function SoundPlayer() {
         />
       </div>
       <div className="volumeAll d-flex justify-content-center">
+        <div className="soundIcon">
+          <i className="icon icon-volume-mute" tabIndex="0" role="button" style={style} onClick={() => volumeHandleClick()} title="Modifier le volume" />
+        </div>
         {showSlider
           ? (
             <div className="sliderwrapper">
@@ -34,7 +37,7 @@ function SoundPlayer() {
                 type="range"
                 min="0"
                 max="1"
-                step="any"
+                step="0.001"
                 value={volume}
                 onChange={e => setVolume(e.target.value)}
                 className="form-control-range"
@@ -42,9 +45,6 @@ function SoundPlayer() {
             </div>
           )
           : null}
-        <div className="soundIcon">
-          <i className="fas fa-volume-down" tabIndex="0" role="button" style={style} onClick={() => volumeHandleClick()} title="Modifier le volume" />
-        </div>
       </div>
     </div>
   );
