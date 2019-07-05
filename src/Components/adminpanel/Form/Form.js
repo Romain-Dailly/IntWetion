@@ -3,6 +3,7 @@ import axios from 'axios';
 import './Form.css';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
 
+
 function Form() {
   // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
@@ -36,7 +37,9 @@ function Form() {
 
   // Puting all the information in the hook card before the post
   const buildCardData = () => {
-  
+    let newCard = [...adminInput];
+    newCard.questions= adminInputQuestions
+    setAdminInput(newCard)
   };
 
   const addQuestion = (question) => {
@@ -50,10 +53,9 @@ function Form() {
   }
 
   const deleteQuestion = (i) => {
-    setAdminInputQuestions([...adminInputQuestions.slice(0, i), adminInputQuestions.slice(i+1)]);
+    setAdminInputQuestions([...adminInputQuestions.slice(0, i), ...adminInputQuestions.slice(i+1)]);
   }
 
-console.log(adminInputQuestions)
   // Envoie la totalité du formulaire stockée dans hook card
   // lors du click sur le bouton enregistrer.
   const handleSubmit = (event) => {
@@ -84,6 +86,7 @@ console.log(adminInputQuestions)
     setAdminInput(newObj);
   };
 
+  console.log(adminInputQuestions)
   return (
     <div>
       <div className="container-fluid">
@@ -92,6 +95,7 @@ console.log(adminInputQuestions)
           <div className="container-adminInput col-10">
             <form className="pr-5 divForm">
               <div>
+              <h1>Définir la carte</h1>
                 <label htmlFor="formGroupExampleInputcard" className="divcard">
                   Entrez le nom de la carte :
                   <input type="text" className="form-control mr-5 div-input-question col-10" id="formGroupExampleInput" data-key="name" value={adminInput.card.name} onChange={onCardInputChange} />
@@ -110,6 +114,7 @@ console.log(adminInputQuestions)
                   />
                 </label>
               </div>
+              <h2>Vidéos / Musique</h2>
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Lien, image de la carte
@@ -131,7 +136,14 @@ console.log(adminInputQuestions)
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Lien, vidéo, fin de test
-                  <textarea className="form-control col-10" rows="1" id="2" data-key="url_video" value={adminInput.videos.url_video} onChange={onVideoInputChange} />
+                  <textarea
+                  className="form-control col-10"
+                  rows="1"
+                  id="2"
+                  data-key="url_video"
+                  value={adminInput.videos.url_video}
+                  onChange={onVideoInputChange}
+                  />
                 </label>
               </div>
               <div className="form-group d-flex flex-column">
@@ -139,13 +151,29 @@ console.log(adminInputQuestions)
                 <div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio1">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsOnline" id="inlineRadio1" data-key="online" value={0} onChange={onCardInputChange} />
+                      <input
+                      className="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptionsOnline"
+                      id="inlineRadio1"
+                      data-key="online"
+                      value={0}
+                      onChange={onCardInputChange}
+                      />
                       En ligne
                     </label>
                   </div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio2">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsOnline" id="inlineRadio2" data-key="online" value={1} onChange={onCardInputChange} />
+                      <input
+                      className="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptionsOnline"
+                      id="inlineRadio2"
+                      data-key="online"
+                      value={1}
+                      onChange={onCardInputChange}
+                      />
                       Hors ligne
                     </label>
                   </div>
@@ -157,36 +185,63 @@ console.log(adminInputQuestions)
                 <div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio1">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsPayment" id="inlineRadio1" data-key="payment" value={1} onChange={onCardInputChange} />
+                      <input
+                      className="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptionsPayment"
+                      id="inlineRadio1"
+                      data-key="payment"
+                      value={1}
+                      onChange={onCardInputChange}
+                      />
                       Payante
                     </label>
                   </div>
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio2">
-                      <input className="form-check-input" type="radio" name="inlineRadioOptionsPayment" id="inlineRadio2" data-key="payment" value={2} onChange={onCardInputChange} />
+                      <input
+                      className="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptionsPayment"
+                      id="inlineRadio2"
+                      data-key="payment"
+                      value={2}
+                      onChange={onCardInputChange}
+                      />
                       Gratuite
                     </label>
                   </div>
                 </div>
               </div>
-              <h1>Espace questions</h1>
+              <h2>Questions / Ressources</h2>
               <div>
-                {adminInputQuestions.map((question, i) => {
-                  return <div key={i} className="d-flex bg-light">
+                {adminInputQuestions.length >0 && adminInputQuestions.map((question, i) => {    
+                  return  <div key={i} className="d-flex bg-light">
                   <div className="d-flex"> 
-                    <p>texte : {question.text_question}</p>
-                    <p>numero : {question.number_question}</p>
+                  <p>texte :{question.text_question}  </p>
+                  <p>numero :{question.number_question}  </p>
                   </div>
                   <div className="ml-5">
-                  <AdminQuestion key={i} buttonName ='Modifier la question' questionForm={question} getModalInfo={modifyQuestion} />
+                  <AdminQuestion
+                  key={i}
+                  buttonName='Modifier la question'
+                  questionForm={question}
+                  getModalInfo={(question)=>modifyQuestion(question,i)}
+                  />
                   <button
-                  onClick={()=> deleteQuestion (i)}
+                  onClick={()=>deleteQuestion(i)}
                   type="button"
                   className="btn btn-primary">Supprimer</button>
                   </div>
                   </div>
                 })}
-                <AdminQuestion key='-1' buttonName='Ajouter une question' questionForm='non' getModalInfo = {addQuestion} />
+                <AdminQuestion
+                key='-1'
+                buttonName='Ajouter une question'
+                questionForm='non'
+                getModalInfo = {addQuestion}
+                />
+            <button onClick={()=>handleSubmit}>Envoyer</button>
                 </div> 
             </form>
           </div>
