@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import '../NavBar/NavBar.css';
-import Question from '../Question/Question';
-import './Quiz.css';
-import { quitQuiz, startVideo } from '../../actions';
-import Video from '../Video/Video';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import "../NavBar/NavBar.css";
+import Question from "../Question/Question";
+import "./Quiz.css";
+import { quitQuiz, startVideo } from "../../actions";
+import Video from "../Video/Video";
+import { Redirect } from "react-router-dom";
 
 /**
  * A component containing widgets to trigger actions.
@@ -40,7 +41,7 @@ const ActionBar = ({ buttonValue, onNextButtonClick }) => (
  * It serves as a wrapper for other sub-components.
  * @param {object} props An object containing required dependencies for this component.
  */
-const Quiz = ({ color = 'white' }) => {
+const Quiz = ({ color = "white" }) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -61,18 +62,17 @@ const Quiz = ({ color = 'white' }) => {
   const [introShowed, showIntro] = useState(false);
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [buttonValue, setButtonValue] = useState('');
+  const [buttonValue, setButtonValue] = useState("");
 
   useEffect(() => {
     if (!videoEnded) {
-      setButtonValue('Start');
+      setButtonValue("Start");
     } else {
-      setButtonValue('Continue');
+      setButtonValue("Continue");
     }
   }, [videoEnded]);
 
   const nextQuestion = () => {
-    console.log(questionIndex);
     if (!videoEnded && !questionIndex === 4) {
       endVideo(true);
     } else {
@@ -88,9 +88,11 @@ const Quiz = ({ color = 'white' }) => {
     }
   };
 
+  console.log(answers);
+
   useEffect(() => {
     if (questionIndex === 4) {
-      setButtonValue('Finish');
+      setButtonValue("Finish");
     }
   }, [questionIndex]);
 
@@ -100,10 +102,24 @@ const Quiz = ({ color = 'white' }) => {
   };
 
   const storeAnswer = (answer, number) => {
+    console.log("answer");
+
     const questionKey = `question-${number}`;
     const answersCopy = answers;
+
     answersCopy[questionKey] = answer;
-    setAnswers(answersCopy);
+
+    const newObject = Object.assign({}, answersCopy, {
+      [questionKey]: {
+        answer: answer,
+        question: questions[questionIndex]
+      }
+    });
+
+    console.log(newObject);
+
+    // answersCopy[questionKey].question = questions[questionIndex];
+    setAnswers(newObject);
   };
 
   const ToolBar = ({ title }) => (
@@ -117,6 +133,17 @@ const Quiz = ({ color = 'white' }) => {
       />
     </div>
   );
+
+  console.log(answers);
+
+  if (questionIndex === 4) {
+    return (
+      <Redirect
+        push
+        to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: answers }}
+      />
+    );
+  }
 
   return (
     <div className="overlay">
@@ -157,7 +184,7 @@ const Quiz = ({ color = 'white' }) => {
 Quiz.propTypes = {
   title: PropTypes.string,
   children: PropTypes.element,
-  color: PropTypes.string,
+  color: PropTypes.string
 };
 
 export default Quiz;
