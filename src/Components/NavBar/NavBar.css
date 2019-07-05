@@ -4,6 +4,13 @@
   z-index: 1;
 }
 
+@media (min-width: 992px) {
+  .main-header {
+    display: flex;
+    width: 100%;
+  }
+}
+
 .nav-bar {
   position: relative;
   z-index: 4;
@@ -14,6 +21,27 @@
   padding: 8px;
   height: 56px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.nav-bar .logo {
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+/* laptop  */
+@media (min-width: 992px) {
+  .nav-bar {
+    height: 80px;
+    width: 100%;
+    justify-content: flex-start;
+    padding: 0 48px;
+  }
+
+  .nav-bar .logo {
+    font-size: 22px;
+  }
 }
 
 .nav-bar .icon {
@@ -31,13 +59,57 @@
     0px 8px 10px rgba(0, 0, 0, 0.14);
   position: absolute;
   z-index: 0;
-  right: -250px;
+  right: -280px;
   top: 0;
   width: 250px;
   height: 100vh;
   background: white;
   padding-top: 64px;
   transition: all 0.3s cubic-bezier(0, 0.56, 0.5, 1.01);
+}
+
+/* laptop  */
+@media (min-width: 992px) {
+  .main-nav {
+    position: initial;
+    box-shadow: none;
+    height: inherit;
+    padding: initial;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    width: 100%;
+    transition: none;
+  }
+
+  .main-nav ul {
+    display: flex;
+  }
+
+  .main-nav ul li:hover {
+    background: white;
+  }
+
+  .main-nav .carte-de-vie {
+    position: relative;
+  }
+
+  .main-nav .carte-de-vie ul {
+    position: absolute;
+    display: block;
+    background: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2), 0px 2px 4px rgba(0, 0, 0, 0.04),
+      0px 8px 10px rgba(0, 0, 0, 0.14);
+    top: 48px;
+    left: 18px;
+    border-radius: 4px;
+    display: none;
+    width: 200px;
+  }
+
+  .main-nav .carte-de-vie:hover ul {
+    display: block;
+  }
 }
 
 .active {
@@ -58,6 +130,17 @@
   font-weight: 600;
 }
 
+/* laptop  */
+@media (min-width: 992px) {
+
+  .main-nav ul li a,
+  .main-nav ul li i {
+    font-weight: inherit;
+    color: #646464;
+    line-height: 48px;
+  }
+}
+
 .main-nav ul li a :hover {
   text-decoration: none;
   color: rgb(103, 58, 183);
@@ -74,8 +157,21 @@
   color: rgb(103, 58, 183);
 }
 
-.main-nav ul li:hover a {
-  color: rgb(103, 58, 183);
+@media (min-width: 992px) {
+  .main-nav ul li:hover {
+    background: white;
+  }
+}
+
+.main-nav ul li:hover a,
+.main-nav ul li:hover i {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+@media (min-width: 992px) {
+  .main-nav ul li:hover a {
+    background: white;
+  }
 }
 
 .icon:hover {

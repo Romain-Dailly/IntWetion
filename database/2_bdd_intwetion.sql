@@ -13,7 +13,7 @@ CREATE TABLE `card`
   `description` text,
   `online` boolean,
   `payment` boolean,
-  `date` bigint
+  `date` datetime DEFAULT NOW()
 );
 
 CREATE TABLE `questions`

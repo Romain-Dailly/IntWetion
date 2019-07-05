@@ -1,27 +1,38 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Question.css';
+import React from "react";
+import PropTypes from "prop-types";
+import "./Question.css";
 
 const Question = ({ question, onAnswerSelected }) => {
   const { text, image } = question;
 
-  const RadioButton = ({ number }) => (
-    <div className="radio-button">
-      <input className="choice-radio" type="radio" name="answer-radio" onChange={() => onAnswerSelected(number, question.number)} />
-      <label className="check-mark m-0" />
-      <span>{number}</span>
-    </div>
-  );
+  const RadioButton = ({ number }) => {
+    return (
+      <div className="col-4 d-flex justify-content-center p-0">
+        <div className="radio-button mb-4">
+          <input
+            className="choice-radio"
+            type="radio"
+            name="answer-radio"
+            onChange={() => onAnswerSelected(number, question.number)}
+          />
+          <label className="check-mark m-0" />
+          <span>{number}</span>
+        </div>
+      </div>
+    );
+  };
 
-  const answerRange = [...Array(11).keys()];
+  const answerRange = [0,1, 2, 3, 4,5 ,6, 7, 8, 9];
 
   return (
-    <div className="question my-5">
+    <div className="question">
       <div className="container">
         <img src={image} alt="" width="100%" />
         <p className="body-1 my-3">{text}</p>
-        <div role="radiogroup" className="radio-button-wrapper">
-          {answerRange.map(number => <RadioButton key={number} number={number} />)}
+        <div className="row justify-content-center">
+          {answerRange.map(number => (
+            <RadioButton key={number} number={number} />
+          ))}
         </div>
       </div>
     </div>
@@ -29,7 +40,7 @@ const Question = ({ question, onAnswerSelected }) => {
 };
 
 Question.prototype = {
-  question: PropTypes.string,
+  question: PropTypes.string
 };
 
 export default Question;

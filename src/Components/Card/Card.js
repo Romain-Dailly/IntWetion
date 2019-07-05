@@ -1,36 +1,71 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import './Card.css';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
 
-const Card = ({ data, runQuiz }) => {
-  const { image, overline, title } = data;
+import { removeCard, startVideo, startQuiz } from "../../actions";
+import "./Card.css";
+
+const Card = props => {
+  /**
+   * Get a reference to the `dispatch` function from the Redux store.
+   * Use it to dispatch needed redux `actions`.
+   *
+   * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
+   */
+  const dispatch = useDispatch();
+  const { data, index } = props;
+  const { image, overline, title, description } = data;
+
+  const [isVisible, toggleVisibility] = useState(false);
 
   const cardStyle = {
-    backgroundImage: `url(${image})`,
+    backgroundImage: `url(${image})`
   };
+
   return (
-    <div className="col-sm-12 col-md-6 col-lg-3 px-2">
-      <div className="ui-card my-2">
+    <div className="col-sm-4 mb-3">
+      <div className="ui-card background-white">
+        <div className="action-tab">
+          <i role="button" className="icon-edit" />
+          <i
+            role="button"
+            onClick={() => dispatch(removeCard(data.id))}
+            className="icon-trash"
+          />
+        </div>
         <div className="ui-card-image" style={cardStyle} />
-        <div className="ui-card-body">
+        <div className="ui-card-body px-3">
           <div className="ui-content">
-            <p className="ui-card-overline overline">{overline}</p>
+            <p className="ui-card-overline overline mb-0 ">{overline}</p>
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h5 className="ui-card-title header-6">{title}</h5>
-              <i className="icon icon-add" tabIndex="0" />
+              <i
+                onClick={() => toggleVisibility(!isVisible)}
+                className={
+                  " icon icon-chevron-down " +
+                  (isVisible ? "flip-vertically" : "")
+                }
+                tabIndex="-1"
+              />
             </div>
-
-            {/* <p className="ui-card-text body-1">{description}</p> */}
+            <p
+              className={
+                "ui-card-text body-1 noselect " + (isVisible ? "" : "d-none")
+              }
+            >
+              {description}
+            </p>
           </div>
-          <div className="divider-dark" />
-          <div className="ui-card-action">
-            <i className="icon icon-headset" />
+          <div className="card-action mt-3 mb-4">
+            <i className="icon-alt icon-headset" />
             <button
               type="button"
-              className="ui-button ui-button-outline"
-              onClick={runQuiz}
+              className="button button-outline"
+              onClick={() => {
+                dispatch(startQuiz(index));
+              }}
             >
-              Go Solve
+              COMMENCER
             </button>
           </div>
         </div>
@@ -43,9 +78,9 @@ Card.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
     description: PropTypes.string,
-    imageUrl: PropTypes.string,
+    imageUrl: PropTypes.string
   }),
-  openModel: PropTypes.func,
+  openModel: PropTypes.func
 };
 
 export default Card;
