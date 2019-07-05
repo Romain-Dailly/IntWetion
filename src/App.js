@@ -1,17 +1,23 @@
-import React, { useEffect, Fragment } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { getCards } from './actions';
-import Results from './Components/Results/Results';
-import Form from './Components/adminpanel/Form/Form';
-import Quiz from './Components/Quiz/Quiz';
-import NavBar from './Components/NavBar/NavBar';
+import React, { useEffect, Fragment } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  withRouter
+} from "react-router-dom";
+import { getCards } from "./actions";
+import Results from "./Components/Results/Results";
+import Form from "./Components/adminpanel/Form/Form";
+import Quiz from "./Components/Quiz/Quiz";
+import NavBar from "./Components/NavBar/NavBar";
 
-import './App.css';
-import Home from './Components/Home/Home';
-import Video from './Components/Video/Video';
+import "./App.css";
+import Home from "./Components/Home/Home";
+import Video from "./Components/Video/Video";
+import { push } from "connected-react-router";
 
-const App = () => {
+const App = props => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -33,26 +39,23 @@ const App = () => {
   const ROOT_URL = process.env.PUBLIC_URL;
 
   useEffect(() => {
+    dispatch(push('admin'))
     // Dispatch and action to fetch data from a remote source.
     dispatch(getCards());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
-    <div>
-      <Router>
-        <Fragment>
-          <NavBar />
-          {quizStarted && <Quiz />}
-          <Switch>
-            <Route path={`${ROOT_URL}/`} exact component={Home} />
-            <Route path={`${ROOT_URL}/admin`} component={Form} />
-            <Route path={`${ROOT_URL}/results`} component={Results} />
-          </Switch>
-        </Fragment>
-      </Router>
-    </div>
+    <Fragment>
+      <NavBar />
+      {quizStarted && <Quiz />}
+      <Switch>
+        <Route path={`${ROOT_URL}/`} exact component={Home} />
+        <Route path={`${ROOT_URL}/admin`} component={Form} />
+        <Route path={`${ROOT_URL}/results`} component={Results} />
+      </Switch>
+    </Fragment>
   );
 };
 
-export default App;
+export default withRouter(App);

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Question.css';
 
+
 const Question = ({ question, onAnswerSelected }) => {
   const { text, image } = question;
 
