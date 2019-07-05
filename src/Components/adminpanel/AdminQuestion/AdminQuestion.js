@@ -1,6 +1,4 @@
 import React, { useState, useRef } from 'react';
-import '../../Modal/Modal.css';
-
 
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName, key }) => {
 
