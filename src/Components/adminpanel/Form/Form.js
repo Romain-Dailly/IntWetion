@@ -42,8 +42,18 @@ function Form() {
   const addQuestion = (question) => {
     setAdminInputQuestions([...adminInputQuestions, question]);
   }
-  
 
+  const modifyQuestion = (question, i) => {
+    let finalQuestions = [ ...adminInputQuestions ];
+    finalQuestions[i] = question;
+    setAdminInputQuestions(finalQuestions);
+  }
+
+  const deleteQuestion = (i) => {
+    setAdminInputQuestions([...adminInputQuestions.slice(0, i), adminInputQuestions.slice(i+1)]);
+  }
+
+console.log(adminInputQuestions)
   // Envoie la totalité du formulaire stockée dans hook card
   // lors du click sur le bouton enregistrer.
   const handleSubmit = (event) => {
@@ -161,7 +171,22 @@ function Form() {
               </div>
               <h1>Espace questions</h1>
               <div>
-                <AdminQuestion getModalInfo = {addQuestion} />
+                {adminInputQuestions.map((question, i) => {
+                  return <div key={i} className="d-flex bg-light">
+                  <div className="d-flex"> 
+                    <p>texte : {question.text_question}</p>
+                    <p>numero : {question.number_question}</p>
+                  </div>
+                  <div className="ml-5">
+                  <AdminQuestion key={i} buttonName ='Modifier la question' questionForm={question} getModalInfo={modifyQuestion} />
+                  <button
+                  onClick={()=> deleteQuestion (i)}
+                  type="button"
+                  className="btn btn-primary">Supprimer</button>
+                  </div>
+                  </div>
+                })}
+                <AdminQuestion key='-1' buttonName='Ajouter une question' questionForm='non' getModalInfo = {addQuestion} />
                 </div> 
             </form>
           </div>
