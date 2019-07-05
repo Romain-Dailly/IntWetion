@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router-dom";
 
 import { removeCard, startVideo, startQuiz } from "../../actions";
 import "./Card.css";
@@ -13,6 +14,8 @@ const Card = props => {
    *
    * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
    */
+
+  const [isModifiable, setModifiable] = useState(false);
   const dispatch = useDispatch();
   const { data, index } = props;
   const { image, overline, title, description } = data;
@@ -25,6 +28,18 @@ const Card = props => {
 
   console.log(props);
 
+  if (isModifiable) {
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: `${process.env.PUBLIC_URL}/admin`,
+          state: index
+        }}
+      />
+    );
+  }
+
   return (
     <div className="col-sm-4 mb-3">
       <div className="ui-card background-white">
@@ -33,9 +48,7 @@ const Card = props => {
             role="button"
             className="icon-edit"
             onClick={() => {
-              dispatch(push("/admin"));
-              console.log(dispatch);
-              
+              setModifiable(true);
             }}
           />
           <i
