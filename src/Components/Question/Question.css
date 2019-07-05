@@ -1,7 +1,7 @@
 .radio-button {
   position: relative;
-  width: 100%;
-  height: 48px;
+  width: 80px;
+  height: 80px;
 }
 
 .radio-button input {
@@ -37,9 +37,9 @@
 .radio-button .check-mark::before {
   content: '';
   display: inline-block;
-  width: 100%;
-  height: 48px;
-  border-radius: 2px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
   border: 2px solid #000;
 }
 

@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Card from "../Card/Card";
 import "./Home.css";
 import LoadingState from "../ViewStates/LoadingState";
 
 const Home = () => {
-  const dispatch = useDispatch();
   const { data, isLoading } = useSelector(store => store.card);
+  const { cardId, setCardId } = useState(undefined);
 
   // Indicate loading process.
   if (isLoading) {
@@ -18,8 +18,8 @@ const Home = () => {
     <div className="home background-white">
       <div className="container px-2">
         <div className="row">
-          {data.map(card => (
-            <Card key={card.id} data={card} />
+          {data.map((card, index) => (
+            <Card key={card.id} data={card} index={index} />
           ))}
         </div>
       </div>

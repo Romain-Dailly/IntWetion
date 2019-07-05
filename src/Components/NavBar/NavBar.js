@@ -7,10 +7,10 @@ const NavBar = () => {
   return (
     <header className="main-header">
       <div className="nav-bar">
-        <a className="logo mr-3">
+        <div className="logo mr-3">
           <i className="icon-alt icon-lotus mr-2" />
           <p className="m-0">Intwetion</p>
-        </a>
+        </div>
         <i
           onClick={() => openDrawer(!isDrawerOpen)}
           className={`icon icon-${isDrawerOpen ? "close" : "menu"} d-lg-none`}

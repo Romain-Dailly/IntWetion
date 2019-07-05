@@ -2,12 +2,19 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
-import { startQuiz, removeCard } from "../../actions";
+import { removeCard, startVideo, startQuiz } from "../../actions";
 import "./Card.css";
 
-const Card = ({ data }) => {
+const Card = props => {
+  /**
+   * Get a reference to the `dispatch` function from the Redux store.
+   * Use it to dispatch needed redux `actions`.
+   *
+   * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
+   */
   const dispatch = useDispatch();
-  const { image, overline, title, description, questions } = data;
+  const { data, index } = props;
+  const { image, overline, title, description } = data;
 
   const [isVisible, toggleVisibility] = useState(false);
 
@@ -41,7 +48,6 @@ const Card = ({ data }) => {
                 tabIndex="-1"
               />
             </div>
-
             <p
               className={
                 "ui-card-text body-1 noselect " + (isVisible ? "" : "d-none")
@@ -56,7 +62,7 @@ const Card = ({ data }) => {
               type="button"
               className="button button-outline"
               onClick={() => {
-                dispatch(startQuiz(questions));
+                dispatch(startQuiz(index));
               }}
             >
               COMMENCER

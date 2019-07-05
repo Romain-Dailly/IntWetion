@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
 import "../NavBar/NavBar.css";
 import Question from "../Question/Question";
 import "./Quiz.css";
-import { quitQuiz } from "../../actions";
+import { quitQuiz, startVideo } from "../../actions";
+import Video from "../Video/Video";
 
 /**
  * A component containing widgets to trigger actions.
  * @param {objects} props An object containing required dependencies for this function.
  */
-const ActionBar = ({ onNextButtonClick }) => (
+const ActionBar = ({ buttonValue, onNextButtonClick }) => (
   <div className="action-bar">
     <div className=" d-flex align-items-center w-100">
       <i className="icon icon-volume" />
@@ -29,7 +30,7 @@ const ActionBar = ({ onNextButtonClick }) => (
       onClick={onNextButtonClick}
       tabIndex="-1"
     >
-      Continue
+      {buttonValue}
     </button>
   </div>
 );
@@ -40,18 +41,58 @@ const ActionBar = ({ onNextButtonClick }) => (
  * @param {object} props An object containing required dependencies for this component.
  */
 const Quiz = ({ color = "white" }) => {
+  /**
+   * Get a reference to the `dispatch` function from the Redux store.
+   * Use it to dispatch needed redux `actions`.
+   *
+   * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
+   */
   const dispatch = useDispatch();
-  const questions = useSelector(store => store.card.quiz.questions);
 
+  /**
+   * Get access to the redux store's state.
+   */
+  const cardId = useSelector(store => store.card.quiz.cardId);
+  const { questions } = useSelector(store => store.card.data[cardId]);
+
+  const [videoEnded, endVideo] = useState(false);
+  const [quizEnded, endQuiz] = useState(!videoEnded);
+  const [outroShowed, showOutro] = useState(false);
+  const [introShowed, showIntro] = useState(false);
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [buttonValue, setButtonValue] = useState("");
+
+  useEffect(() => {
+    if (!videoEnded) {
+      setButtonValue("Start");
+    } else {
+      setButtonValue("Continue");
+    }
+  }, [videoEnded]);
 
   const nextQuestion = () => {
-    const questionCount = questions.length - 1;
-    if (questionIndex < questionCount) {
-      setQuestionIndex(questionIndex + 1);
+    console.log(questionIndex);
+    if (!videoEnded && !questionIndex === 4) {
+      endVideo(true);
+    } else {
+      const questionCount = questions.length - 1;
+      if (questionIndex < questionCount) {
+        setQuestionIndex(questionIndex + 1);
+      }
+    }
+
+    if (questionIndex === 4) {
+      endVideo(false);
+      endQuiz(true);
     }
   };
+
+  useEffect(() => {
+    if (questionIndex === 4) {
+      setButtonValue("Finish");
+    }
+  }, [questionIndex]);
 
   const getProgress = () => {
     const numberOfQuestion = questions.length - 1;
@@ -84,10 +125,14 @@ const Quiz = ({ color = "white" }) => {
       <ToolBar title="Forces" />
       <div className="overlay-content" style={{ background: `${color}` }}>
         <div className="content">
-          <Question
-            question={questions[questionIndex]}
-            onAnswerSelected={storeAnswer}
-          />
+          {!videoEnded && <Video />}
+
+          {!quizEnded && (
+            <Question
+              question={questions[questionIndex]}
+              onAnswerSelected={storeAnswer}
+            />
+          )}
         </div>
         <div className="ui-progress">
           <div
@@ -99,7 +144,13 @@ const Quiz = ({ color = "white" }) => {
             aria-valuemax="100"
           />
         </div>
-        <ActionBar onNextButtonClick={nextQuestion} />
+        <ActionBar
+          buttonValue={buttonValue}
+          onNextButtonClick={() => {
+            endQuiz();
+            startVideo && nextQuestion();
+          }}
+        />
       </div>
     </div>
   );

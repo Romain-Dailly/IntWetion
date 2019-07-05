@@ -7,7 +7,7 @@ const Question = ({ question, onAnswerSelected }) => {
 
   const RadioButton = ({ number }) => {
     return (
-      <div className="col-4">
+      <div className="col-4 d-flex justify-content-center p-0">
         <div className="radio-button mb-4">
           <input
             className="choice-radio"
@@ -22,7 +22,7 @@ const Question = ({ question, onAnswerSelected }) => {
     );
   };
 
-  const answerRange = [1, 2, 3, 4, 6, 7, 8, 9, 0];
+  const answerRange = [0,1, 2, 3, 4,5 ,6, 7, 8, 9];
 
   return (
     <div className="question">
