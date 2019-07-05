@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useSelector, useDispatch } from "react-redux";
-import "../NavBar/NavBar.css";
-import Question from "../Question/Question";
-import "./Quiz.css";
-import { quitQuiz, startVideo } from "../../actions";
-import Video from "../Video/Video";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import '../NavBar/NavBar.css';
+import Question from '../Question/Question';
+import './Quiz.css';
+import { quitQuiz, startVideo } from '../../actions';
+import Video from '../Video/Video';
 
 /**
  * A component containing widgets to trigger actions.
@@ -40,7 +40,7 @@ const ActionBar = ({ buttonValue, onNextButtonClick }) => (
  * It serves as a wrapper for other sub-components.
  * @param {object} props An object containing required dependencies for this component.
  */
-const Quiz = ({ color = "white" }) => {
+const Quiz = ({ color = 'white' }) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -61,13 +61,13 @@ const Quiz = ({ color = "white" }) => {
   const [introShowed, showIntro] = useState(false);
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [buttonValue, setButtonValue] = useState("");
+  const [buttonValue, setButtonValue] = useState('');
 
   useEffect(() => {
     if (!videoEnded) {
-      setButtonValue("Start");
+      setButtonValue('Start');
     } else {
-      setButtonValue("Continue");
+      setButtonValue('Continue');
     }
   }, [videoEnded]);
 
@@ -90,7 +90,7 @@ const Quiz = ({ color = "white" }) => {
 
   useEffect(() => {
     if (questionIndex === 4) {
-      setButtonValue("Finish");
+      setButtonValue('Finish');
     }
   }, [questionIndex]);
 
@@ -106,19 +106,17 @@ const Quiz = ({ color = "white" }) => {
     setAnswers(answersCopy);
   };
 
-  const ToolBar = ({ title }) => {
-    return (
-      <div className="context-tool-bar background-white">
-        <i className="logo icon-alt icon-lotus" />
-        <p className="header-5 m-0">{title}</p>
-        <i
-          role="button"
-          onClick={() => dispatch(quitQuiz)}
-          className="icon icon-close"
-        />
-      </div>
-    );
-  };
+  const ToolBar = ({ title }) => (
+    <div className="context-tool-bar background-white">
+      <i className="logo icon-alt icon-lotus" />
+      <p className="header-5 m-0">{title}</p>
+      <i
+        role="button"
+        onClick={() => dispatch(quitQuiz)}
+        className="icon icon-close"
+      />
+    </div>
+  );
 
   return (
     <div className="overlay">
@@ -159,7 +157,7 @@ const Quiz = ({ color = "white" }) => {
 Quiz.propTypes = {
   title: PropTypes.string,
   children: PropTypes.element,
-  color: PropTypes.string
+  color: PropTypes.string,
 };
 
 export default Quiz;

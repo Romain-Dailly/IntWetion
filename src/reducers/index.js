@@ -1,3 +1,3 @@
-import  CardReducer from "./CardReducer";
+import CardReducer from './CardReducer';
 
 export default { card: CardReducer };

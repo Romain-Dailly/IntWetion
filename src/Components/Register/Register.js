@@ -1,52 +1,50 @@
-import React from "react";
-import "./Register.css";
+import React from 'react';
+import './Register.css';
 
-const Register = () => {
-  return (
-    <form>
-      <form className="row">
-        <form className="col">
-          <h2>Create your free account</h2>
+const Register = () => (
+  <form>
+    <form className="row">
+      <form className="col">
+        <h2>Create your free account</h2>
 
-          <form>
+        <form>
+          <div>
+            <label htmlFor="">Full Name</label>
             <div>
-              <label htmlFor="">Full Name</label>
-              <div>
-                <input type="text" />
-              </div>
+              <input type="text" />
             </div>
+          </div>
+          <div>
+            <label htmlFor="">Email address</label>
             <div>
-              <label htmlFor="">Email address</label>
-              <div>
-                <input type="text" />
-              </div>
+              <input type="text" />
             </div>
+          </div>
+          <div>
+            <label htmlFor="">Password</label>
             <div>
-              <label htmlFor="">Password</label>
-              <div>
-                <input type="text" />
-              </div>
+              <input type="text" />
             </div>
-            <label>
+          </div>
+          <label>
               By signing up, you agree to our
-              <a href=""> Terms of Service</a>
-            </label>
+            <a href=""> Terms of Service</a>
+          </label>
 
-            <div>
-              <input type="submit" />
-            </div>
-            <div>
-              <label>
+          <div>
+            <input type="submit" />
+          </div>
+          <div>
+            <label>
                 Already have an account?
-                <a href=""> Sign in</a>
-              </label>
-            </div>
-          </form>
+              <a href=""> Sign in</a>
+            </label>
+          </div>
         </form>
-        <div className="col" />
       </form>
+      <div className="col" />
     </form>
-  );
-};
+  </form>
+);
 
 export default Register;

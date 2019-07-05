@@ -6,24 +6,24 @@ import {
   REQUEST_DATA,
   RECEIVE_DATA,
   QUIT_QUIZ,
-  START_VIDEO
-} from "./types";
-import { fetchCards, deleteCard } from "../data/source";
+  START_VIDEO,
+} from './types';
+import { fetchCards, deleteCard } from '../data/source';
 
 export const addCard = {
-  type: ADD_CARD
+  type: ADD_CARD,
 };
 export const deleteCardAction = id => ({
   type: DELETE_CARD,
-  payload: id
+  payload: id,
 });
 export const editCard = {
-  type: EDIT_CARD
+  type: EDIT_CARD,
 };
 
 export const startQuiz = cardId => ({
   type: START_QUIZ,
-  payload: cardId
+  payload: cardId,
 });
 
 /**
@@ -34,17 +34,17 @@ export const startQuiz = cardId => ({
 export const startVideo = (card, hasComment) => ({
   type: START_VIDEO,
   payload: {
-    card: card,
-    hasComment: hasComment
-  }
+    card,
+    hasComment,
+  },
 });
 
 export const quitQuiz = {
-  type: QUIT_QUIZ
+  type: QUIT_QUIZ,
 };
 
 export const requestData = () => ({
-  type: REQUEST_DATA
+  type: REQUEST_DATA,
 });
 
 /**
@@ -52,7 +52,7 @@ export const requestData = () => ({
  */
 export const receiveData = cards => ({
   type: RECEIVE_DATA,
-  payload: cards
+  payload: cards,
 });
 
 export const getCards = () => (dispatch, getState) => {
@@ -65,12 +65,12 @@ export const getCards = () => (dispatch, getState) => {
   if (!state.card.data.length) {
     dispatch(requestData());
     try {
-      fetchCards(cards => {
+      fetchCards((cards) => {
         dispatch(receiveData(cards));
       });
     } catch (error) {
-      //TODO Handle error
-      console.log("error");
+      // TODO Handle error
+      console.log('error');
     }
   }
 };
@@ -83,12 +83,12 @@ export const removeCard = id => (dispatch, getState) => {
   if (state.card.data.length) {
     try {
       deleteCard(1, () => {
-        console.log("called");
+        console.log('called');
         dispatch(deleteCardAction(id));
       });
     } catch (error) {
-      //TODO Handle error
-      console.log("error");
+      // TODO Handle error
+      console.log('error');
     }
   }
 };

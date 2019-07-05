@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "./NavBar.css";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import './NavBar.css';
 
 const NavBar = () => {
   const [isDrawerOpen, openDrawer] = useState(false);
@@ -13,11 +13,11 @@ const NavBar = () => {
         </div>
         <i
           onClick={() => openDrawer(!isDrawerOpen)}
-          className={`icon icon-${isDrawerOpen ? "close" : "menu"} d-lg-none`}
+          className={`icon icon-${isDrawerOpen ? 'close' : 'menu'} d-lg-none`}
           role="button"
           tabIndex="-1"
         />
-        <nav className={`main-nav ${isDrawerOpen ? "active" : ""}`}>
+        <nav className={`main-nav ${isDrawerOpen ? 'active' : ''}`}>
           <ul>
             <li>
               <a href="/">Présentation</a>
@@ -47,7 +47,7 @@ const NavBar = () => {
 };
 
 NavBar.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default NavBar;

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
-import Card from "../Card/Card";
-import "./Home.css";
-import LoadingState from "../ViewStates/LoadingState";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import Card from '../Card/Card';
+import './Home.css';
+import LoadingState from '../ViewStates/LoadingState';
 
 const Home = () => {
   const { data, isLoading } = useSelector(store => store.card);
@@ -32,9 +32,9 @@ Home.propTypes = {
     PropTypes.shape({
       name: PropTypes.string,
       descriptions: PropTypes.string,
-      imageUrl: PropTypes.string
-    })
-  )
+      imageUrl: PropTypes.string,
+    }),
+  ),
 };
 
 export default Home;

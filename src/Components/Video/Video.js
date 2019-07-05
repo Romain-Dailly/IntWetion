@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { startQuiz } from "../../actions";
-import "./Video.css";
-import Plyr from "plyr";
-import "../../css/plyr.css";
+import React, { useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { startQuiz } from '../../actions';
+import './Video.css';
+import Plyr from 'plyr';
+import '../../css/plyr.css';
 
 const Comment = () => {
   /**
@@ -34,16 +34,16 @@ const Video = ({ onStarted, onEnded }) => {
   const [canComment, setCanComment] = useState(true);
   const player = useRef();
   const options = {
-    autoplay: true
+    autoplay: true,
   };
 
   useEffect(() => {
     const videoPlayer = new Plyr(player.current, options);
-    videoPlayer.on("ended", () => {
+    videoPlayer.on('ended', () => {
       setCanComment(true);
     });
 
-    videoPlayer.on("playing", () => {
+    videoPlayer.on('playing', () => {
       setCanComment(true);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps

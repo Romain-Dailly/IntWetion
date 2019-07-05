@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { removeCard, startVideo, startQuiz } from "../../actions";
-import "./Card.css";
+import { removeCard, startVideo, startQuiz } from '../../actions';
+import './Card.css';
 
-const Card = props => {
+const Card = (props) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -14,12 +14,14 @@ const Card = props => {
    */
   const dispatch = useDispatch();
   const { data, index } = props;
-  const { image, overline, title, description } = data;
+  const {
+    image, overline, title, description,
+  } = data;
 
   const [isVisible, toggleVisibility] = useState(false);
 
   const cardStyle = {
-    backgroundImage: `url(${image})`
+    backgroundImage: `url(${image})`,
   };
 
   return (
@@ -42,15 +44,15 @@ const Card = props => {
               <i
                 onClick={() => toggleVisibility(!isVisible)}
                 className={
-                  " icon icon-chevron-down " +
-                  (isVisible ? "flip-vertically" : "")
+                  ` icon icon-chevron-down ${
+                    isVisible ? 'flip-vertically' : ''}`
                 }
                 tabIndex="-1"
               />
             </div>
             <p
               className={
-                "ui-card-text body-1 noselect " + (isVisible ? "" : "d-none")
+                `ui-card-text body-1 noselect ${isVisible ? '' : 'd-none'}`
               }
             >
               {description}
@@ -78,9 +80,9 @@ Card.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
     description: PropTypes.string,
-    imageUrl: PropTypes.string
+    imageUrl: PropTypes.string,
   }),
-  openModel: PropTypes.func
+  openModel: PropTypes.func,
 };
 
 export default Card;
