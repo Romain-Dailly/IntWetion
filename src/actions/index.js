@@ -5,7 +5,8 @@ import {
   DELETE_CARD,
   REQUEST_DATA,
   RECEIVE_DATA,
-  QUIT_QUIZ
+  QUIT_QUIZ,
+  START_VIDEO
 } from "./types";
 import { fetchCards, deleteCard } from "../data/source";
 
@@ -20,9 +21,22 @@ export const editCard = {
   type: EDIT_CARD
 };
 
-export const startQuiz = card => ({
+export const startQuiz = cardId => ({
   type: START_QUIZ,
-  payload: card
+  payload: cardId
+});
+
+/**
+ *
+ * @param {object} card
+ * @param {boolean} hasComment
+ */
+export const startVideo = (card, hasComment) => ({
+  type: START_VIDEO,
+  payload: {
+    card: card,
+    hasComment: hasComment
+  }
 });
 
 export const quitQuiz = {
@@ -44,7 +58,6 @@ export const receiveData = cards => ({
 export const getCards = () => (dispatch, getState) => {
   // Retrieve the current state from redux.
   const state = getState();
-  console.log(state);
   /* If the `data` is an empty, trigger a loading state until
    * we receive data from the api endpoint. This prevents unnecessary
    * re-rendering of react components.
