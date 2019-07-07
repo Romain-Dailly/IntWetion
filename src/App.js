@@ -11,6 +11,8 @@ import Results from "./Components/Results/Results";
 import Form from "./Components/adminpanel/Form/Form";
 import Quiz from "./Components/Quiz/Quiz";
 import NavBar from "./Components/NavBar/NavBar";
+import Register from "./Components/Register/Register";
+import Login from "./Components/Login/Login";
 
 import "./App.css";
 import Home from "./Components/Home/Home";
@@ -39,7 +41,7 @@ const App = props => {
   const ROOT_URL = process.env.PUBLIC_URL;
 
   useEffect(() => {
-    dispatch(push('admin'))
+    dispatch(push("admin"));
     // Dispatch and action to fetch data from a remote source.
     dispatch(getCards());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,8 +53,10 @@ const App = props => {
       {quizStarted && <Quiz />}
       <Switch>
         <Route path={`${ROOT_URL}/`} exact component={Home} />
+        <Route path={`${ROOT_URL}/login`} component={Login} />
         <Route path={`${ROOT_URL}/admin`} component={Form} />
         <Route path={`${ROOT_URL}/results`} component={Results} />
+        <Route path={`${ROOT_URL}/register`} component={Register} />
       </Switch>
     </Fragment>
   );
