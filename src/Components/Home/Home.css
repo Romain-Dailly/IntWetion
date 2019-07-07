@@ -1,5 +1,6 @@
 .home {
   padding-top: 64px;
+  background-color: var(--pale-grey);
   height: 100%;
 }
 

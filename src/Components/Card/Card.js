@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-
+import { Row, Col } from 'react-flexbox-grid';
+import { Tooltip } from 'antd';
 import { removeCard, startVideo, startQuiz } from "../../actions";
 import "./Card.css";
 import { push } from "connected-react-router";
@@ -41,9 +42,9 @@ const Card = props => {
   }
 
   return (
-    <div className="col-sm-4 mb-3">
-      <div className="ui-card background-white">
-        <div className="action-tab">
+    <Col xs={12} md={6} lg={4} span={8}>
+      <div className="ui-card mb-3">
+        <div className="action-tab d-none">
           <i
             role="button"
             className="icon-edit"
@@ -67,33 +68,36 @@ const Card = props => {
                 onClick={() => toggleVisibility(!isVisible)}
                 className={` icon icon-chevron-down ${
                   isVisible ? "flip-vertically" : ""
-                }`}
+                  }`}
                 tabIndex="-1"
               />
             </div>
+            <p className="ui-card-text body-1 noselect"> {description}</p>
             <p
               className={`ui-card-text body-1 noselect ${
                 isVisible ? "" : "d-none"
-              }`}
+                }`}
             >
               {description}
             </p>
           </div>
           <div className="card-action mt-3 mb-4">
-            <i className="icon-alt icon-headset" />
+            <Tooltip title="Use a headphone for a better experience.">
+              <i className="icon-alt icon-headset" />
+            </Tooltip>
             <button
               type="button"
-              className="button button-outline"
+              className="button button-primary"
               onClick={() => {
                 dispatch(startQuiz(index));
               }}
             >
-              COMMENCER
+              Commencer
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </Col>
   );
 };
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import Card from '../Card/Card';
 import './Home.css';
+import { Row, Col } from 'react-flexbox-grid';
 import LoadingState from '../ViewStates/LoadingState';
 
 const Home = () => {
@@ -17,11 +18,11 @@ const Home = () => {
   return (
     <div className="home background-white">
       <div className="container px-2">
-        <div className="row">
+        <Row gutter={16}>
           {data.map((card, index) => (
             <Card key={card.id} data={card} index={index} />
           ))}
-        </div>
+        </Row>
       </div>
     </div>
   );

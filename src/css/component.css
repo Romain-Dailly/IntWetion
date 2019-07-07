@@ -3,6 +3,7 @@
  * 1. Shard styles
  * 2. Backgrounds
  * 3. Typography
+ * 4. UI Components
  */
 
 /* Shard styles
@@ -30,6 +31,15 @@
   background-image: linear-gradient(122deg, #9f041b 0%, #f5515f 100%);
 }
 
+/* Typography
+   ========================================================================== */
+
+.caption {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #8798ad;
+}
+
 .text-white {
   color: #ffffff;
 }
@@ -51,10 +61,9 @@
 }
 
 .ui-card {
-  border-radius: 6px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  border: 1px solid #e0e7ff;
   background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
@@ -97,48 +106,38 @@
   background-size: cover;
 }
 
-.ui-button {
-  min-width: 120px;
-  height: 32px;
-  border-radius: 16px;
-  font-weight: 500;
-  font-size: 14px;
-  letter-spacing: 0.44px;
-  background-color: #ffffff;
-  text-transform: uppercase;
-}
-
-.ui-button-outline {
-  background-color: transparent;
-  border: solid 1.5px var(--color-primary);
-  color: var(--color-primary);
-}
-
 .button {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   letter-spacing: 1.25px;
-  text-transform: uppercase;
-  height: 36px;
   padding: 0 16px;
   border: none;
   outline: none;
+  height: 36px;
+  border-radius: 2px;
 }
 
 .button-text {
   background: none;
-  color: #4a4a4a;
+  color: var(--clear-blue);
+  text-transform: uppercase;
 }
+
 
 .button-text:hover {
   background: #eaeaea;
 }
 
+.button-secondary {
+  border-radius: 4px;
+  color: var(--color-primary);
+  background-color: var(--color-primary-low-emphasis)
+}
+
 .button-primary {
-  background: var(--color-primary);
   color: #ffffff;
-  border-radius: 50px;
   border: 1px solid var(--color-primary);
+  background-color: var(--color-primary);
 }
 
 .button-outline {
@@ -155,8 +154,7 @@
 }
 
 .ripple:hover {
-  background: rgb(237, 237, 237)
-    radial-gradient(circle, transparent 1%, rgb(235, 235, 235) 1%) center/15000%;
+  background: rgb(237, 237, 237) radial-gradient(circle, transparent 1%, rgb(235, 235, 235) 1%) center/15000%;
 }
 
 .ripple:active {
@@ -186,19 +184,37 @@
 
 /* Typography */
 .overline {
-  font-family: Roboto;
   font-size: 12px;
   font-weight: 500;
   line-height: 1.33;
   letter-spacing: 2px;
   color: rgba(0, 0, 0, 0.87);
   text-transform: uppercase;
+
+  width: 683px;
+  height: 15px;
+  font-family: Rubik;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1.21px;
+  color: #8798ad;
+}
+
+.header-2 {
+  font-family: Rubik;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.14;
+  letter-spacing: normal;
+  color: var(--dark);
 }
 
 .header-5 {
   font-family: Roboto;
   font-size: 20px;
-  color: rgba(0, 0, 0, 0.87);
+  color: var(--dark);
   font-weight: normal;
   margin: 0;
 }
@@ -206,17 +222,20 @@
 .header-6 {
   font-family: Roboto;
   font-size: 20px;
-  color: rgba(0, 0, 0, 0.87);
   font-weight: normal;
   margin: 0;
+  letter-spacing: normal;
+  color: var(--dark);
 }
 
 .body-1 {
-  font-family: Roboto;
   font-size: 16px;
-  line-height: 1.75;
   letter-spacing: 0.5px;
-  color: rgba(0, 0, 0, 0.87);
+  font-family: Rubik;
+  line-height: 1.5;
+  text-align: justify;
+  letter-spacing: normal;
+  color: var(--dark);
 }
 
 /* Progress bar  */
@@ -247,7 +266,61 @@
   user-select: none;
 }
 
-.form label,
-.form textarea {
-  
+.center-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Input */
+
+.ui-input {
+  height: 42px;
+  border-radius: 2px;
+  border: solid 1px #e0e7ff;
+  background-color: rgba(224, 231, 255, 0.2);
+  font-family: Rubik;
+  font-size: 16px;
+  color: #2e384d;
+  outline: none;
+}
+
+.ui-input:hover {
+  box-shadow: none;
+  border: solid 1.2px rgba(46, 91, 255, 0.5);
+}
+
+.ui-input:focus {
+  box-shadow: 0 0 0 2px rgba(46, 91, 255, 0.15);
+  border: solid 1.2px rgba(46, 91, 255, 0.5);
+}
+
+
+
+.login-form {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label label {
+  font-family: Rubik;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1.13px;
+  text-transform: uppercase;
+  color: var(--cloudy-blue);
+}
+
+
+/* Ant-theme override
+   ========================================================================== */
+
+.ant-menu {
+  border: none;
 }
