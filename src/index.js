@@ -11,7 +11,7 @@ import {
   withRouter
 } from "react-router-dom";
 import { Provider } from "react-redux";
-
+import 'antd/dist/antd.css'; 
 import "./css/index.css";
 import rootReducer from "./reducers";
 import App from "./App";
