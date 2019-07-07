@@ -24,6 +24,9 @@ i {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-spa:before {
+  content: "\e924";
+}
 
 .icon-trash-alt:before {
   content: "\e91e";
