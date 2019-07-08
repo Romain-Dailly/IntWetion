@@ -51,9 +51,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   const buildQuestionData = () => {
     let finalQuestion = { ...question };
     finalQuestion.resources = resources;
-    getModalInfo(finalQuestion)
-    // getModalInfo(finalQuestion);
-    // resetModal();
+    getModalInfo(finalQuestion);
   }
 
   const handleSubmit = (event) => {
@@ -66,7 +64,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   }
 
   }// import AdminQuestion from './AdminQuestion';
-  console.log(question, resources)
+  // console.log(question, resources)
   return (
     <div>
       <button
@@ -183,7 +181,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 </div>
               </div>
             </div>
-
+                  <div className="buttonsModal"></div>
             <button
               type="button"
               className="btn btn-primary"
