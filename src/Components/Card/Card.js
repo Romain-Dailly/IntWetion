@@ -2,10 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-
 import { removeCard, startVideo, startQuiz } from "../../actions";
 import "./Card.css";
-import ill from "../../assets/Images/Force.jpg";
 
 const Card = props => {
   /**
@@ -24,9 +22,6 @@ const Card = props => {
   const cardStyle = {
     backgroundImage: `url(${image})`
   };
-
-  console.log(`http://localhost:3000/assets/Images/Force.jpg`);
-  
 
   if (isModifiable) {
     return (
