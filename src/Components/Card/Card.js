@@ -27,8 +27,6 @@ const Card = props => {
     backgroundImage: `url(${image})`
   };
 
-  console.log(props);
-
   if (isModifiable) {
     return (
       <Redirect

@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
-import { startQuiz } from '../../actions';
-import './Video.css';
-import Plyr from 'plyr';
-import '../../css/plyr.css';
+import React, { useEffect, useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { startQuiz } from "../../actions";
+import { ContextToolBar } from "../ContextToolBar/ContextToolBar";
+import "./Video.css";
+import Plyr from "plyr";
+import "../../css/plyr.css";
 
 const Comment = () => {
   /**
@@ -30,36 +31,38 @@ const Comment = () => {
     </div>
   );
 };
-const Video = ({ onStarted, onEnded }) => {
+
+const Video = ({ onStarted, onEnded, videoKey }) => {
   const [canComment, setCanComment] = useState(true);
   const player = useRef();
   const options = {
-    autoplay: true,
+    autoplay: true
   };
 
   useEffect(() => {
     const videoPlayer = new Plyr(player.current, options);
-    videoPlayer.on('ended', () => {
+    videoPlayer.on("ended", () => {
       setCanComment(true);
     });
 
-    videoPlayer.on('playing', () => {
+    videoPlayer.on("playing", () => {
       setCanComment(true);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <div className="video">
-      <div className="container player-wrapper">
-        <div>
-          <div
-            ref={player}
-            data-plyr-provider="youtube"
-            data-plyr-embed-id="bTqVqk7FSmY"
-          />
-          {canComment && <Comment continue={() => {}} />}
+    <div className="overlay">
+        <div className="video w-100">
+          <div className=" player-wrapper">
+            <div>
+              <div
+                ref={player}
+                data-plyr-provider="youtube"
+                data-plyr-embed-id={videoKey}
+              />
+            </div>
+          </div>
         </div>
-      </div>
     </div>
   );
 };
