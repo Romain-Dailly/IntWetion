@@ -12,8 +12,8 @@
 
 import axios from 'axios';
 
-// const BASE_URL = "http://localhost:8080/";
-const TEST_BASE_URL = 'https://jsonplaceholder.typicode.com';
+const BASE_URL = "http://localhost:8080/";
+// const TEST_BASE_URL = 'https://jsonplaceholder.typicode.com';
 
 /**
  * Performs an HTTP GET request using the [axios api]{@link https://github.com/axios/axios}
@@ -23,7 +23,7 @@ const TEST_BASE_URL = 'https://jsonplaceholder.typicode.com';
 const requestData = (path, params = {}) => {
   // axios config options for making network requests
   const config = {
-    baseURL: TEST_BASE_URL,
+    baseURL: BASE_URL,
     params: { ...params },
   };
   // Perform a GET request wih the provided path and config options
@@ -38,7 +38,7 @@ const requestData = (path, params = {}) => {
 const deleteData = (path, params = {}) => {
   // axios config options for making network requests
   const config = {
-    baseURL: TEST_BASE_URL,
+    baseURL: BASE_URL,
     params: { ...params },
   };
   // Perform a GET request wih the provided path and config options
@@ -55,8 +55,8 @@ const deleteData = (path, params = {}) => {
  *  response as an argument.
  */
 const fetchCards = async (callback) => {
-  // const path = "/cards";
-  const path = '/posts';
+  const path = "/cards";
+  // const path = '/posts';
   const response = await requestData(path);
   // The request was successful. Pass it to the callback function.
   callback(response.data);
@@ -68,9 +68,10 @@ const fetchCards = async (callback) => {
  *  response as an argument.
  */
 const fetchCard = async (id, callback) => {
-  // const path = "/cards";
-  const path = '/posts';
-  const response = await requestData(path);
+  const path = "/card/"
+  const param = { params:  id }
+  //const path = '/posts';
+  const response = await requestData(path,param);
   // The request was successful. Pass it to the callback function.
   callback(response.data);
 };

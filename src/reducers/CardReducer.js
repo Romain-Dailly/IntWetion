@@ -183,8 +183,7 @@ const CardReducer = (state = initState, action) => {
     case RECEIVE_DATA:
       return Object.assign({}, state, {
         isLoading: false,
-        data,
-        posts: action.payload,
+        data: action.payload,
       });
     case START_QUIZ:
       return Object.assign({}, state, {
