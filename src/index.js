@@ -3,7 +3,7 @@ import { createBrowserHistory } from "history";
 import ReactDOM from "react-dom";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import { ConnectedRouter, push } from "connected-react-router";
+import { ConnectedRouter } from "connected-react-router";
 import {
   BrowserRouter as Router,
   Switch,
