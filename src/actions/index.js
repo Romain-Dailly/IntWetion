@@ -8,7 +8,7 @@ import {
   QUIT_QUIZ,
   START_VIDEO,
 } from './types';
-import { fetchCards, deleteCard } from '../data/source';
+import { fetchDetailedCards,fetchCards, deleteCard } from '../data/source';
 
 export const addCard = {
   type: ADD_CARD,
@@ -65,7 +65,7 @@ export const getCards = () => (dispatch, getState) => {
   if (!state.card.data.length) {
     dispatch(requestData());
     try {
-      fetchCards((cards) => {
+      fetchDetailedCards((cards) => {
         dispatch(receiveData(cards));
       });
     } catch (error) {

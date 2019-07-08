@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 
 import { removeCard, startVideo, startQuiz } from "../../actions";
 import "./Card.css";
-import { push } from "connected-react-router";
+import ill from "../../assets/Images/Force.jpg";
 
 const Card = props => {
   /**
@@ -18,15 +18,15 @@ const Card = props => {
   const [isModifiable, setModifiable] = useState(false);
   const dispatch = useDispatch();
   const { data, index } = props;
-  const { image, overline, title, description } = data;
-
+  const { image, overline, name, description } = data.card;
   const [isVisible, toggleVisibility] = useState(false);
 
   const cardStyle = {
     backgroundImage: `url(${image})`
   };
 
-  console.log(props);
+  console.log(`http://localhost:3000/assets/Images/Force.jpg`);
+  
 
   if (isModifiable) {
     return (
@@ -60,9 +60,9 @@ const Card = props => {
         <div className="ui-card-image" style={cardStyle} />
         <div className="ui-card-body px-3">
           <div className="ui-content">
-            <p className="ui-card-overline overline mb-0 ">{overline}</p>
+            <p className="ui-card-overline overline mb-0 ">Force</p>
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h5 className="ui-card-title header-6">{title}</h5>
+              <h5 className="ui-card-title header-6">{name}</h5>
               <i
                 onClick={() => toggleVisibility(!isVisible)}
                 className={` icon icon-chevron-down ${
