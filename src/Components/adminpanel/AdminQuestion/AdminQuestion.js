@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
 
   const [question, setQuestion] = useState({});
@@ -181,7 +180,6 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 </div>
               </div>
             </div>
-                  <div className="buttonsModal"></div>
             <button
               type="button"
               className="btn btn-primary"
