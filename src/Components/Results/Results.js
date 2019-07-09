@@ -24,7 +24,7 @@ const Results = () => {
       resources: [
         {
           "url_resource": "blabla",
-          "type_resource": "1"
+          "type_resource": "2"
         },
         {
           "url_resource": "blabla2",
@@ -39,11 +39,11 @@ const Results = () => {
       resources: [
         {
           "url_resource": "blabla",
-          "type_resource": "1"
+          "type_resource": "3"
         },
         {
           "url_resource": "blabla2",
-          "type_resource": "2"
+          "type_resource": "3"
         }
       ]
     },
@@ -58,7 +58,7 @@ const Results = () => {
         },
         {
           "url_resource": "blabla2",
-          "type_resource": "2"
+          "type_resource": "1"
         }
       ],
     },
@@ -69,7 +69,7 @@ const Results = () => {
       resources: [
         {
           "url_resource": "blabla",
-          "type_resource": "1"
+          "type_resource": "2"
         },
         {
           "url_resource": "blabla2",
@@ -88,7 +88,7 @@ const Results = () => {
         },
         {
           "url_resource": "blabla2",
-          "type_resource": "2"
+          "type_resource": "3"
         }
       ],
     },
@@ -103,30 +103,56 @@ const Results = () => {
         },
         {
           "url_resource": "blabla2",
-          "type_resource": "2"
+          "type_resource": "1"
         }
       ],
     },
   ]
 
+  // Fonction qui permet de trier les objets du tableau par ordre de score croissant
   const getQuestions = () => {
     const getMinScore = answers.sort((a, b) => {
       return a.score - b.score;
     })
     return [getMinScore[0], getMinScore[1], getMinScore[2]]
   }
-    
-      return (
+
+    const getVideoResource = (resources) => {
+      return resources.filter((value) => {
+        return value.type_resource === "1"
+      })
+    }
+
+    const getBookResource = (resources) => {
+      return resources.filter((value) => {
+        return value.type_resource === "2"
+      })
+    }
+
+    const getMusicResource = (resources) => {
+      return resources.filter((value) => {
+        return value.type_resource === "3"
+      })
+    }
+
+  const [resource, setResource] = useState([])
+
+
+
+  return (
     <div className="container-result">
-          <h5> Voici les 3 forces que vous pouvez développer dès à présent. <br /><br />Cliquez sur une des forces pour commencer le programme.</h5>
-          <div className="card-results">
-            <ul className="list-group list-group-flush">
-              {getQuestions().map((question) => {
-                return <li className="list-group-item" style={{ cursor: "pointer" }} data-toggle="modal" data-target="#exampleModal" >{question.text}</li>
-              })}
-            </ul>
-         </div>
-         <div>
+      <h5> Voici les 3 forces que vous pouvez développer dès à présent. <br /><br />Cliquez sur une des forces pour commencer le programme.</h5>
+      <div className="card-results">
+        <ul className="list-group list-group-flush">
+          {getQuestions().map((question) => {  //récupère les 3 questions dont les scores sont les + bas
+            return <li onClick={() => {
+              setResource(question.resources);
+              getVideoResource(question.resources);
+            }} className="list-group-item" style={{ cursor: "pointer" }} data-toggle="modal" data-target="#exampleModal" >{question.text}</li>
+          })}
+        </ul>
+      </div>
+      <div>
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" isOpen>
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -140,19 +166,25 @@ const Results = () => {
                 <div>
                   <h6>A voir</h6>
                   <ul>
-                    <li></li>
+                    {getVideoResource(resource).map((toto) => {
+                      return <li>{toto.url_resource}</li>
+                    })}
                   </ul>
                 </div>
                 <div>
                   <h6>A lire</h6>
                   <ul>
-                    <li></li>
+                  {getBookResource(resource).map((toto) => {
+                      return <li>{toto.url_resource}</li>
+                    })}
                   </ul>
                 </div>
                 <div>
                   <h6>A écouter</h6>
                   <ul>
-                    <li></li>
+                  {getMusicResource(resource).map((toto) => {
+                      return <li>{toto.url_resource}</li>
+                    })}
                   </ul>
                 </div>
               </div>
@@ -162,11 +194,11 @@ const Results = () => {
             </div>
           </div>
         </div>
-        </div>
-         </div>
-  
-        )
-      };
-      
-      
-      export default Results;
+      </div>
+    </div>
+
+  )
+};
+
+
+export default Results;
