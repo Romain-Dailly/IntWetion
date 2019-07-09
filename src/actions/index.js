@@ -7,44 +7,55 @@ import {
   RECEIVE_DATA,
   QUIT_QUIZ,
   START_VIDEO,
-} from './types';
-import { fetchCards, deleteCard } from '../data/source';
+  LAUNCH_COMMENT,
+  LAUNCH_TEST,
+  SAVE_RESULTS
+} from "./types";
+import { fetchCards, deleteCard } from "../data/source";
+
+export const startVideo = (videoType, videoKey) => ({
+  type: START_VIDEO,
+  payload: {
+    videoType: videoType,
+    videoKey: videoKey
+  }
+});
+
+export const launchComment = {
+  type: LAUNCH_COMMENT
+};
+
+export const launchTest = cardId => ({
+  type: LAUNCH_TEST,
+  payload: cardId
+});
 
 export const addCard = {
-  type: ADD_CARD,
+  type: ADD_CARD
 };
 export const deleteCardAction = id => ({
   type: DELETE_CARD,
-  payload: id,
+  payload: id
 });
 export const editCard = {
-  type: EDIT_CARD,
+  type: EDIT_CARD
 };
 
-export const startQuiz = cardId => ({
-  type: START_QUIZ,
-  payload: cardId,
-});
-
-/**
- *
- * @param {object} card
- * @param {boolean} hasComment
- */
-export const startVideo = (card, hasComment) => ({
-  type: START_VIDEO,
-  payload: {
-    card,
-    hasComment,
-  },
-});
+export const startQuiz = {
+  type: START_QUIZ
+};
 
 export const quitQuiz = {
-  type: QUIT_QUIZ,
+  type: QUIT_QUIZ
 };
 
 export const requestData = () => ({
-  type: REQUEST_DATA,
+  type: REQUEST_DATA
+});
+
+export const saveResults = answers => ({
+  type: SAVE_RESULTS,
+  payload: answers
 });
 
 /**
@@ -52,7 +63,7 @@ export const requestData = () => ({
  */
 export const receiveData = cards => ({
   type: RECEIVE_DATA,
-  payload: cards,
+  payload: cards
 });
 
 export const getCards = () => (dispatch, getState) => {
@@ -65,12 +76,12 @@ export const getCards = () => (dispatch, getState) => {
   if (!state.card.data.length) {
     dispatch(requestData());
     try {
-      fetchCards((cards) => {
+      fetchCards(cards => {
         dispatch(receiveData(cards));
       });
     } catch (error) {
       // TODO Handle error
-      console.log('error');
+      console.log("error");
     }
   }
 };
@@ -83,12 +94,12 @@ export const removeCard = id => (dispatch, getState) => {
   if (state.card.data.length) {
     try {
       deleteCard(1, () => {
-        console.log('called');
+        console.log("called");
         dispatch(deleteCardAction(id));
       });
     } catch (error) {
       // TODO Handle error
-      console.log('error');
+      console.log("error");
     }
   }
 };

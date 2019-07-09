@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { Popconfirm, message } from "antd";
 import Quiz from "../Quiz/Quiz";
 import Video from "../Video/Video";
 import Card from "../Card/Card";
 import "./Home.css";
-import { Row, Col } from "react-flexbox-grid";
+import { Row } from "react-flexbox-grid";
 import LoadingState from "../ViewStates/LoadingState";
+import { startVideo, launchComment, startQuiz, quitQuiz } from "../../actions";
+import { videoTypes } from "../../values/strings";
 
 const Comment = ({ onComment }) => {
   /**
@@ -38,49 +42,79 @@ const Comment = ({ onComment }) => {
 };
 
 const Home = () => {
-  const { data, isLoading } = useSelector(store => store.card);
-  const [cardId, setCardId] = useState(0);
-  const [canComment, setCanComment] = useState(false);
-  const [videoStarted, startVideo] = useState(false);
-  const [quizStarted, startQuiz] = useState(false);
+  /**
+   * Get a reference to the `dispatch` function from the Redux store.
+   * Use it to dispatch needed redux `actions`.
+   *
+   * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
+   */
+  const dispatch = useDispatch();
 
-  const videoType = {
-    intro: "INTRO",
-    outtro: "OUTRO"
-  }
+  const { data, isLoading } = useSelector(store => store.card);
+  const { state, videoType, videoKey } = useSelector(store => store.card.quiz);
+
+  console.log(videoKey);
+  
+  const [cardId, setCardId] = useState(0);
+  const [canShowResults, showResults] = useState(false);
+
+  const { videoStarted, canComment, quizStarted } = state;
+
+  const manageLogic = () => {
+    switch (videoType) {
+      case videoTypes.INTRO:
+        dispatch(launchComment);
+        break;
+
+      case videoTypes.OUTRO:
+        showResults(true);
+        break;
+
+      default:
+        break;
+    }
+  };
 
   // Indicate loading process.
   if (isLoading) {
     return <LoadingState />;
   }
 
+  if (canShowResults) {
+    return (
+      <Redirect
+        push
+        to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: "answers" }}
+      />
+    );
+  }
+
   return (
     <div className="home background-white">
-      {videoStarted && <Video
-        videoKey="gN7U0ycbWCM"
-        onClose={() => { startVideo(false) }}
-        onContinue={() => {
-          setCanComment(true)
-          startVideo(false)
-        }}
-        onEnded={() => {
-          startVideo(false);
-          setCanComment(true)
-        }}
-        onPlaying={() => { setCanComment(false) }}
-      />}
+      {videoStarted && (
+        <Video
+          videoKey="gN7U0ycbWCM"
+          onClose={() => {
+            dispatch(quitQuiz);
+          }}
+          onContinue={() => {
+            manageLogic();
+          }}
+          onEnded={() => {
+            dispatch(launchComment);
+          }}
+        />
+      )}
 
-      {canComment && <Comment onComment={() => {
-        console.log("Start quiz");
+      {canComment && (
+        <Comment
+          onComment={() => {
+            dispatch(startQuiz);
+          }}
+        />
+      )}
 
-        startVideo(false);
-        setCanComment(false)
-        startQuiz(true);
-      }
-
-      } />}
-
-      {quizStarted && <Quiz />}
+      {quizStarted && <Quiz canShowResults = {canShowResults}/>}
 
       <div className="container px-2">
         <Row gutter={16}>
@@ -91,7 +125,7 @@ const Home = () => {
               index={index}
               onStartQuiz={() => {
                 setCardId(index);
-                startVideo(true);
+                dispatch(startVideo(videoTypes.INTRO, ""));
               }}
             />
           ))}

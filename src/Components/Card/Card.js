@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-import { Row, Col } from 'react-flexbox-grid';
-import { Tooltip } from 'antd';
-import { removeCard, startVideo, startQuiz } from "../../actions";
+import { Row, Col } from "react-flexbox-grid";
+import { Tooltip } from "antd";
+import { removeCard, startVideo, startQuiz, launchTest } from "../../actions";
 import "./Card.css";
 import { push } from "connected-react-router";
 
@@ -39,8 +39,6 @@ const Card = props => {
     );
   }
 
-  console.log(index);
-
   return (
     <Col xs={12} md={6} lg={4} span={8}>
       <div className="ui-card mb-3">
@@ -69,7 +67,7 @@ const Card = props => {
                 onClick={() => toggleVisibility(!isVisible)}
                 className={` icon icon-chevron-down ${
                   isVisible ? "flip-vertically" : ""
-                  }`}
+                }`}
                 tabIndex="-1"
               />
             </div>
@@ -77,7 +75,7 @@ const Card = props => {
             <p
               className={`ui-card-text body-1 noselect ${
                 isVisible ? "" : "d-none"
-                }`}
+              }`}
             >
               {description}
             </p>
@@ -90,8 +88,8 @@ const Card = props => {
               type="button"
               className="button button-primary"
               onClick={() => {
-                dispatch(startQuiz(index));
-                onStartQuiz()
+                dispatch(launchTest(index));
+                onStartQuiz();
               }}
             >
               Commencer

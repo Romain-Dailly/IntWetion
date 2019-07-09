@@ -32,7 +32,7 @@ const Comment = () => {
   );
 };
 
-const Video = ({ onPlaying, onEnded, videoKey, onContinue, onClose }) => {
+const Video = ({ onEnded, videoKey, onContinue, onClose }) => {
   const player = useRef();
   const options = {
     autoplay: false
@@ -42,10 +42,6 @@ const Video = ({ onPlaying, onEnded, videoKey, onContinue, onClose }) => {
     const videoPlayer = new Plyr(player.current, options);
     videoPlayer.on("ended", () => {
       onEnded();
-    });
-
-    videoPlayer.on("playing", () => {
-      onPlaying();
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -65,7 +61,9 @@ const Video = ({ onPlaying, onEnded, videoKey, onContinue, onClose }) => {
         </div>
 
         <div className="d-flex">
-          <button onClick={onClose} className>Exit</button>
+          <button onClick={onClose} className>
+            Exit
+          </button>
           <button onClick={onContinue}>Continue</button>
         </div>
       </div>

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import { useSelector, useDispatch } from "react-redux";
-import "../NavBar/NavBar.css";
+import PropTypes from "prop-types";
 import Question from "../Question/Question";
-import "./Quiz.css";
-import { quitQuiz, startVideo } from "../../actions";
+import { quitQuiz, startVideo, saveResults } from "../../actions";
 import { Redirect } from "react-router-dom";
-
+import "./Quiz.css";
+import { videoTypes } from "../../values/strings";
 /**
  * A component containing widgets to trigger actions.
  * @param {objects} props An object containing required dependencies for this function.
@@ -40,7 +39,7 @@ const ActionBar = ({ buttonValue, onNextButtonClick }) => (
  * It serves as a wrapper for other sub-components.
  * @param {object} props An object containing required dependencies for this component.
  */
-const Quiz = ({ color = "white" }) => {
+const Quiz = ({ color = "white", canShowResults }) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -48,41 +47,36 @@ const Quiz = ({ color = "white" }) => {
    * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
    */
   const dispatch = useDispatch();
+  console.log(canShowResults);
 
   /**
    * Get access to the redux store's state.
    */
   const cardId = useSelector(store => store.card.quiz.cardId);
   const { questions } = useSelector(store => store.card.data[cardId]);
-  console.log(cardId, questions);
 
-
-  const [videoEnded, endVideo] = useState(false);
   const [quizEnded, endQuiz] = useState(false);
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [buttonValue, setButtonValue] = useState("");
-
-  useEffect(() => {
-    if (!videoEnded) {
-      setButtonValue("Start");
-    } else {
-      setButtonValue("Continue");
-    }
-  }, []);
+  const [buttonValue, setButtonValue] = useState("Continue");
 
   const nextQuestion = () => {
+    // store the number of questions into a variable
     const questionCount = questions.length - 1;
+
+    // Check if we are at the last question index
+    if (questionIndex === questionCount) {
+      // TODO retrieve the video key from redux store.
+      // Launch the outro.
+      dispatch(saveResults(answers));
+      dispatch(startVideo(videoTypes.OUTRO, ""));
+      localStorage.setItem("results", JSON.stringify(answers));
+    }
+    // Navigate to the next question
     if (questionIndex < questionCount) {
       setQuestionIndex(questionIndex + 1);
     }
   };
-
-  useEffect(() => {
-    if (questionIndex === 4) {
-      setButtonValue("Finish");
-    }
-  }, [questionIndex]);
 
   const getProgress = () => {
     const numberOfQuestion = questions.length - 1;
@@ -92,18 +86,18 @@ const Quiz = ({ color = "white" }) => {
   const storeAnswer = (answer, number) => {
     const questionKey = `question-${number}`;
     const answersCopy = { ...answers };
-
     answersCopy[questionKey] = answer;
 
-    // const newObject = Object.assign({}, answersCopy, {
-    //   [questionKey]: {
-    //     answer: answer,
-    //     question: questions[questionIndex]
-    //   }
-    // });
+    const newObject = Object.assign({}, answersCopy, {
+      [questionKey]: {
+        answer: answer,
+        question: questions[questionIndex]
+      }
+    });
 
     // answersCopy[questionKey].question = questions[questionIndex];
-    setAnswers("answersCopy");
+
+    setAnswers(newObject);
   };
 
   const ToolBar = ({ title }) => (
@@ -117,17 +111,6 @@ const Quiz = ({ color = "white" }) => {
       />
     </div>
   );
-
-  console.log(answers);
-
-  if (questionIndex === 4) {
-    return (
-      <Redirect
-        push
-        to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: answers }}
-      />
-    );
-  }
 
   return (
     <div className="overlay">
@@ -154,8 +137,7 @@ const Quiz = ({ color = "white" }) => {
         <ActionBar
           buttonValue={buttonValue}
           onNextButtonClick={() => {
-            endQuiz();
-            startVideo && nextQuestion();
+            nextQuestion();
           }}
         />
       </div>
