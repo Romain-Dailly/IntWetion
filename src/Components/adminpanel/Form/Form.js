@@ -8,6 +8,8 @@ function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
 
+  //Hook pour le titre du formulaire
+  const [formState, setFormState] = useState('Créer une nouvelle carte');
   // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
     card: {
@@ -35,21 +37,58 @@ function Form() {
     questions: [],
   });
 
-  useEffect(() => {
-    console.log(cardData)
-    (cardData && setAdminInput(cardData));
-  }, []);
-
   // Hook pour l'élément question
   const [adminInputQuestions, setAdminInputQuestions] = useState([]);
 
-  // Puting all the information in the hook card before the post
-  const buildCardData = () => ({ ...adminInput, questions: adminInputQuestions });
+  // Hook pour définir le titre, le préremplissage du formulaire
+  // au lancement du rendu
+  useEffect(() => {
+    if (cardData) {
+      setFormState('Modifier la carte');
+      setAdminInput(cardData);
+      setAdminInputQuestions(cardData.questions);
+    };
+  }, []);
 
+  // Organisation et filtrage des données pour le put et le post
+  const buildCardData = () => {
+    const questionsForPut = adminInputQuestions.map(question => {
+      return {
+        number_question: question.number_question,
+        text_question: question.text_question,
+        image_question: question.image_question,
+        type_response: question.type_response,
+        has_comment: question.has_comment,
+        resources: question.resources.map(res => {
+          return {
+            url_resource: res.url_resource,
+            type_resource: res.type_resource,
+          }
+        }),
+      };
+    });
+    return {
+      card: {
+        bg_color: adminInput.card.bg_color,
+        description: adminInput.card.description,
+        image: adminInput.card.image,
+        name: adminInput.card.name,
+        online: adminInput.card.online,
+        payment: adminInput.card.payment
+      },
+      videos: adminInput.videos,
+      questions: questionsForPut
+    };
+  };
+
+  // Fonction qui crée une question vide et ouvre la modale 
+  // pour la modifier 
   const addQuestion = (question) => {
     setAdminInputQuestions([...adminInputQuestions, question]);
   };
 
+  // Fonction pour modifier le hook des questions à la fermeture de la modale question
+  // fonction élastique appellée dans le composant modale avec les données
   const modifyQuestion = (question, i) => {
     const finalQuestions = [...adminInputQuestions];
     finalQuestions[i] = question;
@@ -62,17 +101,25 @@ function Form() {
     )
   };
 
-  // Envoie la totalité du formulaire stockée dans hook card
+  // Envoie la totalité du formulaire stockée dans hook adminInput
   // lors du click sur le bouton enregistrer.
+  // Si on a un id dans le hook, c'est que l'on a reçu des données
+  // et c'est un put, sinon, c'est un post
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post('http:///localhost:8080/card/', buildCardData())
-      .then((response) => {
-        console.log(response);
-      });
+    if (adminInput.card.id && adminInput.card.date !== 0) {
+      return axios.put(`http:///localhost:8080/card/?id=${adminInput.card.id}`, buildCardData())
+        .then((response) => {
+          console.log(response);
+        });
+    } else
+      return axios.post('http:///localhost:8080/card/', buildCardData())
+        .then((response) => {
+          console.log(response);
+        });
   };
 
-  // Fonction qui gère les onChange du hook card
+  // Fonction qui gère les onChange du hook adminInput
   const onCardInputChange = ({ target }) => {
     const { value } = target;
     const newObj = { ...adminInput };
@@ -80,9 +127,8 @@ function Form() {
     newObj.card[dataKey] = value;
     setAdminInput(newObj);
   };
-  // console.log(adminInput);
 
-  // Fonction qui gère les onChange du hook vidéo
+  // Fonction qui gère les onChange du hook adminInput.vidéos
   const onVideoInputChange = ({ target }) => {
     const { value, id } = target;
     const newObj = { ...adminInput };
@@ -91,7 +137,6 @@ function Form() {
     setAdminInput(newObj);
   };
 
-  // console.log(adminInputQuestions)
   return (
     <div>
       <div className="container-fluid">
@@ -100,7 +145,7 @@ function Form() {
           <div className="container-adminInput col-10">
             <form className="pr-5 divForm">
               <div>
-                <h1>Définir la carte</h1>
+                <h1>{formState}</h1>
                 <label htmlFor="formGroupExampleInputcard" className="divcard">
                   Entrez le nom de la carte :
                   <input
@@ -126,7 +171,6 @@ function Form() {
                   />
                 </label>
               </div>
-              <h2>Vidéos / Musique</h2>
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Lien, image de la carte
@@ -135,10 +179,12 @@ function Form() {
                     id="exampleFormControlTextarea1"
                     rows="1"
                     data-key="image"
+                    value={adminInput.card.image}
                     onChange={onCardInputChange}
                   />
                 </label>
               </div>
+              <h2>Vidéos / Musique</h2>
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Lien, vidéo-intro de la carte
@@ -147,7 +193,7 @@ function Form() {
                     id="0"
                     rows="1"
                     data-key="url_video"
-                    value={adminInput.videos.url_video}
+                    value={adminInput.videos[0].url_video}
                     onChange={onVideoInputChange}
                   />
                 </label>
@@ -160,7 +206,7 @@ function Form() {
                     rows="1"
                     id="1"
                     data-key="url_video"
-                    value={adminInput.videos.url_video}
+                    value={adminInput.videos[1].url_video}
                     onChange={onVideoInputChange}
                   />
                 </label>
@@ -173,7 +219,7 @@ function Form() {
                     rows="1"
                     id="2"
                     data-key="url_video"
-                    value={adminInput.videos.url_video}
+                    value={adminInput.videos[2].url_video}
                     onChange={onVideoInputChange}
                   />
                 </label>
@@ -189,8 +235,8 @@ function Form() {
                         name="inlineRadioOptionsOnline"
                         id="inlineRadio1"
                         data-key="online"
-                        value={0}
-                        checked={adminInput.card.online === 0 ? 'checked' : null}
+                        value={1}
+                        checked={adminInput.card.online === 1 ? 'checked' : null}
                         onChange={onCardInputChange}
                       />
                       En ligne
@@ -204,8 +250,8 @@ function Form() {
                         name="inlineRadioOptionsOnline"
                         id="inlineRadio2"
                         data-key="online"
-                        value={1}
-                        checked={adminInput.card.online === 1 ? 'checked' : null}
+                        value={0}
+                        checked={adminInput.card.online === 0 ? 'checked' : null}
                         onChange={onCardInputChange}
                       />
                       Hors ligne
@@ -273,14 +319,14 @@ function Form() {
                       <button
                         onClick={
                           () => deleteQuestion(i)
-                         }
+                        }
                         type="button"
                         className="btn btn-primary">
                         Supprimer
                       </button>
                     </div>
                   </div>)
-                })};
+                })}
                 <AdminQuestion
                   key="-1"
                   buttonName="Ajouter une question"

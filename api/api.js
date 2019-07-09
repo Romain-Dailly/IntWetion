@@ -32,7 +32,6 @@ app.route('/card/')
   //POST 
   .post((request, response) => {
     const data = request.body;
-    console.log(data);
     //On definit les objets à insérer dans chaques tables
     const dataContentVideos = data.videos;
     const dataContentQuestions = data.questions;
@@ -115,7 +114,7 @@ app.route('/card/')
           //On récupère les ids des questions dans un tableau
           const idQuestions = resultQuestions.map(question => question.id); 
           //Que l'on utilise pour récupérer les ressources associées
-          connection.query(`SELECT * FROM resources WHERE id_question IN (${idQuestions})`,
+          connection.query(`SELECT * FROM resources WHERE id_question IN ('${idQuestions}')`,
           (error, resultResources) => {
             if (error) {
               console.log(error);
@@ -163,12 +162,13 @@ app.route('/card/')
   // PUT (id de la carte à ajouter en front dans la request dans card:{})
   .put((request, response) => {
     const data = request.body;
+    let idCard = request.query.id
     // On definit les objets à modifier dans chaques tables
     const dataContentVideos = data.videos;
     const dataContentQuestions = data.questions;
     const cardData = data.card;
     //On met à jour le contenu de la carte dans la table card grâce à son id
-    connection.query(`UPDATE card SET ? WHERE id=${cardData.id}`, 
+    connection.query(`UPDATE card SET ? WHERE id=${idCard}`, 
     cardData, (error, resultCard) => {
       if (error) {
         console.log(error);
@@ -176,7 +176,7 @@ app.route('/card/')
       }
       //Puis les 3 videos correspondant à notre id de la carte et au type_video à modifier
       dataContentVideos.map(dataContentVideo => {
-        connection.query(`UPDATE videos SET ? WHERE id_card ='${cardData.id}' AND
+        connection.query(`UPDATE videos SET ? WHERE id_card ='${idCard}' AND
         type_video='${dataContentVideo.type_video}'`, 
         dataContentVideo, (error, resultVideo) => {
           if (error) {
@@ -186,7 +186,7 @@ app.route('/card/')
         });
       });
       // On supprime les anciennes questions et ressources (ON DELETE CASCADE)
-      connection.query(`DELETE FROM questions WHERE id_card=${cardData.id}`, 
+      connection.query(`DELETE FROM questions WHERE id_card=${idCard}`, 
       (error, result) => {
         if (error) {
           console.log(error);
@@ -198,7 +198,7 @@ app.route('/card/')
       dataContentQuestions.map(dataContentQuestion => {
         let resources = dataContentQuestion.resources;
         connection.query(`INSERT INTO questions SET
-          id_card ='${cardData.id}',
+          id_card ='${idCard}',
           number_question = '${dataContentQuestion.number_question}',
           text_question = '${dataContentQuestion.text_question}',
           image_question = '${dataContentQuestion.image_question}',

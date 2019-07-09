@@ -32,15 +32,15 @@
       "resources" :[        
         {
           "url_resource": "https://www.youtube.com/watch?v=XkOpbLBzPsY&t=471s",
-          "type_resource": "1"
+          "type_resource": "3"
         },
         {
           "url_resource": "https://www.youtube.com/watch?v=G8rZf5wxbos",
-          "type_resource": "1"
+          "type_resource": "2"
         },
         {
           "url_resource": "https://www.amazon.fr/LAventure-int%C3%A9rieure-lib%C3%A9rer-souffrance-r%C3%A9aliser/dp/2839906562",
-          "type_resource": "2"
+          "type_resource": "1"
         }
       ]
     },
@@ -53,31 +53,31 @@
       "resources" :[        
         {
           "url_resource": "https://s3.amazonaws.com/alchymed/PointdeBascule-EBOOK_Tome_1.pdf",
-          "type_resource": "2"
+          "type_resource": "1"
         },
         {
           "url_resource": "https://www.youtube.com/watch?v=QACfVMSNKdE",
-          "type_resource": "3"
+          "type_resource": "2"
         },
         {
           "url_resource": "https://www.youtube.com/watch?v=G8rZf5wxbos",
-          "type_resource": "2"
+          "type_resource": "3"
         },
         {
           "url_resource": "https://www.youtube.com/watch?v=j00wp1ZIVTQ",
-          "type_resource": "2"
+          "type_resource": "3"
         },
         {
           "url_resource": "https://www.youtube.com/watch?v=QcwQYlwLVUo",
-          "type_resource": "2"
+          "type_resource": "3"
         },
         {
           "url_resource": "https://www.youtube.com/watch?v=z4_yBm54Ai4",
-          "type_resource": "2"
+          "type_resource": "3"
         },
         {
           "url_resource": "https://www.youtube.com/watch?v=-CVN2qAfBes",
-          "type_resource": "2"
+          "type_resource": "3"
         }
       ]
     },
