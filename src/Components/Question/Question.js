@@ -4,7 +4,7 @@ import './Question.css';
 
 
 const Question = ({ question, onAnswerSelected }) => {
-  const { text, image } = question;
+  const { text_question, image_question } = question;
 
   const RadioButton = ({ number }) => (
     <div className="col-4 d-flex justify-content-center p-0">
@@ -26,8 +26,8 @@ const Question = ({ question, onAnswerSelected }) => {
   return (
     <div className="question">
       <div className="container">
-        <img src={image} alt="" width="100%" />
-        <p className="body-1 my-3">{text}</p>
+        <img src={image_question} alt="" width="100%" />
+        <p className="body-1 my-3">{text_question}</p>
         <div className="row justify-content-center">
           {answerRange.map(number => (
             <RadioButton key={number} number={number} />

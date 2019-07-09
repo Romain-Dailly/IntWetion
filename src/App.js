@@ -16,6 +16,7 @@ import "./App.css";
 import Home from "./Components/Home/Home";
 import Video from "./Components/Video/Video";
 import { push } from "connected-react-router";
+import { fetchCard, fetchDetailedCards } from "./data/source";
 
 const App = props => {
   /**
@@ -39,7 +40,12 @@ const App = props => {
   const ROOT_URL = process.env.PUBLIC_URL;
 
   useEffect(() => {
-    dispatch(push('admin'))
+    fetchDetailedCards(params => {
+      console.log(params);
+      
+    });
+
+    dispatch(push("admin"));
     // Dispatch and action to fetch data from a remote source.
     dispatch(getCards());
     // eslint-disable-next-line react-hooks/exhaustive-deps
