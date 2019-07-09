@@ -183,8 +183,7 @@ const CardReducer = (state = initState, action) => {
     case RECEIVE_DATA:
       return Object.assign({}, state, {
         isLoading: false,
-        data,
-        posts: action.payload,
+        data: action.payload,
       });
     case START_QUIZ:
       return Object.assign({}, state, {
@@ -203,9 +202,6 @@ const CardReducer = (state = initState, action) => {
 
     case DELETE_CARD:
       return state;
-      // return Object.assign({}, state, {
-
-      // });
 
     case START_VIDEO:
       return Object.assign({}, state, {

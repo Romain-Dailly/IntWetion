@@ -21,7 +21,7 @@ const ActionBar = ({ buttonValue, onNextButtonClick }) => (
         min="0"
         max="1"
         step="any"
-        onChange={({ target }) => console.log(target.value)}
+        onChange={({ target }) => {}}
         className="slider ml-3 mr-4"
       />
     </div>
@@ -56,6 +56,8 @@ const Quiz = ({ color = "white" }) => {
   const cardId = useSelector(store => store.card.quiz.cardId);
   const { questions } = useSelector(store => store.card.data[cardId]);
 
+  console.log(questions);
+  
   const [videoEnded, endVideo] = useState(false);
   const [quizEnded, endQuiz] = useState(!videoEnded);
   const [outroShowed, showOutro] = useState(false);
@@ -88,7 +90,6 @@ const Quiz = ({ color = "white" }) => {
     }
   };
 
-  console.log(answers);
 
   useEffect(() => {
     if (questionIndex === 4) {
@@ -102,7 +103,6 @@ const Quiz = ({ color = "white" }) => {
   };
 
   const storeAnswer = (answer, number) => {
-    console.log("answer");
 
     const questionKey = `question-${number}`;
     const answersCopy = answers;
@@ -116,7 +116,6 @@ const Quiz = ({ color = "white" }) => {
       }
     });
 
-    console.log(newObject);
 
     // answersCopy[questionKey].question = questions[questionIndex];
     setAnswers(newObject);
@@ -134,7 +133,6 @@ const Quiz = ({ color = "white" }) => {
     </div>
   );
 
-  console.log(answers);
 
   if (questionIndex === 4) {
     return (

@@ -32,6 +32,7 @@ app.route('/card/')
   //POST 
   .post((request, response) => {
     const data = request.body;
+    console.log(data);
     //On definit les objets à insérer dans chaques tables
     const dataContentVideos = data.videos;
     const dataContentQuestions = data.questions;
