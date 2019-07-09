@@ -18,7 +18,7 @@ const Card = props => {
 
   const [isModifiable, setModifiable] = useState(false);
   const dispatch = useDispatch();
-  const { data, index } = props;
+  const { data, index, onStartQuiz } = props;
   const { image, overline, title, description } = data;
 
   const [isVisible, toggleVisibility] = useState(false);
@@ -39,6 +39,8 @@ const Card = props => {
     );
   }
 
+  console.log(index);
+
   return (
     <Col xs={12} md={6} lg={4} span={8}>
       <div className="ui-card mb-3">
@@ -50,6 +52,7 @@ const Card = props => {
               setModifiable(true);
             }}
           />
+
           <i
             role="button"
             onClick={() => dispatch(removeCard(data.id))}
@@ -88,6 +91,7 @@ const Card = props => {
               className="button button-primary"
               onClick={() => {
                 dispatch(startQuiz(index));
+                onStartQuiz()
               }}
             >
               Commencer

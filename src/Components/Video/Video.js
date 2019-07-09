@@ -32,26 +32,26 @@ const Comment = () => {
   );
 };
 
-const Video = ({ onStarted, onEnded, videoKey }) => {
-  const [canComment, setCanComment] = useState(true);
+const Video = ({ onPlaying, onEnded, videoKey, onContinue, onClose }) => {
   const player = useRef();
   const options = {
-    autoplay: true
+    autoplay: false
   };
 
   useEffect(() => {
     const videoPlayer = new Plyr(player.current, options);
     videoPlayer.on("ended", () => {
-      setCanComment(true);
+      onEnded();
     });
 
     videoPlayer.on("playing", () => {
-      setCanComment(true);
+      onPlaying();
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="overlay">
+      <div className="d-flex flex-column w-100">
         <div className="video w-100">
           <div className=" player-wrapper">
             <div>
@@ -63,6 +63,12 @@ const Video = ({ onStarted, onEnded, videoKey }) => {
             </div>
           </div>
         </div>
+
+        <div className="d-flex">
+          <button onClick={onClose} className>Exit</button>
+          <button onClick={onContinue}>Continue</button>
+        </div>
+      </div>
     </div>
   );
 };

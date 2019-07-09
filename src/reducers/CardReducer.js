@@ -203,9 +203,9 @@ const CardReducer = (state = initState, action) => {
 
     case DELETE_CARD:
       return state;
-      // return Object.assign({}, state, {
+    // return Object.assign({}, state, {
 
-      // });
+    // });
 
     case START_VIDEO:
       return Object.assign({}, state, {

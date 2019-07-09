@@ -5,7 +5,6 @@ import "../NavBar/NavBar.css";
 import Question from "../Question/Question";
 import "./Quiz.css";
 import { quitQuiz, startVideo } from "../../actions";
-import Video from "../Video/Video";
 import { Redirect } from "react-router-dom";
 
 /**
@@ -55,11 +54,11 @@ const Quiz = ({ color = "white" }) => {
    */
   const cardId = useSelector(store => store.card.quiz.cardId);
   const { questions } = useSelector(store => store.card.data[cardId]);
+  console.log(cardId, questions);
+
 
   const [videoEnded, endVideo] = useState(false);
-  const [quizEnded, endQuiz] = useState(!videoEnded);
-  const [outroShowed, showOutro] = useState(false);
-  const [introShowed, showIntro] = useState(false);
+  const [quizEnded, endQuiz] = useState(false);
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
   const [buttonValue, setButtonValue] = useState("");
@@ -70,25 +69,14 @@ const Quiz = ({ color = "white" }) => {
     } else {
       setButtonValue("Continue");
     }
-  }, [videoEnded]);
+  }, []);
 
   const nextQuestion = () => {
-    if (!videoEnded && !questionIndex === 4) {
-      endVideo(true);
-    } else {
-      const questionCount = questions.length - 1;
-      if (questionIndex < questionCount) {
-        setQuestionIndex(questionIndex + 1);
-      }
-    }
-
-    if (questionIndex === 4) {
-      endVideo(false);
-      endQuiz(true);
+    const questionCount = questions.length - 1;
+    if (questionIndex < questionCount) {
+      setQuestionIndex(questionIndex + 1);
     }
   };
-
-  console.log(answers);
 
   useEffect(() => {
     if (questionIndex === 4) {
@@ -102,27 +90,23 @@ const Quiz = ({ color = "white" }) => {
   };
 
   const storeAnswer = (answer, number) => {
-    console.log("answer");
-
     const questionKey = `question-${number}`;
-    const answersCopy = answers;
+    const answersCopy = { ...answers };
 
     answersCopy[questionKey] = answer;
 
-    const newObject = Object.assign({}, answersCopy, {
-      [questionKey]: {
-        answer: answer,
-        question: questions[questionIndex]
-      }
-    });
-
-    console.log(newObject);
+    // const newObject = Object.assign({}, answersCopy, {
+    //   [questionKey]: {
+    //     answer: answer,
+    //     question: questions[questionIndex]
+    //   }
+    // });
 
     // answersCopy[questionKey].question = questions[questionIndex];
-    setAnswers(newObject);
+    setAnswers("answersCopy");
   };
 
-   const ToolBar = ({ title }) => (
+  const ToolBar = ({ title }) => (
     <div className="context-tool-bar background-white">
       <i className="logo icon-alt icon-lotus" />
       <p className="header-5 m-0">{title}</p>
@@ -150,14 +134,12 @@ const Quiz = ({ color = "white" }) => {
       <ToolBar title="Forces" />
       <div className="overlay-content" style={{ background: `${color}` }}>
         <div className="content">
-          {!videoEnded && <Video />}
-
-          {!quizEnded && (
+          {
             <Question
               question={questions[questionIndex]}
               onAnswerSelected={storeAnswer}
             />
-          )}
+          }
         </div>
         <div className="ui-progress">
           <div

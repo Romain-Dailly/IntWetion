@@ -30,7 +30,10 @@ const Question = ({ question, onAnswerSelected }) => {
         <p className="body-1 my-3">{text}</p>
         <div className="row justify-content-center">
           {answerRange.map(number => (
-            <RadioButton key={number} number={number} />
+            <RadioButton
+              key={number}
+              number={number}
+            />
           ))}
         </div>
       </div>

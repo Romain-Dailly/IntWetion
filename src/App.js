@@ -50,7 +50,6 @@ const App = props => {
   return (
     <Fragment>
       <NavBar />
-      {quizStarted && <Quiz />}
       <Switch>
         <Route path={`${ROOT_URL}/`} exact component={Home} />
         <Route path={`${ROOT_URL}/login`} component={Login} />
