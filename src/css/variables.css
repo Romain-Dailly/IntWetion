@@ -1,3 +1,16 @@
 :root {
-  --color-primary :#3498db;
+  --color-primary: #2e5bff;
+  --color-text: #2e384d;
+  --color-primary-low-emphasis: rgba(46, 91, 255, 0.2);
+  --color-primary-disable: rgba(46, 91, 255, 0.1);
+  --white: #fafafa;
+  --melon: #ff8256;
+  --soft-blue: #5699ff;
+  --black: #212121;
+  --coral-pink: #ef6a6e;
+  --brown-grey: #979797;
+  --cloudy-blue: #b0bac9;
+  --dark: #2e384d;
+  --clear-blue: #2e5bff;
+  --pale-grey: #f4f6fc;
 }

@@ -8,7 +8,7 @@ function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
 
-  //Hook pour le titre du formulaire
+  // Hook pour le titre du formulaire
   const [formState, setFormState] = useState('Créer une nouvelle carte');
   // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
@@ -47,26 +47,22 @@ function Form() {
       setFormState('Modifier la carte');
       setAdminInput(cardData);
       setAdminInputQuestions(cardData.questions);
-    };
+    }
   }, []);
 
   // Organisation et filtrage des données pour le put et le post
   const buildCardData = () => {
-    const questionsForPut = adminInputQuestions.map(question => {
-      return {
-        number_question: question.number_question,
-        text_question: question.text_question,
-        image_question: question.image_question,
-        type_response: question.type_response,
-        has_comment: question.has_comment,
-        resources: question.resources.map(res => {
-          return {
-            url_resource: res.url_resource,
-            type_resource: res.type_resource,
-          }
-        }),
-      };
-    });
+    const questionsForPut = adminInputQuestions.map(question => ({
+      number_question: question.number_question,
+      text_question: question.text_question,
+      image_question: question.image_question,
+      type_response: question.type_response,
+      has_comment: question.has_comment,
+      resources: question.resources.map(res => ({
+        url_resource: res.url_resource,
+        type_resource: res.type_resource,
+      })),
+    }));
     return {
       card: {
         bg_color: adminInput.card.bg_color,
@@ -74,15 +70,15 @@ function Form() {
         image: adminInput.card.image,
         name: adminInput.card.name,
         online: adminInput.card.online,
-        payment: adminInput.card.payment
+        payment: adminInput.card.payment,
       },
       videos: adminInput.videos,
-      questions: questionsForPut
+      questions: questionsForPut,
     };
   };
 
-  // Fonction qui crée une question vide et ouvre la modale 
-  // pour la modifier 
+  // Fonction qui crée une question vide et ouvre la modale
+  // pour la modifier
   const addQuestion = (question) => {
     setAdminInputQuestions([...adminInputQuestions, question]);
   };
@@ -97,8 +93,8 @@ function Form() {
 
   const deleteQuestion = (i) => {
     setAdminInputQuestions(
-      [...adminInputQuestions.slice(0, i), ...adminInputQuestions.slice(i + 1)]
-    )
+      [...adminInputQuestions.slice(0, i), ...adminInputQuestions.slice(i + 1)],
+    );
   };
 
   // Envoie la totalité du formulaire stockée dans hook adminInput
@@ -112,11 +108,10 @@ function Form() {
         .then((response) => {
           console.log(response);
         });
-    } else
-      return axios.post('http:///localhost:8080/card/', buildCardData())
-        .then((response) => {
-          console.log(response);
-        });
+    } return axios.post('http:///localhost:8080/card/', buildCardData())
+      .then((response) => {
+        console.log(response);
+      });
   };
 
   // Fonction qui gère les onChange du hook adminInput
@@ -297,8 +292,8 @@ function Form() {
               </div>
               <h2>Questions / Ressources</h2>
               <div>
-                {adminInputQuestions.length > 0 && adminInputQuestions.map((question, i) => {
-                  return (<div className="d-flex bg-light">
+                {adminInputQuestions.length > 0 && adminInputQuestions.map((question, i) => (
+                  <div className="d-flex bg-light">
                     <div className="d-flex">
                       <p>
                         texte :
@@ -314,19 +309,20 @@ function Form() {
                         key={i}
                         buttonName="Modifier la question"
                         questionForm={question}
-                        getModalInfo={(question) => modifyQuestion(question, i)}
+                        getModalInfo={question => modifyQuestion(question, i)}
                       />
                       <button
                         onClick={
                           () => deleteQuestion(i)
                         }
                         type="button"
-                        className="btn btn-primary">
+                        className="btn btn-primary"
+                      >
                         Supprimer
                       </button>
                     </div>
-                  </div>)
-                })}
+                  </div>
+                ))}
                 <AdminQuestion
                   key="-1"
                   buttonName="Ajouter une question"

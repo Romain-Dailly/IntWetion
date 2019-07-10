@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
-
-  //Hooks question et resources
+  // Hooks question et resources
   const [question, setQuestion] = useState({});
   const [resources, setResources] = useState([
     {
-      url_resource: "",
-      type_resource: 0
-    }
+      url_resource: '',
+      type_resource: 0,
+    },
   ]);
   // Hook pour ouvrir et fermer la modale
   const [isModal, setIsModal] = useState(false);
@@ -18,17 +17,17 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   // avoir un préremplissage si données
   const resetModal = () => {
     if (questionForm !== 'non') {
-      console.log('ok if')
+      console.log('ok if');
       setQuestion(questionForm);
       setResources(questionForm.resources);
     } else {
-      console.log('ok else')
+      console.log('ok else');
       setQuestion({});
       setResources([
         {
-          url_resource: "",
+          url_resource: '',
           type_resource: 0,
-        }
+        },
       ]);
     }
   };
@@ -39,33 +38,31 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     const dataKey = target.getAttribute('data-key');
     newQuestion[dataKey] = value;
     setQuestion(newQuestion);
-    console.log(newQuestion)
   };
 
   // Fonction qui gère les onChange du hook resources
   const onResourceInputChange = (event) => {
     const newValues = [...resources];
-    const id = event.target.id;
+    const { id } = event.target;
     const dataKey = event.target.getAttribute('data-key');
     newValues[id][dataKey] = event.target.value;
     setResources(newValues);
-    console.log(newValues)
   };
 
   // Fonction pour créer une ressource vide
   const addResource = (event) => {
     event.preventDefault();
-    setResources([...resources, { url_resource: '', type_resource: 0, }]);
+    setResources([...resources, { url_resource: '', type_resource: 0 }]);
   };
 
   const deleteResource = (index) => {
-    setResources([...resources.slice(0, index), ...resources.slice(index + 1)])
+    setResources([...resources.slice(0, index), ...resources.slice(index + 1)]);
   };
 
   // Envoi des données de la question dans la prop
   // fonction élastique vers le parent
   const buildQuestionData = () => {
-    let finalQuestion = { ...question };
+    const finalQuestion = { ...question };
     finalQuestion.resources = resources;
     getModalInfo(finalQuestion);
   };
@@ -78,7 +75,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
       event.preventDefault();
     } else {
       return alert('Remplissez les champs obligatoires (*)');
-    };
+    }
   };
 
   return (
@@ -87,18 +84,26 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         onClick={() => { resetModal(); setIsModal(true); }}
         type="button"
         className="btn btn-primary"
-      >{buttonName} </button>
-      {isModal && <div className="overlay">
+      >
+        {buttonName}
+        {' '}
+
+      </button>
+      {isModal && (
+      <div className="overlay">
         <div className="overlay-content">
           <div className="content">
             <h5
               className="modal-title"
-              id="exampleModalCenterTitle">Espace questions</h5>
+              id="exampleModalCenterTitle"
+            >
+Espace questions
+            </h5>
             <form>
               <div className="d-flex div-question-bouton" row="1">
                 <label htmlFor="input-question" className="col-10">
                   Ecrivez votre question* :
-              <input
+                  <input
                     type="text"
                     className="form-control div-input-question col-10"
                     id="input-question"
@@ -111,7 +116,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
               <div>
                 <label htmlFor="input-question-number" className="col-10">
                   Ecrivez le numéro de la question* :
-            <input
+                  <input
                     type="number"
                     className="form-control mr-5 div-input-question"
                     id="inpu-question-number"
@@ -125,7 +130,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
               <div className="form-group">
                 <label htmlFor="exampleFormControlTextarea1">
                   Ajoutez une photo qui sera affichée avec la question (lien) :
-          <input
+                  <input
                     type="url"
                     className="form-control col-10"
                     rows="1"
@@ -142,22 +147,22 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
                     <input
-                      checked={question.type_response === 1 ? "checked" : null}
+                      checked={question.type_response === 1 ? 'checked' : null}
                       className="form-check-input"
                       name="inlineRadioOptionsType_response"
                       type="radio"
-                      id={"inlineRadiobox1"}
+                      id="inlineRadiobox1"
                       data-key="type_response"
                       value={1}
                       onChange={onQuestionInputChange}
                     />
                     Numérique
-                     </label>
+                  </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
                     <input
-                      checked={question.type_response === 2 ? "checked" : null}
+                      checked={question.type_response === 2 ? 'checked' : null}
                       className="form-check-input"
                       name="inlineRadioOptionsType_response"
                       type="radio"
@@ -167,7 +172,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                       onChange={onQuestionInputChange}
                     />
                     Texte
-            </label>
+                  </label>
                 </div>
               </fieldset>
               <br />
@@ -178,26 +183,27 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 </div>
                 <div className="col-9">
                   <div>
-                    {resources.map((resource, i) => {
-                      return (<div className="col-9" style={{ border: "1px black solid" }} key={i}>
-                        <textarea
+                    {resources.map((resource, i) => (
+                      <div className="col-9" style={{ border: '1px black solid' }} key={i}>
+                  <textarea
                           key={i}
                           type="text"
                           className="form-control"
-                          placeholder='Lien'
+                          placeholder="Lien"
                           rows="1"
                           id={i}
                           data-key="url_resource"
                           value={resource.url_resource}
-                          onChange={onResourceInputChange} />
-                        <br />
-                        <p>Type de ressource:</p>
-                        <div className="form-check form-check-inline">
+                          onChange={onResourceInputChange}
+                        />
+                  <br />
+                  <p>Type de ressource:</p>
+                  <div className="form-check form-check-inline">
                           <label className="form-check-label" htmlFor="inlineRadio1">
                             <input
-                              checked={resource.type_resource === 1 ? "checked" : null}
+                              checked={resource.type_resource === 1 ? 'checked' : null}
                               className="form-check-input"
-                              name={"inlineRadioOptionsType_resource" + i}
+                              name={`inlineRadioOptionsType_resource${i}`}
                               type="radio"
                               id={i}
                               data-key="type_resource"
@@ -207,12 +213,12 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                             Lire
                           </label>
                         </div>
-                        <div className="form-check form-check-inline">
+                  <div className="form-check form-check-inline">
                           <label className="form-check-label" htmlFor="inlineRadio2">
                             <input
-                              checked={resource.type_resource === 2 ? "checked" : null}
+                              checked={resource.type_resource === 2 ? 'checked' : null}
                               className="form-check-input"
-                              name={"inlineRadioOptionsType_resource" + i}
+                              name={`inlineRadioOptionsType_resource${i}`}
                               type="radio"
                               id={i}
                               data-key="type_resource"
@@ -222,12 +228,12 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                             Ecouter
                           </label>
                         </div>
-                        <div className="form-check form-check-inline">
+                  <div className="form-check form-check-inline">
                           <label className="form-check-label" htmlFor="inlineRadio3">
                             <input
-                              checked={resource.type_resource === 3 ? "checked" : null}
+                              checked={resource.type_resource === 3 ? 'checked' : null}
                               className="form-check-input"
-                              name={"inlineRadioOptionsType_resource" + i}
+                              name={`inlineRadioOptionsType_resource${i}`}
                               type="radio"
                               id={i}
                               data-key="type_resource"
@@ -235,11 +241,11 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                               onChange={onResourceInputChange}
                             />
                             Voir
-                         </label>
+                          </label>
                         </div>
-                        <button onClick={(e) => { e.preventDefault(); deleteResource(i) }}>Supprimer la ressource</button>
-                      </div>)
-                    })}
+                  <button onClick={(e) => { e.preventDefault(); deleteResource(i); }}>Supprimer la ressource</button>
+                </div>
+                    ))}
                   </div>
                   <div className="mt-4">
                     <button onClick={addResource}>Ajouter une ressource</button>
@@ -253,16 +259,21 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                   handleSubmit(event);
                 }
                 }
-              >Enregistrer</button>
+              >
+Enregistrer
+              </button>
               <button
                 type="button"
                 onClick={() => setIsModal(false)}
                 className="btn btn-secondary"
-              >Fermer</button>
+              >
+Fermer
+              </button>
             </form>
           </div>
         </div>
-      </div>}
+      </div>
+      )}
     </div>
   );
 };

@@ -10,9 +10,9 @@
  * Example `const data = fetchCards()`
  */
 
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL = "http://192.168.184.100:8080/";
+const BASE_URL = 'http://192.168.184.100:8080/';
 // const TEST_BASE_URL = 'https://jsonplaceholder.typicode.com';
 
 /**
@@ -24,7 +24,7 @@ const requestData = (path, params = {}) => {
   // axios config options for making network requests
   const config = {
     baseURL: BASE_URL,
-    params: { ...params }
+    params: { ...params },
   };
   // Perform a GET request wih the provided path and config options
   return axios.get(path, config);
@@ -39,7 +39,7 @@ const deleteData = (path, params = {}) => {
   // axios config options for making network requests
   const config = {
     baseURL: BASE_URL,
-    params: { ...params }
+    params: { ...params },
   };
   // Perform a GET request wih the provided path and config options
   return axios.delete(path, config);
@@ -54,8 +54,8 @@ const deleteData = (path, params = {}) => {
  * @param {function} callback A function that receives the parsed HTTP
  *  response as an argument.
  */
-const fetchCards = async callback => {
-  const path = "/cards";
+const fetchCards = async (callback) => {
+  const path = '/cards';
   const response = await requestData(path);
   // The request was successful. Pass it to the callback function.
   callback(response.data);
@@ -71,7 +71,7 @@ const fetchCards = async callback => {
  *  response as an argument.
  */
 const fetchCardsAsync = async () => {
-  const path = "/cards";
+  const path = '/cards';
   const response = await requestData(path);
   // The request was successful. Pass it to the callback function.
   return response.data;
@@ -83,28 +83,26 @@ const fetchCardsAsync = async () => {
  *  response as an argument.
  */
 const fetchCard = async (id, callback) => {
-  const path = "/card/";
+  const path = '/card/';
   const param = { params: id };
   const response = await requestData(path, param);
   // The request was successful. Pass it to the callback function.
   callback(response.data);
 };
 
-const fetchCardAsync = async id => {
-  const path = "/card/";
-  const param = { id: id };
+const fetchCardAsync = async (id) => {
+  const path = '/card/';
+  const param = { id };
   const response = await requestData(path, param);
-  const data = response.data;
+  const { data } = response;
   return data;
 };
 
-const fetchDetailedCards = async callback => {
+const fetchDetailedCards = async (callback) => {
   const cards = await fetchCardsAsync();
-  const promises = cards.map(async card => {
-    return fetchCardAsync(card.id);
-  });
+  const promises = cards.map(async card => fetchCardAsync(card.id));
 
-  Promise.all(promises).then(data => {
+  Promise.all(promises).then((data) => {
     callback(data);
   });
 };
@@ -119,9 +117,9 @@ const deleteCard = async (id, callback) => {
 };
 
 // Post a new card with all in it
-const postCard = card => {
+const postCard = (card) => {
   axios
-    .post("http://localhost:8080/card/", card)
+    .post('http://localhost:8080/card/', card)
     .then(resp => console.log(resp));
 };
 
@@ -129,7 +127,7 @@ const postCard = card => {
 // Needs a get before to access to content of before changes card
 const putCard = (card, id) => {
   axios
-    .put("http://localhost:8080/card/", { params: { id } }, card)
+    .put('http://localhost:8080/card/', { params: { id } }, card)
     .then(resp => console.log(resp));
 };
 
@@ -139,5 +137,5 @@ export {
   fetchCard,
   deleteCard,
   postCard,
-  putCard
+  putCard,
 };

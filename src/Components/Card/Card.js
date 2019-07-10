@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
-import { removeCard, startVideo, startQuiz } from "../../actions";
-import "./Card.css";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { Col } from 'react-flexbox-grid';
+import { Tooltip } from 'antd';
+import { removeCard, launchTest } from '../../actions';
+import './Card.css';
 
-const Card = props => {
+const Card = (props) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -15,12 +17,16 @@ const Card = props => {
 
   const [isModifiable, setModifiable] = useState(false);
   const dispatch = useDispatch();
-  const { data, index } = props;
-  const { image, overline, name, description } = data.card;
+  const { data, index, onStartQuiz } = props;
+  const {
+    image, name, description, bg_color,
+  } = data.card;
+  console.log(data);
+
   const [isVisible, toggleVisibility] = useState(false);
 
   const cardStyle = {
-    backgroundImage: `url(${image})`
+    backgroundImage: `url(${image})`,
   };
 
   if (isModifiable) {
@@ -29,16 +35,16 @@ const Card = props => {
         push
         to={{
           pathname: `${process.env.PUBLIC_URL}/admin`,
-          state: index
+          state: index,
         }}
       />
     );
   }
 
   return (
-    <div className="col-sm-4 mb-3">
-      <div className="ui-card background-white">
-        <div className="action-tab">
+    <Col xs={12} md={6} lg={4} span={8}>
+      <div className="ui-card mb-3">
+        <div className="action-tab d-none">
           <i
             role="button"
             className="icon-edit"
@@ -46,6 +52,7 @@ const Card = props => {
               setModifiable(true);
             }}
           />
+
           <i
             role="button"
             onClick={() => dispatch(removeCard(data.id))}
@@ -61,34 +68,37 @@ const Card = props => {
               <i
                 onClick={() => toggleVisibility(!isVisible)}
                 className={` icon icon-chevron-down ${
-                  isVisible ? "flip-vertically" : ""
+                  isVisible ? 'flip-vertically' : ''
                 }`}
                 tabIndex="-1"
               />
             </div>
             <p
               className={`ui-card-text body-1 noselect ${
-                isVisible ? "" : "d-none"
+                isVisible ? '' : 'd-none'
               }`}
             >
               {description}
             </p>
           </div>
           <div className="card-action mt-3 mb-4">
-            <i className="icon-alt icon-headset" />
+            <Tooltip title="Use a headphone for a better experience.">
+              <i className="icon-alt icon-headset" />
+            </Tooltip>
             <button
               type="button"
-              className="button button-outline"
+              className="button button-primary"
               onClick={() => {
-                dispatch(startQuiz(index));
+                dispatch(launchTest(index));
+                onStartQuiz();
               }}
             >
-              COMMENCER
+              Commencer
             </button>
           </div>
         </div>
       </div>
-    </div>
+    </Col>
   );
 };
 
@@ -96,9 +106,9 @@ Card.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
     description: PropTypes.string,
-    imageUrl: PropTypes.string
+    imageUrl: PropTypes.string,
   }),
-  openModel: PropTypes.func
+  openModel: PropTypes.func,
 };
 
 export default Card;

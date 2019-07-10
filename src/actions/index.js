@@ -7,8 +7,28 @@ import {
   RECEIVE_DATA,
   QUIT_QUIZ,
   START_VIDEO,
+  LAUNCH_COMMENT,
+  LAUNCH_TEST,
+  SAVE_RESULTS,
 } from './types';
-import { fetchDetailedCards,fetchCards, deleteCard } from '../data/source';
+import { fetchDetailedCards, fetchCards, deleteCard } from '../data/source';
+
+export const startVideo = (videoType, videoKey) => ({
+  type: START_VIDEO,
+  payload: {
+    videoType,
+    videoKey,
+  },
+});
+
+export const launchComment = {
+  type: LAUNCH_COMMENT,
+};
+
+export const launchTest = cardId => ({
+  type: LAUNCH_TEST,
+  payload: cardId,
+});
 
 export const addCard = {
   type: ADD_CARD,
@@ -21,23 +41,9 @@ export const editCard = {
   type: EDIT_CARD,
 };
 
-export const startQuiz = cardId => ({
+export const startQuiz = {
   type: START_QUIZ,
-  payload: cardId,
-});
-
-/**
- *
- * @param {object} card
- * @param {boolean} hasComment
- */
-export const startVideo = (card, hasComment) => ({
-  type: START_VIDEO,
-  payload: {
-    card,
-    hasComment,
-  },
-});
+};
 
 export const quitQuiz = {
   type: QUIT_QUIZ,
@@ -45,6 +51,11 @@ export const quitQuiz = {
 
 export const requestData = () => ({
   type: REQUEST_DATA,
+});
+
+export const saveResults = answers => ({
+  type: SAVE_RESULTS,
+  payload: answers,
 });
 
 /**

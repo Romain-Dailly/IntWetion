@@ -1,5 +1,5 @@
 .video {
-  
+  width: 100%;
 }
 
 /* laptop  */
@@ -8,7 +8,7 @@
 }
 
 .video .player-wrapper {
-  padding: 8px;
+
 }
 
 /* laptop  */

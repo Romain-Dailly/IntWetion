@@ -15,4 +15,7 @@ export const RECEIVE_DATA = 'RECEIVE_DATA';
 export const HANDLE_DATA_FAILURE = 'HANDLE_DATA_FAILURE';
 export const START_QUIZ = 'START_QUIZ';
 export const START_VIDEO = 'START_VIDEO';
+export const LAUNCH_COMMENT = 'LAUNCH_COMMENT';
+export const LAUNCH_TEST = 'LAUNCH_TEST';
 export const QUIT_QUIZ = 'QUIT_QUIZ';
+export const SAVE_RESULTS = 'SAVE_RESULTS';
