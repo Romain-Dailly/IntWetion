@@ -69,7 +69,7 @@
 }
 
 .ui-card-image {
-  background-image: url("../assets/images/image-1.jpg");
+  background-image: url(%PUBLIC_URL%"/assets/images/image-1.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 219px;
@@ -91,7 +91,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-image: url("../assets/images/avatar.svg");
+  background-image: url(%PUBLIC_URL%"/assets/images/avatar.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
