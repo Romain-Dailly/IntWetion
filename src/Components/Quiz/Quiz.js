@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import Question from '../Question/Question';
 import { quitQuiz, startVideo, saveResults } from '../../actions';
 import './Quiz.css';
 import { videoTypes } from '../../values/strings';
-import SoundPlayer from '../../Components/SoundPlayer/SoundPlayer';
+import SoundPlayer from '../SoundPlayer/SoundPlayer';
 /**
  * A component containing widgets to trigger actions.
  * @param {objects} props An object containing required dependencies for this function.
@@ -19,7 +18,7 @@ const ActionBar = ({ onNextButtonClick }) => (
         min="0"
         max="1"
         step="any"
-        onChange={({ target }) => {}}
+        onChange={() => {}}
         className="slider ml-3 mr-4"
       />
     </div>
@@ -39,7 +38,7 @@ const ActionBar = ({ onNextButtonClick }) => (
  * It serves as a wrapper for other sub-components.
  * @param {object} props An object containing required dependencies for this component.
  */
-const Quiz = ({ color = 'white', canShowResults }) => {
+const Quiz = ({ color = 'white' }) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -47,15 +46,12 @@ const Quiz = ({ color = 'white', canShowResults }) => {
    * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
    */
   const dispatch = useDispatch();
-  console.log(canShowResults);
 
   /**
    * Get access to the redux store's state.
    */
   const cardId = useSelector(store => store.card.quiz.cardId);
-  const { questions,videos } = useSelector(store => store.card.data[cardId]);
-  console.log(videos);
-  
+  const { questions, videos } = useSelector(store => store.card.data[cardId]);
 
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -105,6 +101,7 @@ const Quiz = ({ color = 'white', canShowResults }) => {
       <i className="logo icon-alt icon-lotus" />
       <p className="header-5 m-0">{title}</p>
       <i
+        tabIndex="-1"
         role="button"
         onClick={() => dispatch(quitQuiz)}
         className="icon icon-close"
@@ -115,15 +112,10 @@ const Quiz = ({ color = 'white', canShowResults }) => {
   return (
     <div className="overlay">
       <ToolBar title="Forces" />
-      <SoundPlayer url = {videos[0].url_video}/>
+      <SoundPlayer url={videos[0].url_video} />
       <div className="overlay-content" style={{ background: `${color}` }}>
         <div className="content">
-          {
-            <Question
-              question={questions[questionIndex]}
-              onAnswerSelected={storeAnswer}
-            />
-          }
+          {<Question question={questions[questionIndex]} onAnswerSelected={storeAnswer} />}
         </div>
         <div className="ui-progress">
           <div
@@ -143,12 +135,6 @@ const Quiz = ({ color = 'white', canShowResults }) => {
       </div>
     </div>
   );
-};
-
-Quiz.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.element,
-  color: PropTypes.string,
 };
 
 export default Quiz;

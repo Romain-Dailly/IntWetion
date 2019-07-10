@@ -24,20 +24,18 @@ const Video = ({
         <div className="video w-100">
           <div className=" player-wrapper">
             <div>
-              <div
-                ref={player}
-                data-plyr-provider="youtube"
-                data-plyr-embed-id={videoKey}
-              />
+              <div ref={player} data-plyr-provider="youtube" data-plyr-embed-id={videoKey} />
             </div>
           </div>
         </div>
 
         <div className="d-flex">
-          <button onClick={onClose} className>
+          <button type="button" onClick={onClose} className>
             Exit
           </button>
-          <button onClick={onContinue}>Continue</button>
+          <button type="button" onClick={onContinue}>
+            Continue
+          </button>
         </div>
       </div>
     </div>

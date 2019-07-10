@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable import/prefer-default-export */
 import React from 'react';
 import { createBrowserHistory } from 'history';
 import ReactDOM from 'react-dom';
@@ -10,13 +12,11 @@ import './css/index.css';
 import rootReducer from './reducers';
 import App from './App';
 
+
 export const history = createBrowserHistory();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
-  rootReducer(history),
-  composeEnhancers(applyMiddleware(thunk)),
-);
+const store = createStore(rootReducer(history), composeEnhancers(applyMiddleware(thunk)));
 
 ReactDOM.render(
   <Provider store={store}>

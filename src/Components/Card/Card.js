@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import { Col } from 'react-flexbox-grid';
 import { Tooltip } from 'antd';

@@ -10,9 +10,7 @@ const Register = () => (
     <div className="center-content">
       <Form className="login-form">
         <div className="mb-5">
-          <h2 className="header-2 text-center m-0">
-              Create your free account
-          </h2>
+          <h2 className="header-2 text-center m-0">Create your free account</h2>
         </div>
         <Item label="Full Name" className="form-label">
           <Input type="text" className="ui-input" />
@@ -26,14 +24,15 @@ const Register = () => (
         </Item>
 
         <button
+          type="button"
           htmlType="submit"
           style={{ height: '40px' }}
           className="button button-primary  w-100 mb-3"
         >
-            Create Account
+          Create Account
         </button>
         <div>
-            Already have an account?
+          Already have an account?
           {' '}
           <Link to="/login">Sign in</Link>
         </div>

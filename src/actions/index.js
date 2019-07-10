@@ -81,7 +81,6 @@ export const getCards = () => (dispatch, getState) => {
       });
     } catch (error) {
       // TODO Handle error
-      console.log('error');
     }
   }
 };
@@ -89,17 +88,15 @@ export const getCards = () => (dispatch, getState) => {
 export const removeCard = id => (dispatch, getState) => {
   // Retrieve the current state from redux.
   const state = getState();
-  console.log(state);
 
   if (state.card.data.length) {
     try {
       deleteCard(1, () => {
-        console.log('called');
         dispatch(deleteCardAction(id));
       });
     } catch (error) {
       // TODO Handle error
-      console.log('error');
+
     }
   }
 };
