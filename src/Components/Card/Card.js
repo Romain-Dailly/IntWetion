@@ -44,7 +44,7 @@ const Card = (props) => {
   return (
     <Col xs={12} md={6} lg={4} span={8}>
       <div className="ui-card mb-3">
-        <div className="action-tab d-none">
+        <div className="action-tab">
           <i
             role="button"
             className="icon-edit"

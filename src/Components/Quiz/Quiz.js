@@ -5,6 +5,7 @@ import Question from '../Question/Question';
 import { quitQuiz, startVideo, saveResults } from '../../actions';
 import './Quiz.css';
 import { videoTypes } from '../../values/strings';
+import SoundPlayer from '../../Components/SoundPlayer/SoundPlayer';
 /**
  * A component containing widgets to trigger actions.
  * @param {objects} props An object containing required dependencies for this function.
@@ -52,7 +53,9 @@ const Quiz = ({ color = 'white', canShowResults }) => {
    * Get access to the redux store's state.
    */
   const cardId = useSelector(store => store.card.quiz.cardId);
-  const { questions } = useSelector(store => store.card.data[cardId]);
+  const { questions,videos } = useSelector(store => store.card.data[cardId]);
+  console.log(videos);
+  
 
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
@@ -112,6 +115,7 @@ const Quiz = ({ color = 'white', canShowResults }) => {
   return (
     <div className="overlay">
       <ToolBar title="Forces" />
+      <SoundPlayer url = {videos[0].url_video}/>
       <div className="overlay-content" style={{ background: `${color}` }}>
         <div className="content">
           {

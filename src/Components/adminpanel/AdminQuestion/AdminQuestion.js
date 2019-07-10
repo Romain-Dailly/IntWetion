@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import {  notification, Alert } from 'antd';
 
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   // Hooks question et resources
@@ -74,9 +75,13 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
       setIsModal(false);
       event.preventDefault();
     } else {
-      return alert('Remplissez les champs obligatoires (*)');
-    }
-  };
+      return notification.open({
+        message: 'Notification Title',
+        description:
+          'Les champs avec * doivent être remplis !'
+  });
+}
+}
 
   return (
     <div>

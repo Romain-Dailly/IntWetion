@@ -4,8 +4,8 @@
   width:100%;
   background :rgba(255, 255, 255, 0);
 }
-.player {
-  opacity:0;
+.playerSound {
+  display:none;
 }
 .icon{
   font-size:48px;

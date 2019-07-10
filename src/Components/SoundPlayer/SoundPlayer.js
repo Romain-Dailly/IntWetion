@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import './SoundPlayer.css';
+// import './SoundPlayer.css';
 import ReactPlayer from 'react-player';
 
 function SoundPlayer({ url }) {
   const [volume, setVolume] = useState(0.8);
   const [showSlider, setShowSlider] = useState(false);
-  // const [url, setUrl] = useState('');
 
-  // useEffect(() => {
-  //   setUrl('http');
-  // }, []);
 
   let style = showSlider ? { color: 'rgb(4, 4, 185)' } : { color: 'blue' };
 
@@ -19,7 +15,7 @@ function SoundPlayer({ url }) {
   };
   return (
     <div>
-      <div className="player">
+      <div className="d-none">
         <ReactPlayer
           url={url}
           playing

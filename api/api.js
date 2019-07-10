@@ -61,8 +61,8 @@ app.route('/card/')
         connection.query(`INSERT INTO questions SET 
         id_card ='${resultCard.insertId}',
         number_question = '${dataContentQuestion.number_question}',
-        text_question = '${dataContentQuestion.text_question}',
-        image_question = '${dataContentQuestion.image_question}',
+        text_question = "${dataContentQuestion.text_question}",
+        image_question = "${dataContentQuestion.image_question}",
         type_response = '${dataContentQuestion.type_response}',
         has_comment = '${dataContentQuestion.has_comment}'`,
         (error, resultQuestion) => {
@@ -200,8 +200,8 @@ app.route('/card/')
         connection.query(`INSERT INTO questions SET
           id_card ='${idCard}',
           number_question = '${dataContentQuestion.number_question}',
-          text_question = '${dataContentQuestion.text_question}',
-          image_question = '${dataContentQuestion.image_question}',
+          text_question = "${dataContentQuestion.text_question}",
+          image_question = "${dataContentQuestion.image_question}",
           type_response = '${dataContentQuestion.type_response}',
           has_comment = '${dataContentQuestion.has_comment}'`,
           (error, resultQuestion) => {
