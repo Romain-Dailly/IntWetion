@@ -7,28 +7,28 @@ function Form() {
   // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
     card: {
-      name: "",
-      image: "",
-      description: "",
+      name: '',
+      image: '',
+      description: '',
       online: 1,
       payment: 0,
-      date: 0
+      date: 0,
     },
     videos: [
       {
-        url_video: "",
-        type_video: 1
+        url_video: '',
+        type_video: 1,
       },
       {
-        url_video: "",
-        type_video: 2
+        url_video: '',
+        type_video: 2,
       },
       {
-        url_video: "",
-        type_video: 3
-      }
+        url_video: '',
+        type_video: 3,
+      },
     ],
-    questions: []
+    questions: [],
   });
 
   // Hook pour l'élément question
@@ -36,24 +36,24 @@ function Form() {
 
   // Puting all the information in the hook card before the post
   const buildCardData = () => {
-  
+
   };
 
   const addQuestion = (question) => {
     setAdminInputQuestions([...adminInputQuestions, question]);
-  }
+  };
 
   const modifyQuestion = (question, i) => {
-    let finalQuestions = [ ...adminInputQuestions ];
+    const finalQuestions = [...adminInputQuestions];
     finalQuestions[i] = question;
     setAdminInputQuestions(finalQuestions);
-  }
+  };
 
   const deleteQuestion = (i) => {
-    setAdminInputQuestions([...adminInputQuestions.slice(0, i), adminInputQuestions.slice(i+1)]);
-  }
+    setAdminInputQuestions([...adminInputQuestions.slice(0, i), adminInputQuestions.slice(i + 1)]);
+  };
 
-console.log(adminInputQuestions)
+  console.log(adminInputQuestions);
   // Envoie la totalité du formulaire stockée dans hook card
   // lors du click sur le bouton enregistrer.
   const handleSubmit = (event) => {
@@ -79,7 +79,7 @@ console.log(adminInputQuestions)
   const onVideoInputChange = ({ target }) => {
     const { value, id } = target;
     const newObj = { ...adminInput };
-    const dataKey = target.getAttribute("data-key");
+    const dataKey = target.getAttribute('data-key');
     newObj.videos[id][dataKey] = value;
     setAdminInput(newObj);
   };
@@ -171,23 +171,32 @@ console.log(adminInputQuestions)
               </div>
               <h1>Espace questions</h1>
               <div>
-                {adminInputQuestions.map((question, i) => {
-                  return <div key={i} className="d-flex bg-light">
-                  <div className="d-flex"> 
-                    <p>texte : {question.text_question}</p>
-                    <p>numero : {question.number_question}</p>
+                {adminInputQuestions.map((question, i) => (
+                  <div key={i} className="d-flex bg-light">
+                    <div className="d-flex">
+                      <p>
+texte :
+                        {question.text_question}
+                      </p>
+                      <p>
+numero :
+                        {question.number_question}
+                      </p>
+                    </div>
+                    <div className="ml-5">
+                      <AdminQuestion key={i} buttonName="Modifier la question" questionForm={question} getModalInfo={modifyQuestion} />
+                      <button
+                        onClick={() => deleteQuestion(i)}
+                        type="button"
+                        className="btn btn-primary"
+                      >
+Supprimer
+                      </button>
+                    </div>
                   </div>
-                  <div className="ml-5">
-                  <AdminQuestion key={i} buttonName ='Modifier la question' questionForm={question} getModalInfo={modifyQuestion} />
-                  <button
-                  onClick={()=> deleteQuestion (i)}
-                  type="button"
-                  className="btn btn-primary">Supprimer</button>
-                  </div>
-                  </div>
-                })}
-                <AdminQuestion key='-1' buttonName='Ajouter une question' questionForm='non' getModalInfo = {addQuestion} />
-                </div> 
+                ))}
+                <AdminQuestion key="-1" buttonName="Ajouter une question" questionForm="non" getModalInfo={addQuestion} />
+              </div>
             </form>
           </div>
         </div>

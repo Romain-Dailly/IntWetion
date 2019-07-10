@@ -1,14 +1,13 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
-import { Row, Col } from "react-flexbox-grid";
-import { Tooltip } from "antd";
-import { removeCard, startVideo, startQuiz, launchTest } from "../../actions";
-import "./Card.css";
-import { push } from "connected-react-router";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import { Col } from 'react-flexbox-grid';
+import { Tooltip } from 'antd';
+import { removeCard, launchTest } from '../../actions';
+import './Card.css';
 
-const Card = props => {
+const Card = (props) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -19,12 +18,14 @@ const Card = props => {
   const [isModifiable, setModifiable] = useState(false);
   const dispatch = useDispatch();
   const { data, index, onStartQuiz } = props;
-  const { image, overline, title, description } = data;
+  const {
+    image, overline, title, description,
+  } = data;
 
   const [isVisible, toggleVisibility] = useState(false);
 
   const cardStyle = {
-    backgroundImage: `url(${image})`
+    backgroundImage: `url(${image})`,
   };
 
   if (isModifiable) {
@@ -33,7 +34,7 @@ const Card = props => {
         push
         to={{
           pathname: `${process.env.PUBLIC_URL}/admin`,
-          state: index
+          state: index,
         }}
       />
     );
@@ -66,15 +67,18 @@ const Card = props => {
               <i
                 onClick={() => toggleVisibility(!isVisible)}
                 className={` icon icon-chevron-down ${
-                  isVisible ? "flip-vertically" : ""
+                  isVisible ? 'flip-vertically' : ''
                 }`}
                 tabIndex="-1"
               />
             </div>
-            <p className="ui-card-text body-1 noselect"> {description}</p>
+            <p className="ui-card-text body-1 noselect">
+              {' '}
+              {description}
+            </p>
             <p
               className={`ui-card-text body-1 noselect ${
-                isVisible ? "" : "d-none"
+                isVisible ? '' : 'd-none'
               }`}
             >
               {description}
@@ -105,9 +109,9 @@ Card.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
     description: PropTypes.string,
-    imageUrl: PropTypes.string
+    imageUrl: PropTypes.string,
   }),
-  openModel: PropTypes.func
+  openModel: PropTypes.func,
 };
 
 export default Card;

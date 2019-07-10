@@ -16,8 +16,8 @@ import { fetchCards, deleteCard } from "../data/source";
 export const startVideo = (videoType, videoKey) => ({
   type: START_VIDEO,
   payload: {
-    videoType: videoType,
-    videoKey: videoKey
+    videoType,
+    videoKey
   }
 });
 

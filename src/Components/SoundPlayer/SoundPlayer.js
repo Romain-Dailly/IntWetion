@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './SoundPlayer.css';
 import ReactPlayer from 'react-player';
 
-function SoundPlayer({url}) {
+function SoundPlayer({ url }) {
   const [volume, setVolume] = useState(0.8);
   const [showSlider, setShowSlider] = useState(false);
   // const [url, setUrl] = useState('');

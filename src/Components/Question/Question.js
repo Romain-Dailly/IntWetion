@@ -1,23 +1,21 @@
-import React, { useRef, useEffect } from "react";
-import PropTypes from "prop-types";
-import "./Question.css";
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
+import './Question.css';
 
-const RadioButton = ({ number, handleChange }) => {
-  return (
-    <div className="col-4 d-flex justify-content-center p-0">
-      <div className="radio-button mb-4">
-        <input
-          className="choice-radio"
-          type="radio"
-          name="answer-radio"
-          onChange={handleChange}
-        />
-        <label className="check-mark m-0" />
-        <span>{number}</span>
-      </div>
+const RadioButton = ({ number, handleChange }) => (
+  <div className="col-4 d-flex justify-content-center p-0">
+    <div className="radio-button mb-4">
+      <input
+        className="choice-radio"
+        type="radio"
+        name="answer-radio"
+        onChange={handleChange}
+      />
+      <label className="check-mark m-0" />
+      <span>{number}</span>
     </div>
-  );
-};
+  </div>
+);
 
 const Question = ({ question, onAnswerSelected }) => {
   const { text, image } = question;
@@ -26,7 +24,7 @@ const Question = ({ question, onAnswerSelected }) => {
   useEffect(() => {
     // TODO: Re-implement this using react `ref` attr.
     // Un-check all radio buttons with the name attr; `answer-radio`.
-    document.getElementsByName("answer-radio").forEach(item => {
+    document.getElementsByName('answer-radio').forEach((item) => {
       item.checked = false;
     });
   }, [question]);
@@ -51,7 +49,7 @@ const Question = ({ question, onAnswerSelected }) => {
 };
 
 Question.prototype = {
-  question: PropTypes.string
+  question: PropTypes.string,
 };
 
 export default Question;

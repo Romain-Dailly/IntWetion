@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import Question from "../Question/Question";
-import { quitQuiz, startVideo, saveResults } from "../../actions";
-import { Redirect } from "react-router-dom";
-import "./Quiz.css";
-import { videoTypes } from "../../values/strings";
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import Question from '../Question/Question';
+import { quitQuiz, startVideo, saveResults } from '../../actions';
+import './Quiz.css';
+import { videoTypes } from '../../values/strings';
 /**
  * A component containing widgets to trigger actions.
  * @param {objects} props An object containing required dependencies for this function.
  */
-const ActionBar = ({ buttonValue, onNextButtonClick }) => (
+const ActionBar = ({ onNextButtonClick }) => (
   <div className="action-bar">
     <div className=" d-flex align-items-center w-100">
       <i className="icon icon-volume" />
@@ -29,7 +28,7 @@ const ActionBar = ({ buttonValue, onNextButtonClick }) => (
       onClick={onNextButtonClick}
       tabIndex="-1"
     >
-      {buttonValue}
+      Continue
     </button>
   </div>
 );
@@ -39,7 +38,7 @@ const ActionBar = ({ buttonValue, onNextButtonClick }) => (
  * It serves as a wrapper for other sub-components.
  * @param {object} props An object containing required dependencies for this component.
  */
-const Quiz = ({ color = "white", canShowResults }) => {
+const Quiz = ({ color = 'white', canShowResults }) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -55,10 +54,8 @@ const Quiz = ({ color = "white", canShowResults }) => {
   const cardId = useSelector(store => store.card.quiz.cardId);
   const { questions } = useSelector(store => store.card.data[cardId]);
 
-  const [quizEnded, endQuiz] = useState(false);
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
-  const [buttonValue, setButtonValue] = useState("Continue");
 
   const nextQuestion = () => {
     // store the number of questions into a variable
@@ -69,8 +66,8 @@ const Quiz = ({ color = "white", canShowResults }) => {
       // TODO retrieve the video key from redux store.
       // Launch the outro.
       dispatch(saveResults(answers));
-      dispatch(startVideo(videoTypes.OUTRO, ""));
-      localStorage.setItem("results", JSON.stringify(answers));
+      dispatch(startVideo(videoTypes.OUTRO, ''));
+      localStorage.setItem('results', JSON.stringify(answers));
     }
     // Navigate to the next question
     if (questionIndex < questionCount) {
@@ -90,9 +87,9 @@ const Quiz = ({ color = "white", canShowResults }) => {
 
     const newObject = Object.assign({}, answersCopy, {
       [questionKey]: {
-        answer: answer,
-        question: questions[questionIndex]
-      }
+        answer,
+        question: questions[questionIndex],
+      },
     });
 
     // answersCopy[questionKey].question = questions[questionIndex];
@@ -135,7 +132,6 @@ const Quiz = ({ color = "white", canShowResults }) => {
           />
         </div>
         <ActionBar
-          buttonValue={buttonValue}
           onNextButtonClick={() => {
             nextQuestion();
           }}
@@ -148,7 +144,7 @@ const Quiz = ({ color = "white", canShowResults }) => {
 Quiz.propTypes = {
   title: PropTypes.string,
   children: PropTypes.element,
-  color: PropTypes.string
+  color: PropTypes.string,
 };
 
 export default Quiz;
