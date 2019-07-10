@@ -112,6 +112,7 @@ function Form() {
         });
     }
     return axios.post('http:///localhost:8080/card/', buildCardData()).then((response) => {
+      throw (response);
     });
   };
 
