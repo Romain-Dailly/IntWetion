@@ -7,7 +7,7 @@ import { Tooltip } from 'antd';
 import { removeCard, launchTest } from '../../actions';
 import './Card.css';
 
-const Card = (props) => {
+const Card = ({ data, index, onStartQuiz }) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -17,11 +17,7 @@ const Card = (props) => {
 
   const [isModifiable, setModifiable] = useState(false);
   const dispatch = useDispatch();
-  const { data, index, onStartQuiz } = props;
-  const {
-    image, name, description, bg_color,
-  } = data.card;
-  console.log(data);
+  const { image, name, description } = data.card;
 
   const [isVisible, toggleVisibility] = useState(false);
 
@@ -46,6 +42,7 @@ const Card = (props) => {
       <div className="ui-card mb-3">
         <div className="action-tab">
           <i
+            tabIndex="-1"
             role="button"
             className="icon-edit"
             onClick={() => {
@@ -53,11 +50,7 @@ const Card = (props) => {
             }}
           />
 
-          <i
-            role="button"
-            onClick={() => dispatch(removeCard(data.id))}
-            className="icon-trash"
-          />
+          <i role="button" onClick={() => dispatch(removeCard(data.id))} className="icon-trash" tabIndex="-1" />
         </div>
         <div className="ui-card-image" style={cardStyle} />
         <div className="ui-card-body px-3">
@@ -66,18 +59,13 @@ const Card = (props) => {
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h5 className="ui-card-title header-6">{name}</h5>
               <i
-                onClick={() => toggleVisibility(!isVisible)}
-                className={` icon icon-chevron-down ${
-                  isVisible ? 'flip-vertically' : ''
-                }`}
                 tabIndex="-1"
+                role="button"
+                onClick={() => toggleVisibility(!isVisible)}
+                className={` icon icon-chevron-down ${isVisible ? 'flip-vertically' : ''}`}
               />
             </div>
-            <p
-              className={`ui-card-text body-1 noselect ${
-                isVisible ? '' : 'd-none'
-              }`}
-            >
+            <p className={`ui-card-text body-1 noselect ${isVisible ? '' : 'd-none'}`}>
               {description}
             </p>
           </div>
@@ -100,15 +88,6 @@ const Card = (props) => {
       </div>
     </Col>
   );
-};
-
-Card.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string,
-    description: PropTypes.string,
-    imageUrl: PropTypes.string,
-  }),
-  openModel: PropTypes.func,
 };
 
 export default Card;

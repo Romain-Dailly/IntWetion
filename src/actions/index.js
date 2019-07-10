@@ -11,7 +11,7 @@ import {
   LAUNCH_TEST,
   SAVE_RESULTS,
 } from './types';
-import { fetchDetailedCards, fetchCards, deleteCard } from '../data/source';
+import { fetchDetailedCards, deleteCard } from '../data/source';
 
 export const startVideo = (videoType, videoKey) => ({
   type: START_VIDEO,

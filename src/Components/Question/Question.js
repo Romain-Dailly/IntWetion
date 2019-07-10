@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Question.css';
@@ -5,13 +6,9 @@ import './Question.css';
 const RadioButton = ({ number, handleChange }) => (
   <div className="col-4 d-flex justify-content-center p-0">
     <div className="radio-button mb-4">
-      <input
-        className="choice-radio"
-        type="radio"
-        name="answer-radio"
-        onChange={handleChange}
-      />
-      <label className="check-mark m-0" />
+      <label htmlFor="choiceRadio" className="check-mark m-0">
+        <input className="choice-radio" id="choiceRadio" type="radio" name="answer-radio" onChange={handleChange} />
+      </label>
       <span>{number}</span>
     </div>
   </div>
@@ -25,6 +22,7 @@ const Question = ({ question, onAnswerSelected }) => {
     // TODO: Re-implement this using react `ref` attr.
     // Un-check all radio buttons with the name attr; `answer-radio`.
     document.getElementsByName('answer-radio').forEach((item) => {
+      // eslint-disable-next-line no-param-reassign
       item.checked = false;
     });
   }, [question]);

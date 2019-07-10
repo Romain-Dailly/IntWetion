@@ -25,6 +25,7 @@ const Login = () => (
         </Item>
 
         <button
+          type="button"
           htmlType="submit"
           style={{ height: '40px' }}
           className="button button-primary  w-100 mb-3"

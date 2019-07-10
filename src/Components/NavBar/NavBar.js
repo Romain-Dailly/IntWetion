@@ -17,10 +17,10 @@ const AccountHeader = () => (
       </div>
     </div>
     <div className="d-flex">
-      <button className="button button-primary mr-3 flex-grow-1">
+      <button type="button" className="button button-primary mr-3 flex-grow-1">
         View profile
       </button>
-      <button className="button button-secondary flex-grow-1">
+      <button type="button" className="button button-secondary flex-grow-1">
         <Link to="/login">Log out</Link>
       </button>
     </div>
@@ -102,10 +102,6 @@ const NavBar = () => {
       </div>
     </header>
   );
-};
-
-NavBar.propTypes = {
-  title: PropTypes.string,
 };
 
 export default NavBar;
