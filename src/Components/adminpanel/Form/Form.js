@@ -8,7 +8,7 @@ function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
 
-  //Hook pour le titre du formulaire
+  // Hook pour le titre du formulaire
   const [formState, setFormState] = useState('Créer une nouvelle carte');
   // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
@@ -55,13 +55,13 @@ function Form() {
     const questionsForPut = adminInputQuestions.map(question => {
       return {
         number_question: question.number_question,
-        text_question: question.text_question,
-        image_question: question.image_question,
+        text_question: question.text_question.replace('"', "'"),
+        image_question: question.image_question.replace('"', "'"),
         type_response: question.type_response,
         has_comment: question.has_comment,
         resources: question.resources.map(res => {
           return {
-            url_resource: res.url_resource,
+            url_resource: res.url_resource.replace('"', "'"),
             type_resource: res.type_resource,
           }
         }),
@@ -70,9 +70,9 @@ function Form() {
     return {
       card: {
         bg_color: adminInput.card.bg_color,
-        description: adminInput.card.description,
-        image: adminInput.card.image,
-        name: adminInput.card.name,
+        description: adminInput.card.description.replace('"', "'"),
+        image: adminInput.card.image.replace('"', "'"),
+        name: adminInput.card.name.replace('"', "'"),
         online: adminInput.card.online,
         payment: adminInput.card.payment
       },
@@ -135,8 +135,8 @@ function Form() {
     const dataKey = target.getAttribute('data-key');
     newObj.videos[id][dataKey] = value;
     setAdminInput(newObj);
+    console.log(adminInput);
   };
-
   return (
     <div>
       <div className="container-fluid">
@@ -154,6 +154,20 @@ function Form() {
                     id="formGroupExampleInput"
                     data-key="name"
                     value={adminInput.card.name}
+                    onChange={onCardInputChange}
+                  />
+                </label>
+              </div>
+              <div className="form-group">
+                <label htmlFor="exampleFormControlTextarea1">
+                  Couleur du thème
+                  <input
+                    type="color"
+                    className="form-control col-10"
+                    id="exampleFormControlTextarea1"
+                    rows="3"
+                    data-key="bg_color"
+                    value={adminInput.card.bg_color}
                     onChange={onCardInputChange}
                   />
                 </label>

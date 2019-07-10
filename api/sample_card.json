@@ -2,8 +2,8 @@
   "card": {
     "name": "Mes points forts",
     "image": "./assets/Images/Force.jpg",
-    "bg_color": "#f00",
-    "description": "Ce test propose de vous auto-évaluer sur vos principales forces. Vous êtes invité(e) à regarder une vidéo d_introduction, puis à faire le test. Après une vidéo de conclusion, vous aurez accés à un programme de travail personnalisé afin de développer vos forces.",
+    "bg_color": "#ff0000",
+    "description": "Ce test propose de vous auto-évaluer sur vos principales forces. Vous êtes invité(e) à regarder une vidéo d'introduction, puis à faire le test. Après une vidéo de conclusion, vous aurez accés à un programme de travail personnalisé afin de développer vos forces.",
     "online": 1,
     "payment": 0
   },
@@ -25,7 +25,7 @@
   "questions": [
     {
       "number_question": "1.1",
-      "text_question": "Quel est mon niveau d_estime de moi ?",
+      "text_question": "Quel est mon niveau d'estime de moi ?",
       "image_question": "./assets/images_questions/1.1.png",
       "type_response": "1",
       "has_comment": "0",
@@ -202,7 +202,7 @@
     },
     {
       "number_question": "2.4",
-      "text_question": "Quel est mon niveau d_authenticité ?",
+      "text_question": "Quel est mon niveau d'authenticité ?",
       "image_question": "./assets/images_questions/2.4.png",
       "type_response": "1",
       "has_comment": "0",
@@ -270,7 +270,7 @@
     },
     {
       "number_question": "3.3",
-      "text_question": "Quel est mon niveau d_engagement ?",
+      "text_question": "Quel est mon niveau d'engagement ?",
       "image_question": "./assets/images_questions/3.3.png",
       "type_response": "1",
       "has_comment": "0",
@@ -287,7 +287,7 @@
     },
     {
       "number_question": "3.5",
-      "text_question": "Quel est mon niveau d_audace ?",
+      "text_question": "Quel est mon niveau d'audace ?",
       "image_question": "./assets/images_questions/3.5.png",
       "type_response": "1",
       "has_comment": "0",
@@ -372,7 +372,7 @@
     },
     {
       "number_question": "7.3",
-      "text_question": "Quel est mon niveau d_attention ?",
+      "text_question": "Quel est mon niveau d'attention ?",
       "image_question": "./assets/images_questions/7.3.png",
       "type_response": "1",
       "has_comment": "0",
@@ -440,7 +440,7 @@
     },
     {
       "number_question": "4.14",
-      "text_question": "Quel est mon niveau d_humanité ?",
+      "text_question": "Quel est mon niveau d'humanité ?",
       "image_question": "./assets/images_questions/4.14.png",
       "type_response": "1",
       "has_comment": "0",
@@ -538,7 +538,7 @@
     },
     {
       "number_question": "4.102",
-      "text_question": "Quel est mon besoin d_autonomie ?",
+      "text_question": "Quel est mon besoin d'autonomie ?",
       "image_question": "./assets/images_questions/4.102.png",
       "type_response": "1",
       "has_comment": "0",
@@ -575,7 +575,7 @@
     },
     {
       "number_question": "4.103",
-      "text_question": "Quel est mon besoin d_être valorisé ?",
+      "text_question": "Quel est mon besoin d'être valorisé ?",
       "image_question": "./assets/images_questions/4.103.png",
       "type_response": "1",
       "has_comment": "0",
@@ -588,7 +588,7 @@
     },
     {
       "number_question": "4.104",
-      "text_question": "Quel est mon besoin d_amour de moi-même ?",
+      "text_question": "Quel est mon besoin d'amour de moi-même ?",
       "image_question": "./assets/images_questions/4.104.png",
       "type_response": "1",
       "has_comment": "0",
@@ -601,7 +601,7 @@
     },
     {
       "number_question": "4.105",
-      "text_question": "Quel est mon besoin d_amour des autres ?",
+      "text_question": "Quel est mon besoin d'amour des autres ?",
       "image_question": "./assets/images_questions/4.105.png",
       "type_response": "1",
       "has_comment": "0",
@@ -614,7 +614,7 @@
     },
     {
       "number_question": "4.106",
-      "text_question": "Quel est mon besoin d_estime des autres ?",
+      "text_question": "Quel est mon besoin d'estime des autres ?",
       "image_question": "./assets/images_questions/4.106.png",
       "type_response": "1",
       "has_comment": "0",
@@ -627,7 +627,7 @@
     },
     {
       "number_question": "4.107",
-      "text_question": "Quel est mon besoin d_estime de moi ?",
+      "text_question": "Quel est mon besoin d'estime de moi ?",
       "image_question": "./assets/images_questions/4.107.png",
       "type_response": "1",
       "has_comment": "0",
@@ -695,7 +695,7 @@
     },
     {
       "number_question": "7.41",
-      "text_question": "Quel est mon niveau d_habileté avec l_invisible ?",
+      "text_question": "Quel est mon niveau d'habileté avec l'invisible ?",
       "image_question": "./assets/images_questions/7.41.png",
       "type_response": "1",
       "has_comment": "0",
@@ -712,7 +712,7 @@
     },
     {
       "number_question": "7.42",
-      "text_question": "Quel est mon niveau d_habileté avec les autres ?",
+      "text_question": "Quel est mon niveau d'habileté avec les autres ?",
       "image_question": "./assets/images_questions/7.42.png",
       "type_response": "1",
       "has_comment": "0",
@@ -729,7 +729,7 @@
     },
     {
       "number_question": "7.43",
-      "text_question": "Quel est mon niveau d_habileté avec la musique ?",
+      "text_question": "Quel est mon niveau d'habileté avec la musique ?",
       "image_question": "./assets/images_questions/7.43.png",
       "type_response": "1",
       "has_comment": "0",
@@ -746,7 +746,7 @@
     },
     {
       "number_question": "7.44",
-      "text_question": "Quel est mon niveau d_habileté avec mon corps ?",
+      "text_question": "Quel est mon niveau d'habileté avec mon corps ?",
       "image_question": "./assets/images_questions/7.44.png",
       "type_response": "1",
       "has_comment": "0",
@@ -763,7 +763,7 @@
     },
     {
       "number_question": "7.45",
-      "text_question": "Quel est mon niveau d_habileté avec les images ?",
+      "text_question": "Quel est mon niveau d'habileté avec les images ?",
       "image_question": "./assets/images_questions/7.45.png",
       "type_response": "1",
       "has_comment": "0",
@@ -780,7 +780,7 @@
     },
     {
       "number_question": "7.46",
-      "text_question": "Quel est mon niveau d_habileté avec les mots ?",
+      "text_question": "Quel est mon niveau d'habileté avec les mots ?",
       "image_question": "./assets/images_questions/7.46.png",
       "type_response": "1",
       "has_comment": "0",
@@ -797,7 +797,7 @@
     },
     {
       "number_question": "7.47",
-      "text_question": "Quel est mon niveau d_habileté avec la nature ?",
+      "text_question": "Quel est mon niveau d'habileté avec la nature ?",
       "image_question": "./assets/images_questions/7.47.png",
       "type_response": "1",
       "has_comment": "0",
@@ -814,7 +814,7 @@
     },
     {
       "number_question": "7.48",
-      "text_question": "Quel est mon niveau d_habileté avec les nombres ?",
+      "text_question": "Quel est mon niveau d'habileté avec les nombres ?",
       "image_question": "./assets/images_questions/7.48.png",
       "type_response": "1",
       "has_comment": "0",
@@ -831,7 +831,7 @@
     },
     {
       "number_question": "7.49",
-      "text_question": "Quel est mon niveau d_habileté avec moi ?",
+      "text_question": "Quel est mon niveau d'habileté avec moi ?",
       "image_question": "./assets/images_questions/7.49.png",
       "type_response": "1",
       "has_comment": "0",
