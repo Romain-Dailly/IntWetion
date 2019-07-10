@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import axios from "axios";
-import "./Form.css";
-import AdminQuestion from "../AdminQuestion/AdminQuestion";
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import './Form.css';
+import AdminQuestion from '../AdminQuestion/AdminQuestion';
 
 function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
 
   // Hook pour le titre du formulaire
-  const [formState, setFormState] = useState("Créer une nouvelle carte");
+  const [formState, setFormState] = useState('Créer une nouvelle carte');
   // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
     card: {
-      name: "",
-      image: "",
-      description: "",
+      name: '',
+      image: '',
+      description: '',
       online: 1,
       payment: 0,
-      date: 0
+      date: 0,
     },
     videos: [
       {
-        url_video: "",
-        type_video: 1
+        url_video: '',
+        type_video: 1,
       },
       {
-        url_video: "",
-        type_video: 2
+        url_video: '',
+        type_video: 2,
       },
       {
-        url_video: "",
-        type_video: 3
-      }
+        url_video: '',
+        type_video: 3,
+      },
     ],
-    questions: []
+    questions: [],
   });
 
   // Hook pour l'élément question
@@ -44,7 +44,7 @@ function Form() {
   // au lancement du rendu
   useEffect(() => {
     if (cardData) {
-      setFormState("Modifier la carte");
+      setFormState('Modifier la carte');
       setAdminInput(cardData);
       setAdminInputQuestions(cardData.questions);
     }
@@ -52,21 +52,17 @@ function Form() {
 
   // Organisation et filtrage des données pour le put et le post
   const buildCardData = () => {
-    const questionsForPut = adminInputQuestions.map(question => {
-      return {
-        number_question: question.number_question,
-        text_question: question.text_question.replace('"', "'"),
-        image_question: question.image_question.replace('"', "'"),
-        type_response: question.type_response,
-        has_comment: question.has_comment,
-        resources: question.resources.map(res => {
-          return {
-            url_resource: res.url_resource.replace('"', "'"),
-            type_resource: res.type_resource
-          };
-        })
-      };
-    });
+    const questionsForPut = adminInputQuestions.map(question => ({
+      number_question: question.number_question,
+      text_question: question.text_question.replace('"', "'"),
+      image_question: question.image_question.replace('"', "'"),
+      type_response: question.type_response,
+      has_comment: question.has_comment,
+      resources: question.resources.map(res => ({
+        url_resource: res.url_resource.replace('"', "'"),
+        type_resource: res.type_resource,
+      })),
+    }));
     return {
       card: {
         bg_color: adminInput.card.bg_color,
@@ -74,16 +70,16 @@ function Form() {
         image: adminInput.card.image.replace('"', "'"),
         name: adminInput.card.name.replace('"', "'"),
         online: adminInput.card.online,
-        payment: adminInput.card.payment
+        payment: adminInput.card.payment,
       },
       videos: adminInput.videos,
-      questions: questionsForPut
+      questions: questionsForPut,
     };
   };
 
   // Fonction qui crée une question vide et ouvre la modale
   // pour la modifier
-  const addQuestion = question => {
+  const addQuestion = (question) => {
     setAdminInputQuestions([...adminInputQuestions, question]);
   };
 
@@ -95,10 +91,10 @@ function Form() {
     setAdminInputQuestions(finalQuestions);
   };
 
-  const deleteQuestion = i => {
+  const deleteQuestion = (i) => {
     setAdminInputQuestions([
       ...adminInputQuestions.slice(0, i),
-      ...adminInputQuestions.slice(i + 1)
+      ...adminInputQuestions.slice(i + 1),
     ]);
   };
 
@@ -106,30 +102,24 @@ function Form() {
   // lors du click sur le bouton enregistrer.
   // Si on a un id dans le hook, c'est que l'on a reçu des données
   // et c'est un put, sinon, c'est un post
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     if (adminInput.card.id && adminInput.card.date !== 0) {
       return axios
-        .put(
-          `http:///localhost:8080/card/?id=${adminInput.card.id}`,
-          buildCardData()
-        )
-        .then(response => {
-          console.log(response);
+        .put(`http:///localhost:8080/card/?id=${adminInput.card.id}`, buildCardData())
+        .then((response) => {
+          throw (response);
         });
     }
-    return axios
-      .post("http:///localhost:8080/card/", buildCardData())
-      .then(response => {
-        console.log(response);
-      });
+    return axios.post('http:///localhost:8080/card/', buildCardData()).then((response) => {
+    });
   };
 
   // Fonction qui gère les onChange du hook adminInput
   const onCardInputChange = ({ target }) => {
     const { value } = target;
     const newObj = { ...adminInput };
-    const dataKey = target.getAttribute("data-key");
+    const dataKey = target.getAttribute('data-key');
     newObj.card[dataKey] = value;
     setAdminInput(newObj);
   };
@@ -138,10 +128,9 @@ function Form() {
   const onVideoInputChange = ({ target }) => {
     const { value, id } = target;
     const newObj = { ...adminInput };
-    const dataKey = target.getAttribute("data-key");
+    const dataKey = target.getAttribute('data-key');
     newObj.videos[id][dataKey] = value;
     setAdminInput(newObj);
-    console.log(adminInput);
   };
   return (
     <div>
@@ -256,9 +245,7 @@ function Form() {
                         id="inlineRadio1"
                         data-key="online"
                         value={1}
-                        checked={
-                          adminInput.card.online === 1 ? "checked" : null
-                        }
+                        checked={adminInput.card.online === 1 ? 'checked' : null}
                         onChange={onCardInputChange}
                       />
                       En ligne
@@ -273,9 +260,7 @@ function Form() {
                         id="inlineRadio2"
                         data-key="online"
                         value={0}
-                        checked={
-                          adminInput.card.online === 0 ? "checked" : null
-                        }
+                        checked={adminInput.card.online === 0 ? 'checked' : null}
                         onChange={onCardInputChange}
                       />
                       Hors ligne
@@ -296,9 +281,7 @@ function Form() {
                         id="inlineRadio1"
                         data-key="payment"
                         value={1}
-                        checked={
-                          adminInput.card.payment === 1 ? "checked" : null
-                        }
+                        checked={adminInput.card.payment === 1 ? 'checked' : null}
                         onChange={onCardInputChange}
                       />
                       Payante
@@ -313,9 +296,7 @@ function Form() {
                         id="inlineRadio2"
                         data-key="payment"
                         value={0}
-                        checked={
-                          adminInput.card.payment === 0 ? "checked" : null
-                        }
+                        checked={adminInput.card.payment === 0 ? 'checked' : null}
                         onChange={onCardInputChange}
                       />
                       Gratuite
@@ -325,19 +306,24 @@ function Form() {
               </div>
               <h2>Questions / Ressources</h2>
               <div>
-                {adminInputQuestions.length > 0 &&
-                  adminInputQuestions.map((question, i) => (
+                {adminInputQuestions.length > 0
+                  && adminInputQuestions.map((question, i) => (
                     <div className="d-flex bg-light">
                       <div className="d-flex">
-                        <p>texte :{question.text_question}</p>
-                        <p>numero :{question.number_question}</p>
+                        <p>
+texte :
+                          {question.text_question}
+                        </p>
+                        <p>
+numero :
+                          {question.number_question}
+                        </p>
                       </div>
                       <div className="ml-5">
                         <AdminQuestion
-                          key={i}
                           buttonName="Modifier la question"
                           questionForm={question}
-                          getModalInfo={question => modifyQuestion(question, i)}
+                          getModalInfo={questio => modifyQuestion(questio, i)}
                         />
                         <button
                           onClick={() => deleteQuestion(i)}
@@ -357,7 +343,7 @@ function Form() {
                 />
               </div>
               <div className="d-flex justify-content-center">
-                <button className="btn btn-primary" onClick={handleSubmit}>
+                <button type="button" className="btn btn-primary" onClick={handleSubmit}>
                   Envoyer
                 </button>
               </div>

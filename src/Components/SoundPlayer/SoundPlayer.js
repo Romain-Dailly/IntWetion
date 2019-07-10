@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 // import './SoundPlayer.css';
 import ReactPlayer from 'react-player';
 
