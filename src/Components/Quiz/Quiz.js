@@ -1,25 +1,29 @@
 import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
+import { Slider } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { videoTypes } from '../../values/strings';
 import Question from '../Question/Question';
 import { quitQuiz, startVideo, saveResults } from '../../actions';
 import './Quiz.css';
-import { videoTypes } from '../../values/strings';
-import SoundPlayer from '../SoundPlayer/SoundPlayer';
 /**
  * A component containing widgets to trigger actions.
  * @param {objects} props An object containing required dependencies for this function.
  */
-const ActionBar = ({ onNextButtonClick }) => (
+const ActionBar = ({
+  onNextButtonClick, volume, handleChange, disabled,
+}) => (
   <div className="action-bar">
     <div className=" d-flex align-items-center w-100">
       <i className="icon icon-volume" />
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="any"
-        onChange={() => {}}
-        className="slider ml-3 mr-4"
+      <Slider
+        className="w-100"
+        max={1}
+        disabled={disabled}
+        step={0.00001}
+        tooltipVisible={false}
+        onChange={handleChange}
+        value={volume}
       />
     </div>
     <button
@@ -52,7 +56,7 @@ const Quiz = ({ color = 'white' }) => {
    */
   const cardId = useSelector(store => store.card.quiz.cardId);
   const { questions, videos } = useSelector(store => store.card.data[cardId]);
-
+  const [volume, setVolume] = useState(0.8);
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
 
@@ -76,14 +80,18 @@ const Quiz = ({ color = 'white' }) => {
 
   const getProgress = () => {
     const numberOfQuestion = questions.length - 1;
+
     return (questionIndex / numberOfQuestion) * 100;
   };
 
-  const storeAnswer = (answer, number) => {
+  const storeAnswer = (event, answer, number, answerType) => {
     const questionKey = `question-${number}`;
     const answersCopy = { ...answers };
-    answersCopy[questionKey] = answer;
-
+    if (answerType === 1) {
+      answersCopy[questionKey] = answer;
+    } else {
+      answersCopy[questionKey] = event.target.value;
+    }
     const newObject = Object.assign({}, answersCopy, {
       [questionKey]: {
         answer,
@@ -112,10 +120,21 @@ const Quiz = ({ color = 'white' }) => {
   return (
     <div className="overlay">
       <ToolBar title="Forces" />
-      <SoundPlayer url={videos[0].url_video} />
+      <div style={{ width: '0', height: '0', opacity: '0' }}>
+        <ReactPlayer
+          playing='"true'
+          url={videos[2].url_video}
+          volume={volume}
+        />
+      </div>
       <div className="overlay-content" style={{ background: `${color}` }}>
         <div className="content">
-          {<Question question={questions[questionIndex]} onAnswerSelected={storeAnswer} />}
+          {
+            <Question
+              question={questions[questionIndex]}
+              onAnswerSelected={storeAnswer}
+            />
+          }
         </div>
         <div className="ui-progress">
           <div
@@ -131,6 +150,10 @@ const Quiz = ({ color = 'white' }) => {
           onNextButtonClick={() => {
             nextQuestion();
           }}
+          handleChange={(value) => {
+            setVolume(value);
+          }}
+          volume={volume}
         />
       </div>
     </div>

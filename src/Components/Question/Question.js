@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable camelcase */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -6,16 +8,27 @@ import './Question.css';
 const RadioButton = ({ number, handleChange }) => (
   <div className="col-4 d-flex justify-content-center p-0">
     <div className="radio-button mb-4">
-      <label htmlFor="choiceRadio" className="check-mark m-0">
-        <input className="choice-radio" id="choiceRadio" type="radio" name="answer-radio" onChange={handleChange} />
-      </label>
+      <input
+        className="choice-radio"
+        type="radio"
+        name="answer-radio"
+        onChange={handleChange}
+        id="input-radio"
+      />
+
+      <label htmlFor="input-radio" className="check-mark m-0" />
       <span>{number}</span>
     </div>
   </div>
 );
 
 const Question = ({ question, onAnswerSelected }) => {
-  const { text_question, image_question } = question;
+  const {
+    number_question,
+    text_question,
+    image_question,
+    type_response,
+  } = question;
   const answerRange = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   useEffect(() => {
@@ -32,15 +45,33 @@ const Question = ({ question, onAnswerSelected }) => {
       <div className="container">
         <img src={image_question} alt="" width="100%" />
         <p className="body-1 my-3">{text_question}</p>
-        <div className="row justify-content-center">
-          {answerRange.map(number => (
-            <RadioButton
-              key={number}
-              number={number}
-              handleChange={() => onAnswerSelected(number, question.number)}
+
+        {question.type_response === 1 ? (
+          <div className="row justify-content-center">
+            {answerRange.map(number => (
+              <RadioButton
+                key={number}
+                number={number}
+                handleChange={event => onAnswerSelected(
+                  event,
+                  number,
+                  number_question,
+                  type_response,
+                )
+                }
+              />
+            ))}
+          </div>
+        ) : (
+          <label htmlFor="input-answer">
+            <textarea
+              id="input-answer"
+              type="text"
+              onChange={event => onAnswerSelected(event, 0, number_question, type_response)
+              }
             />
-          ))}
-        </div>
+          </label>
+        )}
       </div>
     </div>
   );

@@ -23,10 +23,18 @@ const Comment = ({ onComment }) => (
   <div className="overlay flex-column justify-content-start">
     <label htmlFor="textarea-comment">
       Write your comments based on the video you just watched
-      <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
+      <textarea
+        className="w-100 my-3"
+        name=""
+        id="textarea-comment"
+        cols="20"
+        rows="10"
+      />
     </label>
     <div>
-      <button type="button" onClick={onComment}>continue</button>
+      <button type="button" onClick={onComment}>
+        continue
+      </button>
     </div>
   </div>
 );
@@ -68,7 +76,10 @@ const Home = () => {
 
   if (canShowResults) {
     return (
-      <Redirect push to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: 'answers' }} />
+      <Redirect
+        push
+        to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: 'answers' }}
+      />
     );
   }
 
