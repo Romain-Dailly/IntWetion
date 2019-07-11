@@ -11,7 +11,7 @@
   top: 0;
   /* overflow: hidden; */
   transition: 0.5s;
-  transform: scale(1);
+  border-radius: 10px;
 }
 
 .overlayAdmin-content {
@@ -29,13 +29,19 @@
   z-index: 25;
   margin-top: 56px;
 }
+
 .adminContent {
   flex: 1;
   /* overflow-y: scroll; */
   padding-top: 16px;
 }
+
 i {
   font-size: 28px;
   cursor: pointer;
   color: #4a4a4a;
+}
+
+.asterixetobelix {
+  color: red;
 }
