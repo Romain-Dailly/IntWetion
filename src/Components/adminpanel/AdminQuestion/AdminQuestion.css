@@ -1,0 +1,39 @@
+.overlayAdmin {
+  display: flex;
+  margin-top:10%;
+  justify-content: center;
+  height: 80%;
+  width: 60%;
+  background-color: #f4f5f7;
+  position: fixed;
+  z-index: 20;
+  /* left: 0; */
+  top: 0;
+  /* overflow: hidden; */
+  transition: 0.5s;
+}
+
+.overlayAdmin-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 0;
+  width: 100%;
+  background-color: #f4f5f7;
+  border-radius: 6px;
+  /* overflow: hidden; */
+  position: relative;
+  width: 768px;
+  z-index: 25;
+  margin-top: 56px;
+}
+.adminContent {
+  flex: 1;
+  /* overflow-y: scroll; */
+  padding-top: 16px;
+}
+i {
+  font-size: 28px;
+  cursor: pointer;
+  color: #4a4a4a;
+}

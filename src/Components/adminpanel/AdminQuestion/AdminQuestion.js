@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { notification } from 'antd';
+import './AdminQuestion.css';
 
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   // Hooks question et resources
@@ -72,7 +73,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
       buildQuestionData();
       setIsModal(false);
       event.preventDefault();
-    } else { 
+    } else {
       notification.open({
         message: 'Notification Title',
         description: 'Les champs avec * doivent être remplis !',
@@ -81,21 +82,34 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   };
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          resetModal();
-          setIsModal(true);
-        }}
-        type="button"
-        className="btn btn-primary"
-      >
-        {buttonName}
-      </button>
+    <div className="d-flex justify-content-center">
+      {buttonName === 'Modifier la question' ? (
+        <i
+          title="Modifier"
+          tabIndex="-1"
+          role="button"
+          className="icon-edit"
+          onClick={() => {
+            resetModal();
+            setIsModal(true);
+          }}
+        />
+      ) : (
+        <button
+          onClick={() => {
+            resetModal();
+            setIsModal(true);
+          }}
+          type="button"
+          className="btn btn-light"
+        >
+          {buttonName}
+        </button>
+      )}
       {isModal && (
-        <div className="overlay">
-          <div className="overlay-content">
-            <div className="content">
+        <div className="overlayAdmin">
+          <div className="overlayAdmin-content">
+            <div className="adminContent">
               <h5 className="modal-title" id="exampleModalCenterTitle">
                 Espace questions
               </h5>

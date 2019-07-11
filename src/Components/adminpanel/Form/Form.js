@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import './Form.css';
+import { Table } from 'antd';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
 
+const { Column } = Table;
 function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
@@ -309,7 +311,7 @@ function Form() {
               </div>
               <h2>Questions / Ressources</h2>
               <div>
-                {adminInputQuestions.length > 0
+                {/* {adminInputQuestions.length > 0
                   && adminInputQuestions.map((question, i) => (
                     <div className="d-flex bg-light">
                       <div className="d-flex">
@@ -337,13 +339,40 @@ numero :
                         </button>
                       </div>
                     </div>
-                  ))}
-                <AdminQuestion
-                  key="-1"
-                  buttonName="Ajouter une question"
-                  questionForm="non"
-                  getModalInfo={addQuestion}
-                />
+                  ))} */}
+                <div className="d-flex justify-content-center mb-3">
+                  <AdminQuestion
+                    key="-1"
+                    buttonName="Ajouter une question"
+                    questionForm="non"
+                    getModalInfo={addQuestion}
+                  />
+                </div>
+                <Table
+                  dataSource={adminInputQuestions.map(
+                    (question, index) => question = { ...question, i: index, nb: question.resources.length }
+                  )}
+                >
+                  <Column title="Numéro" dataIndex="number_question" key="number_question" />
+                  <Column title="Texte" dataIndex="text_question" key="text_question" />
+                  <Column title="Ressources" dataIndex="nb" key="nb" />
+                  <Column
+                    title="Action"
+                    key="action"
+                    render={question => (
+                      <div>
+                        <AdminQuestion
+                          buttonName="Modifier la question"
+                          questionForm={question}
+                          getModalInfo={questio => modifyQuestion(questio, question.i)}
+                        />
+                        <div className="d-flex justify-content-center">
+                        <i role="button" title="Supprimer" onClick={() => deleteQuestion(question.i)} className="icon-trash" tabIndex="-1" />
+                        </div>
+                      </div>
+                    )}
+                  />
+                </Table>
               </div>
               <div className="d-flex justify-content-center">
                 <button type="button" className="btn btn-primary" onClick={handleSubmit}>
