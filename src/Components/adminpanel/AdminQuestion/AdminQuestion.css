@@ -1,16 +1,17 @@
 .overlayAdmin {
   display: flex;
-  margin-top:10%;
   justify-content: center;
-  height: 80%;
-  width: 60%;
-  background-color: #f4f5f7;
+  height: 100%;
+  width: 100%;
+  background-color: #00000081;
+  background:0.3;
   position: fixed;
   z-index: 20;
   /* left: 0; */
   top: 0;
   /* overflow: hidden; */
   transition: 0.5s;
+  transform: scale(1);
 }
 
 .overlayAdmin-content {
@@ -21,6 +22,7 @@
   width: 100%;
   background-color: #f4f5f7;
   border-radius: 6px;
+  opacity:1;
   /* overflow: hidden; */
   position: relative;
   width: 768px;

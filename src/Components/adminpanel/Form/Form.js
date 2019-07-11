@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import './Form.css';
-import { Table } from 'antd';
+import { Table, notification, Icon } from 'antd';
+import _ from 'underscore';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
 
 const { Column } = Table;
@@ -41,6 +42,14 @@ function Form() {
 
   // Hook pour l'élément question
   const [adminInputQuestions, setAdminInputQuestions] = useState([]);
+
+  // data pour la table de questions, organisée par numéros
+  const dataQuestions = _.sortBy(
+    adminInputQuestions.map(
+      (question, index) => (question = { ...question, i: index, nb: question.resources.length }),
+    ),
+    'number_question',
+  );
 
   // Hook pour définir le titre, le préremplissage du formulaire
   // au lancement du rendu
@@ -104,7 +113,7 @@ function Form() {
   // lors du click sur le bouton enregistrer.
   // Si on a un id dans le hook, c'est que l'on a reçu des données
   // et c'est un put, sinon, c'est un post
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (adminInput.card.id && adminInput.card.date !== 0) {
       return axios
@@ -112,11 +121,43 @@ function Form() {
         .then((response) => {
           // eslint-disable-next-line no-console
           console.log(response);
+          if (response.status === 200) {
+            return notification.open({
+              style: { color: 'white', background: '#1abc9c' },
+              placement: 'bottomRight',
+              message: 'Ajout réussi !',
+              description: `La carte ${adminInput.card.name} a bien été modifiée en base de données!`,
+              icon: <Icon type="smile" style={{ color: 'white' }} />,
+            });
+          }
+          return notification.open({
+            style: { color: 'red', background: 'white' },
+            placement: 'topRight',
+            message: 'Erreur !',
+            description: `La carte ${adminInput.card.name} n'a pas pu être modifiée en base de données!`,
+            icon: <Icon type="smile" style={{ color: 'white' }} />,
+          });
         });
     }
     return axios.post('http:///localhost:8080/card/', buildCardData()).then((response) => {
       // eslint-disable-next-line no-console
       console.log(response);
+      if (response.status === 200) {
+        return notification.open({
+          style: { color: 'white', background: '#1abc9c' },
+          placement: 'bottomRight',
+          message: 'Ajout réussi !',
+          description: `La carte ${adminInput.card.name} a bien été ajoutée en base de données!`,
+          icon: <Icon type="smile" style={{ color: 'white' }} />,
+        });
+      }
+      return notification.open({
+        style: { color: 'red', background: 'white' },
+        placement: 'topRight',
+        message: 'Erreur !',
+        description: `La carte ${adminInput.card.name} n'a pas pu être ajoutée en base de données!`,
+        icon: <Icon type="smile" style={{ color: 'white' }} />,
+      });
     });
   };
 
@@ -145,10 +186,11 @@ function Form() {
           <div className="card-block">
             <h4>
               <span className="block-number">1</span>
-              Informations / carte</h4>
+              Informations / carte
+            </h4>
             <label htmlFor="formGroupExampleInputcard" className="divcard">
               Nom de la carte :
-                  <input
+              <input
                 type="text"
                 className="form-control mr-5 div-input-question "
                 id="formGroupExampleInput"
@@ -161,7 +203,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Description :
-                  <textarea
+                <textarea
                   className="form-control "
                   id="exampleFormControlTextarea1"
                   rows="3"
@@ -174,7 +216,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, image de la carte :
-                  <textarea
+                <textarea
                   className="form-control "
                   id="exampleFormControlTextarea1"
                   rows="1"
@@ -187,7 +229,7 @@ function Form() {
             <div className="colorP d-flex">
               <label htmlFor="color">
                 Couleur du thème :
-                  <input
+                <input
                   type="color"
                   className="form-control col-6 p-0 m-0"
                   id="color"
@@ -207,7 +249,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, vidéo-intro de la carte
-                  <textarea
+                <textarea
                   className="form-control "
                   id="0"
                   rows="1"
@@ -220,7 +262,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, musique :
-                  <textarea
+                <textarea
                   className="form-control "
                   rows="1"
                   id="1"
@@ -233,7 +275,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, vidéo, fin de test :
-                  <textarea
+                <textarea
                   className="form-control "
                   rows="1"
                   id="2"
@@ -265,7 +307,7 @@ function Form() {
                       onChange={onCardInputChange}
                     />
                     En ligne
-                    </label>
+                  </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
@@ -280,7 +322,7 @@ function Form() {
                       onChange={onCardInputChange}
                     />
                     Hors ligne
-                    </label>
+                  </label>
                 </div>
               </div>
             </div>
@@ -301,7 +343,7 @@ function Form() {
                       onChange={onCardInputChange}
                     />
                     Payante
-                    </label>
+                  </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
@@ -316,7 +358,7 @@ function Form() {
                       onChange={onCardInputChange}
                     />
                     Gratuite
-                    </label>
+                  </label>
                 </div>
               </div>
             </div>
@@ -335,11 +377,7 @@ function Form() {
                   getModalInfo={addQuestion}
                 />
               </div>
-              <Table
-                dataSource={adminInputQuestions.map(
-                  (question, index) => question = { ...question, i: index, nb: question.resources.length }
-                )}
-              >
+              <Table dataSource={dataQuestions}>
                 <Column title="Numéro" dataIndex="number_question" key="number_question" />
                 <Column title="Texte" dataIndex="text_question" key="text_question" />
                 <Column title="Ressources" dataIndex="nb" key="nb" />
@@ -354,18 +392,24 @@ function Form() {
                         getModalInfo={questio => modifyQuestion(questio, question.i)}
                       />
                       <div className="d-flex justify-content-center">
-                        <i role="button" title="Supprimer" onClick={() => deleteQuestion(question.i)} className="icon-trash" tabIndex="-1" />
+                        <i
+                          role="button"
+                          title="Supprimer"
+                          onClick={() => deleteQuestion(question.i)}
+                          className="icon-trash"
+                          tabIndex="-1"
+                        />
                       </div>
                     </div>
                   )}
                 />
               </Table>
             </div>
-            </div>
-            <div className="d-flex justify-content-center">
-              <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-                Envoyer
-                </button>
+          </div>
+          <div className="d-flex justify-content-center">
+            <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+              Envoyer
+            </button>
           </div>
         </form>
       </div>

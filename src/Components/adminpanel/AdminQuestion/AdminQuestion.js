@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { notification } from 'antd';
+import { notification, Icon } from 'antd';
 import './AdminQuestion.css';
 
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
@@ -63,7 +63,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   // fonction élastique vers le parent
   const buildQuestionData = () => {
     const finalQuestion = { ...question };
-    finalQuestion.resources = resources;
+    finalQuestion.resources = resources.filter(resource => resource.url_resource !== '');
     getModalInfo(finalQuestion);
   };
 
@@ -73,10 +73,12 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
       buildQuestionData();
       setIsModal(false);
       event.preventDefault();
-    } else {
       notification.open({
-        message: 'Notification Title',
-        description: 'Les champs avec * doivent être remplis !',
+        style: { color: 'white', background: '#1abc9c' },
+        placement: 'bottomRight',
+        message: 'Ajout réussi !',
+        description: `La question ${question.number_question} a bien été ajoutée !`,
+        icon: <Icon type="smile" style={{ color: 'white' }} />,
       });
     }
   };
@@ -253,15 +255,13 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                               Voir
                             </label>
                           </div>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              deleteResource(i);
-                            }}
-                          >
-                            Supprimer la ressource
-                          </button>
+                          <i
+                          role="button"
+                          title="Supprimer"
+                          onClick={(e) => {e.preventDefault();deleteResource(i);}}
+                          className="icon-trash"
+                          tabIndex="-1"
+                        />
                         </div>
                       ))}
                     </div>
