@@ -41,11 +41,11 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   };
 
   // Fonction qui gère les onChange du hook resources
-  const onResourceInputChange = (event) => {
+  const onResourceInputChange = ({ target }) => {
     const newValues = [...resources];
-    const { id } = event.target;
-    const dataKey = event.target.getAttribute('data-key');
-    newValues[id][dataKey] = event.target.value;
+    const { id } = target;
+    const dataKey = target.getAttribute('data-key');
+    newValues[id][dataKey] = target.value;
     setResources(newValues);
   };
 
