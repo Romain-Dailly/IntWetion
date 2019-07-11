@@ -112,15 +112,15 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
             <div className="adminContent">
               <h4>
                 <span className="block-number">4</span>
-                Question / Ressources
+                Question
               </h4>
               <form>
                 <div className="d-flex div-question-bouton" row="1">
-                  <label htmlFor="input-question" className="col-10">
+                  <label htmlFor="input-question" className="">
                     Question :<span className="asterixetobelix">*</span> :
                     <input
                       type="text"
-                      className="form-control div-input-question col-10"
+                      className="form-control div-input-question "
                       id="input-question"
                       data-key="text_question"
                       value={question.text_question}
@@ -129,7 +129,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                   </label>
                 </div>
                 <div>
-                  <label htmlFor="input-question-number" className="col-10">
+                  <label htmlFor="input-question-number" className="">
                     Numéro de la question<span className="asterixetobelix">*</span>:
                     <input
                       type="number"
@@ -147,7 +147,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                     Photo de la question :
                     <input
                       type="url"
-                      className="form-control col-10"
+                      className="form-control "
                       rows="1"
                       id="1"
                       data-key="image_question"
@@ -192,12 +192,15 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 </fieldset>
                 <br />
 
-                <div className="row">
-                  <div className="col-3">Ressources liées :</div>
-                  <div className="col-9">
+                <div className="">
+                  <h4>
+                    <span className="block-number">4</span>
+                    Ressources
+                  </h4>
+                  <div className="">
                     <div>
                       {resources.map((resource, i) => (
-                        <div className="col-9" style={{ border: '1px black solid' }}>
+                        <div className="" style={{ border: '1px black solid' }}>
                           <textarea
                             className="form-control"
                             placeholder="Lien"
@@ -221,7 +224,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                                 value={1}
                                 onChange={onResourceInputChange}
                               />
-                              Lire
+                              Livre
                             </label>
                           </div>
                           <div className="form-check form-check-inline">
@@ -236,7 +239,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                                 value={2}
                                 onChange={onResourceInputChange}
                               />
-                              Ecouter
+                              Musique
                             </label>
                           </div>
                           <div className="form-check form-check-inline">
@@ -251,7 +254,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                                 value={3}
                                 onChange={onResourceInputChange}
                               />
-                              Voir
+                              Vidéo
                             </label>
                           </div>
                           <button
