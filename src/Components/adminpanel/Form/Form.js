@@ -108,11 +108,13 @@ function Form() {
       return axios
         .put(`http:///localhost:8080/card/?id=${adminInput.card.id}`, buildCardData())
         .then((response) => {
-          throw (response);
+          // eslint-disable-next-line no-console
+          console.log(response);
         });
     }
     return axios.post('http:///localhost:8080/card/', buildCardData()).then((response) => {
-      throw (response);
+      // eslint-disable-next-line no-console
+      console.log(response);
     });
   };
 
@@ -154,14 +156,14 @@ function Form() {
                   />
                 </label>
               </div>
-              <div className="form-group">
-                <label htmlFor="exampleFormControlTextarea1">
+              <div className="colorP d-flex justify-content-center">
+                <label htmlFor="color">
                   Couleur du thème
                   <input
                     type="color"
-                    className="form-control col-10"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
+                    className="form-control col-6 p-0 m-0"
+                    id="color"
+                    rows="6"
                     data-key="bg_color"
                     value={adminInput.card.bg_color}
                     onChange={onCardInputChange}

@@ -67,13 +67,18 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   };
 
   // Fonction handlesubmit et fermeture de modale
-  const handleSubmit = event => (question.text_question
-    && question.number_question && question.type_response
-    ? buildQuestionData() && setIsModal(false) && event.preventDefault()
-    : notification.open({
-      message: 'Notification Title',
-      description: 'Les champs avec * doivent être remplis !',
-    }));
+  const handleSubmit = (event) => {
+    if (question.text_question && question.number_question && question.type_response) {
+      buildQuestionData();
+      setIsModal(false);
+      event.preventDefault();
+    } else { 
+      notification.open({
+        message: 'Notification Title',
+        description: 'Les champs avec * doivent être remplis !',
+      });
+    }
+  };
 
   return (
     <div>
@@ -86,7 +91,6 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         className="btn btn-primary"
       >
         {buttonName}
-        {' '}
       </button>
       {isModal && (
         <div className="overlay">
