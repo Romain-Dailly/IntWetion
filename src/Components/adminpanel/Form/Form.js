@@ -138,8 +138,8 @@ function Form() {
   return (
     <div>
       <div className="container-fluid">
-        <div className="container-adminInput col-10">
-          <form className="pr-5 divForm">
+        <div className="container-adminInput">
+          <form className="pr-5 divForm col-6">
             <h1 className="form-title">{formState}</h1>
             <div className="card-block">
               <h4>
@@ -149,7 +149,7 @@ function Form() {
                 Nom de la carte :
                   <input
                   type="text"
-                  className="form-control mr-5 div-input-question col-10"
+                  className="form-control mr-5 div-input-question "
                   id="formGroupExampleInput"
                   data-key="name"
                   value={adminInput.card.name}
@@ -161,7 +161,7 @@ function Form() {
               <label htmlFor="exampleFormControlTextarea1">
                 Description :
                   <textarea
-                  className="form-control col-10"
+                  className="form-control "
                   id="exampleFormControlTextarea1"
                   rows="3"
                   data-key="description"
@@ -174,7 +174,7 @@ function Form() {
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, image de la carte :
                   <textarea
-                  className="form-control col-10"
+                  className="form-control "
                   id="exampleFormControlTextarea1"
                   rows="1"
                   data-key="image"
@@ -207,7 +207,7 @@ function Form() {
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, vidéo-intro de la carte
                   <textarea
-                  className="form-control col-10"
+                  className="form-control "
                   id="0"
                   rows="1"
                   data-key="url_video"
@@ -220,7 +220,7 @@ function Form() {
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, musique :
                   <textarea
-                  className="form-control col-10"
+                  className="form-control "
                   rows="1"
                   id="1"
                   data-key="url_video"
@@ -233,7 +233,7 @@ function Form() {
               <label htmlFor="exampleFormControlTextarea1">
                 Lien, vidéo, fin de test :
                   <textarea
-                  className="form-control col-10"
+                  className="form-control "
                   rows="1"
                   id="2"
                   data-key="url_video"

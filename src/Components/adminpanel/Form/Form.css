@@ -3,15 +3,18 @@
 }
 
 .form-title {
- color: black;;
+ color:#fff;
+ border-radius: 15px 15px 15px 0;
+ background: #1abc9c;
+ padding: 10px;
 }
 
 .card-block {
   margin-bottom: 40px;
   border: 2px solid #1abc9c;
-  padding: 10px;
+  padding: 20px 50px;
   border-radius: 10px;
-  box-shadow: 1px 1px 9px rgba(5, 5, 5, 0.2) ;
+  box-shadow: 1px 1px 16px rgba(5, 5, 5, 0.2);
 }
 
 .block-number {
@@ -28,6 +31,10 @@
   border-radius: 15px 15px 15px 0;
 }
 
+.h4, h4 {
+  font-size: 1.7em;
+}
+
 .btn-primary {
   background: #1abc9c !important;
   border-color: #1abc9c !important;
@@ -40,36 +47,18 @@
   margin-left: 5px;
 }
 
-.col-10{
-  padding: 0px 0px 0px 0px;
-}
-
 .div-card-list {
   border: solid 1px #bab8b8 ;
   padding: 10px;
-  background-color:#ededed
-}
-
-.col-9 {
-  margin-right: 0px;
-  padding: 0px 25px;
+  background-color:#ededed;
 }
 
 .divForm {
-  padding: 0px 100px !important;
   margin-left: auto;
   margin-right: auto;
-  font-family: "georgia"
+  font-family: "roboto";
 }
 
-/* .navbar{
-  background-color: #cc34f1;
-} */
-
-.container-admininput {
-  padding: 25px;
-  background-color: orange;
-}
 .container-fluid {
   padding-top:5rem;
 }
