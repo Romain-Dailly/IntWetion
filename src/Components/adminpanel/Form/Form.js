@@ -145,7 +145,7 @@ function Form() {
           <div className="card-block">
             <h4>
               <span className="block-number">1</span>
-              Informations / carte</h4>
+              Informations générales</h4>
             <label htmlFor="formGroupExampleInputcard" className="divcard">
               Nom de la carte :
                   <input
@@ -173,7 +173,7 @@ function Form() {
             </div>
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
-                Lien, image de la carte :
+                Image de la carte :
                   <textarea
                   className="form-control "
                   id="exampleFormControlTextarea1"
@@ -185,72 +185,26 @@ function Form() {
               </label>
             </div>
             <div className="colorP d-flex">
-              <label htmlFor="color">
-                Couleur du thème :
-                  <input
-                  type="color"
-                  className="form-control col-6 p-0 m-0"
-                  id="color"
-                  rows="6"
-                  data-key="bg_color"
-                  value={adminInput.card.bg_color}
-                  onChange={onCardInputChange}
-                />
-              </label>
+              <p htmlFor="color"> Couleur du thème :</p>
+              <br />
+              <input
+                type="color"
+                className="form-control col-6 p-0 m-0"
+                id="color"
+                rows="6"
+                data-key="bg_color"
+                value={adminInput.card.bg_color}
+                onChange={onCardInputChange}
+              />
             </div>
           </div>
           <div className="card-block">
             <h4>
               <span className="block-number">2</span>
-              Vidéos / Musique
-            </h4>
-            <div className="form-group">
-              <label htmlFor="exampleFormControlTextarea1">
-                Lien, vidéo-intro de la carte
-                  <textarea
-                  className="form-control "
-                  id="0"
-                  rows="1"
-                  data-key="url_video"
-                  value={adminInput.videos[0].url_video}
-                  onChange={onVideoInputChange}
-                />
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="exampleFormControlTextarea1">
-                Lien, musique :
-                  <textarea
-                  className="form-control "
-                  rows="1"
-                  id="1"
-                  data-key="url_video"
-                  value={adminInput.videos[1].url_video}
-                  onChange={onVideoInputChange}
-                />
-              </label>
-            </div>
-            <div className="form-group">
-              <label htmlFor="exampleFormControlTextarea1">
-                Lien, vidéo, fin de test :
-                  <textarea
-                  className="form-control "
-                  rows="1"
-                  id="2"
-                  data-key="url_video"
-                  value={adminInput.videos[2].url_video}
-                  onChange={onVideoInputChange}
-                />
-              </label>
-            </div>
-          </div>
-          <div className="card-block">
-            <h4>
-              <span className="block-number">3</span>
               Statut
             </h4>
             <div className="form-group d-flex flex-column">
-              <p>Définissez la visibilité de la carte :</p>
+              <p>Visibilité de la carte :</p>
               <div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
@@ -286,7 +240,7 @@ function Form() {
             </div>
             <br />
             <div className="form-group d-flex flex-column">
-              <p>Statut commercial de la carte :</p>
+              <p>Statut commercial :</p>
               <div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
@@ -321,6 +275,53 @@ function Form() {
               </div>
             </div>
           </div>
+          <h1 className="form-title">Création du questionnaire</h1>
+          <div className="card-block">
+            <h4>
+              <span className="block-number">3</span>
+              Vidéos / Musique
+            </h4>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Vidéo introductive du questionnnaire :
+                  <textarea
+                  className="form-control "
+                  id="0"
+                  rows="1"
+                  data-key="url_video"
+                  value={adminInput.videos[0].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Musique du questionnaire :
+                  <textarea
+                  className="form-control "
+                  rows="1"
+                  id="1"
+                  data-key="url_video"
+                  value={adminInput.videos[1].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Vidéo de fin du questionaire :
+                  <textarea
+                  className="form-control "
+                  rows="1"
+                  id="2"
+                  data-key="url_video"
+                  value={adminInput.videos[2].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+          </div>
+          
           <div className="card-block">
             <h4>
               <span className="block-number">4</span>
@@ -361,11 +362,11 @@ function Form() {
                 />
               </Table>
             </div>
-            </div>
-            <div className="d-flex justify-content-center">
-              <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-                Envoyer
-                </button>
+          </div>
+          <div className="d-flex justify-content-center">
+            <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+              Enregistrer
+            </button>
           </div>
         </form>
       </div>
