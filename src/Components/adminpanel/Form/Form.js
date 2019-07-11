@@ -9,7 +9,7 @@ function Form() {
   const cardData = useSelector(store => store.card.data[cardIndex]);
 
   // Hook pour le titre du formulaire
-  const [formState, setFormState] = useState('Créer une nouvelle carte');
+  const [formState, setFormState] = useState("Création d'une nouvelle carte");
   // Hook pour l'élément card
   const [adminInput, setAdminInput] = useState({
     card: {
@@ -138,220 +138,237 @@ function Form() {
   return (
     <div>
       <div className="container-fluid">
-        <div className="row">
-          <div className="col-2 div-menu">Administration du site</div>
-          <div className="container-adminInput col-10">
-            <form className="pr-5 divForm">
-              <div>
-                <h1>{formState}</h1>
-                <label htmlFor="formGroupExampleInputcard" className="divcard">
-                  Entrez le nom de la carte :
+        <div className="container-adminInput col-10">
+          <form className="pr-5 divForm">
+            <h1 className="form-title">{formState}</h1>
+            <div className="card-block">
+              <h4>
+                <span className="block-number">1</span>
+                Informations / carte</h4>
+              <label htmlFor="formGroupExampleInputcard" className="divcard">
+                Nom de la carte :
                   <input
-                    type="text"
-                    className="form-control mr-5 div-input-question col-10"
-                    id="formGroupExampleInput"
-                    data-key="name"
-                    value={adminInput.card.name}
-                    onChange={onCardInputChange}
-                  />
-                </label>
-              </div>
-              <div className="colorP d-flex justify-content-center">
-                <label htmlFor="color">
-                  Couleur du thème
-                  <input
-                    type="color"
-                    className="form-control col-6 p-0 m-0"
-                    id="color"
-                    rows="6"
-                    data-key="bg_color"
-                    value={adminInput.card.bg_color}
-                    onChange={onCardInputChange}
-                  />
-                </label>
-              </div>
-              <div className="form-group">
-                <label htmlFor="exampleFormControlTextarea1">
-                  Description
-                  <textarea
-                    className="form-control col-10"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                    data-key="description"
-                    value={adminInput.card.description}
-                    onChange={onCardInputChange}
-                  />
-                </label>
-              </div>
-              <div className="form-group">
-                <label htmlFor="exampleFormControlTextarea1">
-                  Lien, image de la carte
-                  <textarea
-                    className="form-control col-10"
-                    id="exampleFormControlTextarea1"
-                    rows="1"
-                    data-key="image"
-                    value={adminInput.card.image}
-                    onChange={onCardInputChange}
-                  />
-                </label>
-              </div>
-              <h2>Vidéos / Musique</h2>
-              <div className="form-group">
-                <label htmlFor="exampleFormControlTextarea1">
-                  Lien, vidéo-intro de la carte
-                  <textarea
-                    className="form-control col-10"
-                    id="0"
-                    rows="1"
-                    data-key="url_video"
-                    value={adminInput.videos[0].url_video}
-                    onChange={onVideoInputChange}
-                  />
-                </label>
-              </div>
-              <div className="form-group">
-                <label htmlFor="exampleFormControlTextarea1">
-                  Lien, musique
-                  <textarea
-                    className="form-control col-10"
-                    rows="1"
-                    id="1"
-                    data-key="url_video"
-                    value={adminInput.videos[1].url_video}
-                    onChange={onVideoInputChange}
-                  />
-                </label>
-              </div>
-              <div className="form-group">
-                <label htmlFor="exampleFormControlTextarea1">
-                  Lien, vidéo, fin de test
-                  <textarea
-                    className="form-control col-10"
-                    rows="1"
-                    id="2"
-                    data-key="url_video"
-                    value={adminInput.videos[2].url_video}
-                    onChange={onVideoInputChange}
-                  />
-                </label>
-              </div>
-              <div className="form-group d-flex flex-column">
-                <p>Définissez la visibilité de la carte :</p>
-                <div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio1">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptionsOnline"
-                        id="inlineRadio1"
-                        data-key="online"
-                        value={1}
-                        checked={adminInput.card.online === 1 ? 'checked' : null}
-                        onChange={onCardInputChange}
-                      />
-                      En ligne
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio2">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptionsOnline"
-                        id="inlineRadio2"
-                        data-key="online"
-                        value={0}
-                        checked={adminInput.card.online === 0 ? 'checked' : null}
-                        onChange={onCardInputChange}
-                      />
-                      Hors ligne
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <br />
-              <div className="form-group d-flex flex-column">
-                <p>Statut commercial de la carte :</p>
-                <div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio1">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptionsPayment"
-                        id="inlineRadio1"
-                        data-key="payment"
-                        value={1}
-                        checked={adminInput.card.payment === 1 ? 'checked' : null}
-                        onChange={onCardInputChange}
-                      />
-                      Payante
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio2">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="inlineRadioOptionsPayment"
-                        id="inlineRadio2"
-                        data-key="payment"
-                        value={0}
-                        checked={adminInput.card.payment === 0 ? 'checked' : null}
-                        onChange={onCardInputChange}
-                      />
-                      Gratuite
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <h2>Questions / Ressources</h2>
-              <div>
-                {adminInputQuestions.length > 0
-                  && adminInputQuestions.map((question, i) => (
-                    <div className="d-flex bg-light">
-                      <div className="d-flex">
-                        <p>
-texte :
-                          {question.text_question}
-                        </p>
-                        <p>
-numero :
-                          {question.number_question}
-                        </p>
-                      </div>
-                      <div className="ml-5">
-                        <AdminQuestion
-                          buttonName="Modifier la question"
-                          questionForm={question}
-                          getModalInfo={questio => modifyQuestion(questio, i)}
-                        />
-                        <button
-                          onClick={() => deleteQuestion(i)}
-                          type="button"
-                          className="btn btn-primary"
-                        >
-                          Supprimer
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                <AdminQuestion
-                  key="-1"
-                  buttonName="Ajouter une question"
-                  questionForm="non"
-                  getModalInfo={addQuestion}
+                  type="text"
+                  className="form-control mr-5 div-input-question col-10"
+                  id="formGroupExampleInput"
+                  data-key="name"
+                  value={adminInput.card.name}
+                  onChange={onCardInputChange}
                 />
+              </label>
+            
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Description :
+                  <textarea
+                  className="form-control col-10"
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  data-key="description"
+                  value={adminInput.card.description}
+                  onChange={onCardInputChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Lien, image de la carte :
+                  <textarea
+                  className="form-control col-10"
+                  id="exampleFormControlTextarea1"
+                  rows="1"
+                  data-key="image"
+                  value={adminInput.card.image}
+                  onChange={onCardInputChange}
+                />
+              </label>
+            </div>
+            <div className="colorP d-flex">
+              <label htmlFor="color">
+                Couleur du thème :
+                  <input
+                  type="color"
+                  className="form-control col-6 p-0 m-0"
+                  id="color"
+                  rows="6"
+                  data-key="bg_color"
+                  value={adminInput.card.bg_color}
+                  onChange={onCardInputChange}
+                />
+              </label>
+            </div>
+            </div>
+            <div className="card-block">
+            <h4>
+              <span className="block-number">2</span>
+              Vidéos / Musique
+            </h4>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Lien, vidéo-intro de la carte
+                  <textarea
+                  className="form-control col-10"
+                  id="0"
+                  rows="1"
+                  data-key="url_video"
+                  value={adminInput.videos[0].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Lien, musique :
+                  <textarea
+                  className="form-control col-10"
+                  rows="1"
+                  id="1"
+                  data-key="url_video"
+                  value={adminInput.videos[1].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Lien, vidéo, fin de test :
+                  <textarea
+                  className="form-control col-10"
+                  rows="1"
+                  id="2"
+                  data-key="url_video"
+                  value={adminInput.videos[2].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+            </div>
+            <div className="card-block">
+            <h4>
+              <span className="block-number">3</span>
+              Statut
+            </h4>
+            <div className="form-group d-flex flex-column">
+              <p>Définissez la visibilité de la carte :</p>
+              <div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadio1">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptionsOnline"
+                      id="inlineRadio1"
+                      data-key="online"
+                      value={1}
+                      checked={adminInput.card.online === 1 ? 'checked' : null}
+                      onChange={onCardInputChange}
+                    />
+                    En ligne
+                    </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadio2">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptionsOnline"
+                      id="inlineRadio2"
+                      data-key="online"
+                      value={0}
+                      checked={adminInput.card.online === 0 ? 'checked' : null}
+                      onChange={onCardInputChange}
+                    />
+                    Hors ligne
+                    </label>
+                </div>
               </div>
-              <div className="d-flex justify-content-center">
-                <button type="button" className="btn btn-primary" onClick={handleSubmit}>
-                  Envoyer
+            </div>
+            <br />
+            <div className="form-group d-flex flex-column">
+              <p>Statut commercial de la carte :</p>
+              <div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadio1">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptionsPayment"
+                      id="inlineRadio1"
+                      data-key="payment"
+                      value={1}
+                      checked={adminInput.card.payment === 1 ? 'checked' : null}
+                      onChange={onCardInputChange}
+                    />
+                    Payante
+                    </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadio2">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="inlineRadioOptionsPayment"
+                      id="inlineRadio2"
+                      data-key="payment"
+                      value={0}
+                      checked={adminInput.card.payment === 0 ? 'checked' : null}
+                      onChange={onCardInputChange}
+                    />
+                    Gratuite
+                    </label>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div className="card-block">
+            <h4>
+              <span className="block-number">4</span>
+              Questions / Ressources
+            </h4>
+            <div>
+              {adminInputQuestions.length > 0
+                && adminInputQuestions.map((question, i) => (
+                  <div className="d-flex bg-light">
+                    <div className="d-flex">
+                      <p>
+                        texte :
+                          {question.text_question}
+                      </p>
+                      <p>
+                        numero :
+                          {question.number_question}
+                      </p>
+                    </div>
+                    <div className="ml-5">
+                      <AdminQuestion
+                        buttonName="Modifier la question"
+                        questionForm={question}
+                        getModalInfo={questio => modifyQuestion(questio, i)}
+                      />
+                      <button
+                        onClick={() => deleteQuestion(i)}
+                        type="button"
+                        className="btn btn-primary"
+                      >
+                        Supprimer
+                        </button>
+                    </div>
+                  </div>
+                ))}
+              <AdminQuestion
+                key="-1"
+                buttonName="Ajouter une question"
+                questionForm="non"
+                getModalInfo={addQuestion}
+              />
+            </div>
+            </div>
+            <div className="d-flex justify-content-center">
+              <button type="button" className="btn btn-primary btn-send" onClick={handleSubmit}>
+                Envoyer
                 </button>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

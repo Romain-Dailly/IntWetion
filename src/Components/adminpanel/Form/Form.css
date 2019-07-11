@@ -2,8 +2,39 @@
   display: block !important;
 }
 
+.form-title {
+ color: black;;
+}
+
+.card-block {
+  margin-bottom: 40px;
+  border: 2px solid #1abc9c;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 9px rgba(5, 5, 5, 0.2) ;
+}
+
+.block-number {
+  background: #1abc9c;
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: .8em;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  border-radius: 15px 15px 15px 0;
+}
+
+.btn-primary {
+  background: #1abc9c !important;
+  border-color: #1abc9c !important;
+}
+
 .btn-delete {
-  height: 37px !important; 
+  height: 37px !important;  
   align-self: flex-end;
   margin-bottom: 8px;
   margin-left: 5px;
@@ -11,13 +42,6 @@
 
 .col-10{
   padding: 0px 0px 0px 0px;
-}
-
-.div-menu {
-  border-right: solid 1px;
-  padding: 0px 0px 0px 20px;
-  background-color: #cc34f1;
-  color: white;
 }
 
 .div-card-list {
@@ -35,12 +59,12 @@
   padding: 0px 100px !important;
   margin-left: auto;
   margin-right: auto;
-  background-color: #f7d998;
+  font-family: "georgia"
 }
 
-.navbar{
+/* .navbar{
   background-color: #cc34f1;
-}
+} */
 
 .container-admininput {
   padding: 25px;
