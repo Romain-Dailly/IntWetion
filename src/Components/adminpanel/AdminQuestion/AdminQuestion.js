@@ -76,7 +76,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     } else {
       notification.open({
         message: 'Notification Title',
-        description: 'Les champs avec * doivent être remplis !',
+        description: 'Les champs obligatoires (*) doivent être remplis !',
       });
     }
   };
@@ -95,28 +95,29 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
           }}
         />
       ) : (
-        <button
-          onClick={() => {
-            resetModal();
-            setIsModal(true);
-          }}
-          type="button"
-          className="btn btn-light"
-        >
-          {buttonName}
-        </button>
-      )}
+          <button
+            onClick={() => {
+              resetModal();
+              setIsModal(true);
+            }}
+            type="button"
+            className="btn btn-light"
+          >
+            {buttonName}
+          </button>
+        )}
       {isModal && (
         <div className="overlayAdmin">
           <div className="overlayAdmin-content">
             <div className="adminContent">
-              <h5 className="modal-title" id="exampleModalCenterTitle">
-                Espace questions
-              </h5>
+              <h4>
+                <span className="block-number">4</span>
+                Question / Ressources
+              </h4>
               <form>
                 <div className="d-flex div-question-bouton" row="1">
                   <label htmlFor="input-question" className="col-10">
-                    Ecrivez votre question* :
+                    Question :<span className="asterixetobelix">*</span> :
                     <input
                       type="text"
                       className="form-control div-input-question col-10"
@@ -129,7 +130,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 </div>
                 <div>
                   <label htmlFor="input-question-number" className="col-10">
-                    Ecrivez le numéro de la question* :
+                    Numéro de la question<span className="asterixetobelix">*</span>:
                     <input
                       type="number"
                       className="form-control mr-5 div-input-question"
@@ -143,7 +144,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 </div>
                 <div className="form-group">
                   <label htmlFor="exampleFormControlTextarea1">
-                    Ajoutez une photo qui sera affichée avec la question (lien) :
+                    Photo de la question :
                     <input
                       type="url"
                       className="form-control col-10"
@@ -156,7 +157,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                   </label>
                 </div>
                 <br />
-                <p>Type de réponse liée* :</p>
+                <p>Type de réponse <span className="asterixetobelix">*</span> :</p>
                 <fieldset className="form-group">
                   <div className="form-check form-check-inline">
                     <label className="form-check-label" htmlFor="inlineRadio1">
