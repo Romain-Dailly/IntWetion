@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import './Form.css';
+import { Table } from 'antd';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
 
+const { Column } = Table;
 function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
@@ -136,27 +138,26 @@ function Form() {
     setAdminInput(newObj);
   };
   return (
-    <div>
-      <div className="container-fluid">
-        <div className="container-adminInput">
-          <form className="pr-5 divForm col-6">
-            <h1 className="form-title">{formState}</h1>
-            <div className="card-block">
-              <h4>
-                <span className="block-number">1</span>
-                Informations / carte</h4>
-              <label htmlFor="formGroupExampleInputcard" className="divcard">
-                Nom de la carte :
+    <div className="container-fluid">
+      <div className="container-adminInput">
+        <form className="pr-5 divForm col-6">
+          <h1 className="form-title">{formState}</h1>
+          <div className="card-block">
+            <h4>
+              <span className="block-number">1</span>
+              Informations / carte</h4>
+            <label htmlFor="formGroupExampleInputcard" className="divcard">
+              Nom de la carte :
                   <input
-                  type="text"
-                  className="form-control mr-5 div-input-question "
-                  id="formGroupExampleInput"
-                  data-key="name"
-                  value={adminInput.card.name}
-                  onChange={onCardInputChange}
-                />
-              </label>
-            
+                type="text"
+                className="form-control mr-5 div-input-question "
+                id="formGroupExampleInput"
+                data-key="name"
+                value={adminInput.card.name}
+                onChange={onCardInputChange}
+              />
+            </label>
+
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Description :
@@ -197,8 +198,8 @@ function Form() {
                 />
               </label>
             </div>
-            </div>
-            <div className="card-block">
+          </div>
+          <div className="card-block">
             <h4>
               <span className="block-number">2</span>
               Vidéos / Musique
@@ -242,8 +243,8 @@ function Form() {
                 />
               </label>
             </div>
-            </div>
-            <div className="card-block">
+          </div>
+          <div className="card-block">
             <h4>
               <span className="block-number">3</span>
               Statut
@@ -319,57 +320,54 @@ function Form() {
                 </div>
               </div>
             </div>
-            </div>
-            <div className="card-block">
+          </div>
+          <div className="card-block">
             <h4>
               <span className="block-number">4</span>
               Questions / Ressources
             </h4>
             <div>
-              {adminInputQuestions.length > 0
-                && adminInputQuestions.map((question, i) => (
-                  <div className="d-flex bg-light">
-                    <div className="d-flex">
-                      <p>
-                        texte :
-                          {question.text_question}
-                      </p>
-                      <p>
-                        numero :
-                          {question.number_question}
-                      </p>
-                    </div>
-                    <div className="ml-5">
+              <div className="d-flex justify-content-center mb-3">
+                <AdminQuestion
+                  key="-1"
+                  buttonName="Ajouter une question"
+                  questionForm="non"
+                  getModalInfo={addQuestion}
+                />
+              </div>
+              <Table
+                dataSource={adminInputQuestions.map(
+                  (question, index) => question = { ...question, i: index, nb: question.resources.length }
+                )}
+              >
+                <Column title="Numéro" dataIndex="number_question" key="number_question" />
+                <Column title="Texte" dataIndex="text_question" key="text_question" />
+                <Column title="Ressources" dataIndex="nb" key="nb" />
+                <Column
+                  title="Action"
+                  key="action"
+                  render={question => (
+                    <div>
                       <AdminQuestion
                         buttonName="Modifier la question"
                         questionForm={question}
-                        getModalInfo={questio => modifyQuestion(questio, i)}
+                        getModalInfo={questio => modifyQuestion(questio, question.i)}
                       />
-                      <button
-                        onClick={() => deleteQuestion(i)}
-                        type="button"
-                        className="btn btn-primary"
-                      >
-                        Supprimer
-                        </button>
+                      <div className="d-flex justify-content-center">
+                        <i role="button" title="Supprimer" onClick={() => deleteQuestion(question.i)} className="icon-trash" tabIndex="-1" />
+                      </div>
                     </div>
-                  </div>
-                ))}
-              <AdminQuestion
-                key="-1"
-                buttonName="Ajouter une question"
-                questionForm="non"
-                getModalInfo={addQuestion}
-              />
+                  )}
+                />
+              </Table>
             </div>
             </div>
             <div className="d-flex justify-content-center">
-              <button type="button" className="btn btn-primary btn-send" onClick={handleSubmit}>
+              <button type="button" className="btn btn-primary" onClick={handleSubmit}>
                 Envoyer
                 </button>
-            </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );

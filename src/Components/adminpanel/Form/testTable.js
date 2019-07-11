@@ -1,119 +1,67 @@
-import React, { useState } from 'react';
-import { notification } from 'antd';
-import './AdminQuestion.css';
+/* eslint-disable no-unused-expressions */
+import { Table, Divider } from 'antd';
 
-const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
-  // Hooks question et resources
-  const [question, setQuestion] = useState({});
-  const [resources, setResources] = useState([
-    {
-      url_resource: '',
-      type_resource: 0,
-    },
-  ]);
-  // Hook pour ouvrir et fermer la modale
-  const [isModal, setIsModal] = useState(false);
+const tableQuestion = [
+  {
+    title: 'numéro',
+    dataIndex: 'numéro',
+    key: 'numéro',
+  },
+  {
+    title: 'texte',
+    dataIndex: 'texte',
+    key: 'texte',
+  },
+  {
+    title: 'nombre de ressources',
+    dataIndex: 'ressourcesLength',
+    key: 'ressourcesLength',
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (record) => (
+     
+  },
+];
+ 
 
-  // Fonction qui permet de récupérer les données
-  // envoyées en props pour définir les hooks et
-  // avoir un préremplissage si données
-  const resetModal = () => {
-    if (questionForm !== 'non') {
-      setQuestion(questionForm);
-      setResources(questionForm.resources);
-    } else {
-      setQuestion({});
-      setResources([
-        {
-          url_resource: '',
-          type_resource: 0,
-        },
-      ]);
+<Table dataSource={adminInputQuestions.map((q, i)=> q={...q, ...i: i})}>
+  <Column title="Numéro" dataIndex="number_question" key="number_question" />
+  <Column title="Texte" dataIndex="text_question" key="text_question" />
+  <Column
+    title="Action"
+    key="action"
+    render={(question) => (
+      <div>
+      <AdminQuestion
+                          buttonName="Modifier la question"
+                          questionForm={question}
+                          getModalInfo={questio => modifyQuestion(questio, question.i)}
+                        />
+                        <button
+                          onClick={() => deleteQuestion(question.i)}
+                          type="button"
+                          className="btn btn-primary"
+                        >
+                          Supprimer
+                        </button>
+                        </div>
+    )
     }
-  };
-  // Fonction qui gère les onChange du hook question
-  const onQuestionInputChange = ({ target }) => {
-    const { value } = target;
-    const newQuestion = { ...question };
-    const dataKey = target.getAttribute('data-key');
-    newQuestion[dataKey] = value;
-    setQuestion(newQuestion);
-  };
-
-  // Fonction qui gère les onChange du hook resources
-  const onResourceInputChange = (event) => {
-    const newValues = [...resources];
-    const { id } = event.target;
-    const dataKey = event.target.getAttribute('data-key');
-    newValues[id][dataKey] = event.target.value;
-    setResources(newValues);
-  };
-
-  // Fonction pour créer une ressource vide
-  const addResource = (event) => {
-    event.preventDefault();
-    setResources([...resources, { url_resource: '', type_resource: 0 }]);
-  };
-
-  const deleteResource = (index) => {
-    setResources([...resources.slice(0, index), ...resources.slice(index + 1)]);
-  };
-
-  // Envoi des données de la question dans la prop
-  // fonction élastique vers le parent
-  const buildQuestionData = () => {
-    const finalQuestion = { ...question };
-    finalQuestion.resources = resources;
-    getModalInfo(finalQuestion);
-  };
-
-  // Fonction handlesubmit et fermeture de modale
-  const handleSubmit = (event) => {
-    if (question.text_question && question.number_question && question.type_response) {
-      buildQuestionData();
-      setIsModal(false);
-      event.preventDefault();
-    } else {
-      notification.open({
-        message: 'Notification Title',
-        description: 'Les champs avec * doivent être remplis !',
-      });
-    }
-  };
-
-  return (
-    <div className="d-flex justify-content-center">
-      {buttonName === 'Modifier la question' ? (
-        <i
-          title="Modifier"
-          tabIndex="-1"
-          role="button"
-          className="icon-edit"
-          onClick={() => {
-            resetModal();
-            setIsModal(true);
-          }}
-        />
-      ) : (
-        <button
-          onClick={() => {
-            resetModal();
-            setIsModal(true);
-          }}
-          type="button"
-          className="btn btn-light"
-        >
+  />
+</Table>
+<div>
+        <Button type="primary" onClick={()=>{resetModal();setIsModal(true);}}>
           {buttonName}
-        </button>
-      )}
-      {isModal && (
-        <div className="overlayAdmin">
-          <div className="overlayAdmin-content">
-            <div className="adminContent">
-              <h5 className="modal-title" id="exampleModalCenterTitle">
-                Espace questions
-              </h5>
-              <form>
+        </Button>
+        <Modal
+          title="Espace questions"
+          visible={isModal}
+          onOk={handleSubmit()}
+          onCancel={setIsModal(false)}
+        >
+         <form>
                 <div className="d-flex div-question-bouton" row="1">
                   <label htmlFor="input-question" className="col-10">
                     Ecrivez votre question* :
@@ -289,12 +237,5 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                   Fermer
                 </button>
               </form>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default AdminQuestion;
+        </Modal>
+      </div>

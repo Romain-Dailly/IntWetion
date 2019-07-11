@@ -162,7 +162,7 @@ app.route('/card/')
   // PUT (id de la carte à ajouter en front dans la request dans card:{})
   .put((request, response) => {
     const data = request.body;
-    let idCard = request.query.id
+    let idCard = request.query.id;
     // On definit les objets à modifier dans chaques tables
     const dataContentVideos = data.videos;
     const dataContentQuestions = data.questions;
@@ -227,17 +227,13 @@ app.route('/card/')
   });
 
   app.get('/test/',(req, res) => {
-  connection.query('SELECT * FROM `intwetion`.`card` INNER JOIN `intwetion`.`questions` on `questions`.`id_card` = `card`.`id` INNER JOIN `resources` ON `resources`.`id_question`= `questions`.`id`;', (err, resu)=>{
-    if (err) {
-      res.status(500).send('Erreur!')
-      return;
-    }
-    res.json(resu)
-  })
-
+    connection.query('SELECT * FROM `intwetion`.`card` INNER JOIN `intwetion`.`questions` on `questions`.`id_card` = `card`.`id` INNER JOIN `resources` ON `resources`.`id_question`= `questions`.`id`;', (err, resu)=>{
+      if (err) {
+        res.status(500).send('Erreur!');
+      }
+      res.json(resu);
+    })
   });
 app.listen(port, (req, res) => {
   console.log(`listening on port ${port}`);
 });
-
-
