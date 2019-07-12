@@ -1,24 +1,27 @@
 .divForm label {
   display: block !important;
+  font-size: 1.5em !important;
+  margin-bottom: 1.5em;
 }
 
 .form-title {
  color:#fff;
  border-radius: 15px 15px 15px 0;
- background: #1abc9c;
+ background: var(--color-admin);
  padding: 10px;
+ margin-top: 20px;
 }
 
 .card-block {
-  margin-bottom: 40px;
-  border: 2px solid #1abc9c;
+  margin-bottom: 1em;
+  border: 2px solid var(--color-admin);
   padding: 20px 50px;
   border-radius: 10px;
   box-shadow: 1px 1px 16px rgba(5, 5, 5, 0.2);
 }
 
 .block-number {
-  background: #1abc9c;
+  background: var(--color-admin);
   color: #fff;
   height: 30px;
   width: 30px;
@@ -32,12 +35,25 @@
 }
 
 .h4, h4 {
-  font-size: 1.7em;
+  font-size: 2em;
+  margin-bottom: 2em;
+}
+
+.p, p {
+  font-size: 1.5em;
+}
+
+.label.form-check-label {
+  font-size: 1em !important;
+}
+
+.form-check-input {
+  font-size: 1em !important;
 }
 
 .btn-primary {
-  background: #1abc9c !important;
-  border-color: #1abc9c !important;
+  background: var(--color-admin) !important;
+  border-color: var(--color-admin) !important;
 }
 
 .btn-delete {
@@ -57,6 +73,7 @@
   margin-left: auto;
   margin-right: auto;
   font-family: "roboto";
+  margin-bottom: 20px;
 }
 
 .container-fluid {
