@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import './Form.css';
-import { Table } from 'antd';
+import {
+  Table, notification, Icon, Switch,
+} from 'antd';
+import _ from 'underscore';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
 
 const { Column } = Table;
@@ -10,6 +14,8 @@ function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
 
+  // Hook redirection au handleSubmit
+  const [submitted, setSubmitted] = useState(false);
   // Hook pour le titre du formulaire
   const [formState, setFormState] = useState("Création d'une nouvelle carte");
   // Hook pour l'élément card
@@ -42,6 +48,14 @@ function Form() {
   // Hook pour l'élément question
   const [adminInputQuestions, setAdminInputQuestions] = useState([]);
 
+  // data pour la table de questions, organisée par numéros
+  const dataQuestions = _.sortBy(
+    adminInputQuestions.map(
+      (question, index) => (question = { ...question, i: index, nb: question.resources.length })
+      ),
+    'number_question',
+  );
+
   // Hook pour définir le titre, le préremplissage du formulaire
   // au lancement du rendu
   useEffect(() => {
@@ -54,17 +68,19 @@ function Form() {
 
   // Organisation et filtrage des données pour le put et le post
   const buildCardData = () => {
-    const questionsForPut = adminInputQuestions.map(question => ({
-      number_question: question.number_question,
-      text_question: question.text_question.replace('"', "'"),
-      image_question: question.image_question.replace('"', "'"),
-      type_response: question.type_response,
-      has_comment: question.has_comment,
-      resources: question.resources.map(res => ({
-        url_resource: res.url_resource.replace('"', "'"),
-        type_resource: res.type_resource,
-      })),
-    }));
+    const questionsForPut = adminInputQuestions.length > 0
+      ? adminInputQuestions.map(question => ({
+        number_question: question.number_question,
+        text_question: question.text_question.replace('"', "'"),
+        image_question: question.image_question.replace('"', "'"),
+        type_response: question.type_response,
+        has_comment: question.has_comment,
+        resources: question.resources.map(res => ({
+          url_resource: res.url_resource.replace('"', "'"),
+          type_resource: res.type_resource,
+        })),
+      }))
+      : [];
     return {
       card: {
         bg_color: adminInput.card.bg_color,
@@ -104,19 +120,56 @@ function Form() {
   // lors du click sur le bouton enregistrer.
   // Si on a un id dans le hook, c'est que l'on a reçu des données
   // et c'est un put, sinon, c'est un post
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (adminInput.card.id && adminInput.card.date !== 0) {
       return axios
         .put(`http:///localhost:8080/card/?id=${adminInput.card.id}`, buildCardData())
         .then((response) => {
           // eslint-disable-next-line no-console
-          console.log(response);
+          if (response.status === 200) {
+            setSubmitted(true);
+            return notification.open({
+              style: { color: 'white', background: '#1abc9c' },
+              placement: 'bottomRight',
+              message: 'Ajout réussi !',
+              description: `La carte ${
+                adminInput.card.name
+              } a bien été modifiée en base de données!`,
+              icon: <Icon type="smile" style={{ color: 'white' }} />,
+            });
+          }
+          return notification.open({
+            style: { color: 'red', background: 'white' },
+            placement: 'topRight',
+            message: 'Erreur !',
+            description: `La carte ${
+              adminInput.card.name
+            } n'a pas pu être modifiée en base de données!`,
+            icon: <Icon type="smile" style={{ color: 'white' }} />,
+          });
         });
     }
     return axios.post('http:///localhost:8080/card/', buildCardData()).then((response) => {
       // eslint-disable-next-line no-console
       console.log(response);
+      if (response.status === 200) {
+        setSubmitted(true);
+        return notification.open({
+          style: { color: 'white', background: '#1abc9c' },
+          placement: 'bottomRight',
+          message: 'Ajout réussi !',
+          description: `La carte ${adminInput.card.name} a bien été ajoutée en base de données!`,
+          icon: <Icon type="smile" style={{ color: 'white' }} />,
+        });
+      }
+      return notification.open({
+        style: { color: 'red', background: 'white' },
+        placement: 'topRight',
+        message: 'Erreur !',
+        description: `La carte ${adminInput.card.name} n'a pas pu être ajoutée en base de données!`,
+        icon: <Icon type="smile" style={{ color: 'white' }} />,
+      });
     });
   };
 
@@ -137,6 +190,17 @@ function Form() {
     newObj.videos[id][dataKey] = value;
     setAdminInput(newObj);
   };
+
+  if (submitted) {
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: `${process.env.PUBLIC_URL}`,
+        }}
+      />
+    );
+  }
   return (
     <div className="container-fluid">
       <div className="container-adminInput">
@@ -145,10 +209,11 @@ function Form() {
           <div className="card-block">
             <h4>
               <span className="block-number">1</span>
-              Informations générales</h4>
+              Informations / carte
+            </h4>
             <label htmlFor="formGroupExampleInputcard" className="divcard">
               Nom de la carte :
-                  <input
+              <input
                 type="text"
                 className="form-control mr-5 div-input-question "
                 id="formGroupExampleInput"
@@ -161,7 +226,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Description :
-                  <textarea
+                <textarea
                   className="form-control "
                   id="exampleFormControlTextarea1"
                   rows="3"
@@ -174,7 +239,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Image de la carte :
-                  <textarea
+                <textarea
                   className="form-control "
                   id="exampleFormControlTextarea1"
                   rows="1"
@@ -205,6 +270,13 @@ function Form() {
             <div className="form-group d-flex flex-column">
               <p>Visibilité de la carte :</p>
               <div>
+                <Switch
+                  // id="switch"
+                  data-key="online"
+                  value={1}
+                  checked={adminInput.card.online === 1}
+                  onChange={onCardInputChange}
+                />
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
                     <input
@@ -218,7 +290,7 @@ function Form() {
                       onChange={onCardInputChange}
                     />
                     En ligne
-                    </label>
+                  </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
@@ -233,7 +305,7 @@ function Form() {
                       onChange={onCardInputChange}
                     />
                     Hors ligne
-                    </label>
+                  </label>
                 </div>
               </div>
             </div>
@@ -254,7 +326,7 @@ function Form() {
                       onChange={onCardInputChange}
                     />
                     Payante
-                    </label>
+                  </label>
                 </div>
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
@@ -269,7 +341,7 @@ function Form() {
                       onChange={onCardInputChange}
                     />
                     Gratuite
-                    </label>
+                  </label>
                 </div>
               </div>
             </div>
@@ -283,7 +355,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Vidéo introductive du questionnnaire :
-                  <textarea
+                <textarea
                   className="form-control "
                   id="0"
                   rows="1"
@@ -296,7 +368,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Musique du questionnaire :
-                  <textarea
+                <textarea
                   className="form-control "
                   rows="1"
                   id="1"
@@ -309,7 +381,7 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Vidéo de fin du questionaire :
-                  <textarea
+                <textarea
                   className="form-control "
                   rows="1"
                   id="2"
@@ -335,11 +407,7 @@ function Form() {
                   getModalInfo={addQuestion}
                 />
               </div>
-              <Table
-                dataSource={adminInputQuestions.map(
-                  (question, index) => question = { ...question, i: index, nb: question.resources.length }
-                )}
-              >
+              <Table dataSource={dataQuestions}>
                 <Column title="Numéro" dataIndex="number_question" key="number_question" />
                 <Column title="Texte" dataIndex="text_question" key="text_question" />
                 <Column title="Ressources" dataIndex="nb" key="nb" />
@@ -354,7 +422,13 @@ function Form() {
                         getModalInfo={questio => modifyQuestion(questio, question.i)}
                       />
                       <div className="d-flex justify-content-center">
-                        <i role="button" title="Supprimer" onClick={() => deleteQuestion(question.i)} className="icon-trash" tabIndex="-1" />
+                        <i
+                          role="button"
+                          title="Supprimer"
+                          onClick={() => deleteQuestion(question.i)}
+                          className="icon-trash"
+                          tabIndex="-1"
+                        />
                       </div>
                     </div>
                   )}
