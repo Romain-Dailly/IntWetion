@@ -4,12 +4,11 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import './Form.css';
 import {
-  Table, notification, Icon, Popconfirm,
+  Table, notification, Icon, Popconfirm, BackTop,
 } from 'antd';
 import _ from 'underscore';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
 
-const { Column } = Table;
 function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
@@ -48,14 +47,23 @@ function Form() {
   // Hook pour l'élément question
   const [adminInputQuestions, setAdminInputQuestions] = useState([]);
 
-  // data pour la table de questions, organisée par numéros
-  const dataQuestions = _.sortBy(
-    adminInputQuestions.map(
-      (question, index) => (question = { ...question, i: index, nb: question.resources.length }),
-    ),
-    'number_question',
-  );
+  // Fonction qui gère les onChange du hook adminInput
+  const onCardInputChange = ({ target }) => {
+    const { value } = target;
+    const newObj = { ...adminInput };
+    const dataKey = target.getAttribute('data-key');
+    newObj.card[dataKey] = value;
+    setAdminInput(newObj);
+  };
 
+  // Fonction qui gère les onChange du hook adminInput.vidéos
+  const onVideoInputChange = ({ target }) => {
+    const { value, id } = target;
+    const newObj = { ...adminInput };
+    const dataKey = target.getAttribute('data-key');
+    newObj.videos[id][dataKey] = value;
+    setAdminInput(newObj);
+  };
   // Hook pour définir le titre, le préremplissage du formulaire
   // au lancement du rendu
   useEffect(() => {
@@ -65,6 +73,36 @@ function Form() {
       setAdminInputQuestions(cardData.questions);
     }
   }, []);
+
+  // data pour la table de questions, organisée par numéros
+  const { Column } = Table;
+  const dataQuestions = _.sortBy(
+    adminInputQuestions.map(
+      (question, index) => question = { ...question, i: index, nb: question.resources.length },
+    ),
+    'number_question',
+  );
+
+  // Fonction qui crée une question vide et ouvre la modale
+  // pour la modifier
+  const addQuestion = (question) => {
+    setAdminInputQuestions([...adminInputQuestions, question]);
+  };
+
+  // Fonction pour modifier le hook des questions à la fermeture de la modale question
+  // fonction élastique appellée dans le composant modale avec les données
+  const modifyQuestion = (question, i) => {
+    const finalQuestions = [...adminInputQuestions];
+    finalQuestions[i] = question;
+    setAdminInputQuestions(finalQuestions);
+  };
+
+  const deleteQuestion = (i) => {
+    setAdminInputQuestions([
+      ...adminInputQuestions.slice(0, i),
+      ...adminInputQuestions.slice(i + 1),
+    ]);
+  };
 
   // Organisation et filtrage des données pour le put et le post
   const buildCardData = () => {
@@ -94,32 +132,12 @@ function Form() {
       questions: questionsForPut,
     };
   };
-
-  // Fonction qui crée une question vide et ouvre la modale
-  // pour la modifier
-  const addQuestion = (question) => {
-    setAdminInputQuestions([...adminInputQuestions, question]);
-  };
-
-  // Fonction pour modifier le hook des questions à la fermeture de la modale question
-  // fonction élastique appellée dans le composant modale avec les données
-  const modifyQuestion = (question, i) => {
-    const finalQuestions = [...adminInputQuestions];
-    finalQuestions[i] = question;
-    setAdminInputQuestions(finalQuestions);
-  };
-
-  const deleteQuestion = (i) => {
-    setAdminInputQuestions([
-      ...adminInputQuestions.slice(0, i),
-      ...adminInputQuestions.slice(i + 1),
-    ]);
-  };
-
-  // Envoie la totalité du formulaire stockée dans hook adminInput
-  // lors du click sur le bouton enregistrer.
-  // Si on a un id dans le hook, c'est que l'on a reçu des données
+  // Envoie la totalité du formulaire stockée dans le hook adminInput
+  // lors du click sur le bouton enregistrer si les données requises
+  // ont été entrées.
+  // Si l'on a un id dans le hook, c'est que l'on a reçu des données au montage
   // et c'est un put, sinon, c'est un post
+  // Notifications si action réussie ou echouée
   const handleSubmit = (event) => {
     if (
       adminInput.card.name !== ''
@@ -131,7 +149,7 @@ function Form() {
       event.preventDefault();
       if (adminInput.card.id && adminInput.card.date !== 0) {
         return axios
-          .put(`http:///localhost:808/card/?id=${adminInput.card.id}`, buildCardData())
+          .put(`http://192.168.184.100:8080/card/?id=${adminInput.card.id}`, buildCardData())
           .then((response) => {
             // eslint-disable-next-line no-console
             console.log(response);
@@ -150,56 +168,60 @@ function Form() {
             return notification.open({
               style: { color: 'red', background: 'white' },
               placement: 'topRight',
-              message: 'Erreur !',
+              message: `Erreur ${response.status}!`,
               description: `La carte ${
                 adminInput.card.name
               } n'a pas pu être modifiée en base de données!`,
               icon: <Icon type="smile" style={{ color: 'white' }} />,
             });
           })
+          .catch(() => notification.open({
+            style: { color: 'red', background: 'white' },
+            placement: 'topRight',
+            message: 'Erreur de connexion!',
+            description: `La carte ${
+              adminInput.card.name
+            } n'a pas pu être modifiée en base de données!`,
+            icon: <Icon type="smile" style={{ color: 'white' }} />,
+          }));
       }
-      return axios.post('http:///localhost:808/card/', buildCardData()).then((response) => {
-        // eslint-disable-next-line no-console
-        console.log(response);
-        if (response.status === 200) {
-          setSubmitted(true);
+      return axios
+        .post('http://192.168.184.100:8080/card/', buildCardData())
+        .then((response) => {
+          // eslint-disable-next-line no-console
+          console.log(response);
+          if (response.status === 200) {
+            setSubmitted(true);
+            return notification.open({
+              style: { color: 'white', background: '#1abc9c' },
+              placement: 'bottomRight',
+              message: 'Ajout réussi !',
+              description: `La carte ${
+                adminInput.card.name
+              } a bien été ajoutée en base de données!`,
+              icon: <Icon type="smile" style={{ color: 'white' }} />,
+            });
+          }
           return notification.open({
-            style: { color: 'white', background: '#1abc9c' },
-            placement: 'bottomRight',
-            message: 'Ajout réussi !',
-            description: `La carte ${adminInput.card.name} a bien été ajoutée en base de données!`,
+            style: { color: 'red', background: 'white' },
+            placement: 'topRight',
+            message: `Erreur ${response.status}!`,
+            description: `La carte ${
+              adminInput.card.name
+            } n'a pas pu être ajoutée en base de données!`,
             icon: <Icon type="smile" style={{ color: 'white' }} />,
           });
-        }
-        return notification.open({
+        })
+        .catch(() => notification.open({
           style: { color: 'red', background: 'white' },
           placement: 'topRight',
-          message: 'Erreur !',
+          message: 'Erreur de connexion!',
           description: `La carte ${
             adminInput.card.name
           } n'a pas pu être ajoutée en base de données!`,
           icon: <Icon type="smile" style={{ color: 'white' }} />,
-        });
-      });
+        }));
     }
-  };
-
-  // Fonction qui gère les onChange du hook adminInput
-  const onCardInputChange = ({ target }) => {
-    const { value } = target;
-    const newObj = { ...adminInput };
-    const dataKey = target.getAttribute('data-key');
-    newObj.card[dataKey] = value;
-    setAdminInput(newObj);
-  };
-
-  // Fonction qui gère les onChange du hook adminInput.vidéos
-  const onVideoInputChange = ({ target }) => {
-    const { value, id } = target;
-    const newObj = { ...adminInput };
-    const dataKey = target.getAttribute('data-key');
-    newObj.videos[id][dataKey] = value;
-    setAdminInput(newObj);
   };
 
   if (submitted) {
@@ -479,6 +501,7 @@ function Form() {
             </Popconfirm>
           </div>
         </form>
+        <BackTop />
       </div>
     </div>
   );
