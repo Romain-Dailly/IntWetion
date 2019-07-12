@@ -38,8 +38,8 @@ const Card = ({ data, index, onStartQuiz }) => {
 
   return (
     <Col xs={12} md={6} lg={4} span={8}>
-      <div className="ui-card mb-3">
-        <div className="action-tab">
+      <div className="ui-card mb-3 ">
+        <div className="action-tab scale-up-center">
           <i
             tabIndex="-1"
             role="button"
