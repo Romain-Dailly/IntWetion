@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import './Form.css';
 import {
-  Table, notification, Icon, Switch,
+  Table, notification, Icon, Popconfirm,
 } from 'antd';
 import _ from 'underscore';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
@@ -24,7 +24,7 @@ function Form() {
       name: '',
       image: '',
       description: '',
-      online: 1,
+      online: 0,
       payment: 0,
       date: 0,
     },
@@ -51,8 +51,8 @@ function Form() {
   // data pour la table de questions, organisée par numéros
   const dataQuestions = _.sortBy(
     adminInputQuestions.map(
-      (question, index) => return (question = { ...question, i: index, nb: question.resources.length })
-      ),
+      (question, index) => (question = { ...question, i: index, nb: question.resources.length }),
+    ),
     'number_question',
   );
 
@@ -120,57 +120,68 @@ function Form() {
   // lors du click sur le bouton enregistrer.
   // Si on a un id dans le hook, c'est que l'on a reçu des données
   // et c'est un put, sinon, c'est un post
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (adminInput.card.id && adminInput.card.date !== 0) {
-      return axios
-        .put(`http:///localhost:8080/card/?id=${adminInput.card.id}`, buildCardData())
-        .then((response) => {
-          // eslint-disable-next-line no-console
-          if (response.status === 200) {
-            setSubmitted(true);
+  const handleSubmit = (event) => {
+    if (
+      adminInput.card.name !== ''
+      && adminInput.card.description !== ''
+      && adminInput.card.image !== ''
+      && adminInput.card.online !== ''
+      && adminInput.card.payment !== ''
+    ) {
+      event.preventDefault();
+      if (adminInput.card.id && adminInput.card.date !== 0) {
+        return axios
+          .put(`http:///localhost:808/card/?id=${adminInput.card.id}`, buildCardData())
+          .then((response) => {
+            // eslint-disable-next-line no-console
+            console.log(response);
+            if (response.status === 200) {
+              setSubmitted(true);
+              return notification.open({
+                style: { color: 'white', background: '#1abc9c' },
+                placement: 'bottomRight',
+                message: 'Ajout réussi !',
+                description: `La carte ${
+                  adminInput.card.name
+                } a bien été modifiée en base de données!`,
+                icon: <Icon type="smile" style={{ color: 'white' }} />,
+              });
+            }
             return notification.open({
-              style: { color: 'white', background: '#1abc9c' },
-              placement: 'bottomRight',
-              message: 'Ajout réussi !',
+              style: { color: 'red', background: 'white' },
+              placement: 'topRight',
+              message: 'Erreur !',
               description: `La carte ${
                 adminInput.card.name
-              } a bien été modifiée en base de données!`,
+              } n'a pas pu être modifiée en base de données!`,
               icon: <Icon type="smile" style={{ color: 'white' }} />,
             });
-          }
+          })
+      }
+      return axios.post('http:///localhost:808/card/', buildCardData()).then((response) => {
+        // eslint-disable-next-line no-console
+        console.log(response);
+        if (response.status === 200) {
+          setSubmitted(true);
           return notification.open({
-            style: { color: 'red', background: 'white' },
-            placement: 'topRight',
-            message: 'Erreur !',
-            description: `La carte ${
-              adminInput.card.name
-            } n'a pas pu être modifiée en base de données!`,
+            style: { color: 'white', background: '#1abc9c' },
+            placement: 'bottomRight',
+            message: 'Ajout réussi !',
+            description: `La carte ${adminInput.card.name} a bien été ajoutée en base de données!`,
             icon: <Icon type="smile" style={{ color: 'white' }} />,
           });
-        });
-    }
-    return axios.post('http:///localhost:8080/card/', buildCardData()).then((response) => {
-      // eslint-disable-next-line no-console
-      console.log(response);
-      if (response.status === 200) {
-        setSubmitted(true);
+        }
         return notification.open({
-          style: { color: 'white', background: '#1abc9c' },
-          placement: 'bottomRight',
-          message: 'Ajout réussi !',
-          description: `La carte ${adminInput.card.name} a bien été ajoutée en base de données!`,
+          style: { color: 'red', background: 'white' },
+          placement: 'topRight',
+          message: 'Erreur !',
+          description: `La carte ${
+            adminInput.card.name
+          } n'a pas pu être ajoutée en base de données!`,
           icon: <Icon type="smile" style={{ color: 'white' }} />,
         });
-      }
-      return notification.open({
-        style: { color: 'red', background: 'white' },
-        placement: 'topRight',
-        message: 'Erreur !',
-        description: `La carte ${adminInput.card.name} n'a pas pu être ajoutée en base de données!`,
-        icon: <Icon type="smile" style={{ color: 'white' }} />,
       });
-    });
+    }
   };
 
   // Fonction qui gère les onChange du hook adminInput
@@ -204,7 +215,7 @@ function Form() {
   return (
     <div className="container-fluid">
       <div className="container-adminInput">
-        <form className="pr-5 divForm col-6">
+        <form id="form" className="pr-5 divForm col-6">
           <h1 className="form-title">{formState}</h1>
           <div className="card-block">
             <h4>
@@ -214,6 +225,8 @@ function Form() {
             <label htmlFor="formGroupExampleInputcard" className="divcard">
               Nom de la carte :
               <input
+                required
+                placeholder="Mes points forts"
                 type="text"
                 className="form-control mr-5 div-input-question "
                 id="formGroupExampleInput"
@@ -227,6 +240,8 @@ function Form() {
               <label htmlFor="exampleFormControlTextarea1">
                 Description :
                 <textarea
+                  required
+                  placeholder="Description du questionnaire"
                   className="form-control "
                   id="exampleFormControlTextarea1"
                   rows="3"
@@ -239,7 +254,10 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Image de la carte :
-                <textarea
+                <input
+                  required
+                  type="url"
+                  placeholder="https://images.com"
                   className="form-control "
                   id="exampleFormControlTextarea1"
                   rows="1"
@@ -253,6 +271,7 @@ function Form() {
               <p htmlFor="color"> Couleur du thème :</p>
               <br />
               <input
+                required
                 type="color"
                 className="form-control col-6 p-0 m-0"
                 id="color"
@@ -271,16 +290,10 @@ function Form() {
             <div className="form-group d-flex flex-column">
               <p>Visibilité de la carte :</p>
               <div>
-                <Switch
-                  // id="switch"
-                  data-key="online"
-                  value={1}
-                  checked={adminInput.card.online === 1}
-                  onChange={onCardInputChange}
-                />
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
                     <input
+                      required
                       className="form-check-input"
                       type="radio"
                       name="inlineRadioOptionsOnline"
@@ -296,6 +309,7 @@ function Form() {
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
                     <input
+                      required
                       className="form-check-input"
                       type="radio"
                       name="inlineRadioOptionsOnline"
@@ -317,6 +331,7 @@ function Form() {
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio1">
                     <input
+                      required
                       className="form-check-input"
                       type="radio"
                       name="inlineRadioOptionsPayment"
@@ -332,6 +347,7 @@ function Form() {
                 <div className="form-check form-check-inline">
                   <label className="form-check-label" htmlFor="inlineRadio2">
                     <input
+                      required
                       className="form-check-input"
                       type="radio"
                       name="inlineRadioOptionsPayment"
@@ -356,7 +372,9 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Vidéo introductive du questionnnaire :
-                <textarea
+                <input
+                  type="url"
+                  placeholder="https://youtube.com"
                   className="form-control "
                   id="0"
                   rows="1"
@@ -369,7 +387,9 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Musique du questionnaire :
-                <textarea
+                <input
+                  type="url"
+                  placeholder="https://youtube.com"
                   className="form-control "
                   rows="1"
                   id="1"
@@ -382,7 +402,9 @@ function Form() {
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
                 Vidéo de fin du questionaire :
-                <textarea
+                <input
+                  type="url"
+                  placeholder="https://youtube.com"
                   className="form-control "
                   rows="1"
                   id="2"
@@ -438,9 +460,23 @@ function Form() {
             </div>
           </div>
           <div className="d-flex justify-content-center">
-            <button type="button" className="btn btn-primary" onClick={handleSubmit}>
+            <button
+              type="submit"
+              form="form"
+              className="btn btn-success"
+              onClick={e => handleSubmit(e)}
+            >
               Enregistrer
             </button>
+            <Popconfirm
+              placement="bottom"
+              title="Etes-vous sûr(e) ?"
+              onConfirm={() => setSubmitted(true)}
+              okText="Oui"
+              cancelText="Non "
+            >
+              <button className="btn btn-success">Quitter sans enregistrer</button>
+            </Popconfirm>
           </div>
         </form>
       </div>

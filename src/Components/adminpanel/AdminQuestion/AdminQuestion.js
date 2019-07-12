@@ -5,12 +5,7 @@ import './AdminQuestion.css';
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   // Hooks question et resources
   const [question, setQuestion] = useState({});
-  const [resources, setResources] = useState([
-    {
-      url_resource: '',
-      type_resource: 0,
-    },
-  ]);
+  const [resources, setResources] = useState([]);
   // Hook pour ouvrir et fermer la modale
   const [isModal, setIsModal] = useState(false);
 
@@ -23,12 +18,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
       setResources(questionForm.resources);
     } else {
       setQuestion({});
-      setResources([
-        {
-          url_resource: '',
-          type_resource: 0,
-        },
-      ]);
+      setResources([]);
     }
   };
   // Fonction qui gère les onChange du hook question
@@ -104,23 +94,27 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
             setIsModal(true);
           }}
           type="button"
-          className="btn btn-light"
+          className="btn btn-success"
         >
           {buttonName}
         </button>
       )}
       <Modal
         destroyOnClose
+        okButtonProps={{ htmlType :"submit", form:"myform"}}
+        cancelText="Fermer"
+        okText="Enregistrer"
         title="Espace questions"
         visible={isModal}
         onOk={e => handleSubmit(e)}
         onCancel={() => setIsModal(false)}
       >
-        <form>
+        <form id="myform">
           <div className="d-flex div-question-bouton" row="1">
             <label htmlFor="input-question" className="col-10">
               Ecrivez votre question* :
               <input
+                required
                 type="text"
                 className="form-control div-input-question col-10"
                 id="input-question"
@@ -134,6 +128,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
             <label htmlFor="input-question-number" className="col-10">
               Ecrivez le numéro de la question* :
               <input
+                required
                 type="number"
                 className="form-control mr-5 div-input-question"
                 id="inpu-question-number"
@@ -164,6 +159,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
             <div className="form-check form-check-inline">
               <label className="form-check-label" htmlFor="inlineRadio1">
                 <input
+                  required
                   checked={question.type_response === 1 ? 'checked' : null}
                   className="form-check-input"
                   name="inlineRadioOptionsType_response"
@@ -179,6 +175,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
             <div className="form-check form-check-inline">
               <label className="form-check-label" htmlFor="inlineRadio2">
                 <input
+                  required
                   checked={question.type_response === 2 ? 'checked' : null}
                   className="form-check-input"
                   name="inlineRadioOptionsType_response"
@@ -201,6 +198,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 {resources.map((resource, i) => (
                   <div className="col-9" style={{ border: '1px black solid' }}>
                     <textarea
+                      required
                       className="form-control"
                       placeholder="Lien"
                       rows="1"
@@ -214,6 +212,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                     <div className="form-check form-check-inline">
                       <label className="form-check-label" htmlFor="inlineRadio1">
                         <input
+                          required
                           checked={resource.type_resource === 1 ? 'checked' : null}
                           className="form-check-input"
                           name={`inlineRadioOptionsType_resource${i}`}
@@ -229,6 +228,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                     <div className="form-check form-check-inline">
                       <label className="form-check-label" htmlFor="inlineRadio2">
                         <input
+                          required
                           checked={resource.type_resource === 2 ? 'checked' : null}
                           className="form-check-input"
                           name={`inlineRadioOptionsType_resource${i}`}
@@ -244,6 +244,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                     <div className="form-check form-check-inline">
                       <label className="form-check-label" htmlFor="inlineRadio3">
                         <input
+                          required
                           checked={resource.type_resource === 3 ? 'checked' : null}
                           className="form-check-input"
                           name={`inlineRadioOptionsType_resource${i}`}
