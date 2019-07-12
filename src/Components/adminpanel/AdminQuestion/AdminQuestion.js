@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { notification, Icon, Modal } from 'antd';
+import { modalPush } from '../notificationsContent/notificationsContents';
 import './AdminQuestion.css';
 
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
@@ -59,18 +60,11 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
 
   // Fonction handlesubmit et fermeture de modale
   const handleSubmit = (event) => {
-    if (question.text_question && question.number_question && question.type_response) {
+    if (question.text_question && question.number_question && question.type_response && question.image_question) {
       buildQuestionData();
       setIsModal(false);
+      notification.open(modalPush(buttonName, question.number_question, <Icon type="smile" style={{ color: 'white' }} />),);
       event.preventDefault();
-      notification.open({
-        style: { color: 'white', background: '#1abc9c' },
-        placement: 'bottomRight',
-        message: `${buttonName === 'Modifier la question' ? 'Modification réussie !' : 'Ajout réussi !'}`,
-        description: `La question ${question.number_question} a bien été 
-        ${buttonName === 'Modifier la question' ? 'modifiée' : 'ajoutée'} !`,
-        icon: <Icon type="smile" style={{ color: 'white' }} />,
-      });
     }
   };
 

@@ -8,6 +8,7 @@ import {
 } from 'antd';
 import _ from 'underscore';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
+import { postOk, postNo, postError, putOk, putNo, putError } from '../notificationsContent/notificationsContents';
 
 function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
@@ -110,9 +111,9 @@ function Form() {
       ? adminInputQuestions.map(question => ({
         number_question: question.number_question,
         text_question: question.text_question.replace('"', "'"),
-        image_question: question.image_question.replace('"', "'"),
+        image_question: question.image_question,
         type_response: question.type_response,
-        has_comment: question.has_comment,
+        has_comment: 0,
         resources: question.resources.map(res => ({
           url_resource: res.url_resource.replace('"', "'"),
           type_resource: res.type_resource,
@@ -155,35 +156,11 @@ function Form() {
             console.log(response);
             if (response.status === 200) {
               setSubmitted(true);
-              return notification.open({
-                style: { color: 'white', background: '#1abc9c' },
-                placement: 'bottomRight',
-                message: 'Ajout réussi !',
-                description: `La carte ${
-                  adminInput.card.name
-                } a bien été modifiée en base de données!`,
-                icon: <Icon type="smile" style={{ color: 'white' }} />,
-              });
+              return notification.open(putOk(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />));
             }
-            return notification.open({
-              style: { color: 'red', background: 'white' },
-              placement: 'topRight',
-              message: `Erreur ${response.status}!`,
-              description: `La carte ${
-                adminInput.card.name
-              } n'a pas pu être modifiée en base de données!`,
-              icon: <Icon type="smile" style={{ color: 'white' }} />,
-            });
+            return notification.open(putNo(adminInput.card.name, response.status, <Icon type="smile" style={{ color: 'white' }} />));
           })
-          .catch(() => notification.open({
-            style: { color: 'red', background: 'white' },
-            placement: 'topRight',
-            message: 'Erreur de connexion!',
-            description: `La carte ${
-              adminInput.card.name
-            } n'a pas pu être modifiée en base de données!`,
-            icon: <Icon type="smile" style={{ color: 'white' }} />,
-          }));
+          .catch(() => notification.open(putError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />)));
       }
       return axios
         .post('http://192.168.184.100:8080/card/', buildCardData())
@@ -192,35 +169,11 @@ function Form() {
           console.log(response);
           if (response.status === 200) {
             setSubmitted(true);
-            return notification.open({
-              style: { color: 'white', background: '#1abc9c' },
-              placement: 'bottomRight',
-              message: 'Ajout réussi !',
-              description: `La carte ${
-                adminInput.card.name
-              } a bien été ajoutée en base de données!`,
-              icon: <Icon type="smile" style={{ color: 'white' }} />,
-            });
+            return notification.open(postOk(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />));
           }
-          return notification.open({
-            style: { color: 'red', background: 'white' },
-            placement: 'topRight',
-            message: `Erreur ${response.status}!`,
-            description: `La carte ${
-              adminInput.card.name
-            } n'a pas pu être ajoutée en base de données!`,
-            icon: <Icon type="smile" style={{ color: 'white' }} />,
-          });
+          return notification.open(postNo(adminInput.card.name, response.status, <Icon type="smile" style={{ color: 'white' }} />));
         })
-        .catch(() => notification.open({
-          style: { color: 'red', background: 'white' },
-          placement: 'topRight',
-          message: 'Erreur de connexion!',
-          description: `La carte ${
-            adminInput.card.name
-          } n'a pas pu être ajoutée en base de données!`,
-          icon: <Icon type="smile" style={{ color: 'white' }} />,
-        }));
+        .catch(() => notification.open(postError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />)));
     }
   };
 
