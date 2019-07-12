@@ -13,7 +13,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'http://192.168.184.100:8080/';
-// const TEST_BASE_URL = 'https://jsonplaceholder.typicode.com';
+
 
 /**
  * Performs an HTTP GET request using the [axios api]{@link https://github.com/axios/axios}

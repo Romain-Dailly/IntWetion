@@ -1,25 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import ReactPlayer from 'react-player';
+import { Slider, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
+import { videoTypes } from '../../values/strings';
 import Question from '../Question/Question';
 import { quitQuiz, startVideo, saveResults } from '../../actions';
 import './Quiz.css';
-import { videoTypes } from '../../values/strings';
-import SoundPlayer from '../SoundPlayer/SoundPlayer';
 /**
- * A component containing widgets to trigger actions.
+ * A component containing widgets.
  * @param {objects} props An object containing required dependencies for this function.
  */
-const ActionBar = ({ onNextButtonClick }) => (
+
+const ActionBar = ({ onNextButtonClick, volume, handleChange }) => (
   <div className="action-bar">
     <div className=" d-flex align-items-center w-100">
       <i className="icon icon-volume" />
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="any"
-        onChange={() => {}}
-        className="slider ml-3 mr-4"
+      <Slider
+        className="w-100"
+        max={1}
+        step={0.00001}
+        tooltipVisible={false}
+        onChange={handleChange}
+        value={volume}
       />
     </div>
     <button
@@ -53,36 +55,92 @@ const Quiz = ({ color = 'white' }) => {
   const cardId = useSelector(store => store.card.quiz.cardId);
   const { questions, videos } = useSelector(store => store.card.data[cardId]);
 
+  /**
+   * Get mutable reference from the DOM.
+   * These refs are `objects` with `current` properties pointing to elements in the DOM.
+   */
+  const radioWrapperRef = useRef();
+  const textareaWrapperRef = useRef();
+
+  /**
+   * Store stateful values, and their respective functions to update them.
+   */
+  const [volume, setVolume] = useState(0.5);
   const [answers, setAnswers] = useState({});
   const [questionIndex, setQuestionIndex] = useState(0);
 
+  const displayWarning = () => {
+    message.config({
+      maxCount: 1,
+    });
+    message.warning('Fields cannot be null');
+  };
+
   const nextQuestion = () => {
+    const radioButtonsParent = radioWrapperRef.current;
+    const textArea = textareaWrapperRef.current;
+
+    // anyChecked : boolean; is false when not answer is selected
+    let anyChecked;
+    // verify if any of the radio group is checked or not
+    if (radioButtonsParent) {
+      anyChecked = Array.from(
+        radioButtonsParent.getElementsByClassName('choice-radio'),
+      ).some(element => element.checked === true);
+    }
+
+    // check if the textarea is empty
+    if (textArea && textArea.value && /\S/.test(textArea.value)) {
+      anyChecked = true;
+    }
     // store the number of questions into a variable
     const questionCount = questions.length - 1;
 
     // Check if we are at the last question index
-    if (questionIndex === questionCount) {
-      // TODO retrieve the video key from redux store.
+    if (questionIndex === questionCount && anyChecked) {
+      // TODO: Retrieve the video key from redux store.
       // Launch the outro.
       dispatch(saveResults(answers));
       dispatch(startVideo(videoTypes.OUTRO, ''));
       localStorage.setItem('results', JSON.stringify(answers));
     }
     // Navigate to the next question
-    if (questionIndex < questionCount) {
+    if (questionIndex < questionCount && anyChecked) {
       setQuestionIndex(questionIndex + 1);
+    }
+
+    // If no answer is selected, display a message.
+    if (!anyChecked) {
+      displayWarning();
     }
   };
 
+  /**
+   * Returns the percentage of {@link questionIndex } to {@link numberOfQuestion }
+   */
   const getProgress = () => {
     const numberOfQuestion = questions.length - 1;
+
     return (questionIndex / numberOfQuestion) * 100;
   };
 
-  const storeAnswer = (answer, number) => {
+  /**
+   * Compose ans save users entries
+   * @param {object} event a DOM Event
+   * @param {number} answer users entries
+   * @param {number} number the question number
+   * @param {number} answerType valid values, 1 and 2
+   */
+  const storeAnswer = (event, answer, number, answerType) => {
     const questionKey = `question-${number}`;
     const answersCopy = { ...answers };
-    answersCopy[questionKey] = answer;
+
+    // store the users entry based on the `answerType`.
+    if (answerType === 1) {
+      answersCopy[questionKey] = answer;
+    } else {
+      answersCopy[questionKey] = event.target.value;
+    }
 
     const newObject = Object.assign({}, answersCopy, {
       [questionKey]: {
@@ -110,12 +168,25 @@ const Quiz = ({ color = 'white' }) => {
   );
 
   return (
-    <div className="overlay">
+    <div className="overlay slide-fwd-top">
       <ToolBar title="Forces" />
-      <SoundPlayer url={videos[0].url_video} />
+      <div style={{ width: '0', height: '0', opacity: '0' }}>
+        <ReactPlayer
+          playing='"true'
+          url={videos[2].url_video}
+          volume={volume}
+        />
+      </div>
       <div className="overlay-content" style={{ background: `${color}` }}>
         <div className="content">
-          {<Question question={questions[questionIndex]} onAnswerSelected={storeAnswer} />}
+          {
+            <Question
+              question={questions[questionIndex]}
+              onAnswerSelected={storeAnswer}
+              radioWrapperRef={radioWrapperRef}
+              textareaWrapperRef={textareaWrapperRef}
+            />
+          }
         </div>
         <div className="ui-progress">
           <div
@@ -131,6 +202,10 @@ const Quiz = ({ color = 'white' }) => {
           onNextButtonClick={() => {
             nextQuestion();
           }}
+          handleChange={(value) => {
+            setVolume(value);
+          }}
+          volume={volume}
         />
       </div>
     </div>
