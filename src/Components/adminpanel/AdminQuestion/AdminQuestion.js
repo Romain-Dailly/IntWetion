@@ -64,7 +64,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
       question.text_question
       && question.number_question
       && question.type_response
-      && question.image_question
+      // && question.image_question
     ) {
       buildQuestionData();
       setIsModal(false);
@@ -76,7 +76,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         ),
       );
       event.preventDefault();
-    }
+    } 
   };
 
   return (
@@ -101,7 +101,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
             setIsModal(true);
           }}
           type="button"
-          className="btn btn-success"
+          className="btn btn-light"
         >
           {buttonName}
         </button>
@@ -131,6 +131,7 @@ Question
 :
               <div>
                 <input
+                  required
                   type="text"
                   className="form-control div-input-question"
                   id="input-question"
@@ -175,11 +176,9 @@ Question
             <fieldset className="form-group">
               <div className="form-check form-check-inline">
                 <label className="form-check-label" htmlFor="inlineRadio1">
-                  Type de réponse liée
-                  {' '}
+                  Type de réponse liée :
                   <span className="asterixetobelix">*</span>
-                  {' '}
-:
+
                   <input
                     required
                     checked={question.type_response === 1 ? 'checked' : null}
@@ -244,7 +243,7 @@ Ressources associées :
                           value={1}
                           onChange={onResourceInputChange}
                         />
-                        Livre
+                        Ouvrage
                       </label>
                     </div>
                     <div className="form-check form-check-inline">
