@@ -243,19 +243,17 @@ function Form() {
               </label>
             </div>
             <div className="colorP d-flex">
-              <p htmlFor="color"> Couleur du thème :</p>
-              <br />
-              <input
-                required
-                type="color"
-                className="form-control col-6 p-0 m-0"
-                id="color"
-                rows="6"
-                data-key="bg_color"
-                value={adminInput.card.bg_color}
-                onChange={onCardInputChange}
-              />
+              <p htmlFor="color">Couleur du thème : </p>
             </div>
+            <input
+              type="color"
+              className=""
+              id="color"
+              rows="6"
+              data-key="bg_color"
+              value={adminInput.card.bg_color}
+              onChange={onCardInputChange}
+              />
           </div>
           <div className="card-block">
             <h4>

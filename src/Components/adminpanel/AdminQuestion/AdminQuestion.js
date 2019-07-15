@@ -27,7 +27,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     const { value } = target;
     const newQuestion = { ...question };
     const dataKey = target.getAttribute('data-key');
-    newQuestion[dataKey] = value;
+    newQuestion[dataKey] = (dataKey ==='type_response')? Number(value) : value;
     setQuestion(newQuestion);
   };
 
@@ -36,8 +36,9 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     const newValues = [...resources];
     const { id } = target;
     const dataKey = target.getAttribute('data-key');
-    newValues[id][dataKey] = target.value;
+    newValues[id][dataKey] = (dataKey ==='type_resource') ? Number(target.value) : target.value;
     setResources(newValues);
+    console.log(newValues)
   };
 
   // Fonction pour créer une ressource vide
@@ -69,7 +70,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center">
+    <div>
       {buttonName === 'Modifier la question' ? (
         <i
           title="Modifier"
@@ -79,6 +80,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
           onClick={() => {
             resetModal();
             setIsModal(true);
+            // console.log(question);
           }}
         />
       ) : (
@@ -100,27 +102,30 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         okText="Enregistrer"
         title="Espace questions"
         visible={isModal}
+        className="modal-set-question"
         onOk={e => handleSubmit(e)}
         onCancel={() => setIsModal(false)}
+        width="40%"
       >
         <form id="myform">
-          <div className="d-flex div-question-bouton" row="1">
-            <label htmlFor="input-question" className="col-10">
-              Ecrivez votre question* :
+        <div className="card-block">
+          <h4><span className="block-number-question">4.1</span>Question</h4>
+          <label htmlFor="input-question">
+            Question<span className="asterixetobelix">*</span> :
+            <div>
               <input
-                required
-                type="text"
-                className="form-control div-input-question col-10"
-                id="input-question"
-                data-key="text_question"
-                value={question.text_question}
-                onChange={onQuestionInputChange}
-              />
-            </label>
-          </div>
+              type="text"
+              className="form-control div-input-question"
+              id="input-question"
+              data-key="text_question"
+              value={question.text_question}
+              onChange={onQuestionInputChange}
+            />
+            </div>
+          </label>
           <div>
-            <label htmlFor="input-question-number" className="col-10">
-              Ecrivez le numéro de la question* :
+            <label htmlFor="input-question-number">
+              Numéro de la question<span className="asterixetobelix">*</span> :
               <input
                 required
                 type="number"
@@ -135,10 +140,10 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
           </div>
           <div className="form-group">
             <label htmlFor="exampleFormControlTextarea1">
-              Ajoutez une photo qui sera affichée avec la question (lien) :
+              Photo de la question :
               <input
                 type="url"
-                className="form-control col-10"
+                className="form-control"
                 rows="1"
                 id="1"
                 data-key="image_question"
@@ -147,14 +152,13 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
               />
             </label>
           </div>
-          <br />
-          <p>Type de réponse liée* :</p>
           <fieldset className="form-group">
             <div className="form-check form-check-inline">
               <label className="form-check-label" htmlFor="inlineRadio1">
+                Type de réponse liée <span className="asterixetobelix">*</span> :
                 <input
                   required
-                  checked={question.type_response === 1 ? 'checked' : null}
+                  checked={(question.type_response === 1)? 'checked' : null}
                   className="form-check-input"
                   name="inlineRadioOptionsType_response"
                   type="radio"
@@ -170,106 +174,104 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
               <label className="form-check-label" htmlFor="inlineRadio2">
                 <input
                   required
-                  checked={question.type_response === 2 ? 'checked' : null}
+                  checked={(question.type_response === 2) ? 'checked' : null}
                   className="form-check-input"
                   name="inlineRadioOptionsType_response"
                   type="radio"
                   id="inlineRadiobox2"
                   data-key="type_response"
-                  value={2}
+                  value= {2}
                   onChange={onQuestionInputChange}
                 />
                 Texte
               </label>
             </div>
           </fieldset>
-          <br />
+        </div>
 
-          <div className="row">
-            <div className="col-3">Ressources liées :</div>
-            <div className="col-9">
-              <div>
-                {resources.map((resource, i) => (
-                  <div className="col-9" style={{ border: '1px black solid' }}>
-                    <textarea
-                      required
-                      className="form-control"
-                      placeholder="Lien"
-                      rows="1"
-                      id={i}
-                      data-key="url_resource"
-                      value={resource.url_resource}
-                      onChange={onResourceInputChange}
-                    />
-                    <br />
-                    <p>Type de ressource:</p>
-                    <div className="form-check form-check-inline">
-                      <label className="form-check-label" htmlFor="inlineRadio1">
-                        <input
-                          required
-                          checked={resource.type_resource === 1 ? 'checked' : null}
-                          className="form-check-input"
-                          name={`inlineRadioOptionsType_resource${i}`}
-                          type="radio"
-                          id={i}
-                          data-key="type_resource"
-                          value={1}
-                          onChange={onResourceInputChange}
-                        />
-                        Lire
+        <div className="card-block">
+          <h4><span className="block-number-question">4.2</span>Ressources associées :</h4>
+          <div>
+            <div>
+              {resources.map((resource, i) => (
+                <div className="block-resource">
+                  <textarea
+                    className="form-control"
+                    placeholder="Lien"
+                    rows="1"
+                    id={i}
+                    data-key="url_resource"
+                    value={resource.url_resource}
+                    onChange={onResourceInputChange}
+                  />
+                  <br />
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label" htmlFor="inlineRadio1">
+                      Type de ressource :
+                      <input
+                        checked={(resource.type_resource === 1) ? 'checked' : null}
+                        className="form-check-input"
+                        name={`inlineRadioOptionsType_resource${i}`}
+                        type="radio"
+                        id={i}
+                        data-key="type_resource"
+                        value={1}
+                        onChange={onResourceInputChange}
+                      />
+                      Livre
                       </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <label className="form-check-label" htmlFor="inlineRadio2">
-                        <input
-                          required
-                          checked={resource.type_resource === 2 ? 'checked' : null}
-                          className="form-check-input"
-                          name={`inlineRadioOptionsType_resource${i}`}
-                          type="radio"
-                          id={i}
-                          data-key="type_resource"
-                          value={2}
-                          onChange={onResourceInputChange}
-                        />
-                        Ecouter
-                      </label>
-                    </div>
-                    <div className="form-check form-check-inline">
-                      <label className="form-check-label" htmlFor="inlineRadio3">
-                        <input
-                          required
-                          checked={resource.type_resource === 3 ? 'checked' : null}
-                          className="form-check-input"
-                          name={`inlineRadioOptionsType_resource${i}`}
-                          type="radio"
-                          id={i}
-                          data-key="type_resource"
-                          value={3}
-                          onChange={onResourceInputChange}
-                        />
-                        Voir
-                      </label>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        deleteResource(i);
-                      }}
-                    >
-                      Supprimer la ressource
-                    </button>
                   </div>
-                ))}
-              </div>
-              <div className="mt-4">
-                <button type="button" onClick={addResource}>
-                  Ajouter une ressource
-                </button>
-              </div>
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label" htmlFor="inlineRadio2">
+                      <input
+                        checked={(resource.type_resource === 2) ? 'checked' : null}
+                        className="form-check-input"
+                        name={`inlineRadioOptionsType_resource${i}`}
+                        type="radio"
+                        id={i}
+                        data-key="type_resource"
+                        value={2}
+                        onChange={onResourceInputChange}
+                      />
+                      Musique
+                      </label>
+                  </div>
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label" htmlFor="inlineRadio3">
+                      <input
+                        checked={(resource.type_resource === 3) ? 'checked' : null}
+                        className="form-check-input"
+                        name={`inlineRadioOptionsType_resource${i}`}
+                        type="radio"
+                        id={i}
+                        data-key="type_resource"
+                        value={3}
+                        onChange={onResourceInputChange}
+                      />
+                      Vidéo
+                      </label>
+                  </div>
+                  <div>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      deleteResource(i);
+                    }}
+                  >
+                    Supprimer la ressource
+                    </button>
+                    </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-4">
+              <button type="button" onClick={addResource}>
+                Ajouter une ressource
+              </button>
             </div>
           </div>
+        </div>
         </form>
       </Modal>
     </div>

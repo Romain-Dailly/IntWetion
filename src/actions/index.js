@@ -80,7 +80,7 @@ export const getCards = () => (dispatch, getState) => {
         dispatch(receiveData(cards));
       });
     } catch (error) {
-      // TODO Handle error
+      // TODO: Handle error
     }
   }
 };
@@ -95,7 +95,7 @@ export const removeCard = id => (dispatch, getState) => {
         dispatch(deleteCardAction(id));
       });
     } catch (error) {
-      // TODO Handle error
+      // TODO: Handle error
 
     }
   }

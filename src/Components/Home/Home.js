@@ -23,10 +23,18 @@ const Comment = ({ onComment }) => (
   <div className="overlay flex-column justify-content-start">
     <label htmlFor="textarea-comment">
       Write your comments based on the video you just watched
-      <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
+      <textarea
+        className="w-100 my-3"
+        name=""
+        id="textarea-comment"
+        cols="20"
+        rows="10"
+      />
     </label>
     <div>
-      <button type="button" onClick={onComment}>continue</button>
+      <button type="button" onClick={onComment}>
+        continue
+      </button>
     </div>
   </div>
 );
@@ -68,9 +76,13 @@ const Home = () => {
 
   if (canShowResults) {
     return (
-      <Redirect push to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: 'answers' }} />
+      <Redirect
+        push
+        to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: 'answers' }}
+      />
     );
   }
+
 
   return (
     <div className="home background-white">
@@ -101,10 +113,10 @@ const Home = () => {
 
       <div className="container px-2">
         <Row gutter={16}>
-          {data.map((card, index) => (
+          {data.map((value, index) => (
             <Card
-              key={card.id}
-              data={card}
+              key={value.card.id}
+              data={value}
               index={index}
               onStartQuiz={() => {
                 dispatch(startVideo(videoTypes.INTRO, ''));
