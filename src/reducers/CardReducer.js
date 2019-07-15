@@ -7,14 +7,14 @@ import {
   START_VIDEO,
   LAUNCH_TEST,
   LAUNCH_COMMENT,
-  SAVE_RESULTS,
+  SAVE_RESULTS
 } from '../actions/types';
 
 const initState = {
   data: [],
   isLoading: true,
   video: {
-    videoStarted: false,
+    videoStarted: false
   },
   quiz: {
     quizLaunched: false,
@@ -22,11 +22,11 @@ const initState = {
     state: {
       videoStarted: false,
       canComment: false,
-      quizStarted: false,
+      quizStarted: false
     },
     videoType: '',
-    videoKey: '',
-  },
+    videoKey: ''
+  }
 };
 
 /**
@@ -42,13 +42,11 @@ const CardReducer = (state = initState, action) => {
           state: {
             videoStarted: true,
             canComment: false,
-            quizStarted: false,
+            quizStarted: false
           },
           videoType: action.payload.videoType,
-          videoKey: action.payload.videoKey,
-        },
-
-        results: {},
+          videoKey: action.payload.videoKey
+        }
       });
 
     case LAUNCH_COMMENT:
@@ -58,9 +56,9 @@ const CardReducer = (state = initState, action) => {
           state: {
             videoStarted: false,
             canComment: true,
-            quizStarted: false,
-          },
-        },
+            quizStarted: false
+          }
+        }
       });
 
     case START_QUIZ:
@@ -70,22 +68,22 @@ const CardReducer = (state = initState, action) => {
           state: {
             videoStarted: false,
             canComment: false,
-            quizStarted: true,
-          },
-        },
+            quizStarted: true
+          }
+        }
       });
 
     // Enable loading state
     case REQUEST_DATA:
       return Object.assign({}, state, {
-        isLoading: true,
+        isLoading: true
       });
 
     // Stores data from the web service and disable loading state
     case RECEIVE_DATA:
       return Object.assign({}, state, {
         isLoading: false,
-        data: action.payload,
+        data: action.payload
       });
 
     case DELETE_CARD:
@@ -101,8 +99,8 @@ const CardReducer = (state = initState, action) => {
       return Object.assign({}, state, {
         quiz: {
           quizLaunched: true,
-          cardId: action.payload,
-        },
+          cardId: action.payload
+        }
       });
 
     case QUIT_QUIZ:
@@ -112,9 +110,9 @@ const CardReducer = (state = initState, action) => {
           state: {
             videoStarted: false,
             canComment: false,
-            quizStarted: false,
-          },
-        },
+            quizStarted: false
+          }
+        }
       });
 
     case SAVE_RESULTS:
@@ -124,10 +122,10 @@ const CardReducer = (state = initState, action) => {
           state: {
             videoStarted: false,
             canComment: false,
-            quizStarted: false,
-          },
+            quizStarted: false
+          }
         },
-        results: action.payload,
+        results: action.payload
       });
 
     default:

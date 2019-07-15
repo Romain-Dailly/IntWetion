@@ -116,7 +116,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         className="modal-set-question"
         onOk={e => handleSubmit(e)}
         onCancel={() => setIsModal(false)}
-        width="40%"
+        max-width="55em"
       >
         <form id="myform">
           <div className="card-block">
