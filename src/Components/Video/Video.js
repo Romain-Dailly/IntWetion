@@ -20,7 +20,7 @@ const Video = ({
   }, []);
   return (
     <div className="overlay">
-      <div className="container">
+      <div className="container p-0">
         <div className="d-flex flex-column w-100">
           <div className="video w-100">
             <div className=" player-wrapper">
@@ -30,7 +30,7 @@ const Video = ({
             </div>
           </div>
 
-          <div className="d-flex">
+          <div className="d-flex video-actions">
             <button type="button" onClick={onClose} className="button button-primary mr-3">
               Quitter
             </button>
