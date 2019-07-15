@@ -204,7 +204,7 @@ function Form() {
   return (
     <div className="container-fluid">
       <div className="container-adminInput">
-        <form className="pr-5 divForm col-6">
+        <form className="divForm">
           <h1 className="form-title">{formState}</h1>
           <div className="card-block">
             <h4>
