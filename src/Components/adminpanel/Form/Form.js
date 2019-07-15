@@ -464,7 +464,7 @@ function Form() {
             <button
               type="submit"
               form="form"
-              className="btn btn-success"
+              className="btn btn-light mr-1"
               onClick={e => handleSubmit(e)}
             >
               Enregistrer
@@ -476,7 +476,7 @@ function Form() {
               okText="Oui"
               cancelText="Non "
             >
-              <button className="btn btn-success">Quitter sans enregistrer</button>
+              <button className="btn btn-light ml-1">Quitter sans enregistrer</button>
             </Popconfirm>
           </div>
         </form>
