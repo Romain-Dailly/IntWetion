@@ -76,7 +76,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         ),
       );
       event.preventDefault();
-    } 
+    }
   };
 
   return (
@@ -95,17 +95,17 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
           }}
         />
       ) : (
-        <button
-          onClick={() => {
-            resetModal();
-            setIsModal(true);
-          }}
-          type="button"
-          className="btn btn-light"
-        >
-          {buttonName}
-        </button>
-      )}
+          <button
+            onClick={() => {
+              resetModal();
+              setIsModal(true);
+            }}
+            type="button"
+            className="btn btn-light"
+          >
+            {buttonName}
+          </button>
+        )}
       <Modal
         destroyOnClose
         okButtonProps={{ htmlType: 'submit', form: 'myform' }}
@@ -116,19 +116,19 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         className="modal-set-question"
         onOk={e => handleSubmit(e)}
         onCancel={() => setIsModal(false)}
-        max-width="55em"
+        width="55em"
       >
         <form id="myform">
           <div className="card-block">
             <h4>
               <span className="block-number-question">4.1</span>
-Question
+              Question
             </h4>
             <label htmlFor="input-question">
               Question
               <span className="asterixetobelix">*</span>
               {' '}
-:
+              :
               <div>
                 <input
                   required
@@ -143,10 +143,8 @@ Question
             </label>
             <div>
               <label htmlFor="input-question-number">
-                Numéro de la question
+                Numéro de la question :
                 <span className="asterixetobelix">*</span>
-                {' '}
-:
                 <input
                   required
                   type="number"
@@ -214,7 +212,7 @@ Question
           <div className="card-block">
             <h4>
               <span className="block-number-question">4.2</span>
-Ressources associées :
+              Ressources associées :
             </h4>
             <div>
               <div>

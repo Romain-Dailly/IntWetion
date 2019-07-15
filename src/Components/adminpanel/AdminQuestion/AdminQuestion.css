@@ -41,3 +41,11 @@
   margin: none;
 }
 
+.ant-btn-primary {
+    color: var(--color-admin);
+    border: solid 1px var(--color-admin);
+    border-radius: 5px;
+    margin-left: 1em;
+    background-color: white;
+}
+

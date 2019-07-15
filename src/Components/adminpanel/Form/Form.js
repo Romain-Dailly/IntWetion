@@ -461,14 +461,6 @@ function Form() {
             </div>
           </div>
           <div className="d-flex justify-content-center">
-            <button
-              type="submit"
-              form="form"
-              className="btn btn-light mr-1"
-              onClick={e => handleSubmit(e)}
-            >
-              Enregistrer
-            </button>
             <Popconfirm
               placement="bottom"
               title="Etes-vous sûr(e) ?"
@@ -476,8 +468,16 @@ function Form() {
               okText="Oui"
               cancelText="Non "
             >
-              <button className="btn btn-light ml-1">Quitter sans enregistrer</button>
+              <button className="btn btn-light ml-1">Quitter</button>
             </Popconfirm>
+            <button
+              type="submit"
+              form="form"
+              className="btn btn-light mr-1 btn-send-form"
+              onClick={e => handleSubmit(e)}
+            >
+              Enregistrer
+            </button>
           </div>
         </form>
         <BackTop />
