@@ -6,6 +6,7 @@ import { videoTypes } from '../../values/strings';
 import Question from '../Question/Question';
 import { quitQuiz, startVideo, saveResults } from '../../actions';
 import './Quiz.css';
+import  logo from  '../../assets/images/logo_intWEtionPNG.png';
 /**
  * A component containing widgets.
  * @param {objects} props An object containing required dependencies for this function.
@@ -30,7 +31,7 @@ const ActionBar = ({ onNextButtonClick, volume, handleChange }) => (
       onClick={onNextButtonClick}
       tabIndex='-1'
     >
-      Continue
+      Suivant
     </button>
   </div>
 );
@@ -75,7 +76,7 @@ const Quiz = ({ color = 'white' }) => {
     message.config({
       maxCount: 1
     });
-    message.warning('Fields cannot be null');
+    message.warning('Vous devez répondre à la question !');
   };
 
   const nextQuestion = () => {
@@ -157,9 +158,9 @@ const Quiz = ({ color = 'white' }) => {
   };
 
   const ToolBar = ({ title }) => (
-    <div className='context-tool-bar background-white'>
-      <i className='logo icon-alt icon-lotus' />
-      <p className='header-5 m-0'>{title}</p>
+    <div className="context-tool-bar background-white">
+      <img  width= {110} src={logo} alt="logo"/>
+      <p className="header-5 m-0">{title}</p>
       <i
         tabIndex='-1'
         role='button'

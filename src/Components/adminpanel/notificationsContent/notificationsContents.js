@@ -2,7 +2,8 @@ const postOk = (cardName, icon) => ({
   style: { color: 'white', background: '#1abc9c' },
   placement: 'bottomRight',
   message: 'Ajout réussi !',
-  description: `La carte ${cardName} a bien été ajoutée en base de données!`,
+  description: `La carte ${cardName} a bien été ajoutée en base de données! 
+  Actualisez la page pour voir la nouvelle carte`,
   icon,
 });
 const postNo = (cardName, response, icon) => ({

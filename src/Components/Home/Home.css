@@ -4,6 +4,10 @@
   height: 100%;
 }
 
+.ant-btn .anticon {
+  font-size:50px;
+}
+
 /* laptop  */
 @media (min-width: 786px) {
   .home {
