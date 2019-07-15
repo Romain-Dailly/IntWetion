@@ -190,11 +190,7 @@ function Form() {
   return (
     <div className="container-fluid">
       <div className="container-adminInput">
-<<<<<<< HEAD
         <form className="divForm">
-=======
-        <form id="form" className="pr-5 divForm col-6">
->>>>>>> 8c493e41a8c82519fe8c7d217b83913838874b60
           <h1 className="form-title">{formState}</h1>
           <div className="card-block">
             <h4>
