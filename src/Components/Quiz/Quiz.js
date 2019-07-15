@@ -12,11 +12,11 @@ import './Quiz.css';
  */
 
 const ActionBar = ({ onNextButtonClick, volume, handleChange }) => (
-  <div className="action-bar">
-    <div className=" d-flex align-items-center w-100">
-      <i className="icon icon-volume" />
+  <div className='action-bar'>
+    <div className=' d-flex align-items-center w-100'>
+      <i className='icon icon-volume' />
       <Slider
-        className="w-100"
+        className='w-100'
         max={1}
         step={0.00001}
         tooltipVisible={false}
@@ -25,10 +25,10 @@ const ActionBar = ({ onNextButtonClick, volume, handleChange }) => (
       />
     </div>
     <button
-      type="button"
-      className="button button-text ripple"
+      type='button'
+      className='button button-text ripple'
       onClick={onNextButtonClick}
-      tabIndex="-1"
+      tabIndex='-1'
     >
       Continue
     </button>
@@ -53,8 +53,10 @@ const Quiz = ({ color = 'white' }) => {
    * Get access to the redux store's state.
    */
   const cardId = useSelector(store => store.card.quiz.cardId);
-  const { questions, videos } = useSelector(store => store.card.data[cardId]);
-
+  const { videos } = useSelector(store => store.card.data[cardId]);
+  const questions = useSelector(
+    store => store.card.data[cardId]
+  ).questions.slice(0, 6);
   /**
    * Get mutable reference from the DOM.
    * These refs are `objects` with `current` properties pointing to elements in the DOM.
@@ -71,7 +73,7 @@ const Quiz = ({ color = 'white' }) => {
 
   const displayWarning = () => {
     message.config({
-      maxCount: 1,
+      maxCount: 1
     });
     message.warning('Fields cannot be null');
   };
@@ -85,7 +87,7 @@ const Quiz = ({ color = 'white' }) => {
     // verify if any of the radio group is checked or not
     if (radioButtonsParent) {
       anyChecked = Array.from(
-        radioButtonsParent.getElementsByClassName('choice-radio'),
+        radioButtonsParent.getElementsByClassName('choice-radio')
       ).some(element => element.checked === true);
     }
 
@@ -145,8 +147,8 @@ const Quiz = ({ color = 'white' }) => {
     const newObject = Object.assign({}, answersCopy, {
       [questionKey]: {
         answer,
-        question: questions[questionIndex],
-      },
+        question: questions[questionIndex]
+      }
     });
 
     // answersCopy[questionKey].question = questions[questionIndex];
@@ -155,21 +157,21 @@ const Quiz = ({ color = 'white' }) => {
   };
 
   const ToolBar = ({ title }) => (
-    <div className="context-tool-bar background-white">
-      <i className="logo icon-alt icon-lotus" />
-      <p className="header-5 m-0">{title}</p>
+    <div className='context-tool-bar background-white'>
+      <i className='logo icon-alt icon-lotus' />
+      <p className='header-5 m-0'>{title}</p>
       <i
-        tabIndex="-1"
-        role="button"
+        tabIndex='-1'
+        role='button'
         onClick={() => dispatch(quitQuiz)}
-        className="icon icon-close"
+        className='icon icon-close'
       />
     </div>
   );
 
   return (
-    <div className="overlay slide-fwd-top">
-      <ToolBar title="Forces" />
+    <div className='overlay slide-fwd-top'>
+      <ToolBar title='Forces' />
       <div style={{ width: '0', height: '0', opacity: '0' }}>
         <ReactPlayer
           playing='"true'
@@ -177,8 +179,8 @@ const Quiz = ({ color = 'white' }) => {
           volume={volume}
         />
       </div>
-      <div className="overlay-content" style={{ background: `${color}` }}>
-        <div className="content">
+      <div className='overlay-content' style={{ background: `${color}` }}>
+        <div className='content'>
           {
             <Question
               question={questions[questionIndex]}
@@ -188,21 +190,21 @@ const Quiz = ({ color = 'white' }) => {
             />
           }
         </div>
-        <div className="ui-progress">
+        <div className='ui-progress'>
           <div
-            className="ui-progress-bar"
-            role="progressbar"
+            className='ui-progress-bar'
+            role='progressbar'
             style={{ width: `${getProgress()}%` }}
-            aria-valuenow="25"
-            aria-valuemin="0"
-            aria-valuemax="100"
+            aria-valuenow='25'
+            aria-valuemin='0'
+            aria-valuemax='100'
           />
         </div>
         <ActionBar
           onNextButtonClick={() => {
             nextQuestion();
           }}
-          handleChange={(value) => {
+          handleChange={value => {
             setVolume(value);
           }}
           volume={volume}
