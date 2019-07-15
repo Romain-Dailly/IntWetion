@@ -22,7 +22,7 @@ const postError = (cardName, icon) => ({
 const putOk = (cardName, icon) => ({
   style: { color: 'white', background: '#1abc9c' },
   placement: 'bottomRight',
-  message: 'Ajout réussi !',
+  message: 'Modification réussie !',
   description: `La carte ${cardName} a bien été modifiée en base de données!`,
   icon,
 });
