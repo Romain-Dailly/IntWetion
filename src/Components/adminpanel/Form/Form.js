@@ -419,6 +419,7 @@ function Form() {
                       />
                       <div className="d-flex justify-content-center">
                         <i
+                          style={{cursor:'pointer', fontSize:'28px'}}
                           role="button"
                           title="Supprimer"
                           onClick={() => deleteQuestion(question.i)}

@@ -73,6 +73,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     <div>
       {buttonName === 'Modifier la question' ? (
         <i
+          style={{cursor:'pointer', fontSize:'28px'}}
           title="Modifier"
           tabIndex="-1"
           role="button"
@@ -107,7 +108,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         onCancel={() => setIsModal(false)}
         width="40%"
       >
-        <form id="myform">
+        <form id="myform">u d'estimmoi ?
         <div className="card-block">
           <h4><span className="block-number-question">4.1</span>Question</h4>
           <label htmlFor="input-question">
