@@ -6,18 +6,18 @@ import { videoTypes } from '../../values/strings';
 import Question from '../Question/Question';
 import { quitQuiz, startVideo, saveResults } from '../../actions';
 import './Quiz.css';
-import  logo from  '../../assets/images/logo_intWEtionPNG.png';
+import logo from '../../assets/images/logo_intWEtionPNG.png';
 /**
  * A component containing widgets.
  * @param {objects} props An object containing required dependencies for this function.
  */
 
 const ActionBar = ({ onNextButtonClick, volume, handleChange }) => (
-  <div className='action-bar'>
-    <div className=' d-flex align-items-center w-100'>
-      <i className='icon icon-volume' />
+  <div className="action-bar">
+    <div className=" d-flex align-items-center w-100">
+      <i className="icon icon-volume" />
       <Slider
-        className='w-100'
+        className="w-100"
         max={1}
         step={0.00001}
         tooltipVisible={false}
@@ -26,10 +26,10 @@ const ActionBar = ({ onNextButtonClick, volume, handleChange }) => (
       />
     </div>
     <button
-      type='button'
-      className='button button-text ripple'
+      type="button"
+      className="button button-text ripple"
       onClick={onNextButtonClick}
-      tabIndex='-1'
+      tabIndex="-1"
     >
       Suivant
     </button>
@@ -55,9 +55,8 @@ const Quiz = ({ color = 'white' }) => {
    */
   const cardId = useSelector(store => store.card.quiz.cardId);
   const { videos } = useSelector(store => store.card.data[cardId]);
-  const questions = useSelector(
-    store => store.card.data[cardId]
-  ).questions.slice(0, 6);
+  const name = useSelector(store => store.card.data[cardId].card.name);
+  const questions = useSelector(store => store.card.data[cardId]).questions.slice(0, 6);
   /**
    * Get mutable reference from the DOM.
    * These refs are `objects` with `current` properties pointing to elements in the DOM.
@@ -74,9 +73,17 @@ const Quiz = ({ color = 'white' }) => {
 
   const displayWarning = () => {
     message.config({
-      maxCount: 1
+      maxCount: 1,
     });
     message.warning('Vous devez répondre à la question !');
+  };
+
+  const parseVideoKey = (params) => {
+    const OUTRO_VIDEO_KEY = 3;
+    if (params) {
+      const videoIntro = params.filter(param => param.type_video === OUTRO_VIDEO_KEY).pop();
+      return videoIntro.url_video.split('=')[1];
+    }
   };
 
   const nextQuestion = () => {
@@ -87,9 +94,9 @@ const Quiz = ({ color = 'white' }) => {
     let anyChecked;
     // verify if any of the radio group is checked or not
     if (radioButtonsParent) {
-      anyChecked = Array.from(
-        radioButtonsParent.getElementsByClassName('choice-radio')
-      ).some(element => element.checked === true);
+      anyChecked = Array.from(radioButtonsParent.getElementsByClassName('choice-radio')).some(
+        element => element.checked === true,
+      );
     }
 
     // check if the textarea is empty
@@ -104,7 +111,7 @@ const Quiz = ({ color = 'white' }) => {
       // TODO: Retrieve the video key from redux store.
       // Launch the outro.
       dispatch(saveResults(answers));
-      dispatch(startVideo(videoTypes.OUTRO, ''));
+      dispatch(startVideo(videoTypes.OUTRO, parseVideoKey(videos)));
       localStorage.setItem('results', JSON.stringify(answers));
     }
     // Navigate to the next question
@@ -148,8 +155,8 @@ const Quiz = ({ color = 'white' }) => {
     const newObject = Object.assign({}, answersCopy, {
       [questionKey]: {
         answer,
-        question: questions[questionIndex]
-      }
+        question: questions[questionIndex],
+      },
     });
 
     // answersCopy[questionKey].question = questions[questionIndex];
@@ -157,31 +164,27 @@ const Quiz = ({ color = 'white' }) => {
     setAnswers(newObject);
   };
 
-  const ToolBar = ({ title }) => (
+  const ToolBar = ({ name }) => (
     <div className="context-tool-bar background-white">
-      <img  width= {110} src={logo} alt="logo"/>
-      <p className="header-5 m-0">{title}</p>
+      <img width={110} src={logo} alt="logo" />
+      <p className="header-5 m-0">{name}</p>
       <i
-        tabIndex='-1'
-        role='button'
+        tabIndex="-1"
+        role="button"
         onClick={() => dispatch(quitQuiz)}
-        className='icon icon-close'
+        className="icon icon-close"
       />
     </div>
   );
 
   return (
-    <div className='overlay slide-fwd-top'>
-      <ToolBar title='Forces' />
+    <div className="overlay slide-fwd-top">
+      <ToolBar name={name} />
       <div style={{ width: '0', height: '0', opacity: '0' }}>
-        <ReactPlayer
-          playing='"true'
-          url={videos[2].url_video}
-          volume={volume}
-        />
+        <ReactPlayer playing='"true' url={videos[2].url_video} volume={volume} />
       </div>
-      <div className='overlay-content' style={{ background: `${color}` }}>
-        <div className='content'>
+      <div className="overlay-content" style={{ background: `${color}` }}>
+        <div className="content">
           {
             <Question
               question={questions[questionIndex]}
@@ -191,21 +194,21 @@ const Quiz = ({ color = 'white' }) => {
             />
           }
         </div>
-        <div className='ui-progress'>
+        <div className="ui-progress">
           <div
-            className='ui-progress-bar'
-            role='progressbar'
+            className="ui-progress-bar"
+            role="progressbar"
             style={{ width: `${getProgress()}%` }}
-            aria-valuenow='25'
-            aria-valuemin='0'
-            aria-valuemax='100'
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
           />
         </div>
         <ActionBar
           onNextButtonClick={() => {
             nextQuestion();
           }}
-          handleChange={value => {
+          handleChange={(value) => {
             setVolume(value);
           }}
           volume={volume}

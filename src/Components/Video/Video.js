@@ -20,22 +20,24 @@ const Video = ({
   }, []);
   return (
     <div className="overlay">
-      <div className="d-flex flex-column w-100">
-        <div className="video w-100">
-          <div className=" player-wrapper">
-            <div>
-              <div ref={player} data-plyr-provider="youtube" data-plyr-embed-id={videoKey} />
+      <div className="container">
+        <div className="d-flex flex-column w-100">
+          <div className="video w-100">
+            <div className=" player-wrapper">
+              <div>
+                <div ref={player} data-plyr-provider="youtube" data-plyr-embed-id={videoKey} />
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="d-flex">
-          <button type="button" onClick={onClose} className>
-            Exit
-          </button>
-          <button type="button" onClick={onContinue}>
-            Continue
-          </button>
+          <div className="d-flex">
+            <button type="button" onClick={onClose} className="button button-primary mr-3">
+              Quitter
+            </button>
+            <button type="button" onClick={onContinue} className="button button-primary">
+              Suivant
+            </button>
+          </div>
         </div>
       </div>
     </div>

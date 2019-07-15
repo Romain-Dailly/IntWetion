@@ -22,13 +22,13 @@ const Comment = ({ onComment }) => (
    * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
    */
 
-  <div className="overlay flex-column justify-content-start">
+  <div className="overlay flex-column justify-content-center">
     <label htmlFor="textarea-comment">
-      Write your comments based on the video you just watched
+      Exprimez-vous au sujet de cette vidéo
       <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
     </label>
     <div>
-      <button type="button" onClick={onComment}>
+      <button type="button" onClick={onComment} className='button button-primary'>
         continue
       </button>
     </div>
@@ -44,7 +44,9 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const { data, isLoading } = useSelector(store => store.card);
-  const { state, videoType } = useSelector(store => store.card.quiz);
+  const {
+    cardId, state, videoType, videoKey,
+  } = useSelector(store => store.card.quiz);
 
   const [canShowResults, showResults] = useState(false);
   const [newCard, setNewCard] = useState(false);
@@ -63,6 +65,14 @@ const Home = () => {
 
       default:
         break;
+    }
+  };
+
+  const parseVideoKey = (params) => {
+    const INTRO_VIDEO_KEY = 1;
+    if (params) {
+      const videoIntro = params.filter(param => param.type_video === INTRO_VIDEO_KEY).pop();
+      return videoIntro.url_video.split('=')[1];
     }
   };
 
@@ -85,7 +95,7 @@ const Home = () => {
     <div className="home background-white">
       {videoStarted && (
         <Video
-          videoKey="gN7U0ycbWCM"
+          videoKey={videoKey}
           onClose={() => {
             dispatch(quitQuiz);
           }}
@@ -116,20 +126,28 @@ const Home = () => {
               data={value}
               index={index}
               onStartQuiz={() => {
-                dispatch(startVideo(videoTypes.INTRO, ''));
+                dispatch(startVideo(videoTypes.INTRO, parseVideoKey(data[index].videos)));
               }}
             />
           ))}
           <Col xs={12} md={6} lg={4} span={8}>
             <div
+              tabIndex='-1'
+              onClick={() => setNewCard(true)}
               className="ui-card mb-3 h-100 d-flex justify-content-center align-items-center"
               title="Ajouter une nouvelle carte"
-              style={{ maxHeight: '368px', minHeight: '368px', background:'none', border:'0' }}
+              style={{
+                border: '2px dashed var(--color-primary)',
+                maxHeight: '368px',
+                minHeight: '368px',
+                background: 'none',
+                cursor: 'pointer',
+              }}
             >
               <Button
-                onClick={() => setNewCard(true)}
-                className="h-50 w-50"
+                className="background-primary"
                 type="primary"
+                style={{ width: '100px', height: '100px', border: 'none' }}
                 shape="circle"
                 icon="plus"
               />
