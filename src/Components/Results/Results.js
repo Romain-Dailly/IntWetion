@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import {useSelector} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import './Results.css';
 
@@ -8,12 +8,13 @@ import './Results.css';
 
 // Appel du state via le store redux
 // const Results = () => {
-// const selectData = useSelector(store=> store.router.location.state);
-// console.log(selectData);
 
 // const [modal, setModal] = useState(false);
 
 const Results = () => {
+  const selectData = useSelector(store=> store.card.results);
+  console.log(selectData);
+  
   const answers = [
     {
       id: 1,
