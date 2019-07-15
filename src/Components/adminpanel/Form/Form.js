@@ -8,7 +8,14 @@ import {
 } from 'antd';
 import _ from 'underscore';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
-import { postOk, postNo, postError, putOk, putNo, putError } from '../notificationsContent/notificationsContents';
+import {
+  postOk,
+  postNo,
+  postError,
+  putOk,
+  putNo,
+  putError,
+} from '../notificationsContent/notificationsContents';
 
 function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
@@ -79,7 +86,7 @@ function Form() {
   const { Column } = Table;
   const dataQuestions = _.sortBy(
     adminInputQuestions.map(
-      (question, index) => question = { ...question, i: index, nb: question.resources.length },
+      (question, index) => (question = { ...question, i: index, nb: question.resources.length }),
     ),
     'number_question',
   );
@@ -156,11 +163,21 @@ function Form() {
             console.log(response);
             if (response.status === 200) {
               setSubmitted(true);
-              return notification.open(putOk(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />));
+              return notification.open(
+                putOk(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
+              );
             }
-            return notification.open(putNo(adminInput.card.name, response.status, <Icon type="smile" style={{ color: 'white' }} />));
+            return notification.open(
+              putNo(
+                adminInput.card.name,
+                response.status,
+                <Icon type="smile" style={{ color: 'white' }} />,
+              ),
+            );
           })
-          .catch(() => notification.open(putError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />)));
+          .catch(() => notification.open(
+            putError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
+          ));
       }
       return axios
         .post('http://192.168.184.100:8080/card/', buildCardData())
@@ -169,11 +186,21 @@ function Form() {
           console.log(response);
           if (response.status === 200) {
             setSubmitted(true);
-            return notification.open(postOk(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />));
+            return notification.open(
+              postOk(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
+            );
           }
-          return notification.open(postNo(adminInput.card.name, response.status, <Icon type="smile" style={{ color: 'white' }} />));
+          return notification.open(
+            postNo(
+              adminInput.card.name,
+              response.status,
+              <Icon type="smile" style={{ color: 'white' }} />,
+            ),
+          );
         })
-        .catch(() => notification.open(postError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />)));
+        .catch(() => notification.open(
+          postError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
+        ));
     }
   };
 
@@ -190,7 +217,7 @@ function Form() {
   return (
     <div className="container-fluid">
       <div className="container-adminInput">
-        <form id="form" className="pr-5 divForm col-6">
+        <form id="form" className="pr-5 divForm">
           <h1 className="form-title">{formState}</h1>
           <div className="card-block">
             <h4>
@@ -228,7 +255,7 @@ function Form() {
             </div>
             <div className="form-group">
               <label htmlFor="exampleFormControlTextarea1">
-                Image de la carte :
+                Image de la carte (lien url):
                 <input
                   required
                   type="url"
@@ -253,7 +280,7 @@ function Form() {
               data-key="bg_color"
               value={adminInput.card.bg_color}
               onChange={onCardInputChange}
-              />
+            />
           </div>
           <div className="card-block">
             <h4>
@@ -419,7 +446,7 @@ function Form() {
                       />
                       <div className="d-flex justify-content-center">
                         <i
-                          style={{cursor:'pointer', fontSize:'28px'}}
+                          style={{ cursor: 'pointer', fontSize: '28px' }}
                           role="button"
                           title="Supprimer"
                           onClick={() => deleteQuestion(question.i)}

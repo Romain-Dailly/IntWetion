@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Col } from 'react-flexbox-grid';
-import { Tooltip } from 'antd';
+import { Tooltip, Popconfirm } from 'antd';
 import { removeCard, launchTest } from '../../actions';
 import './Card.css';
 
@@ -16,7 +16,9 @@ const Card = ({ data, index, onStartQuiz }) => {
 
   const [isModifiable, setModifiable] = useState(false);
   const dispatch = useDispatch();
-  const { image, name, description } = data.card;
+  const {
+    id, image, name, description,
+  } = data.card;
 
   const [isVisible, toggleVisibility] = useState(false);
 
@@ -34,7 +36,7 @@ const Card = ({ data, index, onStartQuiz }) => {
         }}
       />
     );
-  }
+  } 
 
   return (
     <Col xs={12} md={6} lg={4} span={8}>
@@ -48,8 +50,15 @@ const Card = ({ data, index, onStartQuiz }) => {
               setModifiable(true);
             }}
           />
-
-          <i role="button" onClick={() => dispatch(removeCard(data.id))} className="icon-trash" tabIndex="-1" />
+          <Popconfirm
+            placement="top"
+            title="Etes-vous sûr(e) ?"
+            onConfirm={() => dispatch(removeCard(id, index))}
+            okText="Oui"
+            cancelText="Non "
+          >
+            <i role="button" onClick={() => {}} className="icon-trash" tabIndex="-1" />
+          </Popconfirm>
         </div>
         <div className="ui-card-image" style={cardStyle} />
         <div className="ui-card-body px-3">

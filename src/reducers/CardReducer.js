@@ -89,7 +89,12 @@ const CardReducer = (state = initState, action) => {
       });
 
     case DELETE_CARD:
-      return state;
+      console.log(action.payload.index);
+      const dataCopy = [...state.data];
+      dataCopy.splice(action.payload.index, 1)
+      return Object.assign({}, state, {
+        data: dataCopy
+      });
 
     // A simple state machine to regulate the state of the quiz.
     case LAUNCH_TEST:

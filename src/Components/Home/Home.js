@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Row } from 'react-flexbox-grid';
+import { Row, Col } from 'react-flexbox-grid';
+import { Button } from 'antd';
 import Quiz from '../Quiz/Quiz';
 import Video from '../Video/Video';
 import Card from '../Card/Card';
@@ -11,6 +12,7 @@ import {
   startVideo, launchComment, startQuiz, quitQuiz,
 } from '../../actions';
 import { videoTypes } from '../../values/strings';
+import { NONAME } from 'dns';
 
 const Comment = ({ onComment }) => (
   /**
@@ -23,13 +25,7 @@ const Comment = ({ onComment }) => (
   <div className="overlay flex-column justify-content-start">
     <label htmlFor="textarea-comment">
       Write your comments based on the video you just watched
-      <textarea
-        className="w-100 my-3"
-        name=""
-        id="textarea-comment"
-        cols="20"
-        rows="10"
-      />
+      <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
     </label>
     <div>
       <button type="button" onClick={onComment}>
@@ -51,6 +47,7 @@ const Home = () => {
   const { state, videoType } = useSelector(store => store.card.quiz);
 
   const [canShowResults, showResults] = useState(false);
+  const [newCard, setNewCard] = useState(false);
 
   const { videoStarted, canComment, quizStarted } = state;
 
@@ -76,13 +73,13 @@ const Home = () => {
 
   if (canShowResults) {
     return (
-      <Redirect
-        push
-        to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: 'answers' }}
-      />
+      <Redirect push to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: 'answers' }} />
     );
   }
 
+  if (newCard) {
+    return <Redirect push to={{ pathname: `${process.env.PUBLIC_URL}/admin` }} />;
+  }
 
   return (
     <div className="home background-white">
@@ -123,6 +120,21 @@ const Home = () => {
               }}
             />
           ))}
+          <Col xs={12} md={6} lg={4} span={8}>
+            <div
+              className="ui-card mb-3 h-100 d-flex justify-content-center align-items-center"
+              title="Ajouter une nouvelle carte"
+              style={{ maxHeight: '368px', minHeight: '368px', background:'none', border:'0' }}
+            >
+              <Button
+                onClick={() => setNewCard(true)}
+                className="h-50 w-50"
+                type="primary"
+                shape="circle"
+                icon="plus"
+              />
+            </div>
+          </Col>
         </Row>
       </div>
     </div>

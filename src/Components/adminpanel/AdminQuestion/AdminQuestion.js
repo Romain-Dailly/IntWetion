@@ -27,7 +27,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     const { value } = target;
     const newQuestion = { ...question };
     const dataKey = target.getAttribute('data-key');
-    newQuestion[dataKey] = (dataKey ==='type_response')? Number(value) : value;
+    newQuestion[dataKey] = dataKey === 'type_response' ? Number(value) : value;
     setQuestion(newQuestion);
   };
 
@@ -36,9 +36,8 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     const newValues = [...resources];
     const { id } = target;
     const dataKey = target.getAttribute('data-key');
-    newValues[id][dataKey] = (dataKey ==='type_resource') ? Number(target.value) : target.value;
+    newValues[id][dataKey] = dataKey === 'type_resource' ? Number(target.value) : target.value;
     setResources(newValues);
-    console.log(newValues)
   };
 
   // Fonction pour créer une ressource vide
@@ -61,10 +60,21 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
 
   // Fonction handlesubmit et fermeture de modale
   const handleSubmit = (event) => {
-    if (question.text_question && question.number_question && question.type_response && question.image_question) {
+    if (
+      question.text_question
+      && question.number_question
+      && question.type_response
+      && question.image_question
+    ) {
       buildQuestionData();
       setIsModal(false);
-      notification.open(modalPush(buttonName, question.number_question, <Icon type="smile" style={{ color: 'white' }} />),);
+      notification.open(
+        modalPush(
+          buttonName,
+          question.number_question,
+          <Icon type="smile" style={{ color: 'white' }} />,
+        ),
+      );
       event.preventDefault();
     }
   };
@@ -73,7 +83,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     <div>
       {buttonName === 'Modifier la question' ? (
         <i
-          style={{cursor:'pointer', fontSize:'28px'}}
+          style={{ cursor: 'pointer', fontSize: '28px' }}
           title="Modifier"
           tabIndex="-1"
           role="button"
@@ -98,7 +108,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
       )}
       <Modal
         destroyOnClose
-        okButtonProps={{ htmlType :"submit", form:"myform"}}
+        okButtonProps={{ htmlType: 'submit', form: 'myform' }}
         cancelText="Fermer"
         okText="Enregistrer"
         title="Espace questions"
@@ -108,171 +118,186 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
         onCancel={() => setIsModal(false)}
         width="40%"
       >
-        <form id="myform">u d'estimmoi ?
-        <div className="card-block">
-          <h4><span className="block-number-question">4.1</span>Question</h4>
-          <label htmlFor="input-question">
-            Question<span className="asterixetobelix">*</span> :
-            <div>
-              <input
-              type="text"
-              className="form-control div-input-question"
-              id="input-question"
-              data-key="text_question"
-              value={question.text_question}
-              onChange={onQuestionInputChange}
-            />
-            </div>
-          </label>
-          <div>
-            <label htmlFor="input-question-number">
-              Numéro de la question<span className="asterixetobelix">*</span> :
-              <input
-                required
-                type="number"
-                className="form-control mr-5 div-input-question"
-                id="inpu-question-number"
-                placeholder="ex: 1.2"
-                data-key="number_question"
-                value={question.number_question}
-                onChange={onQuestionInputChange}
-              />
-            </label>
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleFormControlTextarea1">
-              Photo de la question :
-              <input
-                type="url"
-                className="form-control"
-                rows="1"
-                id="1"
-                data-key="image_question"
-                value={question.image_question}
-                onChange={onQuestionInputChange}
-              />
-            </label>
-          </div>
-          <fieldset className="form-group">
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" htmlFor="inlineRadio1">
-                Type de réponse liée <span className="asterixetobelix">*</span> :
+        <form id="myform">
+          <div className="card-block">
+            <h4>
+              <span className="block-number-question">4.1</span>
+Question
+            </h4>
+            <label htmlFor="input-question">
+              Question
+              <span className="asterixetobelix">*</span>
+              {' '}
+:
+              <div>
                 <input
-                  required
-                  checked={(question.type_response === 1)? 'checked' : null}
-                  className="form-check-input"
-                  name="inlineRadioOptionsType_response"
-                  type="radio"
-                  id="inlineRadiobox1"
-                  data-key="type_response"
-                  value={1}
+                  type="text"
+                  className="form-control div-input-question"
+                  id="input-question"
+                  data-key="text_question"
+                  value={question.text_question}
                   onChange={onQuestionInputChange}
                 />
-                Numérique
-              </label>
-            </div>
-            <div className="form-check form-check-inline">
-              <label className="form-check-label" htmlFor="inlineRadio2">
+              </div>
+            </label>
+            <div>
+              <label htmlFor="input-question-number">
+                Numéro de la question
+                <span className="asterixetobelix">*</span>
+                {' '}
+:
                 <input
                   required
-                  checked={(question.type_response === 2) ? 'checked' : null}
-                  className="form-check-input"
-                  name="inlineRadioOptionsType_response"
-                  type="radio"
-                  id="inlineRadiobox2"
-                  data-key="type_response"
-                  value= {2}
+                  type="number"
+                  className="form-control mr-5 div-input-question"
+                  id="inpu-question-number"
+                  placeholder="ex: 1.2"
+                  data-key="number_question"
+                  value={question.number_question}
                   onChange={onQuestionInputChange}
                 />
-                Texte
               </label>
             </div>
-          </fieldset>
-        </div>
-
-        <div className="card-block">
-          <h4><span className="block-number-question">4.2</span>Ressources associées :</h4>
-          <div>
-            <div>
-              {resources.map((resource, i) => (
-                <div className="block-resource">
-                  <textarea
-                    className="form-control"
-                    placeholder="Lien"
-                    rows="1"
-                    id={i}
-                    data-key="url_resource"
-                    value={resource.url_resource}
-                    onChange={onResourceInputChange}
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Photo de la question :
+                <input
+                  type="url"
+                  className="form-control"
+                  rows="1"
+                  id="1"
+                  data-key="image_question"
+                  value={question.image_question}
+                  onChange={onQuestionInputChange}
+                />
+              </label>
+            </div>
+            <fieldset className="form-group">
+              <div className="form-check form-check-inline">
+                <label className="form-check-label" htmlFor="inlineRadio1">
+                  Type de réponse liée
+                  {' '}
+                  <span className="asterixetobelix">*</span>
+                  {' '}
+:
+                  <input
+                    required
+                    checked={question.type_response === 1 ? 'checked' : null}
+                    className="form-check-input"
+                    name="inlineRadioOptionsType_response"
+                    type="radio"
+                    id="inlineRadiobox1"
+                    data-key="type_response"
+                    value={1}
+                    onChange={onQuestionInputChange}
                   />
-                  <br />
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio1">
-                      Type de ressource :
-                      <input
-                        checked={(resource.type_resource === 1) ? 'checked' : null}
-                        className="form-check-input"
-                        name={`inlineRadioOptionsType_resource${i}`}
-                        type="radio"
-                        id={i}
-                        data-key="type_resource"
-                        value={1}
-                        onChange={onResourceInputChange}
-                      />
-                      Livre
+                  Numérique
+                </label>
+              </div>
+              <div className="form-check form-check-inline">
+                <label className="form-check-label" htmlFor="inlineRadio2">
+                  <input
+                    required
+                    checked={question.type_response === 2 ? 'checked' : null}
+                    className="form-check-input"
+                    name="inlineRadioOptionsType_response"
+                    type="radio"
+                    id="inlineRadiobox2"
+                    data-key="type_response"
+                    value={2}
+                    onChange={onQuestionInputChange}
+                  />
+                  Texte
+                </label>
+              </div>
+            </fieldset>
+          </div>
+          <div className="card-block">
+            <h4>
+              <span className="block-number-question">4.2</span>
+Ressources associées :
+            </h4>
+            <div>
+              <div>
+                {resources.map((resource, i) => (
+                  <div className="block-resource">
+                    <textarea
+                      className="form-control"
+                      placeholder="Lien"
+                      rows="1"
+                      id={i}
+                      data-key="url_resource"
+                      value={resource.url_resource}
+                      onChange={onResourceInputChange}
+                    />
+                    <br />
+                    <div className="form-check form-check-inline">
+                      <label className="form-check-label" htmlFor="inlineRadio1">
+                        Type de ressource :
+                        <input
+                          checked={resource.type_resource === 1 ? 'checked' : null}
+                          className="form-check-input"
+                          name={`inlineRadioOptionsType_resource${i}`}
+                          type="radio"
+                          id={i}
+                          data-key="type_resource"
+                          value={1}
+                          onChange={onResourceInputChange}
+                        />
+                        Livre
                       </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio2">
-                      <input
-                        checked={(resource.type_resource === 2) ? 'checked' : null}
-                        className="form-check-input"
-                        name={`inlineRadioOptionsType_resource${i}`}
-                        type="radio"
-                        id={i}
-                        data-key="type_resource"
-                        value={2}
-                        onChange={onResourceInputChange}
-                      />
-                      Musique
-                      </label>
-                  </div>
-                  <div className="form-check form-check-inline">
-                    <label className="form-check-label" htmlFor="inlineRadio3">
-                      <input
-                        checked={(resource.type_resource === 3) ? 'checked' : null}
-                        className="form-check-input"
-                        name={`inlineRadioOptionsType_resource${i}`}
-                        type="radio"
-                        id={i}
-                        data-key="type_resource"
-                        value={3}
-                        onChange={onResourceInputChange}
-                      />
-                      Vidéo
-                      </label>
-                  </div>
-                  <div>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      deleteResource(i);
-                    }}
-                  >
-                    Supprimer la ressource
-                    </button>
                     </div>
-                </div>
-              ))}
-            </div>
-            <div className="mt-4">
-              <button type="button" onClick={addResource}>
-                Ajouter une ressource
-              </button>
+                    <div className="form-check form-check-inline">
+                      <label className="form-check-label" htmlFor="inlineRadio2">
+                        <input
+                          checked={resource.type_resource === 2 ? 'checked' : null}
+                          className="form-check-input"
+                          name={`inlineRadioOptionsType_resource${i}`}
+                          type="radio"
+                          id={i}
+                          data-key="type_resource"
+                          value={2}
+                          onChange={onResourceInputChange}
+                        />
+                        Musique
+                      </label>
+                    </div>
+                    <div className="form-check form-check-inline">
+                      <label className="form-check-label" htmlFor="inlineRadio3">
+                        <input
+                          checked={resource.type_resource === 3 ? 'checked' : null}
+                          className="form-check-input"
+                          name={`inlineRadioOptionsType_resource${i}`}
+                          type="radio"
+                          id={i}
+                          data-key="type_resource"
+                          value={3}
+                          onChange={onResourceInputChange}
+                        />
+                        Vidéo
+                      </label>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          deleteResource(i);
+                        }}
+                      >
+                        Supprimer la ressource
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-4">
+                <button type="button" onClick={addResource}>
+                  Ajouter une ressource
+                </button>
+              </div>
             </div>
           </div>
-        </div>
         </form>
       </Modal>
     </div>

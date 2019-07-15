@@ -33,10 +33,11 @@ export const launchTest = cardId => ({
 export const addCard = {
   type: ADD_CARD,
 };
-export const deleteCardAction = id => ({
+export const deleteCardAction = (id, index) => ({
   type: DELETE_CARD,
-  payload: id,
+  payload: { id, index },
 });
+
 export const editCard = {
   type: EDIT_CARD,
 };
@@ -91,12 +92,11 @@ export const removeCard = id => (dispatch, getState) => {
 
   if (state.card.data.length) {
     try {
-      deleteCard(1, () => {
+      deleteCard(id, () => {
         dispatch(deleteCardAction(id));
       });
     } catch (error) {
       // TODO: Handle error
-
     }
   }
 };

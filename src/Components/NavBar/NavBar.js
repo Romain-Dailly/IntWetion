@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './NavBar.css';
 import { Menu, Drawer, Avatar } from 'antd';
 import profile from '../../assets/images/profile.png';
+import  logo from  '../../assets/images/logo_intWEtionPNG.png';
 
 const { Item } = Menu;
 
@@ -43,10 +44,7 @@ const NavBar = () => {
     <header className="main-header background-white">
       <div className="nav-bar">
         <Link to="/" className="logo mr-3">
-          <i className="icon-alt icon-spa p-2" />
-          <p style={{ color: 'var(--dark)' }} className="m-0 ">
-            Intwetion
-          </p>
+        <img  width = {120} src={logo} alt="logo"/>
         </Link>
         <i
           onClick={() => openDrawer(!isDrawerOpen)}

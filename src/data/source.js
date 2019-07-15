@@ -14,7 +14,6 @@ import axios from 'axios';
 
 const BASE_URL = 'http://192.168.184.100:8080/';
 
-
 /**
  * Performs an HTTP GET request using the [axios api]{@link https://github.com/axios/axios}
  * @param {string} path The URL path to be appended to the base server URL.
@@ -109,10 +108,16 @@ const fetchDetailedCards = async (callback) => {
 
 // Delete all from a card with its id
 const deleteCard = async (id, callback) => {
-  const path = `posts/${id}`;
-  const deleted = await deleteData(path);
+  const params = { id : `${id}` };
+  console.log(params);
+  
+  const path = 'card';
+  const deleted = await deleteData(path, params);
   if (deleted.status === 200) {
     callback();
+  }else{
+    console.log("Error");
+    
   }
 };
 
