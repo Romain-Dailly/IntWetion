@@ -8,7 +8,7 @@ const Video = ({
 }) => {
   const player = useRef();
   const options = {
-    autoplay: false,
+    autoplay: true,
   };
 
   useEffect(() => {
