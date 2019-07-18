@@ -19,10 +19,23 @@
   justify-content: space-between;
 }
 
-/* laptop  */
+
 @media (min-width: 992px) {
   .video .player-wrapper {
     padding: 24px 0;
+  }
+}
+
+/* laptop  */
+@media (min-width: 576px) {
+  .video-actions {
+     position: initial;
+   width: initial;
+    bottom: initial;
+    display: flex;
+    padding: 0; 
+    margin: 24px 0;
+    justify-content: left;
   }
 }
 
