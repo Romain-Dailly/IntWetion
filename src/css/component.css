@@ -124,9 +124,14 @@
 }
 
 .button-primary {
-  color : var(--black);
+  color : white;
   border: 1px solid var(--color-primary);
   background-color: var(--color-primary);
+}
+.button-primary:hover {
+  color : var(--color-primary);
+  border: 1px solid var(--color-primary);
+  background-color: white;
 }
 
 .button-outline {
@@ -218,7 +223,7 @@
 }
 
 .body-1 {
-  font-size: 16px;
+  font-size: 18px;
   letter-spacing: 0.5px;
   font-family: Rubik;
   line-height: 1.5;

@@ -95,17 +95,17 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
           }}
         />
       ) : (
-          <button
-            onClick={() => {
-              resetModal();
-              setIsModal(true);
-            }}
-            type="button"
-            className="btn btn-light"
-          >
-            {buttonName}
-          </button>
-        )}
+        <button
+          onClick={() => {
+            resetModal();
+            setIsModal(true);
+          }}
+          type="button"
+          className="btn btn-light"
+        >
+          {buttonName}
+        </button>
+      )}
       <Modal
         destroyOnClose
         okButtonProps={{ htmlType: 'submit', form: 'myform' }}
@@ -128,7 +128,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
               Question
               <span className="asterixetobelix">*</span>
               {' '}
-              :
+:
               <div>
                 <input
                   required
@@ -176,7 +176,6 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 <label className="form-check-label" htmlFor="inlineRadio1">
                   Type de réponse liée :
                   <span className="asterixetobelix">*</span>
-
                   <input
                     required
                     checked={question.type_response === 1 ? 'checked' : null}

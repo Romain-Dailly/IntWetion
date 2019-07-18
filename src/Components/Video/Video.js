@@ -30,7 +30,7 @@ const Video = ({
             </div>
           </div>
 
-          <div className="d-flex">
+          <div className="d-flex mt-2">
             <button type="button" onClick={onClose} className="button button-primary mr-3">
               Quitter
             </button>

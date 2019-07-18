@@ -56,6 +56,15 @@
   border-color: var(--color-admin) !important;
 }
 
+.buttons {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  z-index: 10;
+  width: 200px;
+  height: 100px;
+}
+
 .btn-delete {
   height: 37px !important;  
   align-self: flex-end;

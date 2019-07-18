@@ -460,7 +460,7 @@ function Form() {
               </Table>
             </div>
           </div>
-          <div className="d-flex justify-content-center">
+          <div className="buttons card-block d-flex justify-content-center">
             <Popconfirm
               placement="bottom"
               title="Etes-vous sûr(e) ?"

@@ -56,7 +56,7 @@ const Question = ({
     <div className="question">
       <div className="container">
         <img src={image_question} alt="" width="100%" />
-        <p className="body-1 my-3">{text_question}</p>
+        <p className="body-1 textSize my-3">{text_question}</p>
 
         {question.type_response === 1 ? (
           <div ref={radioWrapperRef} className="row justify-content-center">

@@ -7,6 +7,21 @@
 .ant-btn .anticon {
   font-size:50px;
 }
+.addCard {
+  background: transparent !important;
+}
+.addCard:hover {
+  background: white !important;
+}
+
+.addCard .ant-btn{
+transition:none;
+color:white;
+}
+
+.addCard:hover .ant-btn{
+ opacity: .9;
+}
 
 /* laptop  */
 @media (min-width: 786px) {
