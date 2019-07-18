@@ -4,11 +4,19 @@
 
 /* laptop  */
 @media (min-width: 992px) {
-  
 }
 
 .video .player-wrapper {
+}
 
+.video-actions {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  display: flex;
+  padding: 0 16px;
+  margin: 24px 0;
+  justify-content: space-between;
 }
 
 /* laptop  */
