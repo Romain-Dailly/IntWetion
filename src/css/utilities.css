@@ -24,3 +24,7 @@
 .color-black{
   color:var(--black);
 }
+
+.textSize {
+  font-size:22px;
+}

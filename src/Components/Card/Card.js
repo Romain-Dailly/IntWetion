@@ -63,12 +63,12 @@ const Card = ({ data, index, onStartQuiz }) => {
             />
           </Popconfirm>
         </div>
-        <div className='ui-card-image' style={cardStyle} />
-        <div className='ui-card-body px-3'>
-          <div className='ui-content'>
-            <p className='ui-card-overline overline mb-0 '>Force</p>
-            <div className='d-flex justify-content-between align-items-center mb-3'>
-              <h5 className='ui-card-title header-6'>{name}</h5>
+        <div className="ui-card-image" style={cardStyle} />
+        <div className="ui-card-body px-3">
+          <div className="ui-content">
+            <p className="ui-card-overline overline mb-0 ">Flash</p>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+              <h5 className="ui-card-title header-6">{name}</h5>
               <i
                 tabIndex='-1'
                 role='button'

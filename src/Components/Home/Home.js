@@ -12,7 +12,6 @@ import {
   startVideo, launchComment, startQuiz, quitQuiz,
 } from '../../actions';
 import { videoTypes } from '../../values/strings';
-import { NONAME } from 'dns';
 
 const Comment = ({ onComment }) => (
   /**
@@ -22,15 +21,17 @@ const Comment = ({ onComment }) => (
    * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
    */
 
-  <div className="overlay flex-column justify-content-center">
-    <label htmlFor="textarea-comment">
-      Exprimez-vous au sujet de cette vidéo
-      <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
-    </label>
-    <div>
-      <button type="button" onClick={onComment} className='button button-primary'>
-        continue
-      </button>
+  <div className="overlay">
+    <div className="w-75 d-flex justify-content-center mt-5">
+      <label htmlFor="textarea-comment">
+        <p>Exprimez-vous au sujet de cette vidéo</p>
+        <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
+      </label>
+      <div>
+        <button type="button" onClick={onComment} className="button button-primary">
+          continue
+        </button>
+      </div>
     </div>
   </div>
 );
@@ -132,21 +133,21 @@ const Home = () => {
           ))}
           <Col xs={12} md={6} lg={4} span={8}>
             <div
-              tabIndex='-1'
+              role="button"
+              tabIndex="-1"
               onClick={() => setNewCard(true)}
-              className="ui-card mb-3 h-100 d-flex justify-content-center align-items-center"
+              className="ui-card addCard mb-3 h-100 d-flex justify-content-center align-items-center"
               title="Ajouter une nouvelle carte"
               style={{
                 border: '2px dashed var(--color-primary)',
                 maxHeight: '368px',
                 minHeight: '368px',
-                background: 'none',
                 cursor: 'pointer',
               }}
             >
               <Button
                 className="background-primary"
-                type="primary"
+                // type="primary"
                 style={{ width: '100px', height: '100px', border: 'none' }}
                 shape="circle"
                 icon="plus"

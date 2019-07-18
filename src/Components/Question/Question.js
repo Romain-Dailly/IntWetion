@@ -53,19 +53,19 @@ const Question = ({
   }, [question]);
 
   return (
-    <div className='question'>
-      <div className='container'>
-        <div className='quiz-image-wrapper aspect-ratio-box'>
+    <div className="question">
+      <div className="container">
+        <div className="quiz-image-wrapper aspect-ratio-box">
           <img
-            className='aspect-ratio-box-inside'
+            className="aspect-ratio-box-inside"
             src={image_question}
-            alt=''
-            width='100%'
-            height='100%'
+            alt=""
+            width="100%"
+            height="100%"
           />
         </div>
 
-        <p className='body-1 my-3'>{text_question}</p>
+        <p className="body-1 my-3">{text_question}</p>
         {question.type_response === 1 ? (
           <div ref={radioWrapperRef} className='row justify-content-center'>
             {answerRange.map(number => (
