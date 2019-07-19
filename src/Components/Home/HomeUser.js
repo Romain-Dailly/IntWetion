@@ -74,6 +74,7 @@ const Home = () => {
 
       case videoTypes.OUTRO:
         showResults(true);
+        dispatch(quitQuiz);
         break;
 
       default:

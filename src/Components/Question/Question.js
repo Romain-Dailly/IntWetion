@@ -92,7 +92,6 @@ const Question = ({
               type='text'
               rows="5"
               onChange={event =>
-              
                 onAnswerSelected(event, 0, number_question, type_response)
               }
 
