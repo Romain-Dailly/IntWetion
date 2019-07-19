@@ -22,7 +22,8 @@ const Comment = ({ onComment }) => (
    */
 
   <div className="overlay">
-    <div className="w-75 d-flex justify-content-center flex-column mt-5">
+    <div className="w-100 d-flex flex-column mt-5 px-3"
+    style={{maxWidth:"800px"}}>
       <label htmlFor="textarea-comment">
         <p>Exprimez-vous au sujet de cette vidéo</p>
         <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
