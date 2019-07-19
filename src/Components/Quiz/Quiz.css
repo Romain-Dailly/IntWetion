@@ -17,7 +17,7 @@
   flex-direction: column;
   position: relative;
   top: 0;
-  width: 100%;
+  max-width: 560px;
   background-color: #f4f5f7;
   border-radius: 6px;
   overflow: hidden;
@@ -37,7 +37,6 @@
 
 .content {
   flex: 1;
-  overflow-y: scroll;
   padding-top: 8px;
 }
 
