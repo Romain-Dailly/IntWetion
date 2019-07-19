@@ -65,7 +65,7 @@ const Question = ({
           />
         </div>
 
-        <p className="body-1 my-3">{text_question}</p>
+        <p className="body-1 mt-3 mb-5">{text_question}</p>
         {question.type_response === 1 ? (
           <div ref={radioWrapperRef} className='row justify-content-center'>
             {answerRange.map(number => (
@@ -84,14 +84,18 @@ const Question = ({
             ))}
           </div>
         ) : (
-          <label htmlFor='input-answer'>
+          <label htmlFor='input-answer' className="w-100">
             <textarea
+            className="ui-input ant-input body-1"
               ref={textareaWrapperRef}
               id='input-answer'
               type='text'
+              rows="5"
               onChange={event =>
+              
                 onAnswerSelected(event, 0, number_question, type_response)
               }
+
             />
           </label>
         )}
