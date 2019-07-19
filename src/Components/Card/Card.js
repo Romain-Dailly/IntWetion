@@ -82,7 +82,7 @@ const Card = ({
             </p>
           </div>
           <div className="card-action mt-3 mb-4">
-            <Tooltip title="Use a headphone for a better experience.">
+            <Tooltip title="Utilisez un casque audio pour une meilleure expérience.">
               <i className="icon-alt icon-headset" />
             </Tooltip>
             <button
