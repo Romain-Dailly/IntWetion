@@ -460,7 +460,8 @@ function Form() {
               </Table>
             </div>
           </div>
-          <div className="buttons card-block d-flex justify-content-center">
+          <div className="buttons card-block justify-content-center p-0">
+            <div className="d-flex justify-content-center mt-2">
             <Popconfirm
               placement="bottom"
               title="Etes-vous sûr(e) ?"
@@ -468,16 +469,19 @@ function Form() {
               okText="Oui"
               cancelText="Non "
             >
-              <button className="btn btn-light ml-1">Quitter</button>
+              <button className="btn btn-light">Quitter</button>
             </Popconfirm>
+              </div>
+            <div className="d-flex justify-content-center pt-1">
             <button
               type="submit"
               form="form"
-              className="btn btn-light mr-1 btn-send-form"
+              className="btn btn-light btn-send-form"
               onClick={e => handleSubmit(e)}
             >
               Enregistrer
             </button>
+            </div>
           </div>
         </form>
         <BackTop />

@@ -43,25 +43,27 @@ const Card = ({
   return (
     <Col xs={12} md={6} lg={4} span={8}>
       <div className="ui-card mb-3 ">
-        {demo !== -5 && <div className="action-tab scale-up-center">
-          <i
-            tabIndex="-1"
-            role="button"
-            className="icon-edit"
-            onClick={() => {
-              setModifiable(true);
-            }}
-          />
-          <Popconfirm
-            placement="top"
-            title="Etes-vous sûr(e) ?"
-            onConfirm={() => dispatch(removeCard(id, index))}
-            okText="Oui"
-            cancelText="Non "
-          >
-            <i role="button" onClick={() => {}} className="icon-trash" tabIndex="-1" />
-          </Popconfirm>
-        </div>}
+        {demo !== -5 && (
+          <div className="action-tab scale-up-center">
+            <i
+              tabIndex="-1"
+              role="button"
+              className="icon-edit"
+              onClick={() => {
+                setModifiable(true);
+              }}
+            />
+            <Popconfirm
+              placement="top"
+              title="Etes-vous sûr(e) ?"
+              onConfirm={() => dispatch(removeCard(id, index))}
+              okText="Oui"
+              cancelText="Non "
+            >
+              <i role="button" onClick={() => {}} className="icon-trash" tabIndex="-1" />
+            </Popconfirm>
+          </div>
+        )}
         <div className="ui-card-image" style={cardStyle} />
         <div className="ui-card-body px-3">
           <div className="ui-content">

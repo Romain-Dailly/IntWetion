@@ -216,7 +216,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
             <div>
               <div>
                 {resources.map((resource, i) => (
-                  <div className="block-resource">
+                  <div className="block-resource" key={i}>
                     <textarea
                       className="form-control"
                       placeholder="Lien"
@@ -276,6 +276,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                     <div>
                       <button
                         type="button"
+                        className="btn btn-light"
                         onClick={(e) => {
                           e.preventDefault();
                           deleteResource(i);
@@ -288,7 +289,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
                 ))}
               </div>
               <div className="mt-4">
-                <button type="button" onClick={addResource}>
+                <button className="btn btn-light" type="button" onClick={addResource}>
                   Ajouter une ressource
                 </button>
               </div>
