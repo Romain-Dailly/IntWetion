@@ -121,18 +121,22 @@ const Home = () => {
 
       <div className="container px-2">
         <Row gutter={16}>
-          {data.map((value, index) => (
-            <Card
-              demo={0}
-              key={value.card.id}
-              data={value}
-              index={index}
-              onStartQuiz={() => {
-                dispatch(startVideo(videoTypes.INTRO, parseVideoKey(data[index].videos)));
-              }}
-            />
-          ))}
-          <Col xs={12} md={6} lg={4} span={8}>
+          {data.map((value, index) => {
+            if (value.card.online === 1) {
+              return (
+                <Card
+                  key={value.card.id}
+                  demo={-5}
+                  data={value}
+                  index={index}
+                  onStartQuiz={() => {
+                    dispatch(startVideo(videoTypes.INTRO, parseVideoKey(data[index].videos)));
+                  }}
+                />
+              );
+            }
+          })}
+          {/* <Col xs={12} md={6} lg={4} span={8}>
             <div
               role="button"
               tabIndex="-1"
@@ -154,7 +158,7 @@ const Home = () => {
                 icon="plus"
               />
             </div>
-          </Col>
+          </Col> */}
         </Row>
       </div>
     </div>

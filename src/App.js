@@ -13,6 +13,7 @@ import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
 
 import Home from './Components/Home/Home';
+import HomeUser from './Components/Home/HomeUser';
 
 const App = () => {
   /**
@@ -44,9 +45,10 @@ const App = () => {
     <Fragment>
       <NavBar />
       <Switch>
-        <Route path={`${ROOT_URL}/`} exact component={Home} />
+        <Route path={`${ROOT_URL}/admin`} exact component={Home} />
+        <Route path={`${ROOT_URL}/`} exact component={HomeUser} />
         <Route path={`${ROOT_URL}/login`} component={Login} />
-        <Route path={`${ROOT_URL}/admin`} component={Form} />
+        <Route path={`${ROOT_URL}/form`} component={Form} />
         <Route path={`${ROOT_URL}/results`} component={Results} />
         <Route path={`${ROOT_URL}/register`} component={Register} />
       </Switch>

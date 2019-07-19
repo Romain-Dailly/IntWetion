@@ -6,7 +6,9 @@ import { Tooltip, Popconfirm } from 'antd';
 import { removeCard, launchTest } from '../../actions';
 import './Card.css';
 
-const Card = ({ data, index, onStartQuiz }) => {
+const Card = ({
+  data, index, onStartQuiz, demo,
+}) => {
   /**
    * Get a reference to the `dispatch` function from the Redux store.
    * Use it to dispatch needed redux `actions`.
@@ -16,12 +18,14 @@ const Card = ({ data, index, onStartQuiz }) => {
 
   const [isModifiable, setModifiable] = useState(false);
   const dispatch = useDispatch();
-  const { id, image, name, description } = data.card;
+  const {
+    id, image, name, description,
+  } = data.card;
 
   const [isVisible, toggleVisibility] = useState(false);
 
   const cardStyle = {
-    backgroundImage: `url(${image})`
+    backgroundImage: `url(${image})`,
   };
 
   if (isModifiable) {
@@ -29,8 +33,8 @@ const Card = ({ data, index, onStartQuiz }) => {
       <Redirect
         push
         to={{
-          pathname: `${process.env.PUBLIC_URL}/admin`,
-          state: index
+          pathname: `${process.env.PUBLIC_URL}/form`,
+          state: index,
         }}
       />
     );
@@ -38,31 +42,26 @@ const Card = ({ data, index, onStartQuiz }) => {
 
   return (
     <Col xs={12} md={6} lg={4} span={8}>
-      <div className='ui-card mb-3 '>
-        <div className='action-tab scale-up-center'>
+      <div className="ui-card mb-3 ">
+        {demo !== -5 && <div className="action-tab scale-up-center">
           <i
-            tabIndex='-1'
-            role='button'
-            className='icon-edit'
+            tabIndex="-1"
+            role="button"
+            className="icon-edit"
             onClick={() => {
               setModifiable(true);
             }}
           />
           <Popconfirm
-            placement='top'
-            title='Etes-vous sûr(e) ?'
+            placement="top"
+            title="Etes-vous sûr(e) ?"
             onConfirm={() => dispatch(removeCard(id, index))}
-            okText='Oui'
-            cancelText='Non '
+            okText="Oui"
+            cancelText="Non "
           >
-            <i
-              role='button'
-              onClick={() => {}}
-              className='icon-trash'
-              tabIndex='-1'
-            />
+            <i role="button" onClick={() => {}} className="icon-trash" tabIndex="-1" />
           </Popconfirm>
-        </div>
+        </div>}
         <div className="ui-card-image" style={cardStyle} />
         <div className="ui-card-body px-3">
           <div className="ui-content">
@@ -70,29 +69,23 @@ const Card = ({ data, index, onStartQuiz }) => {
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h5 className="ui-card-title header-6">{name}</h5>
               <i
-                tabIndex='-1'
-                role='button'
+                tabIndex="-1"
+                role="button"
                 onClick={() => toggleVisibility(!isVisible)}
-                className={` icon icon-chevron-down ${
-                  isVisible ? 'flip-vertically' : ''
-                }`}
+                className={` icon icon-chevron-down ${isVisible ? 'flip-vertically' : ''}`}
               />
             </div>
-            <p
-              className={`ui-card-text body-1 noselect ${
-                isVisible ? '' : 'd-none'
-              }`}
-            >
+            <p className={`ui-card-text body-1 noselect ${isVisible ? '' : 'd-none'}`}>
               {description}
             </p>
           </div>
-          <div className='card-action mt-3 mb-4'>
-            <Tooltip title='Use a headphone for a better experience.'>
-              <i className='icon-alt icon-headset' />
+          <div className="card-action mt-3 mb-4">
+            <Tooltip title="Use a headphone for a better experience.">
+              <i className="icon-alt icon-headset" />
             </Tooltip>
             <button
-              type='button'
-              className='button button-primary'
+              type="button"
+              className="button button-primary"
               onClick={() => {
                 dispatch(launchTest(index));
                 onStartQuiz();

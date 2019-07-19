@@ -209,7 +209,7 @@ function Form() {
       <Redirect
         push
         to={{
-          pathname: `${process.env.PUBLIC_URL}`,
+          pathname: `${process.env.PUBLIC_URL}/admin`,
         }}
       />
     );
