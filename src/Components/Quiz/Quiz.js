@@ -143,7 +143,7 @@ const Quiz = ({ color = 'white' }) => {
    */
   const storeAnswer = (event, answer, number, answerType) => {
     const questionKey = `question-${number}`;
-    const answersCopy = { ...answers };
+    const answersCopy =  {...answers} ;
 
     // store the users entry based on the `answerType`.
     if (answerType === 1) {
