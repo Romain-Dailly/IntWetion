@@ -90,7 +90,7 @@ const Question = ({
               ref={textareaWrapperRef}
               id='input-answer'
               type='text'
-              rows="10"
+              rows="5"
               onChange={event =>
               
                 onAnswerSelected(event, 0, number_question, type_response)
