@@ -26,7 +26,7 @@ const Comment = ({ onComment }) => (
     style={{maxWidth:"800px"}}>
       <label htmlFor="textarea-comment">
         <p>Exprimez-vous au sujet de cette vidéo</p>
-        <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
+        <textarea className="w-100 px-2 my-3" name="" id="textarea-comment" cols="20" rows="10" />
       </label>
       <div>
         <button type="button" onClick={onComment} className="button button-primary">
