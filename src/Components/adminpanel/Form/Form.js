@@ -60,6 +60,7 @@ function Form() {
     const { value } = target;
     const newObj = { ...adminInput };
     const dataKey = target.getAttribute('data-key');
+    (dataKey ==='online' || dataKey ==='payment') ? newObj.card[dataKey] = Number(value):
     newObj.card[dataKey] = value;
     setAdminInput(newObj);
   };
@@ -274,7 +275,7 @@ function Form() {
             </div>
             <input
               type="color"
-              className=""
+              className="colorInput"
               id="color"
               rows="6"
               data-key="bg_color"
@@ -291,33 +292,35 @@ function Form() {
               <p>Visibilité de la carte :</p>
               <div>
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="inlineRadioBo1">
                     <input
                       required
-                      className="form-check-input"
+                      className="input1"
                       type="radio"
                       name="inlineRadioOptionsOnline"
-                      id="inlineRadio1"
+                      id="inlineRadioBo1"
                       data-key="online"
                       value={1}
                       checked={adminInput.card.online === 1 ? 'checked' : null}
                       onChange={onCardInputChange}
+                      onClick={onCardInputChange}
                     />
                     En ligne
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label" htmlFor="inlineRadio2">
+                  <label className="form-check-label" htmlFor="inlineRadioBo2">
                     <input
                       required
-                      className="form-check-input"
+                      className="input1"
                       type="radio"
                       name="inlineRadioOptionsOnline"
-                      id="inlineRadio2"
+                      id="inlineRadioBo2"
                       data-key="online"
                       value={0}
                       checked={adminInput.card.online === 0 ? 'checked' : null}
                       onChange={onCardInputChange}
+                      onClick={onCardInputChange}
                     />
                     Hors ligne
                   </label>
@@ -329,33 +332,35 @@ function Form() {
               <p>Statut commercial :</p>
               <div>
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label" htmlFor="inlineRadio1">
+                  <label className="form-check-label" htmlFor="inlineRadioB1">
                     <input
                       required
-                      className="form-check-input"
+                      className="input2"
                       type="radio"
                       name="inlineRadioOptionsPayment"
-                      id="inlineRadio1"
+                      id="inlineRadioB1"
                       data-key="payment"
                       value={1}
-                      checked={adminInput.card.payment === 1 ? 'checked' : null}
+                      defaultChecked={adminInput.card.payment === 1 ? 'checked' : null}
                       onChange={onCardInputChange}
+                      onClick={onCardInputChange}
                     />
                     Payante
                   </label>
                 </div>
                 <div className="form-check form-check-inline">
-                  <label className="form-check-label" htmlFor="inlineRadio2">
+                  <label className="form-check-label" htmlFor="inlineRadioB2">
                     <input
                       required
-                      className="form-check-input"
+                      className="input2"
                       type="radio"
                       name="inlineRadioOptionsPayment"
-                      id="inlineRadio2"
+                      id="inlineRadioB2"
                       data-key="payment"
                       value={0}
-                      checked={adminInput.card.payment === 0 ? 'checked' : null}
+                      defaultChecked={adminInput.card.payment === 0 ? 'checked' : null}
                       onChange={onCardInputChange}
+                      onClick={onCardInputChange}
                     />
                     Gratuite
                   </label>

@@ -163,6 +163,7 @@ app.route('/card/')
   .put((request, response) => {
     const data = request.body;
     let idCard = request.query.id;
+    console.log(request.body)
     // On definit les objets à modifier dans chaques tables
     const dataContentVideos = data.videos;
     const dataContentQuestions = data.questions;
