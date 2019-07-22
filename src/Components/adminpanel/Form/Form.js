@@ -60,8 +60,9 @@ function Form() {
     const { value } = target;
     const newObj = { ...adminInput };
     const dataKey = target.getAttribute('data-key');
-    (dataKey ==='online' || dataKey ==='payment') ? newObj.card[dataKey] = Number(value):
-    newObj.card[dataKey] = value;
+    if (dataKey === 'online' || dataKey === 'payment') {
+      (newObj.card[dataKey] = Number(value));
+    } (newObj.card[dataKey] = value);
     setAdminInput(newObj);
   };
 
@@ -87,11 +88,11 @@ function Form() {
   const { Column } = Table;
   const dataQuestions = _.sortBy(
     adminInputQuestions.map(
-      (question, index) => (question = { ...question, i: index, nb: question.resources.length }),
+      // eslint-disable-next-line no-return-assign
+      (question, index) => ({ ...question, i: index, nb: question.resources.length }),
     ),
     'number_question',
   );
-
   // Fonction qui crée une question vide et ouvre la modale
   // pour la modifier
   const addQuestion = (question) => {
@@ -202,7 +203,7 @@ function Form() {
         .catch(() => notification.open(
           postError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
         ));
-    }
+    } return null;
   };
 
   if (submitted) {
@@ -467,25 +468,25 @@ function Form() {
           </div>
           <div className="buttons card-block justify-content-center p-0">
             <div className="d-flex justify-content-center mt-2">
-            <Popconfirm
-              placement="bottom"
-              title="Etes-vous sûr(e) ?"
-              onConfirm={() => setSubmitted(true)}
-              okText="Oui"
-              cancelText="Non "
-            >
-              <button className="btn btn-light">Quitter</button>
-            </Popconfirm>
-              </div>
+              <Popconfirm
+                placement="bottom"
+                title="Etes-vous sûr(e) ?"
+                onConfirm={() => setSubmitted(true)}
+                okText="Oui"
+                cancelText="Non "
+              >
+                <button type="button" className="btn btn-light">Quitter</button>
+              </Popconfirm>
+            </div>
             <div className="d-flex justify-content-center pt-1">
-            <button
-              type="submit"
-              form="form"
-              className="btn btn-light btn-send-form"
-              onClick={e => handleSubmit(e)}
-            >
-              Enregistrer
-            </button>
+              <button
+                type="submit"
+                form="form"
+                className="btn btn-light btn-send-form"
+                onClick={e => handleSubmit(e)}
+              >
+                Enregistrer
+              </button>
             </div>
           </div>
         </form>

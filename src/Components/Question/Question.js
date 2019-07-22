@@ -6,33 +6,27 @@ import PropTypes from 'prop-types';
 import './Question.css';
 
 const RadioButton = ({ number, handleChange }) => (
-  <div className='col-4 d-flex justify-content-center p-0'>
-    <div className='radio-button mb-4'>
+  <div className="col-4 d-flex justify-content-center p-0">
+    <div className="radio-button mb-4">
       <input
-        className='choice-radio'
-        type='radio'
-        name='answer-radio'
+        className="choice-radio"
+        type="radio"
+        name="answer-radio"
         onChange={handleChange}
-        id='input-radio'
+        id="input-radio"
       />
 
-      <label htmlFor='input-radio' className='check-mark m-0' />
+      <label htmlFor="input-radio" className="check-mark m-0" />
       <span>{number}</span>
     </div>
   </div>
 );
 
 const Question = ({
-  question,
-  onAnswerSelected,
-  radioWrapperRef,
-  textareaWrapperRef
+  question, onAnswerSelected, radioWrapperRef, textareaWrapperRef,
 }) => {
   const {
-    number_question,
-    text_question,
-    image_question,
-    type_response
+    number_question, text_question, image_question, type_response,
   } = question;
 
   const answerRange = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -40,7 +34,7 @@ const Question = ({
   useEffect(() => {
     // TODO: Re-implement this using react `ref` attr.
     // Un-check all radio buttons with the name attr; `answer-radio`.
-    document.getElementsByName('answer-radio').forEach(item => {
+    document.getElementsByName('answer-radio').forEach((item) => {
       // eslint-disable-next-line no-param-reassign
       item.checked = false;
     });
@@ -67,34 +61,29 @@ const Question = ({
 
         <p className="body-1 mt-3 mb-5">{text_question}</p>
         {question.type_response === 1 ? (
-          <div ref={radioWrapperRef} className='row justify-content-center'>
+          <div ref={radioWrapperRef} className="row justify-content-center">
             {answerRange.map(number => (
               <RadioButton
                 key={number}
                 number={number}
-                handleChange={event =>
-                  onAnswerSelected(
-                    event,
-                    number,
-                    number_question,
-                    type_response
-                  )
+                handleChange={event => onAnswerSelected(
+                  event, number, number_question, type_response,
+                )
                 }
               />
             ))}
           </div>
         ) : (
-          <label htmlFor='input-answer' className="w-100">
+          <label htmlFor="input-answer" className="w-100">
             <textarea
-            className="ui-input ant-input body-1"
+              className="ui-input ant-input body-1"
               ref={textareaWrapperRef}
-              id='input-answer'
-              type='text'
+              id="input-answer"
+              type="text"
               rows="5"
-              onChange={event =>
-                onAnswerSelected(event, 0, number_question, type_response)
-              }
-
+              onChange={event => onAnswerSelected(
+                event, 0, number_question, type_response,
+              )}
             />
           </label>
         )}
@@ -104,7 +93,7 @@ const Question = ({
 };
 
 Question.prototype = {
-  question: PropTypes.string
+  question: PropTypes.string,
 };
 
 export default Question;

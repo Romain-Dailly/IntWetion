@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './NavBar.css';
 import { Menu, Drawer, Avatar } from 'antd';
 import profile from '../../assets/images/profile.png';
-import  logo from  '../../assets/images/logo_intWEtionPNG.png';
+import logo from '../../assets/images/logo_intWEtionPNG.png';
 
 const { Item } = Menu;
 
@@ -44,7 +44,7 @@ const NavBar = () => {
     <header className="main-header background-white">
       <div className="nav-bar">
         <Link to="/" className="logo mr-3">
-        <img  width = {120} src={logo} alt="logo"/>
+          <img width={120} src={logo} alt="logo" />
         </Link>
         <i
           onClick={() => openDrawer(!isDrawerOpen)}
@@ -68,11 +68,7 @@ const NavBar = () => {
           ))}
         </Menu>
 
-        <Avatar
-          className="d-none d-lg-block flex-shrink-0"
-          size={48}
-          src={profile}
-        />
+        <Avatar className="d-none d-lg-block flex-shrink-0" size={48} src={profile} />
         <Drawer
           width={300}
           onClose={() => openDrawer(false)}
