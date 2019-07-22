@@ -25,11 +25,18 @@ const Comment = ({ onComment }) => (
    <div className="w-md-75 d-flex flex-column mt-5">
       <label htmlFor="textarea-comment">
         <p>Exprimez-vous au sujet de cette vidéo</p>
-        <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
+        <textarea
+          className='w-100 px-2 my-3 ui-input'
+          name=''
+          id='textarea-comment'
+          cols='20'
+          rows='10'
+          style={{ height: '200px' }}
+        />
       </label>
       <div>
         <button type="button" onClick={onComment} className="button button-primary">
-          continue
+          Suivant
         </button>
       </div>
     </div>

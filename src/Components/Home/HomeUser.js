@@ -41,7 +41,7 @@ const Comment = ({ onComment }) => (
           onClick={onComment}
           className='button button-primary'
         >
-          continue
+          suivant
         </button>
       </div>
     </div>

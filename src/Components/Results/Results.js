@@ -13,49 +13,23 @@ import './Results.css';
 
 const Results = () => {
   const selectData = useSelector(store => store.card.results);
-  const dataSort = Object.values(selectData);
-  const answers = [
-    {
-      id: 1,
-      score: 1,
-      text: 'la première question',
-      resources: [
-        {
-          url_resource: 'blabla',
-          type_resource: '2'
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '2'
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '1'
-        }
-      ]
-    },
+  const dataSort = selectData && Object.values(selectData);
 
-  ];
-
-  console.log(dataSort);
   // Fonction qui permet de trier les objets du tableau par ordre de score croissant
   const getQuestions = () => {
     const getMinScore = dataSort.sort((a, b) => a.answer - b.answer);
     return [getMinScore[0], getMinScore[1], getMinScore[2]];
   };
   const getVideoResource = resources =>
-    resources.filter(value => value.type_resource === 1);
+    resources.filter(value => value.type_resource === 2);
 
   const getBookResource = resources =>
-    resources.filter(value => value.type_resource === 2);
+    resources.filter(value => value.type_resource === 1);
 
   const getMusicResource = resources =>
     resources.filter(value => value.type_resource === 3);
 
   const [resource, setResource] = useState([]);
-  useEffect(()=>{
-    console.log(resource);
-    },[resource]);
     
   return (
     <div className='container-result'>
@@ -142,7 +116,7 @@ const Results = () => {
                   className='btn btn-secondary'
                   data-dismiss='modal'
                 >
-                  Close
+                  Fermer
                 </button>
               </div>
             </div>
