@@ -109,8 +109,6 @@ const fetchDetailedCards = async (callback) => {
 // Delete all from a card with its id
 const deleteCard = async (id, callback) => {
   const params = { id: `${id}` };
-  console.log(params);
-
   const path = 'card';
   const deleted = await deleteData(path, params);
   if (deleted.status === 200) {

@@ -1,15 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-
 import './Results.css';
-
-// import { returnStatement } from '@babel/types';
-// import { log } from 'util';
-
-// Appel du state via le store redux
-// const Results = () => {
-
-// const [modal, setModal] = useState(false);
 
 const Results = () => {
   const selectData = useSelector(store => store.card.results);
@@ -72,7 +63,12 @@ const Results = () => {
                 <h5 className="modal-title" id="exampleModalLabel">
                   Votre programme
                 </h5>
-                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
@@ -115,7 +111,11 @@ const Results = () => {
                 </div>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" data-dismiss="modal">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
                   Fermer
                 </button>
               </div>

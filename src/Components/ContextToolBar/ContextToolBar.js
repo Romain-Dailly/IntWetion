@@ -7,4 +7,5 @@ const ContextToolBar = ({ title, handleClick }) => (
     <i tabIndex="-1" role="button" onClick={handleClick} className="icon icon-close" />
   </div>
 );
+
 export default ContextToolBar;
