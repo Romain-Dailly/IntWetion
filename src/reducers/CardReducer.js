@@ -87,7 +87,6 @@ const CardReducer = (state = initState, action) => {
       });
 
     case DELETE_CARD:
-      console.log(action.payload.index);
       const dataCopy = [...state.data];
       dataCopy.splice(action.payload.index, 1)
       return Object.assign({}, state, {
