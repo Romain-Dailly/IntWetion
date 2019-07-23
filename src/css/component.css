@@ -1,0 +1,310 @@
+/* This file contains design ui components and themes in the following order.
+ *
+ * 1. Shard styles
+ * 3. Typography
+ * 4. UI Components
+ */
+
+/* Shard styles
+   ========================================================================== */
+
+/*Full width*/
+.context-tool-bar,
+.ui-card,
+.ui-card-flat {
+  width: 100%;
+}
+
+/* Typography
+   ========================================================================== */
+
+.caption {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #8798ad;
+}
+
+.text-white {
+  color: #ffffff;
+}
+
+.context-tool-bar {
+  position: fixed;
+  height: 56px;
+  text-align: center;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 0 16px;
+}
+
+.context-tool-bar .logo {
+  padding: 8px;
+}
+
+.ui-card {
+  border-radius: 2px;
+  border: 1px solid #e0e7ff;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.ui-card-flat {
+  border-radius: 4px;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+.ui-card:hover {
+  /* box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15); */
+}
+
+.ui-card-image {
+  background-image: url(%PUBLIC_URL%"/assets/images/image-1.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 219px;
+}
+
+.ui-card-overline {
+  margin: 16px 0;
+}
+
+.card-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avatar {
+  display: inline-block;
+  padding: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-image: url(%PUBLIC_URL%"/assets/images/avatar.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.button {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 1.25px;
+  padding: 0 16px;
+  border: none;
+  outline: none;
+  height: 36px;
+  border-radius: 2px;
+}
+
+.button-text {
+  background: none;
+  color: var(--clear-blue);
+  text-transform: uppercase;
+}
+
+
+.button-text:hover {
+  background: #eaeaea;
+}
+
+.button-secondary {
+  border-radius: 4px;
+  color: var(--color-primary);
+  background-color: var(--color-primary-low-emphasis)
+}
+
+.button-primary {
+  color: #ffffff;
+  border: 1px solid var(--color-primary);
+  background-color: var(--color-primary);
+}
+
+.button-outline {
+  background: none;
+  border: 1.5px solid var(--color-primary);
+  border-radius: 50px;
+  color: var(--color-primary);
+}
+
+/* Ripple */
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+
+.ripple:hover {
+  background: rgb(237, 237, 237) radial-gradient(circle, transparent 1%, rgb(235, 235, 235) 1%) center/15000%;
+}
+
+.ripple:active {
+  background-color: rgb(255, 255, 255);
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.divider-dark {
+  height: 1px;
+  opacity: 0.12;
+  background-color: rgba(0, 0, 0, 0.87);
+}
+
+/* Icon*/
+.icon {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px;
+  transition: all 0.2s;
+}
+
+.icon-alt {
+  transition: all 0.1s;
+  font-size: 24px;
+}
+
+/* Typography */
+.overline {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.33;
+  letter-spacing: 2px;
+  color: rgba(0, 0, 0, 0.87);
+  text-transform: uppercase;
+
+  width: 683px;
+  height: 15px;
+  font-family: Rubik;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1.21px;
+  color: #8798ad;
+}
+
+.header-2 {
+  font-family: Rubik;
+  font-size: 28px;
+  font-weight: 300;
+  line-height: 1.14;
+  letter-spacing: normal;
+  color: var(--dark);
+}
+
+.header-5 {
+  font-family: Roboto;
+  font-size: 20px;
+  color: var(--dark);
+  font-weight: normal;
+  margin: 0;
+}
+
+.header-6 {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: normal;
+  margin: 0;
+  letter-spacing: normal;
+  color: var(--dark);
+}
+
+.body-1 {
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  font-family: Rubik;
+  line-height: 1.5;
+  text-align: justify;
+  letter-spacing: normal;
+  color: var(--dark);
+}
+
+/* Progress bar  */
+.ui-progress {
+  display: flex;
+  height: 0.3rem;
+  overflow: hidden;
+  background-color: rgba(156, 39, 176, 0.16);
+}
+
+.ui-progress-bar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #9c27b0;
+  transition: width 0.6s ease;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.center-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Input */
+
+.ui-input {
+  height: 42px;
+  border-radius: 2px;
+  border: solid 1px #e0e7ff;
+  background-color: rgba(224, 231, 255, 0.2);
+  font-family: Rubik;
+  font-size: 16px;
+  color: #2e384d;
+  outline: none;
+}
+
+.ui-input:hover {
+  box-shadow: none;
+  border: solid 1.2px rgba(46, 91, 255, 0.5);
+}
+
+.ui-input:focus {
+  box-shadow: 0 0 0 2px rgba(46, 91, 255, 0.15);
+  border: solid 1.2px rgba(46, 91, 255, 0.5);
+}
+
+
+
+.login-form {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label label {
+  font-family: Rubik;
+  font-size: 12px;
+  font-weight: 500;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: 1.13px;
+  text-transform: uppercase;
+  color: var(--cloudy-blue);
+}
+
+
+/* Ant-theme override
+   ========================================================================== */
+
+.ant-menu {
+  border: none;
+}
