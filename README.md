@@ -1,5 +1,5 @@
-#INTWETION developped in 2019
-##Personal developpment tool.
+# INTWETION developped in 2019
+## Personal developpment tool.
 
 ## General Information, possible upgrades
 
@@ -18,7 +18,7 @@ The `admin panel` can be accessed through the  `/admin` route.
 
   The description of the database is in the file `database/infos_bdd.txt`.
 
-  ##Database
+  ## Database
   #### Requirements
   Mysql, node, npm(or yarn)
   #### Install
@@ -28,7 +28,7 @@ The `admin panel` can be accessed through the  `/admin` route.
   
   The database is created.
 
-  ##Api
+  ## Api
   In the api folder (`api/`):
   Set conf (file`api/conf.js`) with your own sql config (user, password).
 
