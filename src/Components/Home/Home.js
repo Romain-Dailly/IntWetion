@@ -22,7 +22,7 @@ const Comment = ({ onComment }) => (
    */
 
   <div className="overlay">
-   <div className="w-md-75 d-flex flex-column mt-5">
+    <div className="w-md-75 d-flex flex-column mt-5">
       <label htmlFor="textarea-comment">
         <p>Exprimez-vous au sujet de cette vidéo</p>
         <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />

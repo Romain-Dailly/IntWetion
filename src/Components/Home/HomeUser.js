@@ -8,7 +8,9 @@ import Video from '../Video/Video';
 import Card from '../Card/Card';
 import './Home.css';
 import LoadingState from '../ViewStates/LoadingState';
-import { startVideo, launchComment, startQuiz, quitQuiz } from '../../actions';
+import {
+  startVideo, launchComment, startQuiz, quitQuiz,
+} from '../../actions';
 import { videoTypes } from '../../values/strings';
 
 const Comment = ({ onComment }) => (
@@ -19,27 +21,27 @@ const Comment = ({ onComment }) => (
    * @see [dispatch] {@link https://redux.js.org/api/store#dispatch}
    */
 
-  <div className='overlay'>
+  <div className="overlay">
     <div
-      className='w-100 d-flex flex-column mt-5 px-3'
+      className="w-100 d-flex flex-column mt-5 px-3"
       style={{ maxWidth: '800px' }}
     >
-      <label htmlFor='textarea-comment'>
+      <label htmlFor="textarea-comment">
         <p>Exprimez-vous au sujet de cette vidéo</p>
         <textarea
-          className='w-100 px-2 my-3 ui-input'
-          name=''
-          id='textarea-comment'
-          cols='20'
-          rows='10'
+          className="w-100 px-2 my-3 ui-input"
+          name=""
+          id="textarea-comment"
+          cols="20"
+          rows="10"
           style={{ height: '200px' }}
         />
       </label>
       <div>
         <button
-          type='button'
+          type="button"
           onClick={onComment}
-          className='button button-primary'
+          className="button button-primary"
         >
           continue
         </button>
@@ -57,8 +59,10 @@ const Home = () => {
   const dispatch = useDispatch();
 
   const { data, isLoading } = useSelector(store => store.card);
-  const { cardId, state, videoType, videoKey } = useSelector(
-    store => store.card.quiz
+  const {
+    cardId, state, videoType, videoKey,
+  } = useSelector(
+    store => store.card.quiz,
   );
 
   const [canShowResults, showResults] = useState(false);
@@ -81,7 +85,7 @@ const Home = () => {
     }
   };
 
-  const parseVideoKey = params => {
+  const parseVideoKey = (params) => {
     const INTRO_VIDEO_KEY = 1;
     if (params) {
       const videoIntro = params
@@ -112,7 +116,7 @@ const Home = () => {
   }
 
   return (
-    <div className='home background-white'>
+    <div className="home background-white">
       {videoStarted && (
         <Video
           videoKey={videoKey}
@@ -138,7 +142,7 @@ const Home = () => {
 
       {quizStarted && <Quiz canShowResults={canShowResults} />}
 
-      <div className='container px-2'>
+      <div className="container px-2">
         <Row gutter={16}>
           {data.map((value, index) => {
             if (value.card.online === 1) {
@@ -152,8 +156,8 @@ const Home = () => {
                     dispatch(
                       startVideo(
                         videoTypes.INTRO,
-                        parseVideoKey(data[index].videos)
-                      )
+                        parseVideoKey(data[index].videos),
+                      ),
                     );
                   }}
                 />

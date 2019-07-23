@@ -462,25 +462,25 @@ function Form() {
           </div>
           <div className="buttons card-block justify-content-center p-0">
             <div className="d-flex justify-content-center mt-2">
-            <Popconfirm
-              placement="bottom"
-              title="Etes-vous sûr(e) ?"
-              onConfirm={() => setSubmitted(true)}
-              okText="Oui"
-              cancelText="Non "
-            >
-              <button className="btn btn-light">Quitter</button>
-            </Popconfirm>
-              </div>
+              <Popconfirm
+                placement="bottom"
+                title="Etes-vous sûr(e) ?"
+                onConfirm={() => setSubmitted(true)}
+                okText="Oui"
+                cancelText="Non "
+              >
+                <button className="btn btn-light">Quitter</button>
+              </Popconfirm>
+            </div>
             <div className="d-flex justify-content-center pt-1">
-            <button
-              type="submit"
-              form="form"
-              className="btn btn-light btn-send-form"
-              onClick={e => handleSubmit(e)}
-            >
+              <button
+                type="submit"
+                form="form"
+                className="btn btn-light btn-send-form"
+                onClick={e => handleSubmit(e)}
+              >
               Enregistrer
-            </button>
+              </button>
             </div>
           </div>
         </form>

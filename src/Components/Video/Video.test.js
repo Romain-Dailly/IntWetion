@@ -1,26 +1,26 @@
-import React from "react";
-import { shallow } from "enzyme";
-import checkPropTypes from "check-prop-types";
-import Video from "./Video";
+import React from 'react';
+import { shallow } from 'enzyme';
+import checkPropTypes from 'check-prop-types';
+import Video from './Video';
 
-describe("Video Component", () => {
-  test("should be rendered without error ", () => {
+describe('Video Component', () => {
+  test('should be rendered without error ', () => {
     shallow(<Video />);
   });
 
-  test("should have valid props types", () => {
+  test('should have valid props types', () => {
     const expectedProps = {
       onEnded: () => {},
-      videoKey: "string",
+      videoKey: 'string',
       onContinue: () => {},
-      onClose: () => {}
+      onClose: () => {},
     };
 
     const error = checkPropTypes(
       Video.propTypes,
       expectedProps,
-      "props",
-      Video.name
+      'props',
+      Video.name,
     );
     expect(error).toBeUndefined();
   });

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 
 import { Slider, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
@@ -86,6 +86,7 @@ const Quiz = ({ color = 'white' }) => {
       const videoIntro = params.filter(param => param.type_video === OUTRO_VIDEO_KEY).pop();
       return videoIntro.url_video.split('=')[1];
     }
+    return "";
   };
 
   const nextQuestion = () => {
@@ -222,6 +223,6 @@ const Quiz = ({ color = 'white' }) => {
 
 Quiz.prototype = {
   color: PropTypes.string,
-}
+};
 
 export default Quiz;
