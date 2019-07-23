@@ -1,35 +1,45 @@
-INTWETION developped in 2019
-Personal developpment tool.
+#INTWETION developped in 2019
+##Personal developpment tool.
 
-## General Information
+## General Information, possible upgrades
 
 #### Routes
 The `admin panel` can be accessed through the  `/admin` route.
 
-#### Work in progress:
-* The color picker in the admin panel is not linked to the front but is stored in the database.
-  
 #### CSS
-*  All colors are managed in the file `variable.css`.
+*   All colors are managed in the file `variable.css`.
+
+#### Work in progress:
+* The color picker in the admin panel is not linked to the front but is stored in the database.  
+* Login for admin has to be developped in database as in front.
 
 
 ## 1 - API / Database
-  The structure and description of the database are in the file `database/infos_bdd.txt`.
 
-  ### Requirements
+  The description of the database is in the file `database/infos_bdd.txt`.
+
+  ##Database
+  #### Requirements
   Mysql, node, npm(or yarn)
-  ### Install
-  Install mysql, and source `2_intwetion.sql` (`api/database/2_intwetion.sql`).
+  #### Install
+  Creating database :
 
-  Set conf (`api/conf.js`) with your own sql config.
-  Set the port address of the api in api.js.
+  In your work environment, install mysql, launch it (`mysql -u 'user' -p`, then type your password), and source the path to the file `2_intwetion.sql`.  ex : `source api/database/2_intwetion.sql;`.
+  
+  The database is created.
 
-  To start, command: node api.js
+  ##Api
+  In the api folder (`api/`):
+  Set conf (file`api/conf.js`) with your own sql config (user, password).
+
+  Set the port address you want for the api in `api.js` (`const port = 'what you want';`).
+
+  To start api, in your terminal: `node api.js`
 
 
 ## 2 - REACT APP
    
-First install all dependencies with npm(or yarn) install !
+First install all dependencies with `npm install` in the root of the project!
 
     #In the project directory, you can run:
 
