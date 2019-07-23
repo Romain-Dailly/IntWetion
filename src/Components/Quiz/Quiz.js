@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import ReactPlayer from 'react-player';
+import PropTypes from 'prop-types'
+
 import { Slider, message } from 'antd';
 import { useSelector, useDispatch } from 'react-redux';
 import { videoTypes } from '../../values/strings';
@@ -217,5 +219,9 @@ const Quiz = ({ color = 'white' }) => {
     </div>
   );
 };
+
+Quiz.prototype = {
+  color: PropTypes.string,
+}
 
 export default Quiz;
