@@ -5,9 +5,9 @@ Personal developpment tool.
 ## 1 - API / Database
   The structure and description of the database are in the file `database/infos_bdd.txt`.
 
-  # Requirements
+  ### Requirements
   Mysql, node, npm(or yarn)
-  # Install
+  ### Install
   Install mysql, and source 2_intwetion.sql (api/database/2_intwetion.sql).
 
   Set conf (api/conf.js) with your own sql config.
@@ -15,6 +15,17 @@ Personal developpment tool.
 
   To start, command: node api.js
 
+## General Information
+
+#### Routes
+The `admin panel` can be accessed through the  `/admin` route.
+
+  #### Work in progress:
+* The color picker in the admin panel is not linked to the front but is stored in the database.
+
+  
+#### CSS
+*  All colors are managed in the file `variable.css`.
 
 ## 2 - REACT APP
    
@@ -84,17 +95,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
   This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-  ## General Information
 
-  #### Routes
-  The `admin panel` can be accessed through the  `/admin` route.
-
-   #### Work in progress:
-  * The color picker in the admin panel is not linked to the front but is stored in the database.
-
-    
-  #### CSS
-  *  All colors are managed in the file `variable.css`.
 
 
 
