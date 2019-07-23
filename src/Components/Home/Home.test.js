@@ -11,6 +11,7 @@ import Home from './Home';
 
 // eslint-disable-next-line import/prefer-default-export
 export const history = createBrowserHistory();
+// eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(

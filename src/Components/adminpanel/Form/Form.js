@@ -82,7 +82,6 @@ function Form() {
       setFormState('Modifier la carte');
       setAdminInput(cardData);
       setAdminInputQuestions(cardData.questions);
-      console.log(cardData)
     }
   }, []);
 
@@ -302,7 +301,7 @@ function Form() {
                       id="inlineRadioBo1"
                       data-key="online"
                       value={1}
-                      checked={(adminInput.card.online === 1 ||  adminInput.card.online === '1') ? 'checked' : null}
+                      checked={(adminInput.card.online === 1 || adminInput.card.online === '1') ? 'checked' : null}
                       // onChange={onCardInputChange}
                       onClick={onCardInputChange}
                     />
@@ -319,7 +318,7 @@ function Form() {
                       id="inlineRadioBo2"
                       data-key="online"
                       value={0}
-                      checked={(adminInput.card.online === 0 ||  adminInput.card.online === '0') ? 'checked' : null}
+                      checked={(adminInput.card.online === 0 || adminInput.card.online === '0') ? 'checked' : null}
                       // onChange={onCardInputChange}
                       onClick={onCardInputChange}
                     />
