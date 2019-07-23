@@ -7,6 +7,7 @@ import {
   Table, notification, Icon, Popconfirm, BackTop,
 } from 'antd';
 import _ from 'underscore';
+import { BASE_URL } from '../../../data/source';
 import AdminQuestion from '../AdminQuestion/AdminQuestion';
 import {
   postOk,
@@ -159,7 +160,7 @@ function Form() {
       event.preventDefault();
       if (adminInput.card.id && adminInput.card.date !== 0) {
         return axios
-          .put(`http://192.168.184.100:8080/card/?id=${adminInput.card.id}`, buildCardData())
+          .put(`${BASE_URL}card/?id=${adminInput.card.id}`, buildCardData())
           .then((response) => {
             // eslint-disable-next-line no-console
             console.log(response);
@@ -182,7 +183,7 @@ function Form() {
           ));
       }
       return axios
-        .post('http://192.168.184.100:8080/card/', buildCardData())
+        .post(`${BASE_URL}card/`, buildCardData())
         .then((response) => {
           // eslint-disable-next-line no-console
           console.log(response);

@@ -120,15 +120,15 @@ const deleteCard = async (id, callback) => {
 
 // Post a new card with all in it
 const postCard = (card) => {
-  axios.post('http://localhost:8080/card/', card).then(() => {});
+  axios.put(`${BASE_URL}card`, card);
 };
 
 // Modify a card by posting the new one with id
 // Needs a get before to access to content of before changes card
-const putCard = (card, id) => {
-  axios.put('http://localhost:8080/card/', { params: { id } }, card).then(() => {});
+const putCard = (id, card) => {
+  axios.post(`${BASE_URL}card/?id=${id}`, card);
 };
 
 export {
-  fetchDetailedCards, fetchCards, fetchCard, deleteCard, postCard, putCard,
+  fetchDetailedCards, fetchCards, fetchCard, deleteCard, postCard, putCard, BASE_URL,
 };

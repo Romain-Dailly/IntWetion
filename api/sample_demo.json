@@ -148,6 +148,40 @@
           "type_resource": "1"
         }
       ] 
+    },
+    {
+      "number_question": "2.21",
+      "text_question": "Quel est mon état de joie ?",
+      "image_question": "./assets/images_questions/2.21.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "2.22",
+      "text_question": "Quelle est mon niveau de bonheur ?",
+      "image_question": "./assets/images_questions/2.22.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
     }
   ]
 }

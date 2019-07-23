@@ -26,7 +26,7 @@ TABLE `resources`
   `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
   `id_question` int,
   `url_resource` text,
-  `type_resource` int -> ???
+  `type_resource` int -> 1 = lire, 2 = voir, 3 = écouter
 );
 
 TABLE `videos`
