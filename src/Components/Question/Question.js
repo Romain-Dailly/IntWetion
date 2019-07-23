@@ -59,7 +59,7 @@ const Question = ({
           />
         </div>
 
-        <p className="body-1 mt-3 mb-5">{text_question}</p>
+        <p className="body-1 mt-3 mb-3">{text_question}</p>
         {question.type_response === 1 ? (
           <div ref={radioWrapperRef} className="row justify-content-center">
             {answerRange.map(number => (

@@ -82,6 +82,7 @@ function Form() {
       setFormState('Modifier la carte');
       setAdminInput(cardData);
       setAdminInputQuestions(cardData.questions);
+      console.log(cardData)
     }
   }, []);
 
@@ -136,8 +137,8 @@ function Form() {
         description: adminInput.card.description.replace('"', "'"),
         image: adminInput.card.image.replace('"', "'"),
         name: adminInput.card.name.replace('"', "'"),
-        online: adminInput.card.online,
-        payment: adminInput.card.payment,
+        online: Number(adminInput.card.online),
+        payment: Number(adminInput.card.payment),
       },
       videos: adminInput.videos,
       questions: questionsForPut,
@@ -301,8 +302,8 @@ function Form() {
                       id="inlineRadioBo1"
                       data-key="online"
                       value={1}
-                      checked={adminInput.card.online === 1 ? 'checked' : null}
-                      onChange={onCardInputChange}
+                      checked={(adminInput.card.online === 1 ||  adminInput.card.online === '1') ? 'checked' : null}
+                      // onChange={onCardInputChange}
                       onClick={onCardInputChange}
                     />
                     En ligne
@@ -318,8 +319,8 @@ function Form() {
                       id="inlineRadioBo2"
                       data-key="online"
                       value={0}
-                      checked={adminInput.card.online === 0 ? 'checked' : null}
-                      onChange={onCardInputChange}
+                      checked={(adminInput.card.online === 0 ||  adminInput.card.online === '0') ? 'checked' : null}
+                      // onChange={onCardInputChange}
                       onClick={onCardInputChange}
                     />
                     Hors ligne
@@ -341,8 +342,8 @@ function Form() {
                       id="inlineRadioB1"
                       data-key="payment"
                       value={1}
-                      defaultChecked={adminInput.card.payment === 1 ? 'checked' : null}
-                      onChange={onCardInputChange}
+                      defaultChecked={(adminInput.card.payment === 1 || adminInput.card.payment === '1') ? 'checked' : null}
+                      // onChange={onCardInputChange}
                       onClick={onCardInputChange}
                     />
                     Payante
@@ -358,8 +359,8 @@ function Form() {
                       id="inlineRadioB2"
                       data-key="payment"
                       value={0}
-                      defaultChecked={adminInput.card.payment === 0 ? 'checked' : null}
-                      onChange={onCardInputChange}
+                      defaultChecked={(adminInput.card.payment === 0 || adminInput.card.payment === '0') ? 'checked' : null}
+                      // onChange={onCardInputChange}
                       onClick={onCardInputChange}
                     />
                     Gratuite
