@@ -1,6 +1,17 @@
 INTWETION developped in 2019
-## Description
 Personal developpment tool.
+
+## General Information
+
+#### Routes
+The `admin panel` can be accessed through the  `/admin` route.
+
+#### Work in progress:
+* The color picker in the admin panel is not linked to the front but is stored in the database.
+  
+#### CSS
+*  All colors are managed in the file `variable.css`.
+
 
 ## 1 - API / Database
   The structure and description of the database are in the file `database/infos_bdd.txt`.
@@ -8,31 +19,17 @@ Personal developpment tool.
   ### Requirements
   Mysql, node, npm(or yarn)
   ### Install
-  Install mysql, and source 2_intwetion.sql (api/database/2_intwetion.sql).
+  Install mysql, and source `2_intwetion.sql` (`api/database/2_intwetion.sql`).
 
-  Set conf (api/conf.js) with your own sql config.
+  Set conf (`api/conf.js`) with your own sql config.
   Set the port address of the api in api.js.
 
   To start, command: node api.js
 
-## General Information
-
-#### Routes
-The `admin panel` can be accessed through the  `/admin` route.
-
-  #### Work in progress:
-* The color picker in the admin panel is not linked to the front but is stored in the database.
-
-  
-#### CSS
-*  All colors are managed in the file `variable.css`.
 
 ## 2 - REACT APP
    
-  First install all dependencies with npm(or yarn) install !
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+First install all dependencies with npm(or yarn) install !
 
     #In the project directory, you can run:
 
