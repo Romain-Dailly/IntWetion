@@ -1,4 +1,6 @@
 import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+
 import './Video.css';
 import Plyr from 'plyr';
 import '../../css/plyr.css';
@@ -25,16 +27,28 @@ const Video = ({
           <div className="video w-100">
             <div className=" player-wrapper">
               <div>
-                <div ref={player} data-plyr-provider="youtube" data-plyr-embed-id={videoKey} />
+                <div
+                  ref={player}
+                  data-plyr-provider="youtube"
+                  data-plyr-embed-id={videoKey}
+                />
               </div>
             </div>
           </div>
 
           <div className="d-flex video-actions">
-            <button type="button" onClick={onClose} className="button button-primary mr-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="button button-primary mr-3"
+            >
               Quitter
             </button>
-            <button type="button" onClick={onContinue} className="button button-primary">
+            <button
+              type="button"
+              onClick={onContinue}
+              className="button button-primary"
+            >
               Suivant
             </button>
           </div>
@@ -42,6 +56,13 @@ const Video = ({
       </div>
     </div>
   );
+};
+
+Video.prototype = {
+  onEnded: PropTypes.func,
+  videoKey: PropTypes.string,
+  onContinue: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 export default Video;

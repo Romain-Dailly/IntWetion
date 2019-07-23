@@ -27,7 +27,7 @@ const VideoPlayer = ({ youtubeUrl }) => {
 };
 
 VideoPlayer.propTypes = {
-  youtubeUrl: PropTypes.string.isRequired,
+  youtubeUrl: PropTypes.string,
 };
 
 export default VideoPlayer;
