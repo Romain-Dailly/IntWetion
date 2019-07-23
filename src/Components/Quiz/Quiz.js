@@ -58,7 +58,7 @@ const Quiz = ({ color = 'white' }) => {
   const cardId = useSelector(store => store.card.quiz.cardId);
   const { videos } = useSelector(store => store.card.data[cardId]);
   const name = useSelector(store => store.card.data[cardId].card.name);
-  const questions = useSelector(store => store.card.data[cardId]).questions.slice(0, 6);
+  const questions = useSelector(store => store.card.data[cardId].questions);
   /**
    * Get mutable reference from the DOM.
    * These refs are `objects` with `current` properties pointing to elements in the DOM.
@@ -86,7 +86,7 @@ const Quiz = ({ color = 'white' }) => {
       const videoIntro = params.filter(param => param.type_video === OUTRO_VIDEO_KEY).pop();
       return videoIntro.url_video.split('=')[1];
     }
-    return "";
+    return '';
   };
 
   const nextQuestion = () => {
@@ -167,10 +167,10 @@ const Quiz = ({ color = 'white' }) => {
     setAnswers(newObject);
   };
 
-  const ToolBar = ({ name }) => (
+  const ToolBar = ({ cardName }) => (
     <div className="context-tool-bar background-white">
       <img width={110} src={logo} alt="logo" />
-      <p className="header-5 m-0">{name}</p>
+      <p className="header-5 m-0">{cardName}</p>
       <i
         tabIndex="-1"
         role="button"
@@ -182,7 +182,7 @@ const Quiz = ({ color = 'white' }) => {
 
   return (
     <div className="overlay slide-fwd-top">
-      <ToolBar name={name} />
+      <ToolBar cardName={name} />
       <div style={{ width: '0', height: '0', opacity: '0' }}>
         <ReactPlayer playing='"true' url={videos[2].url_video} volume={volume} />
       </div>

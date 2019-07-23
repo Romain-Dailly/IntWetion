@@ -86,14 +86,14 @@ export const getCards = () => (dispatch, getState) => {
   }
 };
 
-export const removeCard = id => (dispatch, getState) => {
+export const removeCard = (id, index) => (dispatch, getState) => {
   // Retrieve the current state from redux.
   const state = getState();
 
   if (state.card.data.length) {
     try {
       deleteCard(id, () => {
-        dispatch(deleteCardAction(id));
+        dispatch(deleteCardAction(id, index));
       });
     } catch (error) {
       // TODO: Handle error

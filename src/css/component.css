@@ -33,6 +33,7 @@
   height: 56px;
   text-align: center;
   top: 0;
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -221,7 +222,7 @@
 }
 
 .body-1 {
-  font-size: 18px;
+  font-size: 16px;
   letter-spacing: 0.5px;
   font-family: Rubik;
   line-height: 1.5;

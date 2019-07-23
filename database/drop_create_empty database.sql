@@ -1,4 +1,4 @@
--- danger zone ->
+-- danger zone -> 
 DROP DATABASE IF EXISTS `intwetion`;
 
 CREATE DATABASE `intwetion`;

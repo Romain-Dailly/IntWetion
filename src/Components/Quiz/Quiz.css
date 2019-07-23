@@ -20,7 +20,7 @@
   max-width: 560px;
   background-color: #f4f5f7;
   border-radius: 6px;
-  overflow: hidden;
+  overflow-y: scroll;
   position: relative;
   width: 768px;
   z-index: 25;

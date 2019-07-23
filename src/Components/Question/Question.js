@@ -23,16 +23,10 @@ const RadioButton = ({ number, handleChange }) => (
 );
 
 const Question = ({
-  question,
-  onAnswerSelected,
-  radioWrapperRef,
-  textareaWrapperRef,
+  question, onAnswerSelected, radioWrapperRef, textareaWrapperRef,
 }) => {
   const {
-    number_question,
-    text_question,
-    image_question,
-    type_response,
+    number_question, text_question, image_question, type_response,
   } = question;
 
   const answerRange = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -73,10 +67,7 @@ const Question = ({
                 key={number}
                 number={number}
                 handleChange={event => onAnswerSelected(
-                  event,
-                  number,
-                  number_question,
-                  type_response,
+                  event, number, number_question, type_response,
                 )
                 }
               />
@@ -90,9 +81,9 @@ const Question = ({
               id="input-answer"
               type="text"
               rows="5"
-              onChange={event => onAnswerSelected(event, 0, number_question, type_response)
-              }
-
+              onChange={event => onAnswerSelected(
+                event, 0, number_question, type_response,
+              )}
             />
           </label>
         )}

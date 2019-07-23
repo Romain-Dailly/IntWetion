@@ -1,133 +1,24 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-
 import './Results.css';
-
-// import { returnStatement } from '@babel/types';
-// import { log } from 'util';
-
-// Appel du state via le store redux
-// const Results = () => {
-
-// const [modal, setModal] = useState(false);
 
 const Results = () => {
   const selectData = useSelector(store => store.card.results);
+  const dataSort = selectData && Object.values(selectData);
 
-  const answers = [
-    {
-      id: 1,
-      score: 1,
-      text: 'la première question',
-      resources: [
-        {
-          url_resource: 'blabla',
-          type_resource: '2',
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '2',
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '1',
-        },
-      ],
-    },
-    {
-      id: 2,
-      score: 2,
-      text: 'la deuxième question',
-      resources: [
-        {
-          url_resource: 'blabla',
-          type_resource: '3',
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '3',
-        },
-      ],
-    },
-    {
-      id: 3,
-      score: 0,
-      text: 'la troisème question',
-      resources: [
-        {
-          url_resource: 'blabla',
-          type_resource: '1',
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '1',
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '3',
-        },
-      ],
-    },
-    {
-      id: 4,
-      score: 9,
-      text: 'la quatrième question',
-      resources: [
-        {
-          url_resource: 'blabla',
-          type_resource: '1',
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '1',
-        },
-      ],
-    },
-    {
-      id: 5,
-      score: 6,
-      text: 'la cinquième question',
-      resources: [
-        {
-          url_resource: 'blabla',
-          type_resource: '1',
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '1',
-        },
-      ],
-    },
-    {
-      id: 6,
-      score: 8,
-      text: 'la sixième question',
-      resources: [
-        {
-          url_resource: 'blabla',
-          type_resource: '1',
-        },
-        {
-          url_resource: 'blabla2',
-          type_resource: '1',
-        },
-      ],
-    },
-  ];
-
-  // Fonction qui permet de trier les objets du tableau par ordre de score croissant
+  // function to sort array ascending
   const getQuestions = () => {
-    const getMinScore = answers.sort((a, b) => a.score - b.score);
+    const getMinScore = dataSort.sort((a, b) => a.answer - b.answer);
     return [getMinScore[0], getMinScore[1], getMinScore[2]];
   };
+  const getVideoResource = resources => resources.filter(value => value.type_resource === 2);
 
-  const getVideoResource = resources => resources.filter(value => value.type_resource === '1');
+  const getBookResource = resources => resources.filter(value => value.type_resource === 1);
 
-  const getBookResource = resources => resources.filter(value => value.type_resource === '2');
-
-  const getMusicResource = resources => resources.filter(value => value.type_resource === '3');
+  const getMusicResource = resources => resources.filter(value => value.type_resource === 3);
 
   const [resource, setResource] = useState([]);
+
   return (
     <div className="container-result">
       <h5>
@@ -141,8 +32,8 @@ const Results = () => {
           {getQuestions().map(question => (
             <li
               onClick={() => {
-                setResource(question.resources);
-                getVideoResource(question.resources);
+                setResource(question.question.resources);
+                // getVideoResource(question.question.resources);
               }}
               // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
               role="button"
@@ -151,7 +42,7 @@ const Results = () => {
               data-toggle="modal"
               data-target="#exampleModal"
             >
-              {question.text}
+              {question.question.text_question}
             </li>
           ))}
         </ul>
@@ -186,7 +77,11 @@ const Results = () => {
                   <h6>A voir</h6>
                   <ul>
                     {getVideoResource(resource).map(res => (
-                      <li>{res.url_resource}</li>
+                      <li>
+                        <a target="blank" href={res.url_resource}>
+                          {res.url_resource}
+                        </a>
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -194,7 +89,11 @@ const Results = () => {
                   <h6>A lire</h6>
                   <ul>
                     {getBookResource(resource).map(res => (
-                      <li>{res.url_resource}</li>
+                      <li>
+                        <a target="blank" href={res.url_resource}>
+                          {res.url_resource}
+                        </a>
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -202,7 +101,11 @@ const Results = () => {
                   <h6>A écouter</h6>
                   <ul>
                     {getMusicResource(resource).map(res => (
-                      <li>{res.url_resource}</li>
+                      <li>
+                        <a target="blank" href={res.url_resource}>
+                          {res.url_resource}
+                        </a>
+                      </li>
                     ))}
                   </ul>
                 </div>
@@ -213,7 +116,7 @@ const Results = () => {
                   className="btn btn-secondary"
                   data-dismiss="modal"
                 >
-                  Close
+                  Fermer
                 </button>
               </div>
             </div>

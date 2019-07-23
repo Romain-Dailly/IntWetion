@@ -11,7 +11,6 @@ import Form from './Components/adminpanel/Form/Form';
 import NavBar from './Components/NavBar/NavBar';
 import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
-
 import Home from './Components/Home/Home';
 import HomeUser from './Components/Home/HomeUser';
 

@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Row, Col } from 'react-flexbox-grid';
-import { Button } from 'antd';
+import { Row } from 'react-flexbox-grid';
 import Quiz from '../Quiz/Quiz';
 import Video from '../Video/Video';
 import Card from '../Card/Card';
@@ -22,10 +21,7 @@ const Comment = ({ onComment }) => (
    */
 
   <div className="overlay">
-    <div
-      className="w-100 d-flex flex-column mt-5 px-3"
-      style={{ maxWidth: '800px' }}
-    >
+    <div className="w-100 d-flex flex-column mt-5 px-3" style={{ maxWidth: '800px' }}>
       <label htmlFor="textarea-comment">
         <p>Exprimez-vous au sujet de cette vidéo</p>
         <textarea
@@ -38,12 +34,8 @@ const Comment = ({ onComment }) => (
         />
       </label>
       <div>
-        <button
-          type="button"
-          onClick={onComment}
-          className="button button-primary"
-        >
-          continue
+        <button type="button" onClick={onComment} className="button button-primary">
+          suivant
         </button>
       </div>
     </div>
@@ -60,14 +52,10 @@ const Home = () => {
 
   const { data, isLoading } = useSelector(store => store.card);
   const {
-    cardId, state, videoType, videoKey,
-  } = useSelector(
-    store => store.card.quiz,
-  );
+    state, videoType, videoKey,
+  } = useSelector(store => store.card.quiz);
 
   const [canShowResults, showResults] = useState(false);
-  const [newCard, setNewCard] = useState(false);
-
   const { videoStarted, canComment, quizStarted } = state;
 
   const manageLogic = () => {
@@ -78,6 +66,7 @@ const Home = () => {
 
       case videoTypes.OUTRO:
         showResults(true);
+        dispatch(quitQuiz);
         break;
 
       default:
@@ -88,11 +77,10 @@ const Home = () => {
   const parseVideoKey = (params) => {
     const INTRO_VIDEO_KEY = 1;
     if (params) {
-      const videoIntro = params
-        .filter(param => param.type_video === INTRO_VIDEO_KEY)
-        .pop();
+      const videoIntro = params.filter(param => param.type_video === INTRO_VIDEO_KEY).pop();
       return videoIntro.url_video.split('=')[1];
     }
+    return '';
   };
 
   // Indicate loading process.
@@ -102,16 +90,7 @@ const Home = () => {
 
   if (canShowResults) {
     return (
-      <Redirect
-        push
-        to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: 'answers' }}
-      />
-    );
-  }
-
-  if (newCard) {
-    return (
-      <Redirect push to={{ pathname: `${process.env.PUBLIC_URL}/form` }} />
+      <Redirect push to={{ pathname: `${process.env.PUBLIC_URL}/results`, state: 'answers' }} />
     );
   }
 
@@ -153,40 +132,12 @@ const Home = () => {
                   data={value}
                   index={index}
                   onStartQuiz={() => {
-                    dispatch(
-                      startVideo(
-                        videoTypes.INTRO,
-                        parseVideoKey(data[index].videos),
-                      ),
-                    );
+                    dispatch(startVideo(videoTypes.INTRO, parseVideoKey(data[index].videos)));
                   }}
                 />
               );
-            }
+            } return null;
           })}
-          {/* <Col xs={12} md={6} lg={4} span={8}>
-            <div
-              role="button"
-              tabIndex="-1"
-              onClick={() => setNewCard(true)}
-              className="ui-card addCard mb-3 h-100 d-flex justify-content-center align-items-center"
-              title="Ajouter une nouvelle carte"
-              style={{
-                border: '2px dashed var(--color-primary)',
-                maxHeight: '368px',
-                minHeight: '368px',
-                cursor: 'pointer',
-              }}
-            >
-              <Button
-                className="background-primary"
-                // type="primary"
-                style={{ width: '100px', height: '100px', border: 'none' }}
-                shape="circle"
-                icon="plus"
-              />
-            </div>
-          </Col> */}
         </Row>
       </div>
     </div>

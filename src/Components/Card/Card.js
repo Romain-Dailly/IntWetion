@@ -46,6 +46,7 @@ const Card = ({
         {demo !== -5 && (
           <div className="action-tab scale-up-center">
             <i
+              title="Modifier la carte"
               tabIndex="-1"
               role="button"
               className="icon-edit"
@@ -60,7 +61,7 @@ const Card = ({
               okText="Oui"
               cancelText="Non "
             >
-              <i role="button" onClick={() => {}} className="icon-trash" tabIndex="-1" />
+              <i role="button" title="Supprimer la carte" onClick={() => {}} className="icon-trash" tabIndex="-1" />
             </Popconfirm>
           </div>
         )}
@@ -82,7 +83,7 @@ const Card = ({
             </p>
           </div>
           <div className="card-action mt-3 mb-4">
-            <Tooltip title="Use a headphone for a better experience.">
+            <Tooltip title="Utilisez un casque audio pour une meilleure expérience.">
               <i className="icon-alt icon-headset" />
             </Tooltip>
             <button

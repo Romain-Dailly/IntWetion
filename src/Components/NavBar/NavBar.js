@@ -68,11 +68,7 @@ const NavBar = () => {
           ))}
         </Menu>
 
-        <Avatar
-          className="d-none d-lg-block flex-shrink-0"
-          size={48}
-          src={profile}
-        />
+        <Avatar className="d-none d-lg-block flex-shrink-0" size={48} src={profile} />
         <Drawer
           width={300}
           onClose={() => openDrawer(false)}

@@ -9,6 +9,7 @@ import rootReducer from '../../reducers';
 
 import Home from './Home';
 
+// eslint-disable-next-line import/prefer-default-export
 export const history = createBrowserHistory();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

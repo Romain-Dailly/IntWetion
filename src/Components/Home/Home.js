@@ -25,11 +25,18 @@ const Comment = ({ onComment }) => (
     <div className="w-md-75 d-flex flex-column mt-5">
       <label htmlFor="textarea-comment">
         <p>Exprimez-vous au sujet de cette vidéo</p>
-        <textarea className="w-100 my-3" name="" id="textarea-comment" cols="20" rows="10" />
+        <textarea
+          className="w-100 px-2 my-3 ui-input"
+          name=""
+          id="textarea-comment"
+          cols="20"
+          rows="10"
+          style={{ height: '200px' }}
+        />
       </label>
       <div>
         <button type="button" onClick={onComment} className="button button-primary">
-          continue
+          Suivant
         </button>
       </div>
     </div>
@@ -46,7 +53,7 @@ const Home = () => {
 
   const { data, isLoading } = useSelector(store => store.card);
   const {
-    cardId, state, videoType, videoKey,
+    state, videoType, videoKey,
   } = useSelector(store => store.card.quiz);
 
   const [canShowResults, showResults] = useState(false);
@@ -62,6 +69,7 @@ const Home = () => {
 
       case videoTypes.OUTRO:
         showResults(true);
+        dispatch(quitQuiz);
         break;
 
       default:
@@ -75,6 +83,7 @@ const Home = () => {
       const videoIntro = params.filter(param => param.type_video === INTRO_VIDEO_KEY).pop();
       return videoIntro.url_video.split('=')[1];
     }
+    return '';
   };
 
   // Indicate loading process.

@@ -87,6 +87,8 @@ const CardReducer = (state = initState, action) => {
       });
 
     case DELETE_CARD:
+      // TODO: Copy the object with Object.assign()
+      // eslint-disable-next-line no-case-declarations
       const dataCopy = [...state.data];
       dataCopy.splice(action.payload.index, 1);
       return Object.assign({}, state, {
