@@ -10,7 +10,7 @@ The `admin panel` can be accessed through the  `/admin` route.
 
 #### Work in progress:
 * The color picker in the admin panel is not linked to the front but is stored in the database.  
-* Login for admin has to be developped in database as in front.
+* Login for admin is not developed.
 
 
 ## 1 - API / Database
@@ -23,7 +23,8 @@ The `admin panel` can be accessed through the  `/admin` route.
   #### Install
   Creating database :
 
-  In your work environment, install mysql, launch it (`mysql -u 'user' -p`, then type your password), and source the path to the file `2_intwetion.sql`.  ex : `source api/database/2_intwetion.sql;`.
+  a. Install mysql on your computer and launch it (`mysql -u 'user' -p`, then type your password) 
+  b. Get the data from the file `2_intwetion.sql` by using the command 'source' ex: `source api/database/2_intwetion.sql;`.
   
   The database is created.
 
@@ -38,7 +39,7 @@ The `admin panel` can be accessed through the  `/admin` route.
 
 ## 2 - REACT APP
    
-First install all dependencies with `npm install` in the root of the project!
+First install all dependencies with `npm install` at the root of the project's folder
 
     #In the project directory, you can run:
 
