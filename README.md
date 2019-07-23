@@ -1,5 +1,4 @@
-# INTWETION developped in 2019
-## Personal developpment tool.
+INTWETION / 2019 / Personal developpment tool / WCS.
 
 ## General Information, possible upgrades
 
