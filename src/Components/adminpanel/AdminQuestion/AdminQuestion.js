@@ -4,15 +4,15 @@ import { modalPush } from '../notificationsContent/notificationsContents';
 import './AdminQuestion.css';
 
 const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
-  // Hooks question et resources
+  // Hooks question, resources
   const [question, setQuestion] = useState({});
   const [resources, setResources] = useState([]);
-  // Hook pour ouvrir et fermer la modale
+  // Hook modal
   const [isModal, setIsModal] = useState(false);
 
-  // Fonction qui permet de récupérer les données
-  // envoyées en props pour définir les hooks et
-  // avoir un préremplissage si données
+  // Function to get data
+  // from props to define hooks
+  // and prefill fields if data
   const resetModal = () => {
     if (questionForm !== 'non') {
       setQuestion(questionForm);
@@ -22,7 +22,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
       setResources([]);
     }
   };
-  // Fonction qui gère les onChange du hook question
+  // Function onChange hook question
   const onQuestionInputChange = ({ target }) => {
     const { value } = target;
     const newQuestion = { ...question };
@@ -31,7 +31,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     setQuestion(newQuestion);
   };
 
-  // Fonction qui gère les onChange du hook resources
+  // Function onChange hook resources
   const onResourceInputChange = ({ target }) => {
     const newValues = [...resources];
     const { id } = target;
@@ -40,7 +40,7 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     setResources(newValues);
   };
 
-  // Fonction pour créer une ressource vide
+  // Function to create an empty resource
   const addResource = (event) => {
     event.preventDefault();
     setResources([...resources, { url_resource: '', type_resource: 0 }]);
@@ -50,15 +50,14 @@ const AdminQuestion = ({ getModalInfo, questionForm, buttonName }) => {
     setResources([...resources.slice(0, index), ...resources.slice(index + 1)]);
   };
 
-  // Envoi des données de la question dans la prop
-  // fonction élastique vers le parent
+  // Send data through props to parent
   const buildQuestionData = () => {
     const finalQuestion = { ...question };
     finalQuestion.resources = resources.filter(resource => resource.url_resource !== '');
     getModalInfo(finalQuestion);
   };
 
-  // Fonction handlesubmit et fermeture de modale
+  // Function handlesubmit, close modal
   const handleSubmit = (event) => {
     if (
       question.text_question

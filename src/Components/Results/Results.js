@@ -6,7 +6,7 @@ const Results = () => {
   const selectData = useSelector(store => store.card.results);
   const dataSort = selectData && Object.values(selectData);
 
-  // Fonction qui permet de trier les objets du tableau par ordre de score croissant
+  // function to sort array ascending
   const getQuestions = () => {
     const getMinScore = dataSort.sort((a, b) => a.answer - b.answer);
     return [getMinScore[0], getMinScore[1], getMinScore[2]];

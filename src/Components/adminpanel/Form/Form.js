@@ -22,11 +22,11 @@ function Form() {
   const cardIndex = useSelector(store => store.router.location.state);
   const cardData = useSelector(store => store.card.data[cardIndex]);
 
-  // Hook redirection au handleSubmit
+  // Hook redirect after handleSubmit
   const [submitted, setSubmitted] = useState(false);
-  // Hook pour le titre du formulaire
+  // Hook form title
   const [formState, setFormState] = useState("Création d'une nouvelle carte");
-  // Hook pour l'élément card
+  // Hook for element card
   const [adminInput, setAdminInput] = useState({
     card: {
       name: '',
@@ -53,10 +53,10 @@ function Form() {
     questions: [],
   });
 
-  // Hook pour l'élément question
+  // Hook for element question
   const [adminInputQuestions, setAdminInputQuestions] = useState([]);
 
-  // Fonction qui gère les onChange du hook adminInput
+  // Function handling onChange hook adminInput
   const onCardInputChange = ({ target }) => {
     const { value } = target;
     const newObj = { ...adminInput };
@@ -67,7 +67,7 @@ function Form() {
     setAdminInput(newObj);
   };
 
-  // Fonction qui gère les onChange du hook adminInput.vidéos
+  // Function handling onChange  hook adminInput.vidéos
   const onVideoInputChange = ({ target }) => {
     const { value, id } = target;
     const newObj = { ...adminInput };
@@ -75,8 +75,8 @@ function Form() {
     newObj.videos[id][dataKey] = value;
     setAdminInput(newObj);
   };
-  // Hook pour définir le titre, le préremplissage du formulaire
-  // au lancement du rendu
+  // Hook for title, prefilled fields
+  // when mounting component
   useEffect(() => {
     if (cardData) {
       setFormState('Modifier la carte');
@@ -85,7 +85,7 @@ function Form() {
     }
   }, []);
 
-  // data pour la table de questions, organisée par numéros
+  // data for questions table, ordered by numbers
   const { Column } = Table;
   const dataQuestions = _.sortBy(
     adminInputQuestions.map(
@@ -94,14 +94,14 @@ function Form() {
     ),
     'number_question',
   );
-  // Fonction qui crée une question vide et ouvre la modale
-  // pour la modifier
+  // Function creating an empty question and opening
+  // modal to modify its content
   const addQuestion = (question) => {
     setAdminInputQuestions([...adminInputQuestions, question]);
   };
 
-  // Fonction pour modifier le hook des questions à la fermeture de la modale question
-  // fonction élastique appellée dans le composant modale avec les données
+  // Function to modify hook questions onClose modal
+  // function called in in modal component with data
   const modifyQuestion = (question, i) => {
     const finalQuestions = [...adminInputQuestions];
     finalQuestions[i] = question;
@@ -115,7 +115,7 @@ function Form() {
     ]);
   };
 
-  // Organisation et filtrage des données pour le put et le post
+  // Building data for put and post
   const buildCardData = () => {
     const questionsForPut = adminInputQuestions.length > 0
       ? adminInputQuestions.map(question => ({
@@ -143,12 +143,10 @@ function Form() {
       questions: questionsForPut,
     };
   };
-  // Envoie la totalité du formulaire stockée dans le hook adminInput
-  // lors du click sur le bouton enregistrer si les données requises
-  // ont été entrées.
-  // Si l'on a un id dans le hook, c'est que l'on a reçu des données au montage
-  // et c'est un put, sinon, c'est un post
-  // Notifications si action réussie ou echouée
+  // Send whole hook adminInput
+  // when submitting if required fields filled
+  // if there's an id, data was get from database
+  // and it's a put, else, it's a post
   const handleSubmit = (event) => {
     if (
       adminInput.card.name !== ''
