@@ -1,11 +1,13 @@
 INTWETION developped in 2019
+## Description
+Personal developpment tool.
 
 ## 1 - API / Database
 
   # Requires
   Mysql, node, npm(or yarn)
   # Install
-  Install mysql, and source BDD.sql (api/database/BDD.sql).
+  Install mysql, and source 2_intwetion.sql (api/database/2_intwetion.sql).
 
   Set conf (api/conf.js) with your own sql config.
   Set the port address of the api in api.js.
@@ -14,10 +16,11 @@ INTWETION developped in 2019
 
 
 ## 2 - REACT APP
+    
+  First install all dependencies with npm(or yarn) install !
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-    First install all dependencies with npm(or yarn) install
 
     #In the project directory, you can run:
 
