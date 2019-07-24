@@ -1,0 +1,498 @@
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import axios from 'axios';
+import './Form.css';
+import {
+  Table, notification, Icon, Popconfirm, BackTop,
+} from 'antd';
+import _ from 'underscore';
+import { BASE_URL } from '../../../data/source';
+import AdminQuestion from '../AdminQuestion/AdminQuestion';
+import {
+  postOk,
+  postNo,
+  postError,
+  putOk,
+  putNo,
+  putError,
+} from '../notificationsContent/notificationsContents';
+
+function Form() {
+  const cardIndex = useSelector(store => store.router.location.state);
+  const cardData = useSelector(store => store.card.data[cardIndex]);
+
+  // Hook redirect after handleSubmit
+  const [submitted, setSubmitted] = useState(false);
+  // Hook form title
+  const [formState, setFormState] = useState("Création d'une nouvelle carte");
+  // Hook for element card
+  const [adminInput, setAdminInput] = useState({
+    card: {
+      name: '',
+      image: '',
+      description: '',
+      online: 0,
+      payment: 0,
+      date: 0,
+    },
+    videos: [
+      {
+        url_video: '',
+        type_video: 1,
+      },
+      {
+        url_video: '',
+        type_video: 2,
+      },
+      {
+        url_video: '',
+        type_video: 3,
+      },
+    ],
+    questions: [],
+  });
+
+  // Hook for element question
+  const [adminInputQuestions, setAdminInputQuestions] = useState([]);
+
+  // Function handling onChange hook adminInput
+  const onCardInputChange = ({ target }) => {
+    const { value } = target;
+    const newObj = { ...adminInput };
+    const dataKey = target.getAttribute('data-key');
+    if (dataKey === 'online' || dataKey === 'payment') {
+      (newObj.card[dataKey] = Number(value));
+    } (newObj.card[dataKey] = value);
+    setAdminInput(newObj);
+  };
+
+  // Function handling onChange  hook adminInput.vidéos
+  const onVideoInputChange = ({ target }) => {
+    const { value, id } = target;
+    const newObj = { ...adminInput };
+    const dataKey = target.getAttribute('data-key');
+    newObj.videos[id][dataKey] = value;
+    setAdminInput(newObj);
+  };
+  // Hook for title, prefilled fields
+  // when mounting component
+  useEffect(() => {
+    if (cardData) {
+      setFormState('Modifier la carte');
+      setAdminInput(cardData);
+      setAdminInputQuestions(cardData.questions);
+    }
+  }, []);
+
+  // data for questions table, ordered by numbers
+  const { Column } = Table;
+  const dataQuestions = _.sortBy(
+    adminInputQuestions.map(
+      // eslint-disable-next-line no-return-assign
+      (question, index) => ({ ...question, i: index, nb: question.resources.length }),
+    ),
+    'number_question',
+  );
+  // Function creating an empty question and opening
+  // modal to modify its content
+  const addQuestion = (question) => {
+    setAdminInputQuestions([...adminInputQuestions, question]);
+  };
+
+  // Function to modify hook questions onClose modal
+  // function called in in modal component with data
+  const modifyQuestion = (question, i) => {
+    const finalQuestions = [...adminInputQuestions];
+    finalQuestions[i] = question;
+    setAdminInputQuestions(finalQuestions);
+  };
+
+  const deleteQuestion = (i) => {
+    setAdminInputQuestions([
+      ...adminInputQuestions.slice(0, i),
+      ...adminInputQuestions.slice(i + 1),
+    ]);
+  };
+
+  // Building data for put and post
+  const buildCardData = () => {
+    const questionsForPut = adminInputQuestions.length > 0
+      ? adminInputQuestions.map(question => ({
+        number_question: question.number_question,
+        text_question: question.text_question.replace('"', "'"),
+        image_question: question.image_question,
+        type_response: question.type_response,
+        has_comment: 0,
+        resources: question.resources.map(res => ({
+          url_resource: res.url_resource.replace('"', "'"),
+          type_resource: res.type_resource,
+        })),
+      }))
+      : [];
+    return {
+      card: {
+        bg_color: adminInput.card.bg_color,
+        description: adminInput.card.description.replace('"', "'"),
+        image: adminInput.card.image.replace('"', "'"),
+        name: adminInput.card.name.replace('"', "'"),
+        online: Number(adminInput.card.online),
+        payment: Number(adminInput.card.payment),
+      },
+      videos: adminInput.videos,
+      questions: questionsForPut,
+    };
+  };
+  // Send whole hook adminInput
+  // when submitting if required fields filled
+  // if there's an id, data was get from database
+  // and it's a put, else, it's a post
+  const handleSubmit = (event) => {
+    if (
+      adminInput.card.name !== ''
+      && adminInput.card.description !== ''
+      && adminInput.card.image !== ''
+      && adminInput.card.online !== ''
+      && adminInput.card.payment !== ''
+    ) {
+      event.preventDefault();
+      if (adminInput.card.id && adminInput.card.date !== 0) {
+        return axios
+          .put(`${BASE_URL}card/?id=${adminInput.card.id}`, buildCardData())
+          .then((response) => {
+            // eslint-disable-next-line no-console
+            console.log(response);
+            if (response.status === 200) {
+              setSubmitted(true);
+              return notification.open(
+                putOk(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
+              );
+            }
+            return notification.open(
+              putNo(
+                adminInput.card.name,
+                response.status,
+                <Icon type="smile" style={{ color: 'white' }} />,
+              ),
+            );
+          })
+          .catch(() => notification.open(
+            putError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
+          ));
+      }
+      return axios
+        .post(`${BASE_URL}card/`, buildCardData())
+        .then((response) => {
+          // eslint-disable-next-line no-console
+          console.log(response);
+          if (response.status === 200) {
+            setSubmitted(true);
+            return notification.open(
+              postOk(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
+            );
+          }
+          return notification.open(
+            postNo(
+              adminInput.card.name,
+              response.status,
+              <Icon type="smile" style={{ color: 'white' }} />,
+            ),
+          );
+        })
+        .catch(() => notification.open(
+          postError(adminInput.card.name, <Icon type="smile" style={{ color: 'white' }} />),
+        ));
+    } return null;
+  };
+
+  if (submitted) {
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: `${process.env.PUBLIC_URL}/admin`,
+        }}
+      />
+    );
+  }
+  return (
+    <div className="container-fluid">
+      <div className="container-adminInput">
+        <form className="divForm">
+          <h1 className="form-title">{formState}</h1>
+          <div className="card-block">
+            <h4>
+              <span className="block-number">1</span>
+              Informations / carte
+            </h4>
+            <label htmlFor="formGroupExampleInputcard" className="divcard">
+              Nom de la carte :
+              <input
+                required
+                placeholder="Mes points forts"
+                type="text"
+                className="form-control mr-5 div-input-question "
+                id="formGroupExampleInput"
+                data-key="name"
+                value={adminInput.card.name}
+                onChange={onCardInputChange}
+              />
+            </label>
+
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Description :
+                <textarea
+                  required
+                  placeholder="Description du questionnaire"
+                  className="form-control "
+                  id="exampleFormControlTextarea1"
+                  rows="3"
+                  data-key="description"
+                  value={adminInput.card.description}
+                  onChange={onCardInputChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Image de la carte (lien url):
+                <input
+                  required
+                  type="url"
+                  placeholder="https://images.com"
+                  className="form-control "
+                  id="exampleFormControlTextarea1"
+                  rows="1"
+                  data-key="image"
+                  value={adminInput.card.image}
+                  onChange={onCardInputChange}
+                />
+              </label>
+            </div>
+            <div className="colorP d-flex">
+              <p htmlFor="color">Couleur du thème : </p>
+            </div>
+            <input
+              type="color"
+              className="colorInput"
+              id="color"
+              rows="6"
+              data-key="bg_color"
+              value={adminInput.card.bg_color}
+              onChange={onCardInputChange}
+            />
+          </div>
+          <div className="card-block">
+            <h4>
+              <span className="block-number">2</span>
+              Statut
+            </h4>
+            <div className="form-group d-flex flex-column">
+              <p>Visibilité de la carte :</p>
+              <div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadioBo1">
+                    <input
+                      required
+                      className="input1"
+                      type="radio"
+                      name="inlineRadioOptionsOnline"
+                      id="inlineRadioBo1"
+                      data-key="online"
+                      value={1}
+                      checked={(adminInput.card.online === 1 || adminInput.card.online === '1') ? 'checked' : null}
+                      // onChange={onCardInputChange}
+                      onClick={onCardInputChange}
+                    />
+                    En ligne
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadioBo2">
+                    <input
+                      required
+                      className="input1"
+                      type="radio"
+                      name="inlineRadioOptionsOnline"
+                      id="inlineRadioBo2"
+                      data-key="online"
+                      value={0}
+                      checked={(adminInput.card.online === 0 || adminInput.card.online === '0') ? 'checked' : null}
+                      // onChange={onCardInputChange}
+                      onClick={onCardInputChange}
+                    />
+                    Hors ligne
+                  </label>
+                </div>
+              </div>
+            </div>
+            <br />
+            <div className="form-group d-flex flex-column">
+              <p>Statut commercial :</p>
+              <div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadioB1">
+                    <input
+                      required
+                      className="input2"
+                      type="radio"
+                      name="inlineRadioOptionsPayment"
+                      id="inlineRadioB1"
+                      data-key="payment"
+                      value={1}
+                      defaultChecked={(adminInput.card.payment === 1 || adminInput.card.payment === '1') ? 'checked' : null}
+                      // onChange={onCardInputChange}
+                      onClick={onCardInputChange}
+                    />
+                    Payante
+                  </label>
+                </div>
+                <div className="form-check form-check-inline">
+                  <label className="form-check-label" htmlFor="inlineRadioB2">
+                    <input
+                      required
+                      className="input2"
+                      type="radio"
+                      name="inlineRadioOptionsPayment"
+                      id="inlineRadioB2"
+                      data-key="payment"
+                      value={0}
+                      defaultChecked={(adminInput.card.payment === 0 || adminInput.card.payment === '0') ? 'checked' : null}
+                      // onChange={onCardInputChange}
+                      onClick={onCardInputChange}
+                    />
+                    Gratuite
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h1 className="form-title">Création du questionnaire</h1>
+          <div className="card-block">
+            <h4>
+              <span className="block-number">3</span>
+              Vidéos / Musique
+            </h4>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Vidéo introductive du questionnnaire :
+                <input
+                  type="url"
+                  placeholder="https://youtube.com"
+                  className="form-control "
+                  id="0"
+                  rows="1"
+                  data-key="url_video"
+                  value={adminInput.videos[0].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Musique du questionnaire :
+                <input
+                  type="url"
+                  placeholder="https://youtube.com"
+                  className="form-control "
+                  rows="1"
+                  id="1"
+                  data-key="url_video"
+                  value={adminInput.videos[1].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+            <div className="form-group">
+              <label htmlFor="exampleFormControlTextarea1">
+                Vidéo de fin du questionaire :
+                <input
+                  type="url"
+                  placeholder="https://youtube.com"
+                  className="form-control "
+                  rows="1"
+                  id="2"
+                  data-key="url_video"
+                  value={adminInput.videos[2].url_video}
+                  onChange={onVideoInputChange}
+                />
+              </label>
+            </div>
+          </div>
+
+          <div className="card-block">
+            <h4>
+              <span className="block-number">4</span>
+              Questions / Ressources
+            </h4>
+            <div>
+              <div className="d-flex justify-content-center mb-3">
+                <AdminQuestion
+                  key="-1"
+                  buttonName="Ajouter une question"
+                  questionForm="non"
+                  getModalInfo={addQuestion}
+                />
+              </div>
+              <Table dataSource={dataQuestions}>
+                <Column title="Numéro" dataIndex="number_question" key="number_question" />
+                <Column title="Texte" dataIndex="text_question" key="text_question" />
+                <Column title="Ressources" dataIndex="nb" key="nb" />
+                <Column
+                  title="Action"
+                  key="action"
+                  render={question => (
+                    <div>
+                      <AdminQuestion
+                        buttonName="Modifier la question"
+                        questionForm={question}
+                        getModalInfo={questio => modifyQuestion(questio, question.i)}
+                      />
+                      <div className="d-flex justify-content-center">
+                        <i
+                          style={{ cursor: 'pointer', fontSize: '28px' }}
+                          role="button"
+                          title="Supprimer"
+                          onClick={() => deleteQuestion(question.i)}
+                          className="icon-trash"
+                          tabIndex="-1"
+                        />
+                      </div>
+                    </div>
+                  )}
+                />
+              </Table>
+            </div>
+          </div>
+          <div className="buttons card-block justify-content-center p-0">
+            <div className="d-flex justify-content-center mt-2">
+              <Popconfirm
+                placement="bottom"
+                title="Etes-vous sûr(e) ?"
+                onConfirm={() => setSubmitted(true)}
+                okText="Oui"
+                cancelText="Non "
+              >
+                <button type="button" className="btn btn-light">Quitter</button>
+              </Popconfirm>
+            </div>
+            <div className="d-flex justify-content-center pt-1">
+              <button
+                type="submit"
+                form="form"
+                className="btn btn-light btn-send-form"
+                onClick={e => handleSubmit(e)}
+              >
+                Enregistrer
+              </button>
+            </div>
+          </div>
+        </form>
+        <BackTop />
+      </div>
+    </div>
+  );
+}
+
+export default Form;

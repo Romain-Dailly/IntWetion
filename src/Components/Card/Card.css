@@ -1,0 +1,33 @@
+.flip-vertically {
+  transform: rotate(180deg);
+}
+
+.action-tab {
+  position: absolute;
+  padding: 0 14px;
+  right: 32px;
+  top: 16px;
+  width: 100px;
+  background: white;
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.14);
+}
+
+.ui-card:hover .action-tab {
+  display: flex;
+}
+
+.action-tab i {
+  font-size: 28px;
+  cursor: pointer;
+  color: #4a4a4a;
+}
+
+.action-tab i:hover {
+  color: rgba(0, 0, 0, 0.87);
+}

@@ -1,0 +1,18 @@
+:root {
+  --color-primary:var(--intwetion-orange);
+  --color-text: #2e384d;
+  --color-primary-low-emphasis: rgba(240, 149, 34, 0.2);
+  --color-primary-disable: rgba(240, 149, 34, 0.1);
+  --white: #fafafa;
+  --melon: #ff8256;
+  --black: #212121;
+  --coral-pink: #ef6a6e;
+  --brown-grey: #979797;
+  --cloudy-blue: #b0bac9;
+  --dark: #2e384d;
+  --clear-blue: #2e5bff;
+  --pale-grey: #f4f6fc;
+  --color-admin: #f09522;
+  --color-admin2: #1abc9c;
+  --intwetion-orange: #f09522;
+}

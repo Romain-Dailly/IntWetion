@@ -1,0 +1,38 @@
+TABLE `card`
+(
+  `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
+  `name` varchar(255), 
+  `image` varchar(255),
+  `bg_color` varchar(25),
+  `description` text,
+  `online` boolean, -> 0 offline, 1 online
+  `payment` boolean, -> 0 free, 1 payant
+  `date` bigint
+)
+
+TABLE `questions`
+(
+  `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
+  `id_card` int,
+  `number_question` float,
+  `text_question` text,
+  `image_question` varchar(255),
+  `type_response` int, -> 1, num(0 to 9), 2 text
+  `has_comment` boolean -> 1 text to comment, 0 none
+);
+
+TABLE `resources`
+(
+  `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
+  `id_question` int,
+  `url_resource` text,
+  `type_resource` int -> 1 = lire, 2 = voir, 3 = écouter
+);
+
+TABLE `videos`
+(
+  `id` int UNIQUE PRIMARY KEY AUTO_INCREMENT,
+  `id_card` int,
+  `url_video` varchar(255),
+  `type_video` int -> 1 intro, 2 music, 3 end
+);

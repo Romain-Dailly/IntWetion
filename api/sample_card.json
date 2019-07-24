@@ -1,0 +1,850 @@
+{
+  "card": {
+    "name": "Mes points forts",
+    "image": "./assets/Images/Force.jpg",
+    "bg_color": "#ff0000",
+    "description": "Ce test propose de vous auto-évaluer sur vos principales forces. Vous êtes invité(e) à regarder une vidéo d'introduction, puis à faire le test. Après une vidéo de conclusion, vous aurez accés à un programme de travail personnalisé afin de développer vos forces.",
+    "online": 1,
+    "payment": 0
+  },
+  "videos": [
+    {
+      "url_video": "https://www.youtube.com/watch?v=gN7U0ycbWCM",
+      "type_video": "1"
+    },
+    {
+      "url_video": "https://www.youtube.com/watch?v=keHnIZ9rmFA",
+      "type_video": "3"
+    },
+    {
+      "url_video": "https://www.youtube.com/watch?v=k3_tw44QsZQ",
+      "type_video": "2"
+    }
+
+  ],
+  "questions": [
+    {
+      "number_question": "1.1",
+      "text_question": "Quel est mon niveau d'estime de moi ?",
+      "image_question": "./assets/images_questions/1.1.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources" :[        
+        {
+          "url_resource": "https://www.youtube.com/watch?v=XkOpbLBzPsY&t=471s",
+          "type_resource": "3"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=G8rZf5wxbos",
+          "type_resource": "2"
+        },
+        {
+          "url_resource": "https://www.amazon.fr/LAventure-int%C3%A9rieure-lib%C3%A9rer-souffrance-r%C3%A9aliser/dp/2839906562",
+          "type_resource": "1"
+        }
+      ]
+    },
+    {
+      "number_question": "1.21",
+      "text_question": "Quelle est ma confiance en ma vie ?",
+      "image_question": "./assets/images_questions/1.21.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources" :[        
+        {
+          "url_resource": "https://s3.amazonaws.com/alchymed/PointdeBascule-EBOOK_Tome_1.pdf",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=QACfVMSNKdE",
+          "type_resource": "2"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=G8rZf5wxbos",
+          "type_resource": "3"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=j00wp1ZIVTQ",
+          "type_resource": "3"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=QcwQYlwLVUo",
+          "type_resource": "3"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=z4_yBm54Ai4",
+          "type_resource": "3"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=-CVN2qAfBes",
+          "type_resource": "3"
+        }
+      ]
+    },
+    {
+      "number_question": "1.22",
+      "text_question": "Quelle est ma confiance en moi-même ?",
+      "image_question": "./assets/images_questions/1.22.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "1.23",
+      "text_question": "Quelle est ma confiance en mon avenir ?",
+      "image_question": "./assets/images_questions/1.23.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "blabla",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "blabla2",
+          "type_resource": "2"
+        }
+      ] 
+    },
+    {
+      "number_question": "1.24",
+      "text_question": "Quelle est ma confiance en les autres ?",
+      "image_question": "./assets/images_questions/1.24.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "1.3",
+      "text_question": "Quelles sont mes principales réussites ?",
+      "image_question": "./assets/images_questions/1.3.png",
+      "type_response": "2",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "2.21",
+      "text_question": "Quel est mon état de joie ?",
+      "image_question": "./assets/images_questions/2.21.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "2.22",
+      "text_question": "Quelle est mon niveau de bonheur ?",
+      "image_question": "./assets/images_questions/2.22.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "2.23",
+      "text_question": "Quel est mon niveau de paix en moi?",
+      "image_question": "./assets/images_questions/2.23.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "2.4",
+      "text_question": "Quel est mon niveau d'authenticité ?",
+      "image_question": "./assets/images_questions/2.4.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "2.6",
+      "text_question": "Quel est mon niveau de franchise ?",
+      "image_question": "./assets/images_questions/2.6.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "3.1",
+      "text_question": "Quelle est ma force de volonté ?",
+      "image_question": "./assets/images_questions/3.1.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "3.2",
+      "text_question": "Quel est mon niveau de courage ?",
+      "image_question": "./assets/images_questions/3.2.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "3.3",
+      "text_question": "Quel est mon niveau d'engagement ?",
+      "image_question": "./assets/images_questions/3.3.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "3.5",
+      "text_question": "Quel est mon niveau d'audace ?",
+      "image_question": "./assets/images_questions/3.5.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.3",
+      "text_question": "Quelle est ma motivation ?",
+      "image_question": "./assets/images_questions/4.3.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.4",
+      "text_question": "Quelle est ma joie de vivre ?",
+      "image_question": "./assets/images_questions/4.4.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "6.14",
+      "text_question": "Quelle est ma sensibilité ?",
+      "image_question": "./assets/images_questions/6.14.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "6.4",
+      "text_question": "Quel est le niveau de mes intuitions ?",
+      "image_question": "./assets/images_questions/6.4.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.3",
+      "text_question": "Quel est mon niveau d'attention ?",
+      "image_question": "./assets/images_questions/7.3.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.11",
+      "text_question": "Quel est mon amour de moi-même ?",
+      "image_question": "./assets/images_questions/4.11.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.12",
+      "text_question": "Quel est mon amour de ma famille ?",
+      "image_question": "./assets/images_questions/4.12.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.13",
+      "text_question": "Quel est mon amour des autres ?",
+      "image_question": "./assets/images_questions/4.13.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.14",
+      "text_question": "Quel est mon niveau d'humanité ?",
+      "image_question": "./assets/images_questions/4.14.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.51",
+      "text_question": "Quelle est ma force intellectuelle ?",
+      "image_question": "./assets/images_questions/4.51.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.52",
+      "text_question": "Quelle est ma force émotionnelle ?",
+      "image_question": "./assets/images_questions/4.52.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.53",
+      "text_question": "Quelle est ma force instinctive ?",
+      "image_question": "./assets/images_questions/4.53.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.6",
+      "text_question": "Quelles sont mes passions ?",
+      "image_question": "./assets/images_questions/4.6.png",
+      "type_response": "2",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.101",
+      "text_question": "Quel est mon besoin de liberté ?",
+      "image_question": "./assets/images_questions/4.101.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.102",
+      "text_question": "Quel est mon besoin d'autonomie ?",
+      "image_question": "./assets/images_questions/4.102.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "https://s3.amazonaws.com/alchymed/PointdeBascule-EBOOK_Tome_1.pdf",
+          "type_resource": "2"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=QACfVMSNKdE",
+          "type_resource": "3"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=G8rZf5wxbos",
+          "type_resource": "2"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=j00wp1ZIVTQ",
+          "type_resource": "2"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=QcwQYlwLVUo",
+          "type_resource": "2"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=z4_yBm54Ai4",
+          "type_resource": "2"
+        },
+        {
+          "url_resource": "https://www.youtube.com/watch?v=-CVN2qAfBes",
+          "type_resource": "2"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.103",
+      "text_question": "Quel est mon besoin d'être valorisé ?",
+      "image_question": "./assets/images_questions/4.103.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.104",
+      "text_question": "Quel est mon besoin d'amour de moi-même ?",
+      "image_question": "./assets/images_questions/4.104.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.105",
+      "text_question": "Quel est mon besoin d'amour des autres ?",
+      "image_question": "./assets/images_questions/4.105.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.106",
+      "text_question": "Quel est mon besoin d'estime des autres ?",
+      "image_question": "./assets/images_questions/4.106.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "4.107",
+      "text_question": "Quel est mon besoin d'estime de moi ?",
+      "image_question": "./assets/images_questions/4.107.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "6.2",
+      "text_question": "Quelles sont mes compétences ?",
+      "image_question": "./assets/images_questions/6.2.png",
+      "type_response": "2",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "6.11",
+      "text_question": "Quels sont mes talents ?",
+      "image_question": "./assets/images_questions/6.11.png",
+      "type_response": "2",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.13",
+      "text_question": "Quels sont mes rêves ?",
+      "image_question": "./assets/images_questions/7.13.png",
+      "type_response": "2",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.41",
+      "text_question": "Quel est mon niveau d'habileté avec l'invisible ?",
+      "image_question": "./assets/images_questions/7.41.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.42",
+      "text_question": "Quel est mon niveau d'habileté avec les autres ?",
+      "image_question": "./assets/images_questions/7.42.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.43",
+      "text_question": "Quel est mon niveau d'habileté avec la musique ?",
+      "image_question": "./assets/images_questions/7.43.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.44",
+      "text_question": "Quel est mon niveau d'habileté avec mon corps ?",
+      "image_question": "./assets/images_questions/7.44.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.45",
+      "text_question": "Quel est mon niveau d'habileté avec les images ?",
+      "image_question": "./assets/images_questions/7.45.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.46",
+      "text_question": "Quel est mon niveau d'habileté avec les mots ?",
+      "image_question": "./assets/images_questions/7.46.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.47",
+      "text_question": "Quel est mon niveau d'habileté avec la nature ?",
+      "image_question": "./assets/images_questions/7.47.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.48",
+      "text_question": "Quel est mon niveau d'habileté avec les nombres ?",
+      "image_question": "./assets/images_questions/7.48.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    },
+    {
+      "number_question": "7.49",
+      "text_question": "Quel est mon niveau d'habileté avec moi ?",
+      "image_question": "./assets/images_questions/7.49.png",
+      "type_response": "1",
+      "has_comment": "0",
+      "resources": [
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        },
+        {
+          "url_resource": "",
+          "type_resource": "1"
+        }
+      ] 
+    }
+  ]
+}

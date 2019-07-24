@@ -1,0 +1,30 @@
+/* Backgrounds
+   ========================================================================== */
+
+.background-gray {
+  background: #ecedef;
+}
+
+.background-white {
+  background: #ffffff;
+}
+
+.background-black {
+  background-color: #000000 !important;
+}
+
+.background-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.background-gradient {
+  background-image: linear-gradient(122deg, #9f041b 0%, #f5515f 100%);
+}
+
+.color-black{
+  color:var(--black);
+}
+
+.textSize {
+  font-size:22px;
+}

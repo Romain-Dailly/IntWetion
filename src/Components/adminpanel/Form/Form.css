@@ -1,0 +1,97 @@
+.divForm label {
+  display: block !important;
+  font-size: 1.5em !important;
+  margin-bottom: 1.5em;
+}
+
+.form-title {
+ color:#fff;
+ border-radius: 15px 15px 15px 0;
+ background: var(--color-admin);
+ padding: 10px;
+ margin-top: 20px;
+}
+
+.card-block {
+  margin-bottom: 1em;
+  border: 2px solid var(--color-admin);
+  padding: 20px 50px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 16px rgba(5, 5, 5, 0.2);
+}
+
+.block-number {
+  background: var(--color-admin);
+  color: #fff;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  font-size: .8em;
+  margin-right: 4px;
+  line-height: 30px;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+  border-radius: 15px 15px 15px 0;
+}
+
+.h4, h4 {
+  font-size: 2em;
+  margin-bottom: 2em;
+}
+
+.p, p {
+  font-size: 1.5em;
+}
+
+.label.form-check-label {
+  font-size: 1em !important;
+}
+
+.form-check-input {
+  font-size: 1em !important;
+}
+
+.btn-primary {
+  background: var(--color-admin) !important;
+  border-color: var(--color-admin) !important;
+}
+
+.buttons {
+  position: fixed;
+  right: 10px;
+  top: 50%;
+  z-index: 10;
+  width: 200px;
+  height: 100px;
+}
+
+.btn-delete {
+  height: 37px !important;  
+  align-self: flex-end;
+  margin-bottom: 8px;
+  margin-left: 5px;
+}
+
+.div-card-list {
+  border: solid 1px var(--color-admin) ;
+  padding: 10px;
+  background-color:#ededed;
+}
+
+.divForm {
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "roboto";
+  margin-bottom: 20px;
+  max-width: 55em;
+}
+
+.container-fluid {
+  padding-top:5rem;
+}
+
+.btn-send-form {
+  color: var(--color-admin);
+  border: solid 1px var(--color-admin);
+  border-radius: 5px;
+}
