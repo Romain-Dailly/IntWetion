@@ -11,7 +11,10 @@ The `admin panel` can be accessed through the  `/admin` route.
 #### Work in progress:
 * The color picker in the admin panel is not linked to the front but is stored in the database.  
 * Login for admin is not developed.
+* Images are in the folder `public/assets/images` and should be hosted online, the repository being far too heavy at the moment.
 
+#### Fetch data from api
+* To change url for fetches in the react project set `BASE_URL` in `src/data/source.js`.
 
 ## 1 - API / Database
 
