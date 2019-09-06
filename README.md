@@ -1,4 +1,4 @@
-INTWETION / 2019 / Personal developpment tool / WCS.
+INTWETION / 2019 / Personal developpment tool / Wild Code School. Developped by Eric Afenyo, Anaĩs Chevallier, Romain Dailly.
 
 ## General Information, possible upgrades
 
